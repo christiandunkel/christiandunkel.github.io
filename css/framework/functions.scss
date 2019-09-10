@@ -1,0 +1,32 @@
+// css short-cuts
+
+@mixin text-wrap($type: ellipsis) {
+    white-space: nowrap;
+    overflow: hidden;
+    @include text-overflow($type);
+}
+
+@mixin tab-effect() {
+    outline: 2px solid #868686;
+}
+
+
+
+// media queries
+
+@mixin on-pc {
+    @media (min-width: 551px) {
+        @content;
+    }
+}
+
+@mixin on-phone {
+    @include on-mobile {
+        @content;
+    }
+}
+@mixin on-mobile {
+    @media (max-width: 550px) {
+        @content;
+    }
+}
