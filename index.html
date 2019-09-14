@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
 
     <link rel="canonical" href="https://christiandunkel.github.io/portfolio/" />
-    <meta name="description" content="I'm a software and web developer. Check out my projects ranging from websites to Javascript libraries." />
+    <meta name="description" content="I'm a software and web developer. Check out my projects that range from websites to Javascript libraries." />
     <meta name="keywords" content="christian dunkel, portfolio, web developer, software developer" />
     <meta name="author" content="Christian Dunkel">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://christiandunkel.github.io/portfolio/">
     <meta property="og:title" content="Christian Dunkel">
-    <meta property="og:description" content="I'm a software and web developer. Check out my projects ranging from websites to Javascript libraries.">
+    <meta property="og:description" content="I'm a software and web developer. Check out my projects that range from websites to Javascript libraries.">
 
     <meta name="theme-color" content="#d8d8d8">
     <meta name="mobile-web-app-capable" content="yes" />
@@ -43,7 +43,28 @@
     
 <body>
     
+    <nav class="hidden">
+        <div class="overlay"></div>
+        <div class="background">
+            <div class="rect r1 red"></div>
+            <div class="rect r2 orange"></div>
+            <div class="rect r3 blue"></div>
+            <div class="rect r4 orange"></div>
+            <div class="rect r5 red"></div>
+            <div class="rect r6 red"></div>
+            <div class="rect r7 orange"></div>
+            <div class="rect r8 orange"></div>
+            <div class="rect r9 blue"></div>
+            <div class="content"></div>
+        </div>
+    </nav>
     
+    <script>
+        var nav = document.getElementsByTagName('nav')[0];
+        setInterval(function () {
+            nav.classList.toggle('hidden');
+        }, 2500);
+    </script>
     
     
     <!-- scripts -->
