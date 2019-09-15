@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="jsOff">
+<html lang="en" dir="ltr">
 
 <head>
     
@@ -28,8 +28,7 @@
         
         // tell CSS that Javascript is on
         (function () {
-            let html = document.getElementsByTagName('html')[0];
-            html.className = html.className.replace(/jsOff/, 'jsOn');
+            document.getElementsByTagName('html')[0].className += 'jsOn';
         })();
         
     </script>
@@ -38,6 +37,14 @@
     
     <link rel="stylesheet" type="text/css" href="css/minified.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Marcellus&display=swap">
+    <link href="https://fonts.googleapis.com/css?family=Hanuman&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet"> 
     
 </head>
     
@@ -64,7 +71,13 @@
             <div class="rect r7 orange"></div>
             <div class="rect r8 green"></div>
             <div class="rect r9 blue"></div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="center">
+                    <a href="#" class="l1">About</a><br />
+                    <a href="#" class="l2">Projects</a><br />
+                    <a href="#" class="l3">Contact</a>
+                </div>
+            </div>
         </div>
     </nav>
     
