@@ -146,7 +146,7 @@
     text-overflow: $value;
 }
 
-@mixin transform($value) {
+@mixin transform($value...) {
     -o-transform: $value;
     -ms-transform: $value;
     -moz-transform: $value;

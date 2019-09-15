@@ -160,7 +160,7 @@ nav {
     
         .rect {
             opacity: 0;
-            @include transform(scale(.85));
+            @include transform(translate(-9%, -9%) scale(.85));
             @include transition-duration(.2s);
 
             &.red {
