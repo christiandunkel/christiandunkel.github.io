@@ -79,24 +79,25 @@ nav {
     
     .container {
         position: absolute; top: 50%; left: 50%; z-index: 2;
-        max-width: 400px; width: 100%; max-height: 600px; height: 100%; padding: 15px;
+        max-width: 400px; width: 100%; max-height: 520px; height: 100%; padding: 15px;
         @include transform(translate(-50%, -50%));
         
         @media (max-width: 570px), (max-height: 700px) {
             max-width: none; max-height: none;
-            padding: 10px;
+            padding: 6px;
         }
     }
     
     .content {
         position: relative; z-index: 4;
         width: 100%; height: 100%;
-        background-color: white;
+        background-color: white; opacity: 1;
+        @include transition(.2s);
     }
     
     .rect {
         position: absolute; z-index: 3;
-        @include transition(all .4s);
+        @include transition(.4s);
         
         &.red       {background-color: $bauhaus-red;}
         &.blue      {background-color: $bauhaus-blue;}
@@ -104,11 +105,11 @@ nav {
         &.green     {background-color: $bauhaus-green;}
         
         &.r1, &.r3, &.r5, &.r6, &.r8 {
-            @include transition-delay(.05s);
+            @include transition-delay(.15s);
         }
         
         &.r2, &.r4, &.r7, &.r9 {
-            @include transition-delay(.1s);
+            @include transition-delay(.25s);
         }
         
         &.r1 {
@@ -166,6 +167,10 @@ nav {
         .overlay {
             opacity: 0;
         }
+        
+        .content {
+            opacity: 0;
+        }
     
         .rect {
             opacity: 0;
@@ -192,8 +197,8 @@ nav {
 
 #nav-btn {
     position: fixed; top: 0; right: 0; z-index: 9999;
-    width: 80px; height: 80px; padding: 15px;
-    background-color: white;
+    width: 70px; height: 70px; padding: 15px;
+    @include transition(.1s);
     
     &:active b {
         @include transform(scale(.9));
@@ -206,8 +211,8 @@ nav {
     }
     
     i {
-        position: absolute; left: 0;
-        width: 100%; height: 13%; // 16% gaps between i's
+        position: absolute; left: -20%;
+        width: 120%; height: 13%; // 16% gaps between i's
         @include transition(all .2s, width .2s .2s, top .2s .2s, left .2s .2s);
         
         &.i1 {
@@ -232,12 +237,12 @@ nav {
         
         i {
             top: 43.5%;
-            width: 40%;
-            @include transition(all .5s .3s, width .2s .1s, top .2s .1s, left .2s .1s);
+            width: 50%;
+            @include transition(all .3s .25s, width .2s, top .2s, left .2s);
             
             &.i1,
             &.i3 {
-                left: 10%;
+                left: 0;
                 @include transform-origin(right center);
             }
             
