@@ -9,13 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
 
-    <link rel="canonical" href="https://christiandunkel.github.io/portfolio/" />
+    <link rel="canonical" href="https://christiandunkel.github.io" />
     <meta name="description" content="I'm a software and web developer. Check out my projects that range from websites to Javascript libraries." />
     <meta name="keywords" content="christian dunkel, portfolio, web developer, software developer" />
     <meta name="author" content="Christian Dunkel">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://christiandunkel.github.io/portfolio/">
+    <meta property="og:url" content="https://christiandunkel.github.io">
     <meta property="og:title" content="Christian Dunkel">
     <meta property="og:description" content="I'm a software and web developer. Check out my projects that range from websites to Javascript libraries.">
 
@@ -86,6 +86,10 @@
         nav_btn.addEventListener('click', function () {
             nav_btn.classList.toggle('nav-visible');
             nav.classList.toggle('hidden');
+        });
+        nav.getElementsByClassName('overlay')[0].addEventListener('click', function () {
+            nav_btn.classList.remove('nav-visible');
+            nav.classList.add('hidden');
         });
     </script>
     

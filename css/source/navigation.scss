@@ -20,6 +20,7 @@ nav {
             margin: 5px; padding: 16px 26px;
             overflow: hidden;
             color: white; text-decoration: none; font-size: 28px; line-height: 1em; font-weight: 700;
+            @include border-radius(4px);
             
             &:before {
                 content: '';
@@ -141,6 +142,7 @@ nav {
             position: relative; z-index: 4;
             width: 100%; height: 100%;
             background-color: white;
+            @include border-radius(4px);
         }
     }
     
@@ -177,6 +179,10 @@ nav {
 @include keyframes(nav-a-appear) {
     0% {width: 0;}
 }
+
+
+
+
 
 #hamburger-btn {
     position: fixed; top: 0; right: 0; z-index: 9999;
@@ -239,12 +245,22 @@ nav {
             &.i1 {@include transform(rotate(45deg));}
             &.i2 {@include transform(rotate(-45deg));}
             &.i3 {@include transform(rotate(-45deg));}
-            &.i4 {@include transform(rotate(45deg));}
+            &.i4 {
+                // longer and translated to center of cross, 
+                // to hide small empty spot in middle
+                width: 53%;
+                @include transform(rotate(45deg) translate(-3%,0));
+            }
             
         }
         
     }
 }
+
+
+
+
+
 
 #to-top {
     position: fixed; bottom: 15px; right: 15px;
