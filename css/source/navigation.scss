@@ -1,0 +1,246 @@
+nav {
+    
+    @include on-mobile {
+        position: fixed; top: 0; left: 0; z-index: 9998;
+        width: 100%; height: 100%;
+        @include transition(0s);
+    }
+
+    .content {
+        
+        @include on-mobile {
+            display: table; position: relative; top: 50%; left: 50%; z-index: 5;
+            text-align: center;
+            @include transform(translate(-50%, -50%));
+            @include transition(opacity .2s .2s);
+        }
+        
+        a {
+            display: inline-block; position: relative;
+            margin: 5px; padding: 16px 26px;
+            overflow: hidden;
+            color: white; text-decoration: none; font-size: 28px; line-height: 1em; font-weight: 700;
+            
+            &:before {
+                content: '';
+                display: block; position: absolute; top: 0; left: 0; z-index: -1;
+                width: 100%; height: 100%;
+                background-color: white;
+                @include transition(.3s);
+            }
+            
+            &:hover:before {
+                @include transform(translate(100%));
+            }
+            
+            &.a1:before {background-color: $bauhaus-red;}
+            &.a1:hover  {color:            $bauhaus-red;}
+            &.a2:before {background-color: $bauhaus-blue;}
+            &.a2:hover  {color:            $bauhaus-blue;}
+            &.a3:before {background-color: $bauhaus-orange;}
+            &.a3:hover  {color:            $bauhaus-orange;}
+        }
+        
+        @include on-desktop {
+            padding: 15px;
+            
+            .a1, br {
+                display: none;
+            }
+            
+            a {
+                margin: 0 10px 0 0; padding: 12px 20px;
+                font-size: 22px;
+                
+                &.a2:not(:hover):before, &.a3:not(:hover):before {
+                    background: none;
+                }
+
+                &.a2 {background: $bauhaus-blue;}
+                &.a3 {background: $bauhaus-orange;}
+                
+                &.a2, &.a3 {
+                    color: white;
+                    @include transition(.2s);
+                    
+                    &:hover {
+                        background: #32343e;
+                        color: white;
+                        
+                        &:before {
+                            @include transform(none);
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+            
+    &:not(.hidden) .content a {
+        &.a1:before {@include animation(nav-a-appear .2s .35s, hidden .35s);}
+        &.a2:before {@include animation(nav-a-appear .3s .5s, hidden .5s);}
+        &.a3:before {@include animation(nav-a-appear .4s .65s, hidden .65s);}
+    }
+    
+    .overlay {
+        position: absolute; top: 0; left: 0; z-index: 1;
+        width: 100%; height: 100%;
+        background-color: #ffffff; opacity: .65;
+        @include transition(opacity .7s);
+        
+        @include on-desktop{display: none;}
+    }
+    
+    .rects {
+        position: absolute; top: 50%; left: 50%; z-index: 2;
+        max-width: 400px; width: 100%; max-height: 520px; height: 100%; padding: 15px;
+        @include transform(translate(-50%, -50%));
+        
+        @media (max-width: 570px), (max-height: 700px) {
+            max-width: none; max-height: none;
+            padding: 6px;
+        }
+        
+        @include on-desktop{display: none;}
+    
+        * {
+            position: absolute; z-index: 3;
+            @include transition(.4s);
+        }
+        
+        .red       {background-color: $bauhaus-red;}
+        .blue      {background-color: $bauhaus-blue;}
+        .orange    {background-color: $bauhaus-orange;}
+        .green     {background-color: $bauhaus-green;}
+        
+        .r1, .r3, .r5, .r6, .r8 {
+            @include transition-delay(.15s);
+        }
+        
+        .r2, .r4, .r7, .r9 {
+            @include transition-delay(.25s);
+        }
+        
+        @mixin rect($top, $left, $width, $height) {
+            top: $top; left: $left;
+            width: $width; height: $height;
+        }
+        
+        .r1 {@include rect(  0,   0, 24%, 28%);}
+        .r2 {@include rect(28%,   0, 70%, 12%);}
+        .r3 {@include rect(  0, 24%, 46%, 28%);}
+        .r4 {@include rect(  0, 70%, 30%, 17%);}
+        .r5 {@include rect(17%, 70%, 30%, 23%);}
+        .r6 {@include rect(40%,   0, 70%, 40%);}
+        .r7 {@include rect(80%,   0, 15%, 20%);}
+        .r8 {@include rect(40%, 70%, 30%, 40%);}
+        .r9 {@include rect(80%, 15%, 85%, 20%);}
+        
+        .r10 {
+            position: relative; z-index: 4;
+            width: 100%; height: 100%;
+            background-color: white;
+        }
+    }
+    
+    @include on-mobile {
+        
+        &.hidden {
+            top: -5px;
+            width: 0; height: 0;
+            visibility: hidden; opacity: 0;
+            @include transition(all 0s .3s);
+
+            .overlay, .rects *, .content {
+                opacity: 0;
+            }
+
+            .content {
+                @include transition(.2s);
+            }
+
+            .rects {
+                *               {@include transition(all .25s);}
+                .r1, .r2        {@include transform(translate(-14%, -14%) scale(.85));}
+                .r3, .r4, .r5   {@include transform(translate(14%, -14%)  scale(.85));}
+                .r6, .r7        {@include transform(translate(-14%, 14%)  scale(.85));}
+                .r8, .r9        {@include transform(translate(14%, 14%)   scale(.85));}
+                .r10            {opacity: 0;}
+            }
+        }
+        
+    }
+    
+}
+
+@include keyframes(nav-a-appear) {
+    0% {width: 0;}
+}
+
+#hamburger-btn {
+    position: fixed; top: 0; right: 0; z-index: 9999;
+    width: 70px; height: 70px; padding: 15px;
+    @include transition(.1s);
+    
+    @include on-desktop{display: none;}
+    
+    b {
+        display: block; position: relative;
+        width: 100%; height: 100%;
+    }
+    
+    &:active b {
+        @include transform(scale(.9));
+        @include transition(.1s);
+    }
+    
+    i {
+        position: absolute; left: -20%; z-index: 1;
+        width: 120%; height: 16%; // three 12% gaps between i's
+        @include transition(all .2s, width .2s .2s, top .2s .2s, left .2s .2s);
+        
+        &.i1 {
+            top: 0; z-index: 2;
+            background-color: $bauhaus-red;
+        }
+        &.i2 {
+            top: 12% + 16%;
+            background-color: $bauhaus-blue;
+        }
+        &.i3 {
+            top: (12% + 16%) * 2;
+            background-color: $bauhaus-orange;
+        }
+        &.i4 {
+            top: (12% + 16%) * 3; z-index: 3;
+            background-color: $bauhaus-green;
+        }
+    }
+    
+    &.nav-visible {
+        
+        i {
+            top: 43.5%;
+            width: 50%;
+            @include transition(all .3s .25s, width .2s, top .2s, left .2s);
+            
+            &.i1, &.i3 {
+                left: 0;
+                @include transform-origin(right center);
+            }
+            
+            &.i2, &.i4 {
+                left: 50%;
+                @include transform-origin(left center);
+            }
+        
+            &.i1 {@include transform(rotate(45deg));}
+            &.i2 {@include transform(rotate(-45deg));}
+            &.i3 {@include transform(rotate(-45deg));}
+            &.i4 {@include transform(rotate(45deg));}
+            
+        }
+        
+    }
+}

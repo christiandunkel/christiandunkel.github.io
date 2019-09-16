@@ -8,10 +8,6 @@ div, span, h1, h2, h3, h4, p, pre, a, del, img, ins, small, strike, strong, b, u
 	border: 0;
 }
 
-div {
-    font-size: 0;
-}
-
 article, aside, details, figcaption, figure, header, main, footer, hgroup, menu, nav, section {
 	display: block;
 }
@@ -36,38 +32,34 @@ table {
     border-color: transparent;
 }
 
-%table-part {
+// table areas
+
+thead, tbody, tfoot {
     vertical-align: middle;
     border-color: transparent;
 }
 
 thead {
-    @extend %table-part;
     display: table-header-group;
 }
 
 tbody {
-    @extend %table-part;
     display: table-row-group;
 }
 
 tfoot {
-    @extend %table-part;
     display: table-footer-group;
 }
 
-%table-cell {
+// table cells
+
+td, th {
     display: table-cell;
     vertical-align: inherit;
     border-color: transparent;
 }
 
-td {
-    @extend %table-cell;
-}
-
 th {
-    @extend %table-cell;
     font-weight: normal;
     text-align: center;
 }
@@ -84,19 +76,10 @@ tr {
 
 textarea {
     font-family: inherit;
-    
-    &:focus {
-        outline: none;
-    }
-    
 }
 
 input {
     font-family: inherit;
-    
-    &:focus {
-        outline: none;
-    }
     
     &[type="hidden"] {
         display: none;
@@ -104,7 +87,6 @@ input {
     
     &[type="submit"] {
         cursor: pointer;
-        @include transition(.3s, outline 0s);
     }
     
 }
@@ -114,7 +96,6 @@ button {
     background: transparent; border: none; overflow: visible; cursor: pointer;
     color: inherit; font: inherit; line-height: normal;
     @include appearance(none);
-    @include transition(.3s, outline 0s);
     
     &::-moz-focus-inner {
         padding: 0;
@@ -127,19 +108,13 @@ button {
 
 // text formatting elements
 
-%headline {
-    line-height: 1.3em;
-}
-
 h1 {
-    @extend %headline;
-    font-size: 28px;
+    font-size: 28px; line-height: 1.3em;
 }
 
 h2 {
-    @extend %headline;
     margin: 45px 0 0 0;
-    font-size: 22px;
+    font-size: 22px; line-height: 1.3em;
 }
 
 p {

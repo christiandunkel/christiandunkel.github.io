@@ -4,6 +4,9 @@
 @import 'colors';
 @import 'icons';
 
-// custom styles
+// reset browser styles
 @import 'reset';
-@import 'general';
+
+// custom styles
+@import 'generic';
+@import 'navigation';

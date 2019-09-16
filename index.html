@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang=en dir=ltr>
 
 <head>
     
@@ -42,39 +42,38 @@
     
 <body>
     
-    <button id="nav-btn" title="Open navigation">
+    <button id=hamburger-btn title="Open navigation">
         <b>
-            <i class="i1"></i>
-            <i class="i2"></i>
-            <i class="i3"></i>
-            <i class="i4"></i>
+            <i class=i1></i>
+            <i class=i2></i>
+            <i class=i3></i>
+            <i class=i4></i>
         </b>
     </button>
     
-    <nav class="hidden">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="rect r1 red"></div>
-            <div class="rect r2 orange"></div>
-            <div class="rect r3 blue"></div>
-            <div class="rect r4 orange"></div>
-            <div class="rect r5 green"></div>
-            <div class="rect r6 red"></div>
-            <div class="rect r7 green"></div>
-            <div class="rect r8 orange"></div>
-            <div class="rect r9 blue"></div>
-            <div class="content">
-                <div class="center">
-                    <a href="#" class="l1">About</a><br />
-                    <a href="#" class="l2">Projects</a><br />
-                    <a href="#" class="l3">Contact</a>
-                </div>
-            </div>
+    <nav class=hidden>
+        <div class=overlay></div>
+        <div class=rects>
+            <div class="r1 red"></div>
+            <div class="r2 orange"></div>
+            <div class="r3 blue"></div>
+            <div class="r4 orange"></div>
+            <div class="r5 green"></div>
+            <div class="r6 red"></div>
+            <div class="r7 green"></div>
+            <div class="r8 orange"></div>
+            <div class="r9 blue"></div>
+            <div class="r10"></div>
+        </div>
+        <div class=content>
+            <a class=a1 href="#about">About</a><br />
+            <a class=a2 href="#projects">Projects</a><br />
+            <a class=a3 href="#contact">Contact</a>
         </div>
     </nav>
     
     <script>
-        var nav_btn = document.getElementById('nav-btn');
+        var nav_btn = document.getElementById('hamburger-btn');
         var nav = document.getElementsByTagName('nav')[0];
         nav_btn.addEventListener('click', function () {
             nav_btn.classList.toggle('nav-visible');

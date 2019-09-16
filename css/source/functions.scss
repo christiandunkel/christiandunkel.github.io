@@ -14,19 +14,14 @@
 
 // media queries
 
-@mixin on-pc {
-    @media (min-width: 551px) {
+@mixin on-desktop {
+    @media (min-width: 801px) {
         @content;
     }
 }
 
-@mixin on-phone {
-    @include on-mobile {
-        @content;
-    }
-}
 @mixin on-mobile {
-    @media (max-width: 550px) {
+    @media (max-width: 800px) {
         @content;
     }
 }
