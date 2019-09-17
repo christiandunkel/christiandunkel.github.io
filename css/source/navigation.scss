@@ -7,16 +7,17 @@ nav {
     }
 
     .content {
+        position: relative;
         
         @include on-mobile {
-            display: table; position: relative; top: 50%; left: 50%; z-index: 5;
+            display: table; top: 50%; left: 50%; z-index: 5;
             text-align: center;
             @include transform(translate(-50%, -50%));
             @include transition(opacity .2s .2s);
         }
         
         a {
-            display: inline-block; position: relative;
+            display: inline-block; position: relative; z-index: 2;
             margin: 5px; padding: 16px 26px;
             overflow: hidden;
             color: white; text-decoration: none; font-size: 28px; line-height: 1em; font-weight: 700;
@@ -45,7 +46,7 @@ nav {
         @include on-desktop {
             padding: 15px;
             
-            .a1, br {
+            br {
                 display: none;
             }
             
@@ -53,24 +54,73 @@ nav {
                 margin: 0 2px 0 0; padding: 13px 13px;
                 font-size: 20px;
                 
-                &.a2, &.a3 {
+                &.a1.active {background-color: $bauhaus-red;}
+                &.a2.active {background-color: $bauhaus-blue;}
+                &.a3.active {background-color: $bauhaus-orange;}
+                
+                &.a1, &.a2, &.a3 {
                     color: #676d86;
                     
+                    &.active,
                     &:hover {
                         color: white;
                     }
                 
-                    &:before {
+                    &:before, 
+                    &:hover:before {
                         opacity: 0;
                         @include transform(none);
-                    }
-                    
-                    &:hover:before {
-                        opacity: 1;
                     }
                 }
             }
             
+            $a1-width: 84.36px;
+            $a2-width: 103.38px;
+            $a3-width: 99.98px;
+            $a-margin-right: 2px;
+            
+            .hover-bg {
+                position: absolute; top: 15px; z-index: 1;
+                height: 46px;
+                @include border-radius(4px);
+                @include transition(.2s);
+            }
+            
+            a.a1.active ~ .hover-bg {
+                left: 15px;
+                width: $a1-width;
+                background-color: $bauhaus-red;
+            }
+            
+            a.a2.active ~ .hover-bg {
+                left: 15px + $a1-width + $a-margin-right;
+                width: $a2-width;
+                background-color: $bauhaus-blue;
+            }
+            
+            a.a3.active ~ .hover-bg {
+                left: 15px + $a1-width + $a2-width + (2 * $a-margin-right);
+                width: $a3-width;
+                background-color: $bauhaus-orange;
+            }
+            
+            a.a1:hover ~ .hover-bg {
+                left: 15px;
+                width: $a1-width;
+                background-color: $bauhaus-red;
+            }
+            
+            a.a2:hover ~ .hover-bg {
+                left: 15px + $a1-width + $a-margin-right;
+                width: $a2-width;
+                background-color: $bauhaus-blue;
+            }
+            
+            a.a3:hover ~ .hover-bg {
+                left: 15px + $a1-width + $a2-width + (2 * $a-margin-right);
+                width: $a3-width;
+                background-color: $bauhaus-orange;
+            }
         }
     }
             
