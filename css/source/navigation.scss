@@ -50,27 +50,23 @@ nav {
             }
             
             a {
-                margin: 0 10px 0 0; padding: 12px 20px;
-                font-size: 22px;
-                
-                &.a2:not(:hover):before, &.a3:not(:hover):before {
-                    background: none;
-                }
-
-                &.a2 {background: $bauhaus-blue;}
-                &.a3 {background: $bauhaus-orange;}
+                margin: 0 2px 0 0; padding: 13px 13px;
+                font-size: 20px;
                 
                 &.a2, &.a3 {
-                    color: white;
-                    @include transition(.2s);
+                    color: #676d86;
                     
                     &:hover {
-                        background: #32343e;
                         color: white;
-                        
-                        &:before {
-                            @include transform(none);
-                        }
+                    }
+                
+                    &:before {
+                        opacity: 0;
+                        @include transform(none);
+                    }
+                    
+                    &:hover:before {
+                        opacity: 1;
                     }
                 }
             }
@@ -191,6 +187,10 @@ nav {
     
     @include on-desktop{display: none;}
     
+    &:hover {
+        opacity: .8;
+    }
+    
     b {
         display: block; position: relative;
         width: 100%; height: 100%;
@@ -260,6 +260,48 @@ nav {
 
 
 
+#language-menu {
+    display: block; position: fixed; top: 18px; right: 88px; z-index: 9999;
+    width: 54px; height: 35px;
+    border: 1px solid #bebebe; overflow: hidden;
+    @include border-radius(4px);
+    @include transition(.25s .15s);
+    
+    &:hover, &:focus {
+        height: 66px;
+    }
+    
+    @include on-desktop {
+        top: 26px; right: 26px;
+    }
+    
+    a {
+        display: block;
+        width: 100%; height: 30px; margin: 1px 1px 2px 1px;
+        background-repeat: no-repeat;
+        @include background-size(50px 30px);
+        @include transition(.2s);
+        
+        &:hover {
+            opacity: .7;
+        }
+        
+        &.en {
+           background-image: url(data:image/png;base64,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);
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+        
+        &.de {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAABaAgMAAAAnRUe+AAAADFBMVEX/AAAAAAD/zAD/0gDGR3uVAAAAMklEQVRIx+3KMQ0AIBAEsJfIgj9m1OEALFxCQhjaudUTTdM07UUD+MdOrJqJoWmadtMOl916oPjf8y4AAAAASUVORK5CYII=);
+        }
+    }
+}
+
+
+
 
 
 #to-top {
@@ -267,13 +309,13 @@ nav {
     width: 48px; height: 48px;
     
     b {
-        display: block; position: absolute; top: 22%; left: 25%; z-index: 2;
+        display: block; position: absolute; top: 22%; left: 22%; z-index: 2;
         width: 56%; height: 56%;
         @include transition(.2s);
     }
     
     i {
-        position: absolute; top: 0; left: 40%; z-index: 1;
+        position: absolute; top: 0; left: 42.5%; z-index: 1;
         width: 15%;
         background-color: white;
         @include border-radius(4px);
