@@ -68,7 +68,7 @@ nav {
                 
                     &:before, 
                     &:hover:before {
-                        opacity: 0;
+                        @include opacity(0);
                         @include transform(none);
                     }
                 }
@@ -133,7 +133,8 @@ nav {
     .overlay {
         position: absolute; top: 0; left: 0; z-index: 1;
         width: 100%; height: 100%;
-        background-color: #ffffff; opacity: .65;
+        background-color: #ffffff; 
+        @include opacity(.65);
         @include transition(opacity .7s);
         
         @include on-desktop{display: none;}
@@ -197,11 +198,12 @@ nav {
         &.hidden {
             top: -5px;
             width: 0; height: 0;
-            visibility: hidden; opacity: 0;
+            visibility: hidden; 
+            @include opacity(0);
             @include transition(all 0s .3s);
 
             .overlay, .rects *, .content {
-                opacity: 0;
+                @include opacity(0);
             }
 
             .content {
@@ -214,7 +216,7 @@ nav {
                 .r3, .r4, .r5   {@include transform(translate(14%, -14%)  scale(.85));}
                 .r6, .r7        {@include transform(translate(-14%, 14%)  scale(.85));}
                 .r8, .r9        {@include transform(translate(14%, 14%)   scale(.85));}
-                .r10            {opacity: 0;}
+                .r10            {@include opacity(0);}
             }
         }
         
@@ -226,10 +228,6 @@ nav {
     0% {width: 0;}
 }
 
-
-
-
-
 #hamburger-btn {
     position: fixed; top: 0; right: 0; z-index: 9999;
     width: 70px; height: 70px; padding: 15px;
@@ -238,7 +236,7 @@ nav {
     @include on-desktop{display: none;}
     
     &:hover {
-        opacity: .8;
+        @include opacity(.8);
     }
     
     b {
@@ -252,8 +250,8 @@ nav {
     }
     
     i {
-        position: absolute; left: -20%; z-index: 1;
-        width: 120%; height: 16%; // three 12% gaps between i's
+        position: absolute; left: 0; z-index: 1;
+        width: 100%; height: 16%; // three 12% gaps between i's
         @include border-radius(3px);
         @include transition(all .2s, width .2s .2s, top .2s .2s, left .2s .2s);
         
@@ -310,43 +308,128 @@ nav {
 
 
 
-#language-menu {
-    display: block; position: fixed; top: 18px; right: 88px; z-index: 9999;
-    width: 54px; height: 35px;
+#language-btn {
+    display: block; position: fixed; top: 15px; left: 15px; z-index: 9997;
+    width: 54px; height: 34px;
     border: 1px solid #bebebe; overflow: hidden;
+    background-repeat: no-repeat;
+    @include background-size(100% 100%);
     @include border-radius(4px);
-    @include transition(.25s .15s);
+    @include transition(.2s);
     
-    &:hover, &:focus {
-        height: 66px;
+    &:hover {
+        @include opacity(.8);
+    }
+    
+    &:active {
+        @include transform(scale(.9));
     }
     
     @include on-desktop {
-        top: 26px; right: 26px;
+        top: 21px; left: auto; right: 15px;
     }
-    
-    a {
-        display: block;
-        width: 100%; height: 30px; margin: 1px 1px 2px 1px;
-        background-repeat: no-repeat;
-        @include background-size(50px 30px);
-        @include transition(.2s);
         
-        &:hover {
-            opacity: .7;
+    html[lang=en] & {@extend %flag-usa;}
+    html[lang=de] & {@extend %flag-germany;}
+}
+
+#language-menu {
+    position: fixed; top: 0; left: 0; z-index: 10000;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    
+    > * {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        @include transition(.4s);
+        
+        &.red {
+            z-index: 1;
+            background-color: $bauhaus-red;
         }
         
-        &.en {
-           background-image: url(data:image/png;base64,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);
+        &.blue {
+            z-index: 2;
+            background-color: $bauhaus-blue;
+            @include transition-delay(.1s);
+        }
+        
+        &.orange {
+            z-index: 3;
+            background-color: $bauhaus-orange;
+            @include transition-delay(.2s);
+        }
+        
+        &.green {
+            z-index: 4;
+            background-color: $bauhaus-green;
+            @include transition-delay(.25s);
+        }
+        
+        &.content {
+            z-index: 5;
+            background-color: white;
+            @include transition-delay(.275s);
             
-            &:hover {
-                opacity: 1;
+            .cross {
+                position: absolute; top: 15px; right: 15px;
+                
+                @include on-mobile {
+                    left: 15px; right: auto;
+                }
             }
         }
+    }
+    
+    &.hidden {
+        top: -5px;
+        width: 0; height: 0;
+        @include transition(0s .7s);
         
-        &.de {
-            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAABaAgMAAAAnRUe+AAAADFBMVEX/AAAAAAD/zAD/0gDGR3uVAAAAMklEQVRIx+3KMQ0AIBAEsJfIgj9m1OEALFxCQhjaudUTTdM07UUD+MdOrJqJoWmadtMOl916oPjf8y4AAAAASUVORK5CYII=);
+        > * {
+            @include transform(translate(0, -100%));
+        
+            &.red     {@include transition-delay(.275s);}
+            &.blue    {@include transition-delay(.25s);}
+            &.orange  {@include transition-delay(.2s);}
+            &.green   {@include transition-delay(.1s);}
+            &.content {@include transition-delay(0s);}
         }
+    }
+}
+
+.cross {
+    width: 44px; height: 44px;
+    @include transition(.1s);
+    
+    &:before, &:after {
+        content: '';
+        position: absolute; top: 44%; left: 0;
+        width: 100%; height: 12%;
+        background-color: #6d6d6d;
+        @include border-radius(5px);
+        @include transition(.2s);
+    }
+    
+    &:before {
+        @include transform(rotate(45deg));
+    }
+    
+    &:after {
+        @include transform(rotate(-45deg));
+    }
+    
+    &:hover {
+        &:before {
+            @include transform(rotate(40deg));
+        }
+        &:after {
+            @include transform(rotate(-40deg));
+        }
+    }
+    
+    &:active {
+        @include transform(scale(.8));
     }
 }
 
@@ -397,7 +480,7 @@ nav {
     &:hover {
         
         b {
-            top: 15%;
+            top: 12%;
         }
         
         &:after {

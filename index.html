@@ -6,6 +6,14 @@
     <meta charset="utf-8" />
     <title>Christian Dunkel</title>
     
+    <!-- languages -->
+    
+    <link rel="alternate" hreflang="x-default" href="https://christiandunkel.github.io" />
+    <link rel="alternate" hreflang="en" href="https://christiandunkel.github.io" />
+    <link rel="alternate" hreflang="de" href="https://christiandunkel.github.io/de" />
+    
+    <!-- -->
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
 
@@ -64,9 +72,18 @@
         </div>
     </nav>
     
-    <div id=language-menu title="Select language" tabindex="0">
-        <a class=en title="English"></a>
-        <a class=de href="/de" title="Deutsch (German)"></a>
+    <button id=language-btn title="Select language"></button>
+    
+    <div id=language-menu class=hidden>
+        <div class=red></div>
+        <div class=blue></div>
+        <div class=orange></div>
+        <div class=green></div>
+        <div class=content>
+            <button class=cross title="Close menu"></button>
+            <a class=en>English</a>
+            <a class=de href="/de">Deutsch (German)</a>
+        </div>
     </div>
     
     <button id=hamburger-btn title="Open navigation">
@@ -78,6 +95,15 @@
         </b>
     </button>
     
+    <main>
+    
+    
+    
+    
+    
+    
+    </main>
+    
     <button id=to-top title="Go to top">
         <b>
             <i class=head1></i>
@@ -85,6 +111,9 @@
             <i class=bar></i>
         </b>
     </button>
+    
+    
+    <!-- scripts -->
     
     <script>
         var nav_btn = document.getElementById('hamburger-btn');
@@ -97,10 +126,16 @@
             nav_btn.classList.remove('nav-visible');
             nav.classList.add('hidden');
         });
+        var lang_btn = document.getElementById('language-btn');
+        var lang_menu = document.getElementById('language-menu');
+        var close_lang_btn = lang_menu.getElementsByClassName('cross')[0];
+        lang_btn.addEventListener('click', function () {
+            lang_menu.classList.toggle('hidden');
+        });
+        close_lang_btn.addEventListener('click', function () {
+            lang_menu.classList.add('hidden');
+        })
     </script>
-    
-    
-    <!-- scripts -->
     
     <script src="js/minified.js"></script>
     
