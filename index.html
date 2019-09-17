@@ -81,8 +81,10 @@
         <div class=green></div>
         <div class=content>
             <button class=cross title="Close menu"></button>
-            <a class=en>English</a>
-            <a class=de href="/de">Deutsch (German)</a>
+            <div class="center">
+                <a class="en current">English</a>
+                <a class=de href="/de">Deutsch <span>(German)</span></a>
+            </div>
         </div>
     </div>
     
@@ -134,7 +136,7 @@
         });
         close_lang_btn.addEventListener('click', function () {
             lang_menu.classList.add('hidden');
-        })
+        });
     </script>
     
     <script src="js/minified.js"></script>
