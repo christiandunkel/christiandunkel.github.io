@@ -1,20 +1,22 @@
 nav {
+    position: fixed; top: 0; right: 0; z-index: 9001;
+    width: 100%; height: 71px;
+    background-color: white; border: solid #f2f2f2; border-width: 0 0 1px 0;
+    text-align: center;
     
-    @include on-mobile {
-        position: fixed; top: 0; left: 0; z-index: 9998;
-        width: 100%; height: 100%;
-        @include transition(0s);
+    .bar {
+        display: inline-block;
+        max-width: $max-width; width: 100%; height: 100%; padding: 15px;
+        text-align: right;
+    }
+    
+    .menu {
+        display: inline-block; position: relative; float: left;
+        width: auto;
     }
 
     .content {
         position: relative;
-        
-        @include on-mobile {
-            display: table; top: 50%; left: 50%; z-index: 5;
-            text-align: center;
-            @include transform(translate(-50%, -50%));
-            @include transition(opacity .2s .2s);
-        }
         
         a {
             display: inline-block; position: relative; z-index: 2;
@@ -44,13 +46,13 @@ nav {
         }
         
         @include on-desktop {
-            padding: 15px;
             
             br {
                 display: none;
             }
             
             a {
+                position: relative; z-index: 9999;
                 margin: 0 2px 0 0; padding: 13px 13px;
                 font-size: 20px;
                 
@@ -80,143 +82,124 @@ nav {
             $a-margin-right: 2px;
             
             .hover-bg {
-                position: absolute; top: 15px; z-index: 1;
+                position: absolute; top: 0; left: 0; z-index: 1;
                 height: 46px;
                 @include border-radius(4px);
                 @include transition(.2s);
             }
             
             a.a1.active ~ .hover-bg {
-                left: 15px;
                 width: $a1-width;
                 background-color: $bauhaus-red;
             }
             
             a.a2.active ~ .hover-bg {
-                left: 15px + $a1-width + $a-margin-right;
+                left: $a1-width + $a-margin-right;
                 width: $a2-width;
                 background-color: $bauhaus-blue;
             }
             
             a.a3.active ~ .hover-bg {
-                left: 15px + $a1-width + $a2-width + (2 * $a-margin-right);
+                left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
                 background-color: $bauhaus-orange;
             }
             
             a.a1:hover ~ .hover-bg {
-                left: 15px;
                 width: $a1-width;
                 background-color: $bauhaus-red;
             }
             
             a.a2:hover ~ .hover-bg {
-                left: 15px + $a1-width + $a-margin-right;
+                left: $a1-width + $a-margin-right;
                 width: $a2-width;
                 background-color: $bauhaus-blue;
             }
             
             a.a3:hover ~ .hover-bg {
-                left: 15px + $a1-width + $a2-width + (2 * $a-margin-right);
+                left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
                 background-color: $bauhaus-orange;
             }
         }
     }
-            
-    &:not(.hidden) .content a {
-        &.a1:before {@include animation(nav-a-appear .2s .35s, hidden .35s);}
-        &.a2:before {@include animation(nav-a-appear .3s .5s, hidden .5s);}
-        &.a3:before {@include animation(nav-a-appear .4s .65s, hidden .65s);}
-    }
     
-    .overlay {
-        position: absolute; top: 0; left: 0; z-index: 1;
-        width: 100%; height: 100%;
-        background-color: #ffffff; 
-        @include opacity(.65);
-        @include transition(opacity .7s);
-        
-        @include on-desktop{display: none;}
-    }
+    // mobile nav trigger animation
     
-    .rects {
-        position: absolute; top: 50%; left: 50%; z-index: 2;
-        max-width: 400px; width: 100%; max-height: 520px; height: 100%; padding: 15px;
-        @include transform(translate(-50%, -50%));
-        
-        @media (max-width: 570px), (max-height: 700px) {
-            max-width: none; max-height: none;
-            padding: 6px;
-        }
-        
-        @include on-desktop{display: none;}
-    
-        * {
-            position: absolute; z-index: 3;
-            @include transition(.4s);
-        }
-        
-        .red       {background-color: $bauhaus-red;}
-        .blue      {background-color: $bauhaus-blue;}
-        .orange    {background-color: $bauhaus-orange;}
-        .green     {background-color: $bauhaus-green;}
-        
-        .r1, .r3, .r5, .r6, .r8 {
-            @include transition-delay(.15s);
-        }
-        
-        .r2, .r4, .r7, .r9 {
-            @include transition-delay(.25s);
-        }
-        
-        @mixin rect($top, $left, $width, $height) {
-            top: $top; left: $left;
-            width: $width; height: $height;
-        }
-        
-        .r1 {@include rect(  0,   0, 24%, 28%);}
-        .r2 {@include rect(28%,   0, 70%, 12%);}
-        .r3 {@include rect(  0, 24%, 46%, 28%);}
-        .r4 {@include rect(  0, 70%, 30%, 17%);}
-        .r5 {@include rect(17%, 70%, 30%, 23%);}
-        .r6 {@include rect(40%,   0, 70%, 40%);}
-        .r7 {@include rect(80%,   0, 15%, 20%);}
-        .r8 {@include rect(40%, 70%, 30%, 40%);}
-        .r9 {@include rect(80%, 15%, 85%, 20%);}
-        
-        .r10 {
-            position: relative; z-index: 4;
-            width: 100%; height: 100%;
-            background-color: white;
-            @include border-radius(4px);
-        }
+    .cross {
+        display: none;
     }
     
     @include on-mobile {
         
+        .menu {
+            position: fixed; top: 0; left: 0; z-index: 9998;
+            width: 100%; height: 100%;
+            overflow: hidden;
+            
+            > * {
+                position: absolute; top: 0; left: 0;
+                width: 100%; height: 100%;
+                @include transition(.4s);
+
+                &.red {
+                    z-index: 1;
+                    background-color: $bauhaus-red;
+                }
+
+                &.blue {
+                    z-index: 2;
+                    background-color: $bauhaus-blue;
+                    @include transition-delay(.1s);
+                }
+
+                &.orange {
+                    z-index: 3;
+                    background-color: $bauhaus-orange;
+                    @include transition-delay(.2s);
+                }
+
+                &.green {
+                    z-index: 4;
+                    background-color: $bauhaus-green;
+                    @include transition-delay(.25s);
+                }
+
+                &.content {
+                    z-index: 5;
+                    background-color: white;
+                    @include transition-delay(.275s);
+                    
+                    .cross {
+                        position: absolute; top: 15px; right: 15px; z-index: 2;
+                    }
+
+                    .center {
+                        display: inline-block; position: absolute; top: 50%; left: 50%; z-index: 1;
+                        max-width: 300px; width: 100%; padding: 15px;
+                        text-align: center;
+                        @include transform(translate(-50%,-50%));
+                    }
+                }
+            }
+        }
+        
         &.hidden {
-            top: -5px;
-            width: 0; height: 0;
-            visibility: hidden; 
-            @include opacity(0);
-            @include transition(all 0s .3s);
+            
+            .menu {
+                top: -5px;
+                width: 0; height: 0;
+                @include transition(0s .7s);
 
-            .overlay, .rects *, .content {
-                @include opacity(0);
-            }
+                > * {
+                    @include transform(translate(0, -100%));
 
-            .content {
-                @include transition(.2s);
-            }
-
-            .rects {
-                *               {@include transition(all .25s);}
-                .r1, .r2        {@include transform(translate(-14%, -14%) scale(.85));}
-                .r3, .r4, .r5   {@include transform(translate(14%, -14%)  scale(.85));}
-                .r6, .r7        {@include transform(translate(-14%, 14%)  scale(.85));}
-                .r8, .r9        {@include transform(translate(14%, 14%)   scale(.85));}
-                .r10            {@include opacity(0);}
+                    &.red     {@include transition-delay(.275s);}
+                    &.blue    {@include transition-delay(.25s);}
+                    &.orange  {@include transition-delay(.2s);}
+                    &.green   {@include transition-delay(.1s);}
+                    &.content {@include transition-delay(0s);}
+                }
             }
         }
         
@@ -224,12 +207,33 @@ nav {
     
 }
 
-@include keyframes(nav-a-appear) {
-    0% {width: 0;}
+#language-btn {
+    display: inline-block; position: relative; z-index: 9997;
+    width: 64px; height: 40px;
+    border: 1px solid #bebebe; overflow: hidden;
+    background-repeat: no-repeat;
+    @include background-size(100% 100%);
+    @include border-radius(4px);
+    @include transition(.2s);
+
+    @include on-mobile {
+        margin-right: 15px;
+    }
+
+    &:hover {
+        @include opacity(.8);
+    }
+
+    &:active {
+        @include transform(scale(.9));
+    }
+
+    html[lang=en] & {@extend %flag-usa;}
+    html[lang=de] & {@extend %flag-germany;}
 }
 
 #hamburger-btn {
-    position: fixed; top: 15px; right: 15px; z-index: 9999;
+    display: inline-block; position: relative; z-index: 9999;
     width: 40px; height: 40px;
     @include transition(.1s);
     
@@ -240,7 +244,7 @@ nav {
     }
     
     b {
-        display: block; position: relative;
+        display: block; position: absolute; top: 0; left: 0;
         width: 100%; height: 100%;
     }
     
@@ -308,30 +312,6 @@ nav {
 
 
 
-#language-btn {
-    display: block; position: fixed; top: 15px; left: 15px; z-index: 9997;
-    width: 54px; height: 34px;
-    border: 1px solid #bebebe; overflow: hidden;
-    background-repeat: no-repeat;
-    @include background-size(100% 100%);
-    @include border-radius(4px);
-    @include transition(.2s);
-    
-    &:hover {
-        @include opacity(.8);
-    }
-    
-    &:active {
-        @include transform(scale(.9));
-    }
-    
-    @include on-desktop {
-        top: 21px; left: auto; right: 15px;
-    }
-        
-    html[lang=en] & {@extend %flag-usa;}
-    html[lang=de] & {@extend %flag-germany;}
-}
 
 #language-menu {
     position: fixed; top: 0; left: 0; z-index: 10000;
@@ -373,10 +353,6 @@ nav {
             
             .cross {
                 position: absolute; top: 15px; right: 15px; z-index: 2;
-                
-                @include on-mobile {
-                    left: 15px; right: auto;
-                }
             }
             
             .center {
@@ -439,7 +415,7 @@ nav {
 }
 
 .cross {
-    width: 44px; height: 44px;
+    position: relative; width: 44px; height: 44px;
     @include transition(.1s);
     
     &:before, &:after {
@@ -494,17 +470,21 @@ nav {
     .animated-bg {
         position: relative;
         width: 100%; height: 100%;
-        border: solid #eaeaea; border-width: 1px 1px 0 1px; overflow: hidden;
+        overflow: hidden;
         @include border-radius(5px);
         
         div {
             position: absolute; top: -50%; left: -100%; z-index: 1;
             width: 300%; height: 200%;
-            background: url(../img/intro-bg.svg);
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICAgIDxyZWN0IGZpbGw9IiNiNzFhNDkiIHg9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iNSIgLz4NCiAgICA8Y2lyY2xlIGZpbGw9IiMwMDYzOGQiIGN4PSIyMDAiIGN5PSI1MCIgcj0iNTAiIC8+DQogICAgPHBvbHlnb24gZmlsbD0iI2YzOTEwMCIgcG9pbnRzPSIzMDAsMTAwIDQwMCwxMDAgMzUwLDAiIC8+DQogICAgPHBvbHlnb24gZmlsbD0iIzRhYWQzMiIgcG9pbnRzPSI0NzUsMTAwIDUyNSwxMDAgNTUwLDc1IDU1MCwyNSA1MjUsMCA0NzUsMCA0NTAsMjUgNDUwLDc1IiAvPg0KDQogICAgPHBvbHlnb24gZmlsbD0iIzRhYWQzMiIgcG9pbnRzPSIyNSwyNTAgNzUsMjUwIDEwMCwyMjUgMTAwLDE3NSA3NSwxNTAgMjUsMTUwIDAsMTc1IDAsMjI1IiAvPg0KICAgIDxyZWN0IGZpbGw9IiNiNzFhNDkiIHg9IjE1MCIgeT0iMTUwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjUiIC8+DQogICAgPGNpcmNsZSBmaWxsPSIjMDA2MzhkIiBjeD0iMzUwIiBjeT0iMjAwIiByPSI1MCIgLz4NCiAgICA8cG9seWdvbiBmaWxsPSIjZjM5MTAwIiBwb2ludHM9IjQ1MCwyNTAgNTUwLDI1MCA1MDAsMTUwIiAvPg0KDQogICAgPHBvbHlnb24gZmlsbD0iI2YzOTEwMCIgcG9pbnRzPSIwLDQwMCAxMDAsNDAwIDUwLDMwMCIgLz4NCiAgICA8cG9seWdvbiBmaWxsPSIjNGFhZDMyIiBwb2ludHM9IjE3NSw0MDAgMjI1LDQwMCAyNTAsMzc1IDI1MCwzMjUgMjI1LDMwMCAxNzUsMzAwIDE1MCwzMjUgMTUwLDM3NSIgLz4NCiAgICA8cmVjdCBmaWxsPSIjYjcxYTQ5IiB4PSIzMDAiIHk9IjMwMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSI1IiAvPg0KICAgIDxjaXJjbGUgZmlsbD0iIzAwNjM4ZCIgY3g9IjUwMCIgY3k9IjM1MCIgcj0iNTAiIC8+DQoNCiAgICA8Y2lyY2xlIGZpbGw9IiMwMDYzOGQiIGN4PSI1MCIgY3k9IjUwMCIgcj0iNTAiIC8+DQogICAgPHBvbHlnb24gZmlsbD0iI2YzOTEwMCIgcG9pbnRzPSIxNTAsNTUwIDI1MCw1NTAgMjAwLDQ1MCIgLz4NCiAgICA8cG9seWdvbiBmaWxsPSIjNGFhZDMyIiBwb2ludHM9IjMyNSw1NTAgMzc1LDU1MCA0MDAsNTI1IDQwMCw0NzUgMzc1LDQ1MCAzMjUsNDUwIDMwMCw0NzUgMzAwLDUyNSIgLz4NCiAgICA8cmVjdCBmaWxsPSIjYjcxYTQ5IiB4PSI0NTAiIHk9IjQ1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSI1IiAvPg0KPC9zdmc+);
             background-position: center;
             @include background-size(200px 200px);
             @include opacity(.6);
             @include animation(move-intro-bg 10s infinite linear);
+            
+            @include on-mobile {
+                @include background-size(100px 100px);
+            }
         }
     }
 }
