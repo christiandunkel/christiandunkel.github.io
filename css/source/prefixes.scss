@@ -136,6 +136,12 @@
     }
 }
 
+@mixin linear-gradient($values...) {
+    background: -moz-linear-gradient($values);
+    background: -webkit-linear-gradient($values);
+    background: linear-gradient($values);
+}
+
 @mixin opacity($value) {
     opacity: $value;
     filter: alpha(opacity=($value * 100)); //IE8

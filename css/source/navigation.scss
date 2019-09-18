@@ -294,8 +294,8 @@ nav {
             &.i2 {@include transform(rotate(-45deg));}
             &.i3 {@include transform(rotate(-45deg));}
             &.i4 {
-                // longer and translated to center of cross, 
-                // to hide small empty spot in middle
+                // stretched longer and translated to center of cross, 
+                // to hide small empty spot in middle of cross
                 width: 53%;
                 @include transform(rotate(45deg) translate(-3%,0));
             }
@@ -480,8 +480,45 @@ nav {
 
 
 
+#intro {
+    position: relative;
+    min-height: 600px; height: 90vh; padding: 15px;
+    
+    &:before {
+        content: '';
+        position: absolute; bottom: 14px; left: 0; z-index: 2;
+        width: 100%; min-height: 170px; height: 20%;
+        @include linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.5) 30%, rgba(255,255,255,1) 100%);
+    }
+    
+    .animated-bg {
+        position: relative;
+        width: 100%; height: 100%;
+        border: solid #eaeaea; border-width: 1px 1px 0 1px; overflow: hidden;
+        @include border-radius(5px);
+        
+        div {
+            position: absolute; top: -50%; left: -100%; z-index: 1;
+            width: 300%; height: 200%;
+            background: url(../img/intro-bg.svg);
+            background-position: center;
+            @include background-size(200px 200px);
+            @include opacity(.6);
+            @include animation(move-intro-bg 10s infinite linear);
+        }
+    }
+}
+
+@include keyframes(move-intro-bg) {
+    0% {@include transform(translate(200px,0));}
+}
+
+
+
+
+
 #to-top {
-    position: fixed; bottom: 15px; right: 15px;
+    position: fixed; bottom: 15px; right: 15px; z-index: 9000;
     width: 48px; height: 48px;
     
     b {
