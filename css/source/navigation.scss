@@ -1,4 +1,123 @@
-nav {
+// hidden windows, can be triggered to be shown
+
+.hidden-window {
+    position: fixed; top: 0; left: 0; z-index: 9998;
+    width: 100%; height: 100%;
+    overflow: hidden;
+
+    > * {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        @include transition(.4s);
+
+        &.red {
+            z-index: 1;
+            background-color: $bauhaus-red;
+        }
+
+        &.blue {
+            z-index: 2;
+            background-color: $bauhaus-blue;
+            @include transition-delay(.1s);
+        }
+
+        &.orange {
+            z-index: 3;
+            background-color: $bauhaus-orange;
+            @include transition-delay(.2s);
+        }
+
+        &.green {
+            z-index: 4;
+            background-color: $bauhaus-green;
+            @include transition-delay(.25s);
+        }
+
+        &.content {
+            z-index: 5;
+            background-color: white;
+            @include transition-delay(.275s);
+
+            .cross {
+                position: absolute; top: 15px; right: 15px; z-index: 2;
+            }
+
+            .center {
+                display: inline-block; position: absolute; top: 50%; left: 50%; z-index: 1;
+                max-width: 300px; width: 100%; padding: 15px;
+                text-align: center;
+                @include transform(translate(-50%,-50%));
+            }
+        }
+    }
+
+    &.hidden {
+        top: -5px;
+        width: 0; height: 0;
+        @include transition(0s .7s);
+        
+        .cross {
+            display: none;
+        }
+
+        > * {
+            @include transform(translate(0, -100%));
+
+            &.red     {@include transition-delay(.275s);}
+            &.blue    {@include transition-delay(.25s);}
+            &.orange  {@include transition-delay(.2s);}
+            &.green   {@include transition-delay(.1s);}
+            &.content {@include transition-delay(0s);}
+        }
+    }
+    
+}
+
+.cross {
+    position: relative; width: 44px; height: 44px;
+    @include transition(.1s);
+    
+    &:before, &:after {
+        content: '';
+        position: absolute; top: 44%; left: 0;
+        width: 100%; height: 12%;
+        background-color: #6d6d6d;
+        @include border-radius(5px);
+        @include transition(.2s);
+    }
+    
+    &:before {
+        @include transform(rotate(45deg));
+    }
+    
+    &:after {
+        @include transform(rotate(-45deg));
+    }
+    
+    &:hover {
+        &:before {
+            @include transform(rotate(40deg));
+        }
+        &:after {
+            @include transform(rotate(-40deg));
+        }
+    }
+    
+    &:active {
+        &:before, &:after {
+            left: 10%;
+            width: 80%;
+        }
+    }
+}
+
+
+
+
+
+// navigation bar
+
+#nav {
     position: fixed; top: 0; right: 0; z-index: 9001;
     width: 100%; height: 71px;
     background-color: white; border: solid #f2f2f2; border-width: 0 0 1px 0;
@@ -10,9 +129,24 @@ nav {
         text-align: right;
     }
     
-    .menu {
-        display: inline-block; position: relative; float: left;
-        width: auto;
+    // reset the hidden window styles on desktop nav,
+    // so that the links of the navigation can be displayed
+    @include on-desktop {
+        
+        .hidden-window {
+            display: inline-block; position: relative; top: auto; float: left;
+            width: auto; height: auto;
+        }
+        
+        .content, .center {
+            @include transform(none);
+        }
+        
+        .center {
+            position: relative; top: auto; left: auto;
+            max-width: none; widows: auto; padding: 0;
+            text-align: inherit;
+        }
     }
 
     .content {
@@ -124,87 +258,6 @@ nav {
         }
     }
     
-    // mobile nav trigger animation
-    
-    .cross {
-        display: none;
-    }
-    
-    @include on-mobile {
-        
-        .menu {
-            position: fixed; top: 0; left: 0; z-index: 9998;
-            width: 100%; height: 100%;
-            overflow: hidden;
-            
-            > * {
-                position: absolute; top: 0; left: 0;
-                width: 100%; height: 100%;
-                @include transition(.4s);
-
-                &.red {
-                    z-index: 1;
-                    background-color: $bauhaus-red;
-                }
-
-                &.blue {
-                    z-index: 2;
-                    background-color: $bauhaus-blue;
-                    @include transition-delay(.1s);
-                }
-
-                &.orange {
-                    z-index: 3;
-                    background-color: $bauhaus-orange;
-                    @include transition-delay(.2s);
-                }
-
-                &.green {
-                    z-index: 4;
-                    background-color: $bauhaus-green;
-                    @include transition-delay(.25s);
-                }
-
-                &.content {
-                    z-index: 5;
-                    background-color: white;
-                    @include transition-delay(.275s);
-                    
-                    .cross {
-                        position: absolute; top: 15px; right: 15px; z-index: 2;
-                    }
-
-                    .center {
-                        display: inline-block; position: absolute; top: 50%; left: 50%; z-index: 1;
-                        max-width: 300px; width: 100%; padding: 15px;
-                        text-align: center;
-                        @include transform(translate(-50%,-50%));
-                    }
-                }
-            }
-        }
-        
-        &.hidden {
-            
-            .menu {
-                top: -5px;
-                width: 0; height: 0;
-                @include transition(0s .7s);
-
-                > * {
-                    @include transform(translate(0, -100%));
-
-                    &.red     {@include transition-delay(.275s);}
-                    &.blue    {@include transition-delay(.25s);}
-                    &.orange  {@include transition-delay(.2s);}
-                    &.green   {@include transition-delay(.1s);}
-                    &.content {@include transition-delay(0s);}
-                }
-            }
-        }
-        
-    }
-    
 }
 
 #language-btn {
@@ -314,141 +367,40 @@ nav {
 
 
 #language-menu {
-    position: fixed; top: 0; left: 0; z-index: 10000;
-    width: 100%; height: 100%;
-    overflow: hidden;
+    z-index: 10000;
     
-    > * {
-        position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%;
-        @include transition(.4s);
-        
-        &.red {
-            z-index: 1;
-            background-color: $bauhaus-red;
-        }
-        
-        &.blue {
-            z-index: 2;
-            background-color: $bauhaus-blue;
-            @include transition-delay(.1s);
-        }
-        
-        &.orange {
-            z-index: 3;
-            background-color: $bauhaus-orange;
-            @include transition-delay(.2s);
-        }
-        
-        &.green {
-            z-index: 4;
-            background-color: $bauhaus-green;
-            @include transition-delay(.25s);
-        }
-        
-        &.content {
-            z-index: 5;
-            background-color: white;
-            @include transition-delay(.275s);
-            
-            .cross {
-                position: absolute; top: 15px; right: 15px; z-index: 2;
-            }
-            
-            .center {
-                display: inline-block; position: absolute; top: 50%; left: 50%; z-index: 1;
-                max-width: 300px; width: 100%; padding: 15px;
-                @include transform(translate(-50%,-50%));
-            }
-            
-            a {
-                display: inline-block; position: relative;
-                width: 100%; height: 60px; margin: 6px 0; padding: 15px 15px 15px 90px;
-                color: #747474; font-size: 18px; line-height: 30px; text-decoration: none;
-                @include text-wrap;
-                @include border-radius(5px);
-                @include transition(.2s);
-                
-                &.current {
-                    background: #f8f8f8; cursor: auto;
-                }
-                
-                &:not(.current):hover {
-                    background-color: rgba(0,0,0,.1);
-                }
-                
-                span {
-                    font-size: .7em;
-                    @include opacity(.7);
-                }
-                
-                &:before {
-                    content: '';
-                    display: block; position: absolute; top: 15px; left: 15px;
-                    width: 50px; height: 30px;
-                    border: 1px solid #bebebe; background-repeat: no-repeat;
-                    @include background-size(100% 100%);
-                    @include border-radius(3px);
-                }
-                    
-                &.en:before {@extend %flag-usa;}
-                &.de:before {@extend %flag-germany;}
-            }
-        }
-    }
-    
-    &.hidden {
-        top: -5px;
-        width: 0; height: 0;
-        @include transition(0s .7s);
-        
-        > * {
-            @include transform(translate(0, -100%));
-        
-            &.red     {@include transition-delay(.275s);}
-            &.blue    {@include transition-delay(.25s);}
-            &.orange  {@include transition-delay(.2s);}
-            &.green   {@include transition-delay(.1s);}
-            &.content {@include transition-delay(0s);}
-        }
-    }
-}
-
-.cross {
-    position: relative; width: 44px; height: 44px;
-    @include transition(.1s);
-    
-    &:before, &:after {
-        content: '';
-        position: absolute; top: 44%; left: 0;
-        width: 100%; height: 12%;
-        background-color: #6d6d6d;
+    .content a {
+        display: inline-block; position: relative;
+        width: 100%; height: 60px; margin: 6px 0; padding: 15px 15px 15px 90px;
+        color: #747474; font-size: 18px; line-height: 30px; text-decoration: none;
+        @include text-wrap;
         @include border-radius(5px);
         @include transition(.2s);
-    }
-    
-    &:before {
-        @include transform(rotate(45deg));
-    }
-    
-    &:after {
-        @include transform(rotate(-45deg));
-    }
-    
-    &:hover {
+
+        &.current {
+            background: #f8f8f8; cursor: auto;
+        }
+
+        &:not(.current):hover {
+            background-color: rgba(0,0,0,.1);
+        }
+
+        span {
+            font-size: .7em;
+            @include opacity(.7);
+        }
+
         &:before {
-            @include transform(rotate(40deg));
+            content: '';
+            display: block; position: absolute; top: 15px; left: 15px;
+            width: 50px; height: 30px;
+            border: 1px solid #bebebe; background-repeat: no-repeat;
+            @include background-size(100% 100%);
+            @include border-radius(3px);
         }
-        &:after {
-            @include transform(rotate(-40deg));
-        }
-    }
-    
-    &:active {
-        &:before, &:after {
-            left: 10%;
-            width: 80%;
-        }
+
+        &.en:before {@extend %flag-usa;}
+        &.de:before {@extend %flag-germany;}
     }
 }
 

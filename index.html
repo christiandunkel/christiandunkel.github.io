@@ -52,9 +52,9 @@
     
     <!-- nav bar anchored to top | hidden menu on mobile -->
     
-    <nav class=hidden>
+    <nav id=nav>
         <div class=bar>
-            <div class=menu>
+            <div class="hidden-window hidden">
                 <div class=red></div>
                 <div class=blue></div>
                 <div class=orange></div>
@@ -82,7 +82,7 @@
     
     <!-- menus -->
     
-    <div id=language-menu class=hidden>
+    <div id=language-menu class="hidden-window hidden">
         <div class=red></div>
         <div class=blue></div>
         <div class=orange></div>
@@ -134,15 +134,10 @@
         });
         
         var nav_btn = document.getElementById('hamburger-btn');
-        var nav = document.getElementsByTagName('nav')[0];
-        var close_nav_btn = nav.getElementsByClassName('cross')[0];
+        var nav_hidden_menu = document.getElementById('nav').getElementsByClassName('hidden-window')[0];
         nav_btn.addEventListener('click', function () {
             nav_btn.classList.toggle('nav-visible');
-            nav.classList.toggle('hidden');
-        });
-        close_nav_btn.addEventListener('click', function () {
-            nav_btn.classList.remove('nav-visible');
-            nav.classList.add('hidden');
+            nav_hidden_menu.classList.toggle('hidden');
         });
     </script>
     
