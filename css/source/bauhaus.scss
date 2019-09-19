@@ -1,0 +1,86 @@
+#bauhaus {
+    width: 100%; margin: 100px 0 0 0;
+    text-align: center;
+    
+    .rects {
+        display: inline-block; position: relative; 
+        max-width: 400px; width: 100%; padding: 14px;
+    
+        > * {
+            display: block; position: absolute; z-index: 3;
+            @include transition(.4s);
+        }
+        
+        .red       {background-color: $bauhaus-red;}
+        .blue      {background-color: $bauhaus-blue;}
+        .orange    {background-color: $bauhaus-orange;}
+        .green     {background-color: $bauhaus-green;}
+        
+        .r1, .r3, .r5, .r6, .r8 {
+            @include transition-delay(.15s);
+        }
+        
+        .r2, .r4, .r7, .r9 {
+            @include transition-delay(.25s);
+        }
+        
+        @mixin rect($top, $left, $width, $height) {
+            top: $top; left: $left;
+            width: $width; height: $height;
+        }
+        
+        .r1 {@include rect(  0,   0, 24%, 28%);}
+        .r2 {@include rect(28%,   0, 70%, 12%);}
+        .r3 {@include rect(  0, 24%, 46%, 28%);}
+        .r4 {@include rect(  0, 70%, 30%, 17%);}
+        .r5 {@include rect(17%, 70%, 30%, 23%);}
+        .r6 {@include rect(40%,   0, 70%, 40%);}
+        .r7 {@include rect(80%,   0, 15%, 20%);}
+        .r8 {@include rect(40%, 70%, 30%, 40%);}
+        .r9 {@include rect(80%, 15%, 85%, 20%);}
+        
+        .r10 {
+            position: relative; z-index: 4;
+            width: 100%; height: auto; padding: 35px;
+            background-color: white;
+            font-style: normal;
+            @include border-radius(4px);
+            
+            > *:first-child {
+                margin-top: 0;
+            }
+            
+            > *:last-child {
+                margin-bottom: 0;
+            }
+            
+            p {
+                text-align: center;
+                text-align: justify;
+            }
+        }
+    }
+        
+    &.hidden {
+        visibility: hidden; 
+        @include opacity(0);
+        @include transition(all 0s .3s);
+
+        .overlay, .rects *, .content {
+            @include opacity(0);
+        }
+
+        .content {
+            @include transition(.2s);
+        }
+
+        .rects {
+            *               {@include transition(all .25s);}
+            .r1, .r2        {@include transform(translate(-18%, -18%) scale(.85));}
+            .r3, .r4, .r5   {@include transform(translate(18%, -18%)  scale(.85));}
+            .r6, .r7        {@include transform(translate(-18%, 18%)  scale(.85));}
+            .r8, .r9        {@include transform(translate(18%, 18%)   scale(.85));}
+            .r10            {@include opacity(0);}
+        }
+    }
+}
