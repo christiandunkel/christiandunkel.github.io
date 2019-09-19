@@ -165,6 +165,31 @@
             nav_btn.classList.toggle('nav-visible');
             nav_hidden_menu.classList.toggle('hidden');
         });
+        
+        // show bauhaus container when scrolling down
+        var bauhaus = document.getElementById('bauhaus');
+        var has_scrolled = false;
+        window.onscroll = function () {
+            has_scrolled = true;
+        };
+        setInterval(checkScroll, 50);
+        function checkScroll(e) {
+            if (window.has_scrolled) {
+                window.has_scrolled = false;
+                
+                var viewport_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                var distance_to_top = bauhaus.getBoundingClientRect().top;
+                var px_until_appearance = distance_to_top - viewport_height + 350;
+                
+                if (px_until_appearance > 0) {
+                    bauhaus.classList.add('hidden');
+                }
+                else {
+                    bauhaus.classList.remove('hidden');
+                }
+                
+            }
+        }
     </script>
     
     <script src="js/minified.js"></script>
