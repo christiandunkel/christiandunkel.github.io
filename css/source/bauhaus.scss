@@ -20,19 +20,23 @@
             @include transition(.4s ($delay * 1.4), background-color .6s (1.3s + ($delay / 2)));
         }
         
-        .r1 {@include rect(  0,   0, 24%, 40%, .075s);}
+        .r1 {@include rect(  0,   0, 24%, 40%, .075s); @include border-top-left-radius(8px);}
         .r2 {@include rect(  0, 24%, 46%, 40%, .15s);}
-        .r3 {@include rect(  0, 70%, 30%, 25%, .225s);}
+        .r3 {@include rect(  0, 70%, 30%, 25%, .225s); @include border-top-right-radius(8px);}
         .r4 {@include rect(40%,   0, 70%, 40%, .3s);}
-        .r5 {@include rect(80%,   0, 35%, 20%, .375s);}
+        .r5 {@include rect(80%,   0, 35%, 20%, .375s); @include border-bottom-left-radius(8px);}
         .r6 {@include rect(25%, 70%, 30%, 65%, .45s);}
-        .r7 {@include rect(80%, 35%, 65%, 20%, .525s);}
+        .r7 {@include rect(80%, 35%, 65%, 20%, .525s); @include border-bottom-right-radius(8px);}
     }
         
     .content {
         display: inline-block; position: relative; z-index: 4;
         max-width: 400px; width: 100%; height: auto; padding: 50px;
         font-style: normal;
+        
+        @include on-phone {
+            padding: 25px;
+        }
 
         * {
             color: white;
