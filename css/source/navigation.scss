@@ -154,6 +154,12 @@
     .content {
         position: relative;
         
+        .container {
+            position: static;
+            width: auto; height: auto;
+            @include transform(none);
+        }
+        
         a {
             display: inline-block; position: relative; z-index: 2;
             margin: 5px; padding: 16px 26px;
