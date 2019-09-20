@@ -37,6 +37,12 @@
             z-index: 5;
             background-color: white;
             @include transition-delay(.275s);
+            
+            .container {
+                position: absolute; top: 0; left: 50%;
+                max-width: $max-width; width: 100%; height: 100%;
+                @include transform(translate(-50%,0));
+            }
 
             .cross {
                 position: absolute; top: 15px; right: 15px; z-index: 2;
@@ -259,26 +265,31 @@
 #language-btn {
     display: inline-block; position: relative; z-index: 9997;
     width: 64px; height: 40px;
-    border: 1px solid #bebebe; overflow: hidden;
-    background-repeat: no-repeat;
-    @include background-size(100% 100%);
-    @include border-radius(4px);
-    @include transition(.2s);
 
     @include on-mobile {
         margin-right: 15px;
     }
 
-    &:hover {
+    &:hover b {
         @include opacity(.8);
     }
 
-    &:active {
+    &:active b {
         @include transform(scale(.9));
     }
+    
+    b {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        border: 1px solid #bebebe; overflow: hidden;
+        background-repeat: no-repeat;
+        @include background-size(100% 100%);
+        @include border-radius(4px);
+        @include transition(.2s);
 
-    html[lang=en] & {@extend %flag-usa;}
-    html[lang=de] & {@extend %flag-germany;}
+        html[lang=en] & {@extend %flag-usa;}
+        html[lang=de] & {@extend %flag-germany;}
+    }
 }
 
 #hamburger-btn {

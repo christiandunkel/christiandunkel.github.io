@@ -61,15 +61,19 @@
                 <div class=green></div>
                 
                 <div class="content">
-                    <div class=center>
-                        <a class="a1 active" href="#about">About</a><br />
-                        <a class=a2 href="#projects">Projects</a><br />
-                        <a class=a3 href="#contact">Contact</a>
-                        <div class=hover-bg></div>
+                    <div class=container>
+                        <div class=center>
+                            <a class="a1 active" href="#about">About</a><br />
+                            <a class=a2 href="#projects">Projects</a><br />
+                            <a class=a3 href="#contact">Contact</a>
+                            <div class=hover-bg></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button id=language-btn title="Select language"></button>
+            <button id=language-btn title="Select language">
+                <b></b>
+            </button>
             <button id=hamburger-btn title="Open navigation">
                 <b>
                     <i class=i1></i>
@@ -90,10 +94,12 @@
         <div class=green></div>
         
         <div class=content>
+            <div class=container>
             <button class=cross title="Close menu"></button>
-            <div class="center">
-                <a class="en current" title="English is selected">English</a>
-                <a class=de href="/de" title="Select German">Deutsch</a>
+                <div class=center>
+                    <a class="en current" title="English is selected">English</a>
+                    <a class=de href="/de" title="Select German">Deutsch</a>
+                </div>
             </div>
         </div>
     </div>
@@ -150,6 +156,8 @@
     <!-- scripts -->
     
     <script>
+        var scrollOptionsSupported = 'scrollBehavior' in document.documentElement.style;
+        
         var lang_btn = document.getElementById('language-btn');
         var lang_menu = document.getElementById('language-menu');
         var close_lang_btn = lang_menu.getElementsByClassName('cross')[0];
@@ -166,6 +174,54 @@
             nav_btn.classList.toggle('nav-visible');
             nav_hidden_menu.classList.toggle('hidden');
         });
+        
+        var to_top_btn = document.getElementById('to-top');
+        to_top_btn.addEventListener('click', scrollToTop);
+        var scrollToTopTimeout = 0;
+        var last_scroll = null;
+        function scrollToTop() {
+            
+            // get scrolling position
+            var y = window.scrollY || window.pageYOffset;
+            
+            // cancel if user has scrolled with mouse in between timeouts
+            if (window.last_scroll != null && 
+                window.last_scroll < y) {
+                window.last_scroll = null;
+                return;
+            }
+            
+            // directly skip to top, if values are too small
+            if (y < 10) {
+                if (scrollOptionsSupported) {
+                    window.scrollTo({top: 0, left: 0, behavior: 'auto'});
+                }
+                else {
+                    window.scrollTo(0, 0);
+                }
+                window.last_scroll = null;
+                return;
+            }
+            
+            window.last_scroll = y;
+            
+            // otherwise scroll with new increment
+            y /= 1.3;
+            if (scrollOptionsSupported) {
+                window.scrollTo({top: y, left: 0, behavior: 'auto'});
+            }
+            else {
+                window.scrollTo(0, y);
+            }
+            
+            // check if to request another scrooll
+            if (y > 0) {
+                scrollToTopTimeout = setTimeout(scrollToTop, 15);
+            }
+            else {
+                clearTimeout(scrollToTopTimeout);
+            }
+        }
         
         // show bauhaus container when scrolling down
         var bauhaus = document.getElementById('bauhaus');

@@ -48,16 +48,16 @@
         }
 
         > *:nth-child(2) {
-            @include transition(.8s 2.2s);
+            @include transition(.8s 2.3s);
         }
 
         > *:nth-child(3) {
-            @include transition(1s 2.4s);
+            @include transition(1s 2.7s);
         }
 
         > *:nth-child(4) {
             margin-bottom: 0;
-            @include transition(1.2s 2.6s);
+            @include transition(1.2s 3.2s);
         }
 
         p {
