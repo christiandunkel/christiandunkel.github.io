@@ -365,10 +365,14 @@
 #language-menu {
     z-index: 10000;
     
+    .center {
+        max-width: 400px;
+    }
+    
     .content a {
         display: inline-block; position: relative;
-        width: 100%; height: 60px; margin: 6px 0; padding: 15px 15px 15px 90px;
-        color: #747474; font-size: 18px; line-height: 30px; text-decoration: none;
+        width: 100%; margin: 6px 0; padding: 25px 25px 25px 128px;
+        color: #747474; font-size: 30px; line-height: 1em; text-decoration: none;
         @include text-wrap;
         @include border-radius(5px);
         @include transition(.2s);
@@ -381,15 +385,10 @@
             background-color: rgba(0,0,0,.1);
         }
 
-        span {
-            font-size: .7em;
-            @include opacity(.7);
-        }
-
         &:before {
             content: '';
-            display: block; position: absolute; top: 15px; left: 15px;
-            width: 50px; height: 30px;
+            display: block; position: absolute; top: 16px; left: 25px;
+            width: 80px; height: 48px;
             border: 1px solid #bebebe; background-repeat: no-repeat;
             @include background-size(100% 100%);
             @include border-radius(3px);
@@ -397,6 +396,23 @@
 
         &.en:before {@extend %flag-usa;}
         &.de:before {@extend %flag-germany;}
+    }
+        
+    @include on-phone {
+        
+        .center {
+            max-width: 290px;
+        }
+        
+        .content a {
+            padding: 15px 15px 15px 90px;
+            font-size: 24px;
+
+            &:before {
+                top: 9px; left: 15px;
+                width: 60px; height: 36px;
+            }
+        }
     }
 }
 
