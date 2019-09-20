@@ -59,6 +59,7 @@
                 <div class=blue></div>
                 <div class=orange></div>
                 <div class=green></div>
+                
                 <div class="content">
                     <div class=center>
                         <a class="a1 active" href="#about">About</a><br />
@@ -87,6 +88,7 @@
         <div class=blue></div>
         <div class=orange></div>
         <div class=green></div>
+        
         <div class=content>
             <button class=cross title="Close menu"></button>
             <div class="center">
@@ -110,18 +112,17 @@
     
     
         
-        <div id=bauhaus>
+        <div id=bauhaus class=hidden>
             <div class=rects>
                 <i class="r1 red"></i>
-                <i class="r2 orange"></i>
-                <i class="r3 blue"></i>
-                <i class="r4 orange"></i>
-                <i class="r5 green"></i>
-                <i class="r6 red"></i>
-                <i class="r7 green"></i>
-                <i class="r8 orange"></i>
-                <i class="r9 blue"></i>
-                <i class="r10">
+                <i class="r2 blue"></i>
+                <i class="r3 green"></i>
+                <i class="r4 green"></i>
+                <i class="r5 red"></i>
+                <i class="r6 orange"></i>
+                <i class="r7 blue"></i>
+                
+                <div class=content>
                 
                     <h2>What is Bauhaus?</h2>
                     
@@ -129,9 +130,9 @@
                     
                     <p>Originally, the <a href="https://en.wikipedia.org/wiki/Bauhaus" target="_blank" rel="noopener noreferrer">Bauhaus</a> was an art school founded in Weimar, Germany by architect Walter Gropius.</p>
                     
-                    <p>Today, the Bauhaus lives on as a way of design in art, architecture and industrial design. It upholds the principles of modernism, rationality and functionality.</p>
+                    <p>Today, the Bauhaus lives on as a way of design in art, architecture and industrial products. It upholds the principles of modernism, rationality and functionality.</p>
                 
-                </i>
+                </div>
             </div>
         </div>
         
@@ -172,7 +173,7 @@
         window.onscroll = function () {
             has_scrolled = true;
         };
-        setInterval(checkScroll, 50);
+        var check_scroll = setInterval(checkScroll, 50);
         function checkScroll(e) {
             if (window.has_scrolled) {
                 window.has_scrolled = false;
@@ -181,13 +182,12 @@
                 var distance_to_top = bauhaus.getBoundingClientRect().top;
                 var px_until_appearance = distance_to_top - viewport_height + 350;
                 
-                if (px_until_appearance > 0) {
-                    bauhaus.classList.add('hidden');
-                }
-                else {
+                if (px_until_appearance < 0) {
                     bauhaus.classList.remove('hidden');
+                    
+                    clearInterval(check_scroll);
+                    window.onscroll = undefined;
                 }
-                
             }
         }
     </script>
