@@ -45,13 +45,12 @@
         width: 100%; height: 100%;
         @include opacity(0);
         @include transform(scale(1.2));
-        @include transition(.3s);
+        @include transition(.3s .12s);
         
         &:before {
             content: '';
             position: absolute; top: 0; left: 0; z-index: -1;
             width: 100%; height: 100%;
-            background: currentColor;
             @include opacity(.9);
         }
         
@@ -67,7 +66,7 @@
         .center {
             display: inline-block; position: absolute; top: 50%; left: 0;
             width: 100%; padding: 20px;
-            @include transform(translate(0,-50%));
+            @include transform(translate(0, -50%));
             
             h3, p {
                 text-shadow: 1px 1px rgba(0,0,0,.2);
@@ -105,6 +104,7 @@
         .desc {
             @include opacity(1);
             @include transform(scale(1));
+            @include transition(.3s);
         }
     }
 }

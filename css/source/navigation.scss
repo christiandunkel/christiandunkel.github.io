@@ -200,18 +200,13 @@
                 margin: 0 2px 0 0; padding: 13px 13px;
                 font-size: 20px;
                 
-                &.a1.active {background-color: $bauhaus-red;}
-                &.a2.active {background-color: $bauhaus-blue;}
-                &.a3.active {background-color: $bauhaus-green;}
-                &.a4.active {background-color: $bauhaus-orange;}
+                &.a1.active, &.a1:hover {color: $bauhaus-red;}
+                &.a2.active, &.a2:hover {color: $bauhaus-blue;}
+                &.a3.active, &.a3:hover {color: $bauhaus-green;}
+                &.a4.active, &.a4:hover {color: $bauhaus-orange;}
                 
                 &.a1, &.a2, &.a3, &.a4 {
                     color: #676d86;
-                    
-                    &.active,
-                    &:hover {
-                        color: white;
-                    }
                 
                     &:before, 
                     &:hover:before {
@@ -230,54 +225,55 @@
             .hover-bg {
                 position: absolute; top: 0; left: 0; z-index: 1;
                 height: 46px;
+                border: 2px solid white;
                 @include border-radius(4px);
                 @include transition(.2s);
             }
             
             a.a1.active ~ .hover-bg {
                 width: $a1-width;
-                background-color: $bauhaus-red;
+                border-color: $bauhaus-red;
             }
             
             a.a2.active ~ .hover-bg {
                 left: $a1-width + $a-margin-right;
                 width: $a2-width;
-                background-color: $bauhaus-blue;
+                border-color: $bauhaus-blue;
             }
             
             a.a3.active ~ .hover-bg {
                 left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
-                background-color: $bauhaus-green;
+                border-color: $bauhaus-green;
             }
             
             a.a4.active ~ .hover-bg {
                 left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
                 width: $a4-width;
-                background-color: $bauhaus-orange;
+                border-color: $bauhaus-orange;
             }
             
             a.a1:hover ~ .hover-bg {
                 width: $a1-width;
-                background-color: $bauhaus-red;
+                border-color: $bauhaus-red;
             }
             
             a.a2:hover ~ .hover-bg {
                 left: $a1-width + $a-margin-right;
                 width: $a2-width;
-                background-color: $bauhaus-blue;
+                border-color: $bauhaus-blue;
             }
             
             a.a3:hover ~ .hover-bg {
                 left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
-                background-color: $bauhaus-green;
+                border-color: $bauhaus-green;
             }
             
             a.a4:hover ~ .hover-bg {
                 left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
                 width: $a4-width;
-                background-color: $bauhaus-orange;
+                border-color: $bauhaus-orange;
             }
         }
     }
@@ -286,7 +282,7 @@
 
 #language-btn {
     display: inline-block; position: relative; z-index: 9997;
-    width: 64px; height: 40px;
+    width: 52px; height: 32px; margin: 4px 0;
 
     @include on-mobile {
         margin-right: 15px;
