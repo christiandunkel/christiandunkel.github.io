@@ -18,25 +18,25 @@
         &.blue {
             z-index: 2;
             background-color: $bauhaus-blue;
-            @include transition-delay(.1s);
+            @include transition-delay(.06s);
         }
 
         &.orange {
             z-index: 3;
             background-color: $bauhaus-orange;
-            @include transition-delay(.2s);
+            @include transition-delay(.11s);
         }
 
         &.green {
             z-index: 4;
             background-color: $bauhaus-green;
-            @include transition-delay(.25s);
+            @include transition-delay(.15s);
         }
 
         &.content {
             z-index: 5;
             background-color: white;
-            @include transition-delay(.275s);
+            @include transition-delay(.18s);
             
             .container {
                 position: absolute; top: 0; left: 50%;
@@ -65,10 +65,10 @@
         > * {
             @include transform(translate(0, -100%));
 
-            &.red     {@include transition-delay(.275s);}
-            &.blue    {@include transition-delay(.25s);}
-            &.orange  {@include transition-delay(.2s);}
-            &.green   {@include transition-delay(.1s);}
+            &.red     {@include transition-delay(.00625s);}
+            &.blue    {@include transition-delay(.0125s);}
+            &.orange  {@include transition-delay(.025s);}
+            &.green   {@include transition-delay(.05s);}
             &.content {@include transition-delay(0s);}
         }
     }
