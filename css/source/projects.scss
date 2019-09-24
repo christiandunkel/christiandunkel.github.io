@@ -18,15 +18,15 @@
         @include project-btn-size(2);
     }
     
+    // all below one another
     @media (max-width: 550px) {
         width: 100%; margin: 1% 0; padding: 0 0 60% 0;
     }
-    
-    // all below one another
     @include on-phone {
-        width: 100%; margin: 1% 0; padding: 0 0 80% 0;
+        padding: 0 0 80% 0;
     }
     
+    // background images
     &.time-visualizer   {background-image: url(../img/project-time-visualizer.png);}
     &.tensquared        {background-image: url(../img/project-tensquared.png);}
     &.raytracer         {background-image: url(../img/project-raytracer.png);}
