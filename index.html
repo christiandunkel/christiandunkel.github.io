@@ -218,6 +218,15 @@
         var last_scroll = null;
         function scrollToTop() {
             
+            // if smooth scrolling is natively supported, use it
+            // otherwise, manually automate it
+            if (scrollOptionsSupported) {
+                window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+                return;
+            }
+            
+            
+            
             // get scrolling position
             var y = window.scrollY || window.pageYOffset;
             
@@ -244,14 +253,9 @@
             
             // otherwise scroll with new increment
             y /= 1.3;
-            if (scrollOptionsSupported) {
-                window.scrollTo({top: y, left: 0, behavior: 'auto'});
-            }
-            else {
-                window.scrollTo(0, y);
-            }
+            window.scrollTo(0, y);
             
-            // check if to request another scrooll
+            // check if to request another scroll
             if (y > 0) {
                 scrollToTopTimeout = setTimeout(scrollToTop, 15);
             }
