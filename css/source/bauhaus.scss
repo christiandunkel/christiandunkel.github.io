@@ -25,7 +25,7 @@
         .r3 {@include rect(  0, 70%, 30%, 25%, .225s); @include border-top-right-radius(8px);}
         .r4 {@include rect(40%,   0, 70%, 40%, .3s);}
         .r5 {@include rect(80%,   0, 35%, 20%, .375s); @include border-bottom-left-radius(8px);}
-        .r6 {@include rect(25%, 70%, 30%, 65%, .45s);}
+        .r6 {@include rect(25%, 70%, 30%, 55%, .45s);}
         .r7 {@include rect(80%, 35%, 65%, 20%, .525s); @include border-bottom-right-radius(8px);}
     }
         
