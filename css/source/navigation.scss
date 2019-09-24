@@ -183,8 +183,10 @@
             &.a1:hover  {color:            $bauhaus-red;}
             &.a2:before {background-color: $bauhaus-blue;}
             &.a2:hover  {color:            $bauhaus-blue;}
-            &.a3:before {background-color: $bauhaus-orange;}
-            &.a3:hover  {color:            $bauhaus-orange;}
+            &.a3:before {background-color: $bauhaus-green;}
+            &.a3:hover  {color:            $bauhaus-green;}
+            &.a4:before {background-color: $bauhaus-orange;}
+            &.a4:hover  {color:            $bauhaus-orange;}
         }
         
         @include on-desktop {
@@ -200,9 +202,10 @@
                 
                 &.a1.active {background-color: $bauhaus-red;}
                 &.a2.active {background-color: $bauhaus-blue;}
-                &.a3.active {background-color: $bauhaus-orange;}
+                &.a3.active {background-color: $bauhaus-green;}
+                &.a4.active {background-color: $bauhaus-orange;}
                 
-                &.a1, &.a2, &.a3 {
+                &.a1, &.a2, &.a3, &.a4 {
                     color: #676d86;
                     
                     &.active,
@@ -220,7 +223,8 @@
             
             $a1-width: 84.36px;
             $a2-width: 103.38px;
-            $a3-width: 99.98px;
+            $a3-width: 150.18px;
+            $a4-width: 99.98px;
             $a-margin-right: 2px;
             
             .hover-bg {
@@ -244,6 +248,12 @@
             a.a3.active ~ .hover-bg {
                 left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
+                background-color: $bauhaus-green;
+            }
+            
+            a.a4.active ~ .hover-bg {
+                left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
+                width: $a4-width;
                 background-color: $bauhaus-orange;
             }
             
@@ -261,6 +271,12 @@
             a.a3:hover ~ .hover-bg {
                 left: $a1-width + $a2-width + (2 * $a-margin-right);
                 width: $a3-width;
+                background-color: $bauhaus-green;
+            }
+            
+            a.a4:hover ~ .hover-bg {
+                left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
+                width: $a4-width;
                 background-color: $bauhaus-orange;
             }
         }
