@@ -5,31 +5,26 @@
     @include border-radius(5px);
     @include background-size(cover);
     
-    @mixin project-size($parts) {
-        
-        @if $parts > 1 {
-            $size: 96% / $parts;
-            width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
-        }
-        @else {
-            width: 100%; margin: 2% 0; padding: 0 0 80% 0;
-        }
-        
+    @mixin project-btn-size($parts) {
+        $size: 96% / $parts;
+        width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
     }
     
     // 3 beside each other
-    width: 30%; margin: 1.666%; padding: 0 0 30% 0;
-    @include project-size(3);
+    @include project-btn-size(3);
     
     // 2 beside each other
     @include on-mobile {
-        width: 46%; margin: 2%; padding: 0 0 46% 0;
-        @include project-size(2);
+        @include project-btn-size(2);
+    }
+    
+    @media (max-width: 550px) {
+        width: 100%; margin: 1% 0; padding: 0 0 60% 0;
     }
     
     // all below one another
-    @media (max-width: 450px) {
-        @include project-size(1);
+    @include on-phone {
+        width: 100%; margin: 1% 0; padding: 0 0 80% 0;
     }
     
     &.time-visualizer   {background-image: url(../img/project-time-visualizer.png);}
