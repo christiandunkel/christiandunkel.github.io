@@ -7,10 +7,12 @@ var _ = {
     },
     
     class : function (selector, context) {
+        context = context || document;
         return context.getElementsByClassName(selector);
     },
     
     tag : function (selector, context) {
+        context = context || document;
         return context.getElementsByTagName(selector);
     },
     
@@ -106,58 +108,6 @@ var _ = {
     
     
     
-    /* type tests */
-    
-    exists : function (n) {
-        return typeof(n) !== 'undefined' && n !== null;
-    },
-    
-    isElement : function (n) {
-        return n instanceof Element || n instanceof HTMLDocument;
-    },
-    
-    isElementInDOM : function (n) {
-        return _.isElement(n) ? document.documentElement.contains(n) : false;
-    },
-
-    isNodelist : function (n) {
-        return NodeList.prototype.isPrototypeOf(n);
-    },
-    
-    isHTMLCollection : function (n) {
-        return HTMLCollection.prototype.isPrototypeOf(n);
-    },
-    
-    isFunction : function (n) {
-        return typeof(n) === 'function';
-    },
-    
-    isObject : function (n) {
-        return typeof(n) === 'object' && n !== null;
-    },
-
-    isArray : function (n) {
-        return typeof(n) !== 'undefined' && n !== null && n.constructor === Array;
-    },
-
-    isString : function (n) {
-        return typeof(n) === 'string';
-    },
-
-    isNumber : function (n) {
-        return typeof(n) === 'number';
-    },
-
-    isInteger : function (n) {
-        return typeof(n) === 'number' && n % 1 === 0;
-    },
-
-    isFloat : function (n) {
-        return typeof(n) === 'number' && n % 1 !== 0;
-    },
-    
-    
-    
     /* classes */
     
     addClass : function (elem, class_) {
@@ -210,6 +160,58 @@ var _ = {
         
         return true;
         
+    },
+    
+    
+    
+    /* type tests */
+    
+    exists : function (n) {
+        return typeof(n) !== 'undefined' && n !== null;
+    },
+    
+    isElement : function (n) {
+        return n instanceof Element || n instanceof HTMLDocument;
+    },
+    
+    isElementInDOM : function (n) {
+        return _.isElement(n) ? document.documentElement.contains(n) : false;
+    },
+
+    isNodelist : function (n) {
+        return NodeList.prototype.isPrototypeOf(n);
+    },
+    
+    isHTMLCollection : function (n) {
+        return HTMLCollection.prototype.isPrototypeOf(n);
+    },
+    
+    isFunction : function (n) {
+        return typeof(n) === 'function';
+    },
+    
+    isObject : function (n) {
+        return typeof(n) === 'object' && n !== null;
+    },
+
+    isArray : function (n) {
+        return typeof(n) !== 'undefined' && n !== null && n.constructor === Array;
+    },
+
+    isString : function (n) {
+        return typeof(n) === 'string';
+    },
+
+    isNumber : function (n) {
+        return typeof(n) === 'number';
+    },
+
+    isInteger : function (n) {
+        return typeof(n) === 'number' && n % 1 === 0;
+    },
+
+    isFloat : function (n) {
+        return typeof(n) === 'number' && n % 1 !== 0;
     },
     
     
