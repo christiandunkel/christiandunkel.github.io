@@ -224,6 +224,12 @@ var _ = {
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
             return;
         }
+        
+        // if requestAnimationFrame API is not available, skip directly to top
+        if (!('requestAnimationFrame' in window)) {
+            window.scrollTo(0, 0);
+            return;
+        }
 
         // get scrolling position
         var y = window.scrollY || window.pageYOffset;
@@ -234,13 +240,43 @@ var _ = {
             delete _.scrollToTopTimeout;
             return;
         }
+        
+        var start_time = undefined;
+        var duration = 300;
 
-        // otherwise scroll with new increment
-        y /= 1.3;
-        window.scrollTo(0, y);
+        // start scrolling animation
+        window.requestAnimationFrame(function scrollStep(timestamp) {
+            
+            if (!start_time) {
+                start_time = timestamp;
+            }
+            
+            var time = timestamp - start_time;
+            
+            // percentage of completion in range 0 to 1
+            var percent = Math.min(time / duration, 1);
 
-        // request another animation frame
-        _.scrollToTopTimeout = setTimeout(_.scrollToTop, 15);
+            // scroll to new position
+            if (percent < 0.95) {
+                window.scrollTo(0, y * (1 - percent));
+            }
+            else {
+                // if percentage left is too small, skip rest of animation
+                window.scrollTo(0, 0);
+                return;
+            }
+
+            // proceed with animation, while time is not up
+            if (time < duration) {
+                window.requestAnimationFrame(scrollStep);
+            }
+            // if time is up, directly scroll to element
+            else {
+                window.scrollTo(0, 0);
+            }
+            
+        });
+        
     },
     
     scrollToElem : function (elem) {
@@ -265,8 +301,6 @@ var _ = {
         var y = window.scrollY || window.pageYOffset;
         var elem_y = elem.getBoundingClientRect().top + y;
         var diff = elem_y - y;
-        
-        console.log(elem_y + " " + y + " " + diff);
 
         // directly skip to pos, if distance is too small
         if (Math.abs(diff) < 10) {
@@ -275,7 +309,7 @@ var _ = {
         }
         
         var start_time = undefined;
-        var duration = 200;
+        var duration = 300;
 
         // start scrolling animation
         window.requestAnimationFrame(function scrollStep(timestamp) {
@@ -289,7 +323,15 @@ var _ = {
             // percentage of completion in range 0 to 1
             var percent = Math.min(time / duration, 1);
 
-            window.scrollTo(0, y + diff * percent);
+            // scroll to new position
+            if (percent < 0.95) {
+                window.scrollTo(0, y + diff * percent);
+            }
+            else {
+                // if percentage left is too small, skip rest of animation
+                window.scrollTo(0, elem_y);
+                return;
+            }
 
             // proceed with animation, while time is not up
             if (time < duration) {
