@@ -94,6 +94,14 @@ main {
     max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px 20px 20px;
 }
 
+section {
+    
+    &.content {
+        padding: 90px 0;
+        text-align: center;
+    }
+}
+
 hr {
     margin: 50px 0;
     border: dashed #e8e8e8; border-width: 3px 0 0 0;
@@ -109,9 +117,4 @@ h2 {
     &.blue   {color: $bauhaus-blue;}
     &.orange {color: $bauhaus-orange;}
     &.green  {color: $bauhaus-green;}
-}
-
-.anchor-link {
-    display: block;
-    width: 1px; height: 1px;
 }

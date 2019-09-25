@@ -254,6 +254,7 @@
             }
             
             a.a1:hover ~ .hover-bg {
+                left: 0;
                 width: $a1-width;
                 border-color: $bauhaus-red;
             }

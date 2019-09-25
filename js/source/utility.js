@@ -96,13 +96,64 @@ var _ = {
     },
     
     target : function (e) {
-        
-        if (!_.exists(e)) {
-            return console.error('No valid event given.');
-        }
-        
         return e.target || e.srcElement;
-        
+    },
+    
+    preventDefault : function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    },
+    
+    
+    
+    /* type tests */
+    
+    exists : function (n) {
+        return typeof(n) !== 'undefined' && n !== null;
+    },
+    
+    isElement : function (n) {
+        return n instanceof Element || n instanceof HTMLDocument;
+    },
+    
+    isElementInDOM : function (n) {
+        return _.isElement(n) ? document.documentElement.contains(n) : false;
+    },
+
+    isNodelist : function (n) {
+        return NodeList.prototype.isPrototypeOf(n);
+    },
+    
+    isHTMLCollection : function (n) {
+        return HTMLCollection.prototype.isPrototypeOf(n);
+    },
+    
+    isFunction : function (n) {
+        return typeof(n) === 'function';
+    },
+    
+    isObject : function (n) {
+        return typeof(n) === 'object' && n !== null;
+    },
+
+    isArray : function (n) {
+        return typeof(n) !== 'undefined' && n !== null && n.constructor === Array;
+    },
+
+    isString : function (n) {
+        return typeof(n) === 'string';
+    },
+
+    isNumber : function (n) {
+        return typeof(n) === 'number';
+    },
+
+    isInteger : function (n) {
+        return typeof(n) === 'number' && n % 1 === 0;
+    },
+
+    isFloat : function (n) {
+        return typeof(n) === 'number' && n % 1 !== 0;
     },
     
     
@@ -177,35 +228,80 @@ var _ = {
         // get scrolling position
         var y = window.scrollY || window.pageYOffset;
 
-        // cancel if user has scrolled with mouse in between timeouts
-        if (_.last_scroll != null && 
-            _.last_scroll < y) 
-        {
-            _.last_scroll = null;
-            return;
-        }
-
-        // directly skip to top, if values are too small
+        // directly skip to top, if distance is too small
         if (y < 10) {
             window.scrollTo(0, 0);
-            _.last_scroll = null;
+            delete _.scrollToTopTimeout;
             return;
         }
-
-        _.last_scroll = y;
 
         // otherwise scroll with new increment
         y /= 1.3;
         window.scrollTo(0, y);
 
-        // check if to request another scroll
-        if (y > 0) {
-            _.scrollToTopTimeout = setTimeout(_.scrollToTop, 15);
+        // request another animation frame
+        _.scrollToTopTimeout = setTimeout(_.scrollToTop, 15);
+    },
+    
+    scrollToElem : function (elem) {
+        
+        // use scrollIntoView with smooth scroll behavior if available
+        // otherwise, manually automate it
+        if ('scrollBehavior' in document.documentElement.style &&
+            'scrollIntoView' in document.documentElement) {
+            
+            elem.scrollIntoView({behavior:'smooth'});
+            return;
         }
-        else {
-            clearTimeout(_.scrollToTopTimeout);
-            delete _.scrollToTopTimeout;
+        
+        // if requestAnimationFrame API is not available, use location
+        if (!('requestAnimationFrame' in window)) {
+            location.href = '#'; // fixes a bug in older webkit browsers
+            location.href = '#' + elem.id;
+            return;
         }
+
+        // get scrolling position
+        var y = window.scrollY || window.pageYOffset;
+        var elem_y = elem.getBoundingClientRect().top + y;
+        var diff = elem_y - y;
+        
+        console.log(elem_y + " " + y + " " + diff);
+
+        // directly skip to pos, if distance is too small
+        if (Math.abs(diff) < 10) {
+            window.scrollTo(0, elem_y);
+            return;
+        }
+        
+        var start_time = undefined;
+        var duration = 200;
+
+        // start scrolling animation
+        window.requestAnimationFrame(function scrollStep(timestamp) {
+            
+            if (!start_time) {
+                start_time = timestamp;
+            }
+            
+            var time = timestamp - start_time;
+            
+            // percentage of completion in range 0 to 1
+            var percent = Math.min(time / duration, 1);
+
+            window.scrollTo(0, y + diff * percent);
+
+            // proceed with animation, while time is not up
+            if (time < duration) {
+                window.requestAnimationFrame(scrollStep);
+            }
+            // if time is up, directly scroll to element
+            else {
+                window.scrollTo(0, elem_y);
+            }
+            
+        });
+        
     }
     
 }
