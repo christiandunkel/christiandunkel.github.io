@@ -359,20 +359,7 @@ var _ = {
 // container for HTML elements
 var NODE = {};
 
-    
-/* language menu */
 
-NODE.lang_btn = _.id('language-btn');
-NODE.lang_menu = _.id('language-menu');
-NODE.close_lang_btn = _.class('cross', NODE.lang_menu)[0];
-
-_.onClick(NODE.lang_btn, function () {
-    _.toggleClass(NODE.lang_menu, 'hidden');
-});
-
-_.onClick(NODE.close_lang_btn, function () {
-    _.addClass(NODE.lang_menu, 'hidden');
-});
 
 
 
@@ -488,6 +475,114 @@ _.onClick(NODE.to_top_btn, _.scrollToTop);
 
 
 
+
+
+/* language selection */
+
+NODE.lang_btn = _.id('language-btn');
+NODE.lang_menu = _.id('language-menu');
+NODE.close_lang_btn = _.class('cross', NODE.lang_menu)[0];
+
+// events to open and close language menu
+_.onClick(NODE.lang_btn, toggleLangMenu);
+_.onClick(NODE.close_lang_btn, closeLangMenu);
+
+function toggleLangMenu() {
+    _.toggleClass(NODE.lang_menu, 'hidden');
+}
+
+function closeLangMenu() {
+    _.addClass(NODE.lang_menu, 'hidden');
+}
+
+// events to change language
+
+NODE.lang_select_btns = _.class('lang-select-btn');
+
+for (var i = NODE.lang_select_btns.length; i--;) {
+    _.onClick(NODE.lang_select_btns[i], changeLanguage);
+}
+
+function changeLanguage(e) {
+    
+    var target = _.target(e);
+    var lang = _.hasClass(target, 'de') ? 'de' : 'en';
+    var current_lang = document.documentElement.getAttribute('lang');
+
+    // if a new language was selected
+    if (lang != current_lang) {
+
+        // set target button as current, and all others as not
+        setLanguageBtnActive(target);
+
+        // set value of global lang attribute
+        document.documentElement.setAttribute('lang', lang);
+        
+        closeLangMenu();
+        updateTitleAttributes();
+        updateSectionPositions();
+    }
+}
+
+// update currently selected language button
+setLanguageBtnActive( document.documentElement.getAttribute('lang') );
+
+function setLanguageBtnActive(elem) {
+    
+    for (var i = NODE.lang_select_btns.length; i--;) {
+    
+        // get element if it's a string (class)
+        if (_.isString(elem) && _.hasClass(NODE.lang_select_btns[i], elem)) {
+            elem = NODE.lang_select_btns[i];
+        }
+        
+        _.removeClass(NODE.lang_select_btns[i], 'current');
+    }
+    
+    _.addClass(elem, 'current');
+    
+}
+
+// update titles attribute to current language 
+
+NODE.lang_title_elems = _.select('*[title]');
+
+// filter out invalid elements and add copy of title as "title-en" attribute
+window.valid_elems = [];
+for (var i = NODE.lang_title_elems.length; i--;) {
+    
+    var elem = NODE.lang_title_elems[i];
+    
+    // check if element has all other language variations of the title attribute 
+    if (elem.hasAttribute('title-de')) {
+        elem.setAttribute('title-en', NODE.lang_title_elems[i].title);
+        window.valid_elems[window.valid_elems.length] = elem;
+    }
+    
+}
+NODE.lang_title_elems = window.valid_elems;
+delete window.valid_elems;
+
+// if language was changed by language detection in <head> element
+if (document.documentElement.getAttribute('lang') != 'en') {
+    updateTitleAttributes();
+}
+
+function updateTitleAttributes() {
+    
+    var lang_code = document.documentElement.getAttribute('lang');
+    
+    for (var i = NODE.lang_title_elems.length; i--;) {
+        var elem = NODE.lang_title_elems[i];
+        elem.title = elem.getAttribute('title-' + lang_code);
+    }
+    
+}
+
+
+
+
+
 /* bauhaus message */
 
 NODE.bauhaus = _.id('bauhaus');
@@ -512,6 +607,8 @@ window.updateBauhausMsgDiv = function (e) {
     }
 
 }
+
+
 
 
 

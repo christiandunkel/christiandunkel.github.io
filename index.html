@@ -6,14 +6,6 @@
     <meta charset="utf-8" />
     <title>Christian Dunkel - Portfolio</title>
     
-    <!-- languages -->
-    
-    <link rel="alternate" hreflang="x-default" href="https://christiandunkel.github.io" />
-    <link rel="alternate" hreflang="en" href="https://christiandunkel.github.io" />
-    <link rel="alternate" hreflang="de" href="https://christiandunkel.github.io/de" />
-    
-    <!-- -->
-    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0" />
 
@@ -34,9 +26,25 @@
     
     <script type="text/javascript">
         
-        // tell CSS that Javascript is on
         (function () {
-            document.getElementsByTagName('html')[0].className += 'jsOn';
+            
+            var html = document.getElementsByTagName('html')[0];
+            
+            // tell CSS that Javascript is on
+            html.className += 'jsOn';
+            
+            // get current language e.g. "en"
+            // not really reliable, but best option since there's no back-end on Github pages
+            var lang_code = window.navigator.languages ? window.navigator.languages[1] : 
+                            (window.navigator.userLanguage ||
+                             window.navigator.browserLangague ||
+                             window.navigator.language).substring(0,2);
+            
+            // check if user uses supported language besides English
+            if (lang_code == 'de') {
+                html.setAttribute('lang', lang_code);
+            }
+            
         })();
         
     </script>
@@ -61,19 +69,31 @@
                 <div class="content">
                     <div class=container>
                         <div class=center>
-                            <a class="a1 active" href="#about">About</a><br />
-                            <a class=a2 href="#projects">Projects</a><br />
-                            <a class=a3 href="#technologies">Technologies</a><br />
-                            <a class=a4 href="#contact">Contact</a>
+                            <a class="a1 active" href="#about">
+                                <span lang=en>About</span>
+                                <span lang=de>Über mich</span>
+                            </a><br />
+                            <a class=a2 href="#projects">
+                                <span lang=en>Projects</span>
+                                <span lang=de>Projekte</span>
+                            </a><br />
+                            <a class=a3 href="#technologies">
+                                <span lang=en>Technologies</span>
+                                <span lang=de>Technologien</span>
+                            </a><br />
+                            <a class=a4 href="#contact">
+                                <span lang=en>Contact</span>
+                                <span lang=de>Kontakt</span>
+                            </a>
                             <div class=hover-bg></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button id=language-btn title="Select language">
+            <button id=language-btn title="Select a language" title-de="Wähle eine Sprache">
                 <b></b>
             </button>
-            <button id=hamburger-btn title="Open navigation">
+            <button id=hamburger-btn title="Open the navigation" title-de="Öffne die Navigation">
                 <b>
                     <i class=i1></i>
                     <i class=i2></i>
@@ -92,10 +112,10 @@
         
         <div class=content>
             <div class=container>
-            <button class=cross title="Close menu"></button>
+            <button class=cross title="Close menu" title-de="Schließe des Menü"></button>
                 <div class=center>
-                    <a class="en current" title="English is selected">English</a>
-                    <a class=de href="/de" title="Select German">Deutsch</a>
+                    <button class="lang-select-btn en">English</button>
+                    <button class="lang-select-btn de" title="German">Deutsch</button>
                 </div>
             </div>
         </div>
@@ -113,19 +133,31 @@
         
         <section id=about class=section-content>
 
-            <h2 class=red>About</h2><br />
+            <h2 class=red>
+                <span lang=en>About</span>
+                <span lang=de>Über mich</span>
+            </h2><br />
             
         </section>
         
         <section id=projects class=section-content>
         
-            <h2 class=blue>Projects</h2><br />
+            <h2 class=blue>
+                <span lang=en>Projects</span>
+                <span lang=de>Projekte</span>
+            </h2><br />
 
             <figure class="project time-visualizer" used="js html css">
                 <figcaption class="desc red">
                     <div class=center>
-                        <h3>Time Visualizer</h3>
-                        <p>Web app for visualizing data changes over time</p>
+                        <h3>
+                            <span lang=en>Time Visualizer</span>
+                            <span lang=de>Zeit Visualisierer</span>
+                        </h3>
+                        <p>
+                            <span lang=en>Web app for visualizing data changes over time</span>
+                            <span lang=de>Web App für das Visualisieren von Datenänderungen über Zeit</span>
+                        </p>
                         <a href="https://christiandunkel.github.io/time-visualizer">Demo</a>
                         <a href="https://github.com/christiandunkel/time-visualizer">Code</a>
                     </div>
@@ -136,7 +168,10 @@
                 <figcaption class="desc green">
                     <div class=center>
                         <h3>tensquared</h3>
-                        <p>2D puzzle platform game made in Unity</p>
+                        <p>
+                            <span lang=en>2D puzzle platform game made in Unity</span>
+                            <span lang=de>2D Puzzle Platformer Spiel erstellt in Unity</span>
+                        </p>
                         <a href="https://github.com/christiandunkel/tensquared/releases">Download</a>
                         <a href="https://github.com/christiandunkel/tensquared">Code</a>
                     </div>
@@ -147,7 +182,10 @@
                 <figcaption class="desc blue">
                     <div class=center>
                         <h3>Raytracer</h3>
-                        <p>C++ Raytracer with shading, reflection, transparency &amp; more</p>
+                        <p>
+                            <span lang=en>C++ Raytracer with shading, reflection, transparency &amp; more</span>
+                            <span lang=de>C++ Raytracer mit Schatten, Reflektion, Transparenz &amp; mehr</span>
+                        </p>
                         <a href="https://github.com/christiandunkel/raytracer">Code</a>
                     </div>
                 </figcaption>
@@ -157,13 +195,19 @@
         
         <section id=technologies class=section-content>
         
-            <h2 class=green>Technologies</h2><br />
+            <h2 class=green>
+                <span lang=en>Technologies</span>
+                <span lang=de>Technologien</span>
+            </h2><br />
             
         </section>
         
         <section id=contact class=section-content>
         
-            <h2 class=orange>Contact</h2><br />
+            <h2 class=orange>
+                <span lang=en>Contact</span>
+                <span lang=de>Kontakt</span>
+            </h2><br />
         
         </section>
         
@@ -179,13 +223,25 @@
                 
                 <div class=content>
                 
-                    <h2>What is Bauhaus?</h2>
+                    <h2>
+                        <span lang=en>What is Bauhaus?</span>
+                        <span lang=de>Was ist Bauhaus?</span>
+                    </h2>
                     
-                    <p>This website's design is inspired by the <i>Bauhaus</i> principles.</p>
+                    <p>
+                        <span lang=en>The design of this website is inspired by the <i>Bauhaus</i> principles.</span>
+                        <span lang=de>Das Design dieser Website ist inspiriert von den <i>Bauhaus</i> Prinzipien.</span>
+                    </p>
                     
-                    <p>Originally, the <a href="https://en.wikipedia.org/wiki/Bauhaus" target="_blank" rel="noopener noreferrer">Bauhaus</a> was an art school founded in Weimar, Germany by architect Walter Gropius.</p>
+                    <p>
+                        <span lang=en>Originally, the <a href="https://en.wikipedia.org/wiki/Bauhaus" target="_blank" rel="noopener noreferrer">Bauhaus</a> was an art school founded in Weimar, Germany by architect Walter Gropius.</span>
+                        <span lang=de>Am Anfang war das <a href="https://de.wikipedia.org/wiki/Bauhaus" target="_blank" rel="noopener noreferrer">Bauhaus</a> eine Design-Schule gegründet in Weimar durch den Architekten Walter Gropius.</span>
+                    </p>
                     
-                    <p>Today, the Bauhaus lives on as a way of design in art, architecture and industrial products. It upholds the principles of modernism, rationality and functionality.</p>
+                    <p>
+                        <span lang=en>Today, the Bauhaus lives on as a way of design in art, architecture and industrial products. It upholds the principles of modernism, rationality and functionality.</span>
+                        <span lang=de>Heute lebt das Bauhaus weiter als eine Art des Designs in Kunst, Architektur und industriellen Produkten. Es vertritt die Prinzipien des Modernismus, Rationalismus und funktionellem Designs.</span>
+                    </p>
                 
                 </div>
             </div>
@@ -193,7 +249,7 @@
         
     </main>
     
-    <button id=to-top title="Go to top">
+    <button id=to-top title="Go to top" title-de="Nach oben">
         <b>
             <i class=head1></i>
             <i class=head2></i>

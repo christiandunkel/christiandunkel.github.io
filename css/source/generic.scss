@@ -118,3 +118,15 @@ h2 {
     &.orange {color: $bauhaus-orange;}
     &.green  {color: $bauhaus-green;}
 }
+
+html {
+    
+    &[lang=en] [lang]:not([lang=en]) {
+        display: none;
+    }
+    
+    &[lang=de] [lang]:not([lang=de]) {
+        display: none;
+    }
+    
+}
