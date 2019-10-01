@@ -1,5 +1,8 @@
 // container for HTML elements
 var NODE = {};
+NODE.html = document.documentElement || _.tag('html')[0];
+NODE.head = document.head || _.tag('head')[0];
+NODE.body = document.body || _.tag('body')[0];
 
 
 
@@ -116,6 +119,74 @@ NODE.to_top_btn = _.id('to-top');
 _.onClick(NODE.to_top_btn, _.scrollToTop);
 
 
+// add CSS for the nav indicator (dependent on browser and button content)
+NODE.nav_indicator = _.class('hover-bg')[0];
+
+function updateNavIndicator() {
+    
+    _.remove(NODE.nav_indicator_style);
+    
+    var selector = '#nav .content';
+    var style = selector + ' .hover-bg {display: block !important;}';
+    var num = NODE.nav_links.length;
+    
+    if (num == 0) return;
+    
+    var sizes = {
+        height      : _.getHeight(NODE.nav_links[0]),
+        marginRight : 2,
+        width       : {},
+        left        : {}
+    };
+    
+    // get sizes of all elements
+    for (var i = 0; i < num; i++) {
+        sizes.width[i] = _.getWidth(NODE.nav_links[i]);
+        
+        var left = 0;
+        for (var j = i; j--;) {
+            left += sizes.width[j];
+        }
+        sizes.left[i] = left + i * sizes.marginRight;
+    }
+    
+    // generate code for '.active' CSS effect
+    for (var i = 0; i < num; i++) {
+        
+        var elem = NODE.nav_links[i];
+        
+        style += selector + ' a.a' + (i+1) + '.active ~ .hover-bg {'
+               +    'left:'    + sizes.left[i] + 'px;'
+               +    'width:'   + sizes.width[i] + 'px;'
+               + '}';
+        
+    }
+    
+    // generate code for ':hover' CSS effect
+    // (must come after '.active' effect to overwrite it)
+    for (var i = 0; i < num; i++) {
+        
+        var elem = NODE.nav_links[i];
+        
+        style += selector + ' a.a' + (i+1) + ':hover ~ .hover-bg {'
+               +    'left:'    + sizes.left[i] + 'px;'
+               +    'width:'   + sizes.width[i] + 'px;'
+               + '}';
+        
+    }
+    
+    NODE.nav_indicator_style = _.create('style', {
+        'type' : 'text/css',
+        'innerHTML' : style
+    });
+    
+    _.append(NODE.head, NODE.nav_indicator_style);
+    
+}
+_.onLoad(window, updateNavIndicator);
+_.addEvent(window, 'resize', updateNavIndicator);
+
+
 
 
 
@@ -149,7 +220,7 @@ function changeLanguage(e) {
     
     var target = _.target(e);
     var lang = _.hasClass(target, 'de') ? 'de' : 'en';
-    var current_lang = document.documentElement.getAttribute('lang');
+    var current_lang = NODE.html.getAttribute('lang');
 
     // if a new language was selected
     if (lang != current_lang) {
@@ -158,16 +229,18 @@ function changeLanguage(e) {
         setLanguageBtnActive(target);
 
         // set value of global lang attribute
-        document.documentElement.setAttribute('lang', lang);
+        NODE.html.setAttribute('lang', lang);
         
         closeLangMenu();
         updateTitleAttributes();
         updateSectionPositions();
+        
+        updateNavIndicator();
     }
 }
 
 // update currently selected language button
-setLanguageBtnActive( document.documentElement.getAttribute('lang') );
+setLanguageBtnActive( NODE.html.getAttribute('lang') );
 
 function setLanguageBtnActive(elem) {
     
@@ -206,13 +279,13 @@ NODE.lang_title_elems = window.valid_elems;
 delete window.valid_elems;
 
 // if language was changed by language detection in <head> element
-if (document.documentElement.getAttribute('lang') != 'en') {
+if (NODE.html.getAttribute('lang') != 'en') {
     updateTitleAttributes();
 }
 
 function updateTitleAttributes() {
     
-    var lang_code = document.documentElement.getAttribute('lang');
+    var lang_code = NODE.html.getAttribute('lang');
     
     for (var i = NODE.lang_title_elems.length; i--;) {
         var elem = NODE.lang_title_elems[i];
@@ -232,7 +305,7 @@ NODE.bauhaus = _.id('bauhaus');
 // show bauhaus container when scrolling down
 window.updateBauhausMsgDiv = function (e) {
 
-    var viewport_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var viewport_height = Math.max(NODE.html.clientHeight, window.innerHeight || 0);
     var distance_to_top = bauhaus.getBoundingClientRect().top;
 
     // pixel distance until the message should appear 

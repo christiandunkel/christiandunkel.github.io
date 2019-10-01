@@ -207,7 +207,7 @@
             $a-margin-right: 2px;
             
             .hover-bg {
-                position: absolute; top: 0; left: 0; z-index: 1;
+                display: none; position: absolute; top: 0; left: -100%; z-index: 1;
                 height: 46px;
                 border: 2px solid white;
                 @include border-radius(4px);
@@ -215,49 +215,34 @@
             }
             
             a.a1.active ~ .hover-bg {
-                width: $a1-width;
                 border-color: $bauhaus-red;
             }
             
             a.a2.active ~ .hover-bg {
-                left: $a1-width + $a-margin-right;
-                width: $a2-width;
                 border-color: $bauhaus-blue;
             }
             
             a.a3.active ~ .hover-bg {
-                left: $a1-width + $a2-width + (2 * $a-margin-right);
-                width: $a3-width;
                 border-color: $bauhaus-green;
             }
             
             a.a4.active ~ .hover-bg {
-                left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
-                width: $a4-width;
                 border-color: $bauhaus-orange;
             }
             
             a.a1:hover ~ .hover-bg {
-                left: 0;
-                width: $a1-width;
                 border-color: $bauhaus-red;
             }
             
             a.a2:hover ~ .hover-bg {
-                left: $a1-width + $a-margin-right;
-                width: $a2-width;
                 border-color: $bauhaus-blue;
             }
             
             a.a3:hover ~ .hover-bg {
-                left: $a1-width + $a2-width + (2 * $a-margin-right);
-                width: $a3-width;
                 border-color: $bauhaus-green;
             }
             
             a.a4:hover ~ .hover-bg {
-                left: $a1-width + $a2-width + $a3-width + (3 * $a-margin-right);
-                width: $a4-width;
                 border-color: $bauhaus-orange;
             }
         }

@@ -47,6 +47,110 @@ var _ = {
     
     
     
+    /* manipulation */
+    
+    create : function (str, settings) {
+        
+        if (typeof(settings) === 'undefined') {
+            settings = {};
+        }
+        
+        var id = str.match(/#[^\.#\s]+/g);
+        var classes = str.match(/\.[^#\s\.]+/g);
+        var elem = document.createElement(str.replace(/#[^\.#\s]+|\.[^#\s]+|\s/g,''));
+
+        // apply id from string as attribute
+        if (id) {
+            elem.id = id[0].replace(/#/, '');
+        }
+
+        // apply classes from string as attribute
+        if (classes) {
+            elem.className = classes.join(' ').replace(/\./g, '');
+        }
+
+        for (var key in settings) {
+
+            // skip iteration if the current property belongs to the prototype
+            if (settings.hasOwnProperty.call(settings, key)) {
+                switch (key) {
+
+                    case 'innerHTML':    
+                        elem.innerHTML = settings[key];
+                        break;
+
+                    case 'style':
+                        for (var prop in settings[key]) {
+                            elem.style.setProperty(prop, settings[key][prop]);
+                        }
+                        break;
+
+                    default:
+                        elem.setAttribute(key, settings[key]);
+
+                }
+            }
+
+        }
+        
+        return elem;
+        
+    },
+
+    append : function (elem1, elem2) {
+
+        // if elem2 is text or a number, convert it to a text node
+        if (_.isString(elem2) || _.isNumber(elem2)) {
+            elem2 = document.createTextNode(elem2);
+        }
+        
+        elem1.appendChild(elem2);
+
+    },
+
+    prepend : function (elem1, elem2) {
+        
+        // if elem2 is text or a number, convert it to a text node
+        if (_.isString(elem2) || _.isNumber(elem2)) {
+            elem2 = document.createTextNode(elem2);
+        }
+        
+        elem1.insertBefore(elem2, elem1.childNodes[0]);
+
+    },
+
+    after : function (elem1, elem2) {
+        
+        // if elem2 is text or a number, convert it to a text node
+        if (_.isString(elem2) || _.isNumber(elem2)) {
+            elem2 = document.createTextNode(elem2);
+        }
+        
+        elem1.parentNode.insertBefore(elem2, elem1.nextSibling);
+
+    },
+
+    before : function (elem1, elem2) {
+        
+        // if elem2 is text or a number, convert it to a text node
+        if (_.isString(elem2) || _.isNumber(elem2)) {
+            elem2 = document.createTextNode(elem2);
+        }
+
+        elem1.insertBefore(elem2, elem1);
+
+    },
+    
+    remove : function (elem) {
+        
+        if (_.isElement(elem)) {
+            elem.parentNode.removeChild(elem);
+        }
+        
+    },
+    
+    
+    
     /* events */
     
     addEvent : function (elem, event, fn, useCapture) {
@@ -159,6 +263,43 @@ var _ = {
         }
         
         return true;
+        
+    },
+    
+    
+    
+    /* CSS */
+    
+    getStyle : function (elem, style) {
+        
+        if ('getComputedStyle' in window) {
+            return window.getComputedStyle(elem, null).getPropertyValue(style);
+        }
+        else if ('currentStyle' in elem) {
+            return elem.currentStyle[style];
+        }
+        
+    },
+    
+    setStyles : function (elem, styles) {
+        
+        for (var style_name in styles) {
+            elem.style.setProperty(style_name, styles[style_name]);
+        }
+        
+    },
+
+    getHeight : function (elem) {
+        
+        var r = elem.getBoundingClientRect();
+        return r.bottom - r.top;
+        
+    },
+
+    getWidth : function (elem) {
+        
+        var r = elem.getBoundingClientRect();
+        return r.right - r.left;
         
     },
     
