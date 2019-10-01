@@ -346,6 +346,7 @@ function updateScrollEffects() {
     window.has_scrolled = false;
     
     updateBauhausMsgDiv();
+    updateSectionPositions();
     updateNavButtons();
     
 }
