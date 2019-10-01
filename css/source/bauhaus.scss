@@ -5,12 +5,28 @@
     .rects {
         display: inline-block; position: relative;
         max-width: 400px; width: 100%;
+        
+        &:after {
+            content: '';
+            display: block; position: absolute; top: 0; left: 0; z-index: 0;
+            width: 100%; height: 100%;
+            @include border-radius(8px);
+            @include box-shadow(
+                0 1px 1px rgba(0,0,0,.1),
+                0 2px 2px rgba(0,0,0,.1),
+                0 4px 4px rgba(0,0,0,.1),
+                0 8px 8px rgba(0,0,0,.1),
+                0 16px 16px rgba(0,0,0,.1),
+                0 32px 32px rgba(0,0,0,.1)
+            );
+            @include transition(1.5s .8s);
+        }
     
         > * {
             display: block; position: absolute; z-index: 3;
         }
         
-        .red, .blue, .orange, .green {
+        .red, .blue, .orange, .green, &:after {
             background-color: #2f2f2f;
         }
         
@@ -75,26 +91,32 @@
     }
         
     &.hidden {
-        visibility: hidden; 
+        visibility: hidden;
         @include opacity(0);
-        @include transition(all 0s .35s);
 
-        .rects > * {
-            @include opacity(0);
-            @include transition(.3s);
-        }
-
-        .rects > *:not(.content) {
-            @include transform(translate(-18%, -18%) scale(.6));
-
-            &.red       {background-color: $bauhaus-red;}
-            &.blue      {background-color: $bauhaus-blue;}
-            &.orange    {background-color: $bauhaus-orange;}
-            &.green     {background-color: $bauhaus-green;}
-        }
+        .rects {
+            
+            &:after {
+                @include opacity(0);
+            }
         
-        .content > * {
-            @include transform(translate(0, 15px));
+            > * {
+                @include opacity(0);
+                @include transition(.3s);
+
+                &:not(.content) {
+                    @include transform(translate(-18%, -18%) scale(.6));
+
+                    &.red       {background-color: $bauhaus-red;}
+                    &.blue      {background-color: $bauhaus-blue;}
+                    &.orange    {background-color: $bauhaus-orange;}
+                    &.green     {background-color: $bauhaus-green;}
+                }
+            }
+        
+            .content > * {
+                @include transform(translate(0, 15px));
+            }
         }
     }
 }
