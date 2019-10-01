@@ -59,17 +59,17 @@
 
     &.hidden {
         top: -5px;
-        width: 0; height: 0;
-        @include transition(0s .7s);
+        width: 1px; height: 1px;
+        @include transition(all 0s .7s);
 
         > * {
             @include transform(translate(0, -100%));
 
-            &.red     {@include transition-delay(.00625s);}
-            &.blue    {@include transition-delay(.0125s);}
-            &.orange  {@include transition-delay(.025s);}
-            &.green   {@include transition-delay(.05s);}
-            &.content {@include transition-delay(0s);}
+            &.red       {@include transition-delay(.05s);}
+            &.blue      {@include transition-delay(.025s);}
+            &.orange    {@include transition-delay(.0125s);}
+            &.green     {@include transition-delay(.00625s);}
+            &.content   {@include transition-delay(0s);}
         }
     }
     
