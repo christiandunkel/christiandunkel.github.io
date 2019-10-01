@@ -8,35 +8,35 @@
     > * {
         position: absolute; top: 0; left: 0;
         width: 100%; height: 100%;
-        @include transition(.4s);
 
         &.red {
             z-index: 1;
             background-color: $bauhaus-red;
+            @include transition(.4s);
         }
 
         &.blue {
             z-index: 2;
             background-color: $bauhaus-blue;
-            @include transition-delay(.06s);
+            @include transition(.4s .06s);
         }
 
         &.orange {
             z-index: 3;
             background-color: $bauhaus-orange;
-            @include transition-delay(.11s);
+            @include transition(.4s .11s);
         }
 
         &.green {
             z-index: 4;
             background-color: $bauhaus-green;
-            @include transition-delay(.15s);
+            @include transition(.4s .15s);
         }
 
         &.content {
             z-index: 5;
             background-color: white;
-            @include transition-delay(.18s);
+            @include transition(.4s .18s);
             
             .container {
                 position: absolute; top: 0; left: 50%;
@@ -58,18 +58,17 @@
     }
 
     &.hidden {
-        top: -5px;
-        width: 1px; height: 1px;
+        top: -110%;
         @include transition(all 0s .7s);
 
         > * {
             @include transform(translate(0, -100%));
 
-            &.red       {@include transition-delay(.05s);}
-            &.blue      {@include transition-delay(.025s);}
-            &.orange    {@include transition-delay(.0125s);}
-            &.green     {@include transition-delay(.00625s);}
-            &.content   {@include transition-delay(0s);}
+            &.red       {@include transition(.35s .05s);}
+            &.blue      {@include transition(.3s .025s);}
+            &.orange    {@include transition(.25s .0125s);}
+            &.green     {@include transition(.2s .00625s);}
+            &.content   {@include transition(.15s);}
         }
     }
     
