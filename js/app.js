@@ -355,140 +355,6 @@ var _ = {
 
     isFloat : function (n) {
         return typeof(n) === 'number' && n % 1 !== 0;
-    },
-    
-    
-    
-    /* other */
-    
-    scrollToTop : function () {
-        
-        // if smooth scrolling is natively supported, use it
-        // otherwise, manually automate it
-        if ('scrollBehavior' in document.documentElement.style) {
-            window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-            return;
-        }
-        
-        // if requestAnimationFrame API is not available, skip directly to top
-        if (!('requestAnimationFrame' in window)) {
-            window.scrollTo(0, 0);
-            return;
-        }
-
-        // get scrolling position
-        var y = window.scrollY || window.pageYOffset;
-
-        // directly skip to top, if distance is too small
-        if (y < 10) {
-            window.scrollTo(0, 0);
-            delete _.scrollToTopTimeout;
-            return;
-        }
-        
-        var start_time = undefined;
-        var duration = 300;
-
-        // start scrolling animation
-        window.requestAnimationFrame(function scrollStep(timestamp) {
-            
-            if (!start_time) {
-                start_time = timestamp;
-            }
-            
-            var time = timestamp - start_time;
-            
-            // percentage of completion in range 0 to 1
-            var percent = Math.min(time / duration, 1);
-
-            // scroll to new position
-            if (percent < 0.95) {
-                window.scrollTo(0, y * (1 - percent));
-            }
-            else {
-                // if percentage left is too small, skip rest of animation
-                window.scrollTo(0, 0);
-                return;
-            }
-
-            // proceed with animation, while time is not up
-            if (time < duration) {
-                window.requestAnimationFrame(scrollStep);
-            }
-            // if time is up, directly scroll to element
-            else {
-                window.scrollTo(0, 0);
-            }
-            
-        });
-        
-    },
-    
-    scrollToElem : function (elem) {
-        
-        // use scrollIntoView with smooth scroll behavior if available
-        // otherwise, manually automate it
-        if ('scrollBehavior' in document.documentElement.style &&
-            'scrollIntoView' in document.documentElement) {
-            
-            elem.scrollIntoView({behavior:'smooth'});
-            return;
-        }
-        
-        // if requestAnimationFrame API is not available, use location
-        if (!('requestAnimationFrame' in window)) {
-            location.href = '#'; // fixes a bug in older webkit browsers
-            location.href = '#' + elem.id;
-            return;
-        }
-
-        // get scrolling position
-        var y = window.scrollY || window.pageYOffset;
-        var elem_y = elem.getBoundingClientRect().top + y;
-        var diff = elem_y - y;
-
-        // directly skip to pos, if distance is too small
-        if (Math.abs(diff) < 10) {
-            window.scrollTo(0, elem_y);
-            return;
-        }
-        
-        var start_time = undefined;
-        var duration = 300;
-
-        // start scrolling animation
-        window.requestAnimationFrame(function scrollStep(timestamp) {
-            
-            if (!start_time) {
-                start_time = timestamp;
-            }
-            
-            var time = timestamp - start_time;
-            
-            // percentage of completion in range 0 to 1
-            var percent = Math.min(time / duration, 1);
-
-            // scroll to new position
-            if (percent < 0.95) {
-                window.scrollTo(0, y + diff * percent);
-            }
-            else {
-                // if percentage left is too small, skip rest of animation
-                window.scrollTo(0, elem_y);
-                return;
-            }
-
-            // proceed with animation, while time is not up
-            if (time < duration) {
-                window.requestAnimationFrame(scrollStep);
-            }
-            // if time is up, directly scroll to element
-            else {
-                window.scrollTo(0, elem_y);
-            }
-            
-        });
-        
     }
     
 }
@@ -555,7 +421,7 @@ var NAV = {
             // save reference to HTML element
             NODE['section_' + href] = _.id(href);
 
-            _.onClick(a, NAV.scrollToSection);
+            _.onClick(a, SCROLL.toSection);
 
         }
         
@@ -564,7 +430,7 @@ var NAV = {
         _.addEvent(window, 'resize', NAV.updateSections);
         
         // scroll to top effect on click
-        _.onClick(NODE.to_top_btn, _.scrollToTop);
+        _.onClick(NODE.to_top_btn, SCROLL.toTop);
         
         // update sizes/positions for section indicator dynamically
         _.onLoad(window, NAV.updateSectionIndicator);
@@ -592,29 +458,6 @@ var NAV = {
 
     toggleWindow : function () {
         NAV.is_open ? NAV.closeWindow() : NAV.openWindow();
-    },
-    
-    // triggers a scroll animation towards a section
-    scrollToSection : function (e) {
-
-        _.preventDefault(e);
-
-        // get anchor link (element id)
-        var target = _.target(e);
-        var href = target.href.replace(/.*#/i, '');
-
-        // scroll to element
-        _.scrollToElem(NODE['section_' + href]);
-
-        // set button as active, and all others inactive
-        for (var i = NODE.nav_links.length; i--;) {
-            _.removeClass(NODE.nav_links[i], 'active');
-        }
-        _.addClass(target, 'active');
-
-        // close nav hidden window
-        NAV.closeWindow();
-        
     },
     
     // y positions of semantic sections
@@ -874,6 +717,166 @@ var SCROLL = {
         
         NAV.updateSections();
         NAV.setLinkForSectionActive();
+        
+    },
+    
+    // triggers an animated scroll effect to the top of the page
+    toTop : function () {
+        
+        // if smooth scrolling is natively supported, use it
+        // otherwise, manually automate it
+        if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+            return;
+        }
+        
+        // if requestAnimationFrame API is not available, skip directly to top
+        if (!('requestAnimationFrame' in window)) {
+            window.scrollTo(0, 0);
+            return;
+        }
+
+        // get scrolling position
+        var y = window.scrollY || window.pageYOffset;
+
+        // directly skip to top, if distance is too small
+        if (y < 10) {
+            window.scrollTo(0, 0);
+            return;
+        }
+        
+        var start_time = undefined;
+        var duration = 300;
+
+        // start scrolling animation
+        window.requestAnimationFrame(function scrollStep(timestamp) {
+            
+            if (!start_time) {
+                start_time = timestamp;
+            }
+            
+            var time = timestamp - start_time;
+            
+            // percentage of completion in range 0 to 1
+            var percent = Math.min(time / duration, 1);
+
+            // scroll to new position
+            if (percent < 0.95) {
+                window.scrollTo(0, y * (1 - percent));
+            }
+            else {
+                // if percentage left is too small, skip rest of animation
+                window.scrollTo(0, 0);
+                return;
+            }
+
+            // proceed with animation, while time is not up
+            if (time < duration) {
+                window.requestAnimationFrame(scrollStep);
+            }
+            // if time is up, directly scroll to element
+            else {
+                window.scrollTo(0, 0);
+            }
+            
+        });
+        
+    },
+    
+    // triggers an animated scroll effect to an element
+    toElem : function (elem) {
+        
+        // use scrollIntoView with smooth scroll behavior if available
+        // otherwise, manually automate it
+        if ('scrollBehavior' in document.documentElement.style &&
+            'scrollIntoView' in document.documentElement) {
+            
+            elem.scrollIntoView({behavior:'smooth'});
+            return;
+        }
+        
+        // if requestAnimationFrame API is not available, use location
+        if (!('requestAnimationFrame' in window)) {
+            location.href = '#'; // fixes a bug in older webkit browsers
+            location.href = '#' + elem.id;
+            return;
+        }
+
+        // get scrolling position
+        var y = window.scrollY || window.pageYOffset;
+        var elem_y = elem.getBoundingClientRect().top + y;
+        var diff = elem_y - y;
+
+        // directly skip to pos, if distance is too small
+        if (Math.abs(diff) < 10) {
+            window.scrollTo(0, elem_y);
+            return;
+        }
+        
+        var start_time = undefined;
+        var duration = 300;
+
+        // start scrolling animation
+        window.requestAnimationFrame(function scrollStep(timestamp) {
+            
+            if (!start_time) {
+                start_time = timestamp;
+            }
+            
+            var time = timestamp - start_time;
+            
+            // percentage of completion in range 0 to 1
+            var percent = Math.min(time / duration, 1);
+
+            // scroll to new position
+            if (percent < 0.95) {
+                window.scrollTo(0, y + diff * percent);
+            }
+            else {
+                // if percentage left is too small, skip rest of animation
+                window.scrollTo(0, elem_y);
+                return;
+            }
+
+            // proceed with animation, while time is not up
+            if (time < duration) {
+                window.requestAnimationFrame(scrollStep);
+            }
+            // if time is up, directly scroll to element
+            else {
+                window.scrollTo(0, elem_y);
+            }
+            
+        });
+        
+    },
+    
+    // triggers an animated scroll effect towards a semantic section
+    toSection : function (e) {
+
+        _.preventDefault(e);
+
+        // get anchor link (element id)
+        var target = _.target(e);
+        
+        // if event was triggered by child of link, get parent
+        while (target.tagName != 'A' && target.tagName != 'a') {
+            target = target.parentElement;
+        }
+        
+        var href = target.href.replace(/.*#/i, '');
+
+        // scroll to element
+        SCROLL.toElem(NODE['section_' + href]);
+
+        // set button as active, and all others inactive
+        for (var i = NODE.nav_links.length; i--;) {
+            _.removeClass(NODE.nav_links[i], 'active');
+        }
+        _.addClass(target, 'active');
+
+        // close nav hidden window
+        NAV.closeWindow();
         
     },
     
