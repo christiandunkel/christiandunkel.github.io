@@ -122,6 +122,7 @@
     position: fixed; top: 0; right: 0; z-index: 9001;
     width: 100%; height: 76px;
     background-color: white;
+    text-align: center;
     @include box-shadow(
         inset 0 2px 0 $red,
         0 1px 1px rgba(0,0,0,.03),
@@ -129,7 +130,7 @@
         0 4px 4px rgba(0,0,0,.03),
         0 8px 8px rgba(0,0,0,.03)
     );
-    text-align: center;
+    @include animation(slide-in-from-top .5s .2s, hidden .2s);
     
     .bar {
         display: inline-block;

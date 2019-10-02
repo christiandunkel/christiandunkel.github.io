@@ -13,7 +13,7 @@ section {
     
     h2 {
         position: relative;
-        height: .85em; margin: 0;
+        height: .85em; margin: .35em 0 0 0;
         font-size: 150px; font-size: 13vw; line-height: 1em;
 
         span {
@@ -26,7 +26,7 @@ section {
         }
 
         @include on-phone {
-            height: 1em;
+            height: 1em; margin: 30px 0 10px 0;
         }
     }
     
@@ -59,35 +59,54 @@ section {
 
 
 #about {
-    display: inline-block;
-    max-width: none; width: auto;
-    font-size: 100px; font-size: 8vw;
+    display: -ms-flexbox;
+    display: -moz-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -moz-flex-align: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -moz-flex-pack: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    max-width: none; width: auto; min-height: 100vh; padding: 80px 0 10px 0;
     
-    @media (min-width: 1531px) {
-        font-size: 123px;
-    }
-    
-    > * {
+    .center {
         display: inline-block;
-        line-height: 1.3em;
-    }
+        font-size: 100px; font-size: 8vw;
     
-    .greet {
-        font-size: 1.5em;
-    }
-    .name {
-        font-size: 2.2em; font-weight: 700; 
-        span {
-            padding: 0 3%;
-            background: $red;
-            color: #f9f9f9;
-            @include border-radius(8px);
+        @media (min-width: 1531px) {
+            font-size: 123px;
         }
-    }
-    .desc {
-        font-size: 0.8em;
-        b {
-            color: $blue; font-weight: 700;
+        
+        > * {
+            display: inline-block;
+            line-height: 1.3em;
+        }
+
+        .greet {
+            font-size: 1em;
+        }
+        
+        .name {
+            font-size: 2.2em; font-weight: 700;
+            
+            span {
+                padding: 0 3%;
+                background: $red;
+                color: #f9f9f9;
+                @include border-radius(8px);
+            }
+        }
+        
+        .desc {
+            font-size: 0.8em; line-height: 1.2em;
+            
+            b {
+                color: $blue; font-weight: 700;
+            }
         }
     }
 }
@@ -231,11 +250,9 @@ section {
 
 #technologies {
     
-    ul {
-        display: block;
+    .container {
         margin: 0; padding: 40px 20px;
         background: white; overflow: hidden;
-        font-size: 0;
         @include border-radius(5px);
         @include box-shadow(
             0 1px 1px rgba(0,0,0,.03),
@@ -244,19 +261,21 @@ section {
             0 8px 8px rgba(0,0,0,.03),
             0 16px 16px rgba(0,0,0,.03)
         );
+    
+        ul {
+            display: block;
+            padding: 0;
+            font-size: 0;
+        }
         
         li {
             list-style: none;
             display: inline-block; position: relative;
-            width: 25%; padding: 40px;
+            width: 25%; padding: 40px 0;
             text-align: center;
             
             @include on-mobile {
                 width: 50%;
-            }
-            
-            @include on-phone {
-                width: 100%;
             }
             
             > span {
@@ -305,6 +324,38 @@ section {
                 width: 80px; height: 80px; margin: 0 auto 10px auto;
                 background-repeat: no-repeat;
                 @include background-size(100% 100%);
+            }
+            
+            @include on-phone {
+                padding: 20px 0;
+                
+                > span {
+                    font-size: 18px;
+                }
+                
+                .desc {
+                    display: none;
+                }
+                
+                &:before {
+                    width: 60px; height: 60px;
+                }
+            }
+            
+            @media (max-width: 350px) {
+                padding: 10px 0;
+                
+                > span {
+                    font-size: 16px;
+                }
+                
+                .desc {
+                    display: none;
+                }
+                
+                &:before {
+                    width: 44px; height: 44px;
+                }
             }
             
             &.html:before      {@extend %icon-html;}

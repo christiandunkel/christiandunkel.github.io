@@ -47,6 +47,10 @@
     100% {opacity: 0;}
 }
 
+@include keyframes(slide-in-from-top) {
+    0% {@include transform(translate(0,-100%));}
+}
+
 @include keyframes(hidden) {
     0%, 100% {visibility: hidden; pointer-events: none; opacity: 0;}
 }
@@ -89,7 +93,7 @@ html {
 
 body {
     position: relative;
-    min-height: 100%; margin: 0 auto; padding: 100px 0;
+    min-height: 100%; margin: 0 auto; padding: 0 0 100px 0;
     overflow-x: hidden;
     font-size: 0;
 }
