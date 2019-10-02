@@ -356,8 +356,6 @@ var SCROLL = {
         
     },
     
-    sections_shown : [],
-    
     // fades in sections after scrolling to them
     showSection : function () {
         
