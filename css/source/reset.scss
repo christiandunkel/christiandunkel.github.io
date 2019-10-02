@@ -109,17 +109,23 @@ button {
 // text formatting elements
 
 h1 {
-    font-size: 34px; line-height: 1.3em;
+    margin: 60px 0 0 0;
+    font-size: 34px; line-height: 1.1em;
 }
 
 h2 {
-    margin: 45px 0 0 0;
-    font-size: 26px; line-height: 1.3em;
+    margin: 40px 0 0 0;
+    font-size: 29px; line-height: 1.2em;
+}
+
+h3 {
+    margin: 20px 0 0 0;
+    font-size: 22px; line-height: 1.3em;
 }
 
 p {
     margin: 18px 0;
-    font-size: 14px; line-height: 20px;
+    font-size: 16px; line-height: 1.5em;
 }
 
 b {

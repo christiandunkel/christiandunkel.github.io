@@ -8,9 +8,30 @@ section {
     text-align: left;
     
     &.content-section {
-        padding: 90px 0;
+        padding: 10% 0;
+    }
+    
+    h2 {
+        position: relative;
+        height: .85em; margin: 0;
+        font-size: 150px; font-size: 13vw; line-height: 1em;
+
+        span {
+            position: absolute; top: 0; left: 0; z-index: 1;
+            line-height: 1em; font-weight: 700; color: #848484;
+        }
+
+        @media (min-width: 1201px) {
+            font-size: 150px;
+        }
+
+        @include on-phone {
+            height: 1em;
+        }
     }
 }
+
+
 
 
 
@@ -34,7 +55,10 @@ section {
     .name {
         font-size: 2.2em; font-weight: 700; 
         span {
-            color: $red;
+            padding: 0 3%;
+            background: $red;
+            color: #f9f9f9;
+            @include border-radius(8px);
         }
     }
     .desc {
@@ -45,8 +69,12 @@ section {
     }
 }
 
+
+
+
+
 .project {
-    display: inline-block; position: relative;
+    display: inline-block; position: relative; z-index: 2;
     overflow: hidden;
     @include border-radius(5px);
     @include background-size(cover);
@@ -58,21 +86,29 @@ section {
         0 16px 16px rgba(0,0,0,.1)
     );
     
-    @mixin project-btn-size($parts) {
+    // long rectangle
+    @mixin project-long($parts) {
+        $size: 96% / $parts;
+        width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.65) 0;
+    }
+    
+    // almost square
+    @mixin project-normal($parts) {
         $size: 96% / $parts;
         width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
     }
     
+    
     // 3 beside each other
-    @include project-btn-size(3);
+    @include project-normal(3);
     
     // 2 beside each other
-    @include on-mobile {
-        @include project-btn-size(2);
+    @media (max-width: 1200px) {
+        @include project-long(2);
     }
     
     // all below one another
-    @media (max-width: 550px) {
+    @media (max-width: 650px) {
         width: 100%; margin: 1% 0; padding: 0 0 60% 0;
     }
     @include on-phone {
@@ -89,8 +125,8 @@ section {
     }
     
     .desc {
-        position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%;
+        position: absolute; top: -5%; left: -5%;
+        width: 110%; height: 110%;
         @include opacity(0);
         @include transform(scale(1.2));
         @include transition(.3s .12s);
@@ -113,8 +149,12 @@ section {
         
         .center {
             display: inline-block; position: absolute; top: 50%; left: 0;
-            width: 100%; padding: 20px;
+            width: 100%; padding: 34px;
             @include transform(translate(0, -50%));
+            
+            @include on-desktop {
+                padding: 60px;
+            }
             
             h3, p {
                 text-shadow: 1px 1px rgba(0,0,0,.2);
@@ -157,9 +197,121 @@ section {
     }
 }
 
+
+
+
+#technologies {
+    
+    ul {
+        display: block;
+        margin: 0; padding: 40px 20px;
+        background: white; overflow: hidden;
+        font-size: 0;
+        @include border-radius(5px);
+        @include box-shadow(
+            0 1px 1px rgba(0,0,0,.03),
+            0 2px 2px rgba(0,0,0,.03),
+            0 4px 4px rgba(0,0,0,.03),
+            0 8px 8px rgba(0,0,0,.03),
+            0 16px 16px rgba(0,0,0,.03)
+        );
+        
+        li {
+            list-style: none;
+            display: inline-block; position: relative;
+            width: 25%; padding: 40px;
+            text-align: center;
+            
+            @include on-mobile {
+                width: 50%;
+            }
+            
+            @include on-phone {
+                width: 100%;
+            }
+            
+            > span {
+                display: block;
+                font-size: 18px; font-weight: 700;
+            }
+            
+            .desc {
+                position: absolute; top: 50%; left: 50%; z-index: 1;
+                width: 200px; height: 200px;
+                background: rgba(0,0,0,.7);
+                color: white; text-align: left;
+                @include opacity(0);
+                @include border-radius(5px);
+                @include transform(translate(-50%, -40%) scale(1.1));
+                @include transition(.3s);
+                
+                &:hover {
+                    z-index: 2;
+                    @include opacity(1);
+                    @include transform(translate(-50%,-50%));
+                }
+                
+                p {
+                    position: absolute; top: 50%; left: 50%; z-index: 2;
+                    width: 80%; margin: 0;
+                    font-size: 15px; line-height: 1.3em;
+                    @include transform(translate(-50%, -50%));
+                }
+                
+                a {
+                    display: inline-block;
+                    margin: 7px 0 0 0;
+                    color: white; font-size: 14px; text-decoration: none;
+                    
+                    &:hover {
+                        color: #cecece;
+                        @include transition(.2s);
+                    }
+                }
+            }
+            
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 60px; height: 60px; margin: 0 auto 10px auto;
+                background-repeat: no-repeat;
+                @include background-size(100% 100%);
+            }
+            
+            &.html:before      {@extend %icon-html;}
+            &.css:before       {@extend %icon-css;}
+            &.svg:before       {@extend %icon-svg;}
+            &.js:before        {@extend %icon-js;}
+                
+            &.php:before       {@extend %icon-php;}
+            
+            &.java:before      {@extend %icon-java;}
+            &.csharp:before    {@extend %icon-csharp;}
+            &.cpp:before       {@extend %icon-cpp;}
+            
+            &.camtasia:before  {@extend %icon-camtasia;}
+            &.gimp:before      {@extend %icon-gimp;}
+            &.github:before    {@extend %icon-github;}
+            &.unity:before     {@extend %icon-unity;}
+        }
+    }
+}
+
+
+
+
+
+
 #bauhaus {
     width: 100%; margin: 100px 0 0 0;
     text-align: center;
+    
+    h2 {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 2px solid white;
+        @include border-radius(8px);
+    }
     
     .rects {
         display: inline-block; position: relative;
