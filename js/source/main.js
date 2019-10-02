@@ -178,7 +178,7 @@ var NAV = {
         // get currently shown section
         var section = 0;
         for (var i = NAV.section_positions.length; i--;) {
-            if (NAV.section_positions[i] - scrollY < 220) {
+            if (NAV.section_positions[i] - scrollY < 300) {
                 section = i;
                 break;
             }
@@ -348,10 +348,68 @@ var SCROLL = {
     
         SCROLL.has_scrolled = false;
         
-        SCROLL.updateBauhausMsgDiv();
+        SCROLL.showSection();
+        SCROLL.showBauhausMsg();
         
         NAV.updateSectionData();
         NAV.setLinkForSectionActive();
+        
+    },
+    
+    sections_shown : [],
+    
+    // fades in sections after scrolling to them
+    showSection : function () {
+        
+        var allAppeared = true;
+        var scrollY = window.scrollY || window.pageYOffset;
+        
+        // check if all sections already appeared
+        for (var i = NODE.sections.length; i--;) {
+            if (!_.hasClass(NODE.sections[i], 'appear')) {
+                allAppeared = false;
+                break;
+            }
+        }
+        // if all sections already appeared, disable this function
+        if (allAppeared) {
+            SCROLL.showSection = function () {};
+            return;
+        }
+        
+        // get scroll section where user is currently at
+        var section = 0;
+        for (var i = NAV.section_positions.length; i--;) {
+            if (NAV.section_positions[i] - scrollY < 300) {
+                section = i;
+                break;
+            }
+        }
+
+        // filter out intro section
+        if (section != 0) {
+            _.addClass(NODE.sections[section - 1], 'appear');
+        }
+        
+    },
+    
+    showBauhausMsg : function () {
+            
+        // show bauhaus container when scrolling down
+        var viewport_height = Math.max(NODE.html.clientHeight, window.innerHeight || 0);
+        var distance_to_top = NODE.bauhaus.getBoundingClientRect().top;
+        // pixel distance until Bauhaus message should appear 
+        var dist = distance_to_top - viewport_height + 350;
+        
+        if (dist < 0) {
+            // show Bauhaus message
+            _.removeClass(NODE.bauhaus, 'hidden');
+            // cancel scroll-checking event
+            clearInterval(window.check_scroll);
+
+            // disable this function
+            SCROLL.showBauhausMsg = function () {};
+        }
         
     },
     
@@ -513,27 +571,6 @@ var SCROLL = {
         // close nav hidden window
         NAV.closeWindow();
         
-    },
-    
-    // show bauhaus container when scrolling down
-    updateBauhausMsgDiv : function (e) {
-
-        var viewport_height = Math.max(NODE.html.clientHeight, window.innerHeight || 0);
-        var distance_to_top = bauhaus.getBoundingClientRect().top;
-
-        // pixel distance until the message should appear 
-        var dist = distance_to_top - viewport_height + 350;
-
-        if (dist < 0) {
-            // show Bauhaus message
-            _.removeClass(NODE.bauhaus, 'hidden');
-            // cancel scroll-checking event
-            clearInterval(window.check_scroll);
-
-            // disable this function
-            SCROLL.updateBauhausMsgDiv = function () {};
-        }
-
     }
     
 };

@@ -39,6 +39,10 @@
     0% {opacity: 0;}
 }
 
+@include keyframes(fade-in-from-top) {
+    0% {opacity: 0; @include transform(translate(0, -30px));}
+}
+
 @include keyframes(fade-out) {
     100% {opacity: 0;}
 }
