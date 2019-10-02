@@ -43,7 +43,7 @@ var NAV = {
     initialize : function () {
         
         // add effect to mobile nav button
-        _.onClick(NODE.nav_btn, NODE.toggleWindow);
+        _.onClick(NODE.nav_btn, NAV.toggleWindow);
         
         // remove anchor link and add scroll effect to nav links
         for (var i = NODE.nav_links.length; i--;) {
