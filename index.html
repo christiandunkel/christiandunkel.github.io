@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=en dir=ltr>
+<html id=html lang=en dir=ltr>
 
 <head>
     
@@ -69,19 +69,20 @@
                 <div class="content">
                     <div class=container>
                         <div class=center>
-                            <a class="a1 active" href="#about">
-                                <span lang=en>About</span>
-                                <span lang=de>Über mich</span>
-                            </a><br />
-                            <a class=a2 href="#projects">
+                            <a class="a0 active" href="#html" title="Home" title-de="Anfang">
+                                <svg version="1.1" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                    <polygon fill="#676d86" points="0,50 50,0 100,50 65,50 65,8 82,8 82,50 85,50 85,100 55,100 55,70 35,70 35,100 15,100 15,50 0,50" />
+                                </svg>
+                            </a>
+                            <a class=a1 href="#projects">
                                 <span lang=en>Projects</span>
                                 <span lang=de>Projekte</span>
                             </a><br />
-                            <a class=a3 href="#technologies">
+                            <a class=a2 href="#technologies">
                                 <span lang=en>Technologies</span>
                                 <span lang=de>Technologien</span>
                             </a><br />
-                            <a class=a4 href="#contact">
+                            <a class=a3 href="#contact">
                                 <span lang=en>Contact</span>
                                 <span lang=de>Kontakt</span>
                             </a>
@@ -123,24 +124,23 @@
     
     <main>
     
-        <section id=intro>
+        <section id=about>
 
-            <div class=animated-bg>
-                <div></div>
+            <div class=greet>
+                <span lang=en>Hi, I'm</span>
+                <span lang=de>Ich bin</span>
+            </div><br />
+            <div class=name>
+                <span>Christian</span>,
+            </div><br />
+            <div class=desc>
+                <span lang=en>a web developer from<br /><b>Germany</b>.</span>
+                <span lang=de>ein Web Developer aus<br /><b>Deutschland</b>.</span>
             </div>
-
-        </section>
-        
-        <section id=about class=section-content>
-
-            <h2 class=red>
-                <span lang=en>About</span>
-                <span lang=de>Über mich</span>
-            </h2><br />
             
         </section>
         
-        <section id=projects class=section-content>
+        <section id=projects class=content-section>
         
             <h2 class=blue>
                 <span lang=en>Projects</span>
@@ -193,7 +193,7 @@
             
         </section>
         
-        <section id=technologies class=section-content>
+        <section id=technologies class=content-section>
         
             <h2 class=green>
                 <span lang=en>Technologies</span>
@@ -202,7 +202,7 @@
             
         </section>
         
-        <section id=contact class=section-content>
+        <section id=contact class=content-section>
         
             <h2 class=orange>
                 <span lang=en>Contact</span>

@@ -1,8 +1,17 @@
 // framework
 @import 'prefixes';
 @import 'functions';
-@import 'values';
 @import 'icons';
+
+// CSS values
+$max-width: 1200px;
+
+// color scheme
+$gray: #676d86;
+$red: #b71a49;
+$blue: #00638d;
+$orange: #f39100;
+$green: #4aad32;
 
 // reset browser styles
 @import 'reset';
@@ -10,6 +19,4 @@
 // custom styles
 @import 'generic';
 @import 'navigation';
-@import 'intro';
-@import 'projects';
-@import 'bauhaus';
+@import 'sections';

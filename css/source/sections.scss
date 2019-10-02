@@ -1,0 +1,281 @@
+main {
+    width: 100%; padding: 0 20px 20px 20px;
+    text-align: center;
+}
+
+section {
+    max-width: $max-width; width: 100%; margin: 0 auto;
+    text-align: left;
+    
+    &.content-section {
+        padding: 90px 0;
+    }
+}
+
+
+
+#about {
+    display: inline-block;
+    max-width: none; width: auto;
+    font-size: 100px; font-size: 8vw;
+    
+    @media (min-width: 1531px) {
+        font-size: 123px;
+    }
+    
+    > * {
+        display: inline-block;
+        line-height: 1.3em;
+    }
+    
+    .greet {
+        font-size: 1.5em;
+    }
+    .name {
+        font-size: 2.2em; font-weight: 700; 
+        span {
+            color: $red;
+        }
+    }
+    .desc {
+        font-size: 0.8em;
+        b {
+            color: $blue; font-weight: 700;
+        }
+    }
+}
+
+.project {
+    display: inline-block; position: relative;
+    overflow: hidden;
+    @include border-radius(5px);
+    @include background-size(cover);
+    @include box-shadow(
+        0 1px 1px rgba(0,0,0,.1),
+        0 2px 2px rgba(0,0,0,.1),
+        0 4px 4px rgba(0,0,0,.1),
+        0 8px 8px rgba(0,0,0,.1),
+        0 16px 16px rgba(0,0,0,.1)
+    );
+    
+    @mixin project-btn-size($parts) {
+        $size: 96% / $parts;
+        width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
+    }
+    
+    // 3 beside each other
+    @include project-btn-size(3);
+    
+    // 2 beside each other
+    @include on-mobile {
+        @include project-btn-size(2);
+    }
+    
+    // all below one another
+    @media (max-width: 550px) {
+        width: 100%; margin: 1% 0; padding: 0 0 60% 0;
+    }
+    @include on-phone {
+        padding: 0 0 80% 0;
+    }
+    
+    // background images
+    &.time-visualizer   {background-image: url(../img/project-time-visualizer.png);}
+    &.tensquared        {background-image: url(../img/project-tensquared.png);}
+    &.raytracer         {background-image: url(../img/project-raytracer.png);}
+    
+    > * {
+        position: absolute;
+    }
+    
+    .desc {
+        position: absolute; top: 0; left: 0;
+        width: 100%; height: 100%;
+        @include opacity(0);
+        @include transform(scale(1.2));
+        @include transition(.3s .12s);
+        
+        &:before {
+            content: '';
+            position: absolute; top: 0; left: 0; z-index: -1;
+            width: 100%; height: 100%;
+            @include opacity(.9);
+        }
+        
+        &.red:before       {background: $red;}
+        &.red .center a    {color:      $red;}
+        &.blue:before      {background: $blue;}
+        &.blue .center a   {color:      $blue;}
+        &.orange:before    {background: $orange;}
+        &.orange .center a {color:      $orange;}
+        &.green:before     {background: $green;}
+        &.green .center a  {color:      $green;}
+        
+        .center {
+            display: inline-block; position: absolute; top: 50%; left: 0;
+            width: 100%; padding: 20px;
+            @include transform(translate(0, -50%));
+            
+            h3, p {
+                text-shadow: 1px 1px rgba(0,0,0,.2);
+                color: white;
+            }
+    
+            h3 {
+                display: inline-block;
+                margin: 0;
+                font-size: 26px; line-height: 1em; font-weight: 700;
+                @include text-wrap;
+            }
+
+            p {
+                margin: 10px 0;
+            }
+            
+            a {
+                display: inline-block;
+                margin: 5px 5px 0 0; padding: 8px;
+                background: rgba(255, 255, 255, 0.9);
+                font-size: 15px; line-height: 1em; text-decoration: none;
+                @include border-radius(5px);
+                @include transition(.2s);
+                
+                &:hover {
+                    background: rgba(255, 255, 255, 0.7);
+                }
+            }
+        }
+    }
+    
+    &:hover {
+        
+        .desc {
+            @include opacity(1);
+            @include transform(scale(1));
+            @include transition(.3s);
+        }
+    }
+}
+
+#bauhaus {
+    width: 100%; margin: 100px 0 0 0;
+    text-align: center;
+    
+    .rects {
+        display: inline-block; position: relative;
+        max-width: 400px; width: 100%;
+        
+        &:after {
+            content: '';
+            display: block; position: absolute; top: 0; left: 0; z-index: 0;
+            width: 100%; height: 100%;
+            @include border-radius(8px);
+            @include box-shadow(
+                0 1px 1px rgba(0,0,0,.1),
+                0 2px 2px rgba(0,0,0,.1),
+                0 4px 4px rgba(0,0,0,.1),
+                0 8px 8px rgba(0,0,0,.1),
+                0 16px 16px rgba(0,0,0,.1),
+                0 32px 32px rgba(0,0,0,.1)
+            );
+            @include transition(1.5s .8s);
+        }
+    
+        > * {
+            display: block; position: absolute; z-index: 3;
+        }
+        
+        .red, .blue, .orange, .green, &:after {
+            background-color: #2f2f2f;
+        }
+        
+        @mixin rect($top, $left, $width, $height, $delay) {
+            top: $top; left: $left;
+            width: $width; height: $height;
+            @include transition(.4s ($delay * 1.4), background-color .6s (1.3s + ($delay / 2)));
+        }
+        
+        .r1 {@include rect(  0,   0, 24%, 40%, .075s); @include border-top-left-radius(8px);}
+        .r2 {@include rect(  0, 24%, 46%, 40%, .15s);}
+        .r3 {@include rect(  0, 70%, 30%, 25%, .225s); @include border-top-right-radius(8px);}
+        .r4 {@include rect(40%,   0, 70%, 40%, .3s);}
+        .r5 {@include rect(80%,   0, 35%, 20%, .375s); @include border-bottom-left-radius(8px);}
+        .r6 {@include rect(25%, 70%, 30%, 55%, .45s);}
+        .r7 {@include rect(80%, 35%, 65%, 20%, .525s); @include border-bottom-right-radius(8px);}
+    }
+        
+    .content {
+        display: inline-block; position: relative; z-index: 4;
+        max-width: 400px; width: 100%; height: auto; padding: 50px;
+        font-style: normal;
+        
+        @include on-phone {
+            padding: 25px;
+        }
+
+        * {
+            color: white;
+        }
+
+        > *:first-child {
+            margin-top: 0;
+            @include transition(1s 2s);
+        }
+
+        > *:nth-child(2) {
+            @include transition(1.2s 2.3s);
+        }
+
+        > *:nth-child(3) {
+            @include transition(1.4s 2.7s);
+        }
+
+        > *:nth-child(4) {
+            margin-bottom: 0;
+            @include transition(1.6s 3.2s);
+        }
+
+        p {
+            text-align: center;
+            text-align: justify;
+        }
+        
+        a {
+            @include transition(.2s);
+        }
+        
+        a:hover {
+            color: #cecece;
+        }
+    }
+        
+    &.hidden {
+        visibility: hidden;
+        @include opacity(0);
+
+        .rects {
+            
+            &:after {
+                @include opacity(0);
+            }
+        
+            > * {
+                @include opacity(0);
+                @include transition(.3s);
+
+                &:not(.content) {
+                    @include transform(translate(-18%, -18%) scale(.6));
+
+                    &.red       {background-color: $red;}
+                    &.blue      {background-color: $blue;}
+                    &.orange    {background-color: $orange;}
+                    &.green     {background-color: $green;}
+                }
+            }
+        
+            .content > * {
+                @include transform(translate(0, 15px));
+            }
+        }
+    }
+}

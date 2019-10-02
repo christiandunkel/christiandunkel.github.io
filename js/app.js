@@ -381,7 +381,7 @@ var NODE = function () {
     // (dependent on browser and button content)
     NODE.nav_indicator      = _.class('hover-bg')[0];
     // semantic sections of site
-    NODE.sections           = _.class('section-content');
+    NODE.sections           = _.class('content-section');
     
     NODE.to_top_btn         = _.id('to-top');
     
@@ -426,8 +426,8 @@ var NAV = {
         }
         
         // update semantic sections
-        NAV.updateSections();
-        _.addEvent(window, 'resize', NAV.updateSections);
+        NAV.updateSectionData();
+        _.addEvent(window, 'resize', NAV.updateSectionData);
         
         // scroll to top effect on click
         _.onClick(NODE.to_top_btn, SCROLL.toTop);
@@ -461,14 +461,14 @@ var NAV = {
     },
     
     // y positions of semantic sections
-    section_positions : [],
+    section_positions : [0],
     
     // updates the y positions of the semantic sections on the site
-    updateSections : function () {
+    updateSectionData : function () {
         var scrollY = window.scrollY || window.pageYOffset;
         // get boundary y positions of sections
         for (var i = 0, len = NODE.sections.length; i < len; i++) {
-            NAV.section_positions[i] = scrollY + NODE.sections[i].getBoundingClientRect().top;
+            NAV.section_positions[i+1] = scrollY + NODE.sections[i].getBoundingClientRect().top;
         }
     },
     
@@ -484,7 +484,7 @@ var NAV = {
         if (num == 0) return;
 
         var sizes = {
-            height      : _.getHeight(NODE.nav_links[0]),
+            height      : _.getHeight(NODE.nav_links[1]),
             marginRight : 2,
             width       : {},
             left        : {}
@@ -506,7 +506,7 @@ var NAV = {
 
             var elem = NODE.nav_links[i];
 
-            style += selector + ' a.a' + (i+1) + '.active ~ .hover-bg {'
+            style += selector + ' a.a' + i + '.active ~ .hover-bg {'
                    +    'left:'    + sizes.left[i] + 'px;'
                    +    'width:'   + sizes.width[i] + 'px;'
                    + '}';
@@ -519,7 +519,7 @@ var NAV = {
 
             var elem = NODE.nav_links[i];
 
-            style += selector + ' a.a' + (i+1) + ':hover ~ .hover-bg {'
+            style += selector + ' a.a' + i + ':hover ~ .hover-bg {'
                    +    'left:'    + sizes.left[i] + 'px;'
                    +    'width:'   + sizes.width[i] + 'px;'
                    + '}';
@@ -622,7 +622,7 @@ var LANG = {
             LANG.closeWindow();
             LANG.updateTitles();
             
-            NAV.updateSections();
+            NAV.updateSectionData();
             NAV.updateSectionIndicator();
         }
     },
@@ -715,7 +715,7 @@ var SCROLL = {
         
         SCROLL.updateBauhausMsgDiv();
         
-        NAV.updateSections();
+        NAV.updateSectionData();
         NAV.setLinkForSectionActive();
         
     },

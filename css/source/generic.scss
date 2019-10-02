@@ -85,21 +85,9 @@ html {
 
 body {
     position: relative;
-    max-width: $max-width; min-height: 100%; margin: 0 auto; padding: 100px 0;
+    min-height: 100%; margin: 0 auto; padding: 100px 0;
     overflow-x: hidden;
     font-size: 0;
-}
-
-main {
-    max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px 20px 20px;
-}
-
-section {
-    
-    &.section-content {
-        padding: 90px 0;
-        text-align: center;
-    }
 }
 
 hr {
@@ -114,10 +102,10 @@ h2 {
     font-weight: 700;
     @include border-radius(5px);
     
-    &.red    {color: $bauhaus-red;}
-    &.blue   {color: $bauhaus-blue;}
-    &.orange {color: $bauhaus-orange;}
-    &.green  {color: $bauhaus-green;}
+    &.red    {color: $red;}
+    &.blue   {color: $blue;}
+    &.orange {color: $orange;}
+    &.green  {color: $green;}
 }
 
 html {
