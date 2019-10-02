@@ -125,8 +125,8 @@ section {
     }
     
     .desc {
-        position: absolute; top: -5%; left: -5%;
-        width: 110%; height: 110%;
+        position: absolute; top: -1%; left: -1%;
+        width: 102%; height: 102%;
         @include opacity(0);
         @include transform(scale(1.2));
         @include transition(.3s .12s);
@@ -187,6 +187,12 @@ section {
         }
     }
     
+    @media (max-width: 300px) {
+        .desc .center {
+            padding: 18px;
+        }
+    }
+    
     &:hover {
         
         .desc {
@@ -232,7 +238,7 @@ section {
             
             > span {
                 display: block;
-                font-size: 18px; font-weight: 700;
+                font-size: 24px; color: #575757;
             }
             
             .desc {
@@ -273,7 +279,7 @@ section {
             &:before {
                 content: '';
                 display: inline-block;
-                width: 60px; height: 60px; margin: 0 auto 10px auto;
+                width: 80px; height: 80px; margin: 0 auto 10px auto;
                 background-repeat: no-repeat;
                 @include background-size(100% 100%);
             }
