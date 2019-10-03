@@ -1,0 +1,7 @@
+<svg version="1.1" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="white" stroke-width="8">
+        <polyline points="64,20 4,20 4,96 78,96 78,36" stroke-linejoin="round" />
+        <polyline points="60,4 96,4 96,40" stroke-linejoin="round" />
+        <polyline points="96,4 36,64" />
+    </g>
+</svg>
