@@ -71,14 +71,14 @@ section {
     -moz-flex-pack: center;
     -webkit-box-pack: center;
     justify-content: center;
-    max-width: none; width: auto; min-height: 100vh; padding: 80px 0 10px 0;
+    max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
     
     .center {
         display: inline-block;
-        font-size: 100px; font-size: 8vw;
+        font-size: 100px; font-size: 7.5vw;
     
         @media (min-width: 1531px) {
-            font-size: 123px;
+            font-size: 115px;
         }
         
         > * {
@@ -372,6 +372,62 @@ section {
             &.gimp:before      {@extend %icon-gimp;}
             &.github:before    {@extend %icon-github;}
             &.unity:before     {@extend %icon-unity;}
+        }
+    }
+}
+
+
+
+
+
+#contact {
+    
+    p {
+        margin: 2em 0 0 0;
+        font-size: 25px; font-size: 3.5vw; line-height: 1.2em; color: $gray;
+        
+        @media (min-width: 1501px) {
+            font-size: 52px;
+        }
+        
+        @include on-phone {
+            margin: 20px 0 0 0;
+            font-size: 18px; line-height: 1.25em;
+        }
+        
+        b {
+            color: $red;
+        }
+    }
+    
+    .mail {
+        display: inline-block;
+        margin: 2em 0 0 0; padding: .6em .6em;
+        border: .1em solid currentColor;
+        font-size: 40px; font-size: 3vw;  color: $blue; text-decoration: none;
+        @include border-radius(5px);
+        @include transition(color .2s);
+        
+        @media (min-width: 1501px) {
+            font-size: 40px;
+        }
+        
+        @include on-phone {
+            font-size: 18px;
+        }
+        
+        &:hover {
+            color: $red;
+        }
+        
+        &:after {
+            content: '\2192';
+            display: inline-block;
+            margin: 0 0 0 10px;
+            @include transition(.2s);
+        }
+        &:hover:after {
+            @include transform(translate(.15em,0));
         }
     }
 }
