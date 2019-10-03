@@ -42,6 +42,10 @@ section {
         }
     }
     
+    #scroll-indicator {
+        @include animation(fade-in 1.5s 3s, hidden 3s);
+    }
+    
     .jsOn & {
         
         &#projects, &#technologies, &#contact {
@@ -71,6 +75,7 @@ section {
     -moz-flex-pack: center;
     -webkit-box-pack: center;
     justify-content: center;
+    position: relative;
     max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
     
     .center {
@@ -109,6 +114,25 @@ section {
             }
         }
     }
+}
+
+#scroll-indicator {
+    position: absolute; left: 50%; bottom: 20px;
+    width: 20px; height: 20px;
+    @include transform(translate(-50%, 0));
+    
+    .circle {
+        position: absolute; top: 0; left: 0;
+        width: 100%; padding: 0 0 100% 0;
+        background: $gray;
+        @include border-radius(50%);
+        @include animation(animate-scroll-indicator 3s infinite);
+    }
+}
+
+@include keyframes(animate-scroll-indicator) {
+    0%, 40%, 100% {@include transform(translate(0,-150%)); @include opacity(.5);}
+    80% {@include transform(translate(0, 0)); @include opacity(1);}
 }
 
 

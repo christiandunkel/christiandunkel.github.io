@@ -228,8 +228,23 @@
                 display: none; position: absolute; top: 0; left: -100%; z-index: 1;
                 height: 46px;
                 border: 2px solid white;
-                @include border-radius(4px);
                 @include transition(.2s);
+            }
+            
+            a.a0.active ~ .hover-bg {
+                @include border-radius(20px);
+            }
+            
+            a:not(.a0).active ~ .hover-bg {
+                @include border-radius(4px);
+            }
+            
+            a.a0:hover ~ .hover-bg {
+                @include border-radius(20px);
+            }
+            
+            a:not(.a0):hover ~ .hover-bg {
+                @include border-radius(4px);
             }
             
             a.a0.active ~ .hover-bg {border-color: $red;}
