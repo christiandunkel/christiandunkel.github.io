@@ -139,6 +139,12 @@
         0 8px 8px rgba(0,0,0,.03)
     );
     @include animation(slide-in-from-top .5s .2s, hidden .2s);
+    @include transition(.5s .2s);
+    
+    &.hidden {
+        @include transform(translate(0,-120%));
+        @include transition(.3s .2s);
+    }
     
     @include ON_REDUCED_MOTION {
         @include animation(none);

@@ -329,6 +329,7 @@ var SCROLL = {
         
     },
     
+    last_scrollY : 0,
     has_scrolled : false,
     
     // actual scroll event
@@ -343,7 +344,18 @@ var SCROLL = {
         if (!SCROLL.has_scrolled) {
             return;
         }
+        
+        var scrollY = window.scrollY || window.pageYOffset;
+        
+        // check if navigation should be hidden
+        if (scrollY > 200 && SCROLL.last_scrollY < scrollY) {
+            _.addClass(NODE.nav, 'hidden');
+        }
+        else {
+            _.removeClass(NODE.nav, 'hidden');
+        }
     
+        SCROLL.last_scrollY = scrollY;
         SCROLL.has_scrolled = false;
         
         SCROLL.showSection();
@@ -357,7 +369,6 @@ var SCROLL = {
     showSection : function () {
         
         var allAppeared = true;
-        var scrollY = window.scrollY || window.pageYOffset;
         
         // check if all sections already appeared
         for (var i = NODE.sections.length; i--;) {
@@ -375,7 +386,7 @@ var SCROLL = {
         // get scroll section where user is currently at
         var section = 0;
         for (var i = NAV.section_positions.length; i--;) {
-            if (NAV.section_positions[i] - scrollY < 300) {
+            if (NAV.section_positions[i] - SCROLL.last_scrollY < 300) {
                 section = i;
                 break;
             }
