@@ -6,28 +6,58 @@
     @include text-overflow($type);
 }
 
-@mixin tab-effect() {
-    outline: 2px solid #868686;
-}
-
 
 
 // media queries
 
-@mixin on-desktop {
+@mixin ON_DESKTOP {
     @media (min-width: 801px) {
         @content;
     }
 }
 
-@mixin on-mobile {
+@mixin ON_MOBILE {
     @media (max-width: 800px) {
         @content;
     }
 }
 
-@mixin on-phone {
+@mixin ON_PHONE {
     @media (max-width: 450px) {
+        @content;
+    }
+}
+
+
+
+// accessability
+
+@mixin ON_DARK_THEME {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
+}
+
+@mixin ON_HIGH_CONTRAST {
+    @media (prefers-contrast: high) {
+        @content;
+    }
+}
+
+@mixin ON_LOW_CONTRAST {
+    @media (prefers-contrast: low) {
+        @content;
+    }
+}
+
+@mixin ON_REDUCED_MOTION {
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
+
+@mixin ON_REDUCED_TRANSPARENCY {
+    @media (prefers-reduced-transparency: reduce) {
         @content;
     }
 }

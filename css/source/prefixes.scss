@@ -199,7 +199,7 @@
 
 @mixin transition-property($property...) {
     -o-transition-property: $property;
-    -moz-transition-property: $name;
+    -moz-transition-property: $property;
     -webkit-transition-property: $property;
     transition-property: $property;
 }
