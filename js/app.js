@@ -394,8 +394,6 @@ var NODE = function () {
     NODE.titled_elems       = _.select('*[title]');
     NODE.valid_titled_elems = [];
     
-    NODE.bauhaus            = _.id('bauhaus');
-    
 };
 
 
@@ -714,14 +712,11 @@ var SCROLL = {
         SCROLL.has_scrolled = false;
         
         SCROLL.showSection();
-        SCROLL.showBauhausMsg();
         
         NAV.updateSectionData();
         NAV.setLinkForSectionActive();
         
     },
-    
-    sections_shown : [],
     
     // fades in sections after scrolling to them
     showSection : function () {
@@ -754,26 +749,6 @@ var SCROLL = {
         // filter out intro section
         if (section != 0) {
             _.addClass(NODE.sections[section - 1], 'appear');
-        }
-        
-    },
-    
-    showBauhausMsg : function () {
-            
-        // show bauhaus container when scrolling down
-        var viewport_height = Math.max(NODE.html.clientHeight, window.innerHeight || 0);
-        var distance_to_top = NODE.bauhaus.getBoundingClientRect().top;
-        // pixel distance until Bauhaus message should appear 
-        var dist = distance_to_top - viewport_height + 350;
-        
-        if (dist < 0) {
-            // show Bauhaus message
-            _.removeClass(NODE.bauhaus, 'hidden');
-            // cancel scroll-checking event
-            clearInterval(window.check_scroll);
-
-            // disable this function
-            SCROLL.showBauhausMsg = function () {};
         }
         
     },

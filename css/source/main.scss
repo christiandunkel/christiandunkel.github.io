@@ -1,7 +1,6 @@
 // framework
 @import 'prefixes';
 @import 'functions';
-@import 'icons';
 
 // CSS values
 $max-width: 1200px;
@@ -13,10 +12,13 @@ $blue: #00638d;
 $orange: #f39100;
 $green: #4aad32;
 
-// reset browser styles
+// reset browser styles and overwrite with generic HTML
 @import 'reset';
+@import 'generic';
+
+// load resources
+@import 'icons';
 
 // custom styles
-@import 'generic';
 @import 'navigation';
 @import 'sections';
