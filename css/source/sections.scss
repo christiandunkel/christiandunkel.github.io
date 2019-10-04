@@ -43,10 +43,6 @@ section {
         
     }
     
-    #scroll-indicator {
-        @include animation(fade-in 1.5s 3s, hidden 3s);
-    }
-    
     .jsOn & {
         
         &#projects, 
@@ -62,7 +58,6 @@ section {
         
     @include ON_REDUCED_MOTION {
         &#about *,
-        #scroll-indicator,
         &#projects, 
         &#technologies, 
         &#contact {
@@ -127,29 +122,6 @@ section {
             }
         }
     }
-}
-
-#scroll-indicator {
-    position: absolute; left: 50%; bottom: 20px;
-    width: 20px; height: 20px;
-    @include transform(translate(-50%, 0));
-    
-    .circle {
-        position: absolute; top: 0; left: 0;
-        width: 100%; padding: 0 0 100% 0;
-        background: $gray;
-        @include border-radius(50%);
-        @include animation(animate-scroll-indicator 3s infinite);
-        
-        @include ON_REDUCED_MOTION {
-            @include animation(none);
-        }
-    }
-}
-
-@include keyframes(animate-scroll-indicator) {
-    0%, 40%, 100% {@include transform(translate(0,-150%)); @include opacity(.5);}
-    80% {@include transform(translate(0, 0)); @include opacity(1);}
 }
 
 
@@ -309,7 +281,9 @@ section {
             font-size: 0;
             
             &:nth-child(2), 
-            &:nth-child(4) {background-color: rgba(0,0,0,.01);}
+            &:nth-child(4) {
+                background-color: rgba(0,0,0,.03);
+            }
         }
         
         li {

@@ -114,3 +114,24 @@ html {
     }
     
 }
+
+.hidden-message {
+    display: table-cell; position: fixed; right: 30px; bottom: 30px; z-index: 99;
+    max-width: 95%; padding: 15px 22px;
+    background: rgba(0,0,0,.95);
+    color: white; font-size: 20px; line-height: 25px;
+    @include border-radius(5px);
+    @include animation(fade-out 2s 13s, hidden 999s 15s infinite);
+}
+
+#reduced-motion-preference {
+    display: none;
+    
+    &:after {
+        content: 'Detected and applied your preference for reduced motion.';
+    }
+    
+    @include ON_REDUCED_MOTION {
+        display: block;
+    }
+}

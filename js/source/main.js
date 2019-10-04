@@ -60,14 +60,18 @@ var NAV = {
         
         // update semantic sections
         NAV.updateSectionData();
-        _.addEvent(window, 'resize', NAV.updateSectionData);
-        
-        // scroll to top effect on click
-        _.onClick(NODE.to_top_btn, SCROLL.toTop);
         
         // update sizes/positions for section indicator dynamically
         _.onLoad(window, NAV.updateSectionIndicator);
-        _.addEvent(window, 'resize', NAV.updateSectionIndicator);
+        
+        _.addEvent(window, 'resize', function () {
+            NAV.updateSectionData();
+            NAV.setLinkForSectionActive();
+            NAV.updateSectionIndicator();
+        });
+        
+        // scroll to top effect on click
+        _.onClick(NODE.to_top_btn, SCROLL.toTop);
         
     },
     
@@ -329,7 +333,7 @@ var SCROLL = {
         
     },
     
-    last_scrollY : 0,
+    scrollY : 0,
     has_scrolled : false,
     
     // actual scroll event
@@ -346,22 +350,19 @@ var SCROLL = {
         }
         
         var scrollY = window.scrollY || window.pageYOffset;
-        
-        // check if navigation should be hidden
-        if (scrollY > 200 && SCROLL.last_scrollY < scrollY) {
-            _.addClass(NODE.nav, 'hidden');
-        }
-        else {
-            _.removeClass(NODE.nav, 'hidden');
-        }
     
-        SCROLL.last_scrollY = scrollY;
+        // get scroll position
+        SCROLL.scrollY = window.scrollY || window.pageYOffset;
         SCROLL.has_scrolled = false;
         
         SCROLL.showSection();
         
         NAV.updateSectionData();
-        NAV.setLinkForSectionActive();
+        
+        // only update nav indicator if desktop nav is visible
+        if (window.innerWidth >= 800) {
+            NAV.setLinkForSectionActive();
+        }
         
     },
     
@@ -386,7 +387,7 @@ var SCROLL = {
         // get scroll section where user is currently at
         var section = 0;
         for (var i = NAV.section_positions.length; i--;) {
-            if (NAV.section_positions[i] - SCROLL.last_scrollY < 300) {
+            if (NAV.section_positions[i] - SCROLL.scrollY < 300) {
                 section = i;
                 break;
             }

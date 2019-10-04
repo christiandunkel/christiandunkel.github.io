@@ -141,18 +141,13 @@
     @include animation(slide-in-from-top .5s .2s, hidden .2s);
     @include transition(.5s .2s);
     
-    &.hidden {
-        @include transform(translate(0,-120%));
-        @include transition(.3s .2s);
-    }
-    
     @include ON_REDUCED_MOTION {
         @include animation(none);
     }
     
     .bar {
         display: inline-block;
-        max-width: $max-width; width: 100%; height: 100%; padding: 15px;
+        max-width: $max-width; width: 100%; height: 100%; padding: 0 15px;
         text-align: right;
     }
     
@@ -207,7 +202,7 @@
             
             a {
                 position: relative; z-index: 9999;
-                height: 46px; margin: 0 2px 0 0; padding: 13px 13px;
+                height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
                 overflow: hidden;
                 font-size: 20px;
                 
@@ -243,7 +238,7 @@
             }
             
             .hover-bg {
-                display: none; position: absolute; top: 0; left: -100%; z-index: 1;
+                display: none; position: absolute; top: 15px; left: -100%; z-index: 1;
                 height: 46px;
                 border: 2px solid white;
                 @include transition(.2s);
@@ -284,7 +279,7 @@
 
 #language-btn {
     display: inline-block; position: relative; z-index: 9997;
-    width: 52px; height: 32px; margin: 7px 0;
+    width: 78px; height: 100%; padding: 22px 13px;
 
     @include ON_MOBILE {
         margin-right: 15px;
@@ -303,8 +298,7 @@
     }
     
     b {
-        position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%;
+        display: inline-block; width: 100%; height: 100%;
         border: 1px solid #bebebe; overflow: hidden;
         background-repeat: no-repeat;
         @include background-size(100% 100%);
@@ -318,7 +312,7 @@
 
 #hamburger-btn {
     display: inline-block; position: relative; z-index: 9999;
-    width: 40px; height: 40px;
+    width: 66px; height: 100%; padding: 18px 13px;
     @include transition(.1s);
     
     @include ON_DESKTOP {
@@ -326,7 +320,7 @@
     }
     
     b {
-        display: block; position: absolute; top: 0; left: 0;
+        display: inline-block; position: relative;
         width: 100%; height: 100%;
         @include transition(.4s);
     
@@ -429,7 +423,7 @@
         }
 
         &.current {
-            background: #f8f8f8; cursor: auto;
+            background: rgba(0,0,0,.05); cursor: auto;
         }
 
         &:not(.current):hover {
