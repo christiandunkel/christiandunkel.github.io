@@ -35,7 +35,7 @@ files.forEach(file => {
 });
 total_content = '"use strict";\n\n' + total_content;
 
-// minify total code using Uglify
+// minify string using Uglify
 let minified = require('uglify-js').minify(total_content, {
     compress : {},
     mangle : {},
@@ -50,7 +50,7 @@ if (typeof(minified.code) === 'undefined') {
     console.error('ERROR: Minified code equals "undefined". Uglify.js probably failed.\nAre there any errors or ES6 components in the JavaScript source code?');
 }
 else {
-    // create minified file
+    // create minified file using the string
     let filepath = path.join(__dirname, 'app.min.js');
     fs.writeFileSync(filepath, minified.code, 'utf8');
 }
