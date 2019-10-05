@@ -208,12 +208,25 @@
                     a {
                         display: block;
                         height: auto; padding: 20px 30px;
-                        font-size: 30px; line-height: 1em; text-align: center;
+                        color: $gray; font-size: 30px; line-height: 1em; text-align: center;
+                        @include transition(.2s);
+                        
+                        &.a0 {
+                            svg {
+                                display: none;
+                            }
+                            &:after {
+                                content: 'About';
+                            }
+                        }
+                        
+                        &:hover {
+                            background: rgba(0,0,0,.08);
+                        }
                     }
                 }
                 
-                .hover-bg,
-                a.a0 {
+                .hover-bg {
                     display: none !important;
                 }
             }
@@ -263,15 +276,9 @@
         &.a2.active, &.a2:hover {color: $green;}
         &.a3.active, &.a3:hover {color: $orange;}
 
-        &.a1, &.a2, &.a3 {
+        &.a0, &.a1, &.a2, &.a3 {
             background: none;
-            color: #676d86;
-
-            &:before, 
-            &:hover:before {
-                @include opacity(0);
-                @include transform(none);
-            }
+            color: $gray;
         }
     }
 

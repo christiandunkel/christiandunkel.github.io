@@ -11,7 +11,7 @@ section {
     text-align: left;
     
     &.content-section {
-        padding: 10% 20px;
+        padding: 90px 20px;
     }
     
     h2 {
@@ -426,13 +426,11 @@ section {
         }
     }
     
-    .mail {
+    a {
         display: inline-block;
-        margin: 2em 0 0 0; padding: .6em .6em;
-        border: .1em solid currentColor;
-        font-size: 40px; font-size: 3vw;  color: $blue; text-decoration: none;
+        font-size: 40px; font-size: 3vw; line-height: 1em; text-decoration: none;
         @include border-radius(5px);
-        @include transition(color .2s);
+        @include transition(color .3s, background .3s);
         
         @media (min-width: 1501px) {
             font-size: 40px;
@@ -441,6 +439,12 @@ section {
         @include ON_PHONE {
             font-size: 18px;
         }
+    }
+    
+    .mail {
+        margin: 2em 0 0 0; padding: 1em;
+        border: .1em solid currentColor;
+        color: $blue;
         
         &:hover {
             color: $red;
@@ -452,5 +456,24 @@ section {
             margin: 0 0 0 10px;
             @include transition(.2s);
         }
+    }
+    
+    .socialmedia {
+        margin: 20px 20px 0 0; padding: .8em 1em;
+        background: rgba(0,0,0,.05);
+        color: #525252;
+        
+        &:hover {
+            background: rgba(0,0,0,.1);
+        }
+        
+        &:before {
+            content: '';
+            display: inline-block;
+            width: .9em; height: .9em; margin: 0 .8em 0 0;
+            @include opacity(.8);
+        }
+        
+        &.github:before {@extend %icon-github;}
     }
 }
