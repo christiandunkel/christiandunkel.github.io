@@ -89,6 +89,15 @@ html {
     min-height: 100%;
     background: #f9f9f9;
     font-family: 'Ubunutu', 'Arial', sans-serif; color: #484848;
+    
+    
+    // disable elements depending on language
+    &[lang=en] [lang]:not([lang=en]) {
+        display: none;
+    }
+    &[lang=de] [lang]:not([lang=de]) {
+        display: none;
+    }
 }
 
 body {
@@ -96,23 +105,12 @@ body {
     min-height: 100%; margin: 0 auto;
     overflow-x: hidden;
     font-size: 0;
+    @include transition(.2s);
 }
 
 hr {
     margin: 50px 0;
     border: dashed #e8e8e8; border-width: 3px 0 0 0;
-}
-
-html {
-    
-    &[lang=en] [lang]:not([lang=en]) {
-        display: none;
-    }
-    
-    &[lang=de] [lang]:not([lang=de]) {
-        display: none;
-    }
-    
 }
 
 .hidden-message {

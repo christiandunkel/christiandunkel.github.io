@@ -57,40 +57,36 @@
 </head>
     
 <body>
-    
+
     <nav id=nav>
         <div class=bar>
-            <div class="hidden-window hidden">
-                <div class=red></div>
-                <div class=blue></div>
-                <div class=orange></div>
-                <div class=green></div>
-                
+
+            <div id=mobile-menu>
+                <div class=overlay></div>
                 <div class="content">
-                    <div class=container>
-                        <div class=center>
-                            <a class="a0 active" href="#html" title="Home" title-de="Nach oben">
-                                <svg version="1.1" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                                    <polygon fill="#676d86" points="0,50 50,0 100,50 65,50 65,8 82,8 82,50 85,50 85,100 55,100 55,70 35,70 35,100 15,100 15,50 0,50" />
-                                </svg>
-                            </a>
-                            <a class=a1 href="#projects">
-                                <span lang=en>Projects</span>
-                                <span lang=de>Projekte</span>
-                            </a><br />
-                            <a class=a2 href="#technologies">
-                                <span lang=en>Technologies</span>
-                                <span lang=de>Technologien</span>
-                            </a><br />
-                            <a class=a3 href="#contact">
-                                <span lang=en>Contact</span>
-                                <span lang=de>Kontakt</span>
-                            </a>
-                            <div class=hover-bg></div>
-                        </div>
+                    <div class="center">
+                        <a class="a0 active" href="#html" title="Home" title-de="Nach oben">
+                            <svg version="1.1" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                                <polygon fill="#676d86" points="0,50 50,0 100,50 65,50 65,8 82,8 82,50 85,50 85,100 55,100 55,70 35,70 35,100 15,100 15,50 0,50" />
+                            </svg>
+                        </a>
+                        <a class=a1 href="#projects">
+                            <span lang=en>Projects</span>
+                            <span lang=de>Projekte</span>
+                        </a><br />
+                        <a class=a2 href="#technologies">
+                            <span lang=en>Technologies</span>
+                            <span lang=de>Technologien</span>
+                        </a><br />
+                        <a class=a3 href="#contact">
+                            <span lang=en>Contact</span>
+                            <span lang=de>Kontakt</span>
+                        </a>
+                        <div class=hover-bg></div>
                     </div>
                 </div>
             </div>
+
             <button id=language-btn title="Select a language" title-de="Wähle eine Sprache">
                 <b></b>
             </button>
@@ -195,7 +191,10 @@
         
         <section id=technologies class=content-section>
             
-            <h2><span>Technologies</span></h2>
+            <h2>
+                <span lang=en>Technologies</span>
+                <span lang=de>Technologien</span>
+            </h2>
             
             <div class=container>
 
@@ -350,18 +349,18 @@
             <a class=mail href="mailto:">Get in touch</a>
             
         </section>
+    
+        <button id=to-top title="Go to top" title-de="Nach oben">
+            <b>
+                <i class=head1></i>
+                <i class=head2></i>
+                <i class=bar></i>
+            </b>
+        </button>
         
     </main>
     
     <div id=reduced-motion-preference class=hidden-message></div>
-    
-    <button id=to-top title="Go to top" title-de="Nach oben">
-        <b>
-            <i class=head1></i>
-            <i class=head2></i>
-            <i class=bar></i>
-        </b>
-    </button>
     
     <!-- scripts -->
     

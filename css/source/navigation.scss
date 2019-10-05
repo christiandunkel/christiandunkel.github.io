@@ -132,7 +132,6 @@
     background-color: white;
     text-align: center;
     @include box-shadow(
-        inset 0 2px 0 $red,
         0 1px 1px rgba(0,0,0,.03),
         0 2px 2px rgba(0,0,0,.03),
         0 4px 4px rgba(0,0,0,.03),
@@ -151,129 +150,166 @@
         text-align: right;
     }
     
-    // reset the hidden window styles on desktop nav,
-    // so that the links of the navigation can be displayed
-    @include ON_DESKTOP {
+    #mobile-menu {
+        float: left; position: relative;
+        height: 100%;
         
-        .hidden-window {
-            display: inline-block; position: relative; top: auto; float: left;
-            width: auto; height: auto;
+        .overlay {
+            display: none;
         }
         
-        .content, .center {
-            @include transform(none);
+        .content {
+            height: 100%;
         }
         
-        .center {
-            position: relative; top: auto; left: auto;
-            max-width: none; width: auto; padding: 0;
-            text-align: inherit;
+        @include ON_MOBILE {
+            float: none;
+            position: fixed; top: 0; right: -110%; z-index: 9998;
+            width: 100%; height: 100%;
+            @include transition(0s .2s);
+            
+            .overlay {
+                display: block; position: absolute; top: 0; left: 0; z-index: 1;
+                width: 100%; height: 100%;
+                background: black;
+                @include opacity(0);
+                @include transition(.17s);
+            }
+            
+            .content {
+                position: absolute; top: 0; right: 0; z-index: 2;
+                max-width: 320px; width: 90%; height: 100%;
+                background: white;
+                @include box-shadow(
+                    -1px 0 1px rgba(0,0,0,.03),
+                    -2px 0 2px rgba(0,0,0,.03),
+                    -4px 0 4px rgba(0,0,0,.03),
+                    -8px 0 8px rgba(0,0,0,.03)
+                );
+                @include transform(translate(105%,0));
+                @include transition(.2s);
+                @include transition(.2s cubic-bezier(.45, -0.47, .86, 1));
+                
+                // extra white padding to the right, so that the cubic-bezier transition
+                // does not move .content so wide to the left, that one can see the background
+                &:after {
+                    content: '';
+                    display: block; position: absolute; top: 0; left: 100%; z-index: 1;
+                    width: 100px; height: 100%;
+                    background: white;
+                    @include transform(translate(-1px,0));
+                }
+                    
+                .center {
+                    display: inline-block; position: absolute; top: 50%; left: 0;
+                    width: 100%;
+                    @include transform(translate(0,-50%));
+
+                    a {
+                        display: block;
+                        height: auto; padding: 20px 30px;
+                        font-size: 30px; line-height: 1em; text-align: center;
+                    }
+                }
+                
+                .hover-bg,
+                a.a0 {
+                    display: none !important;
+                }
+            }
+            
+            &.show {
+                right: 0;
+                @include transition(0s);
+                
+                .overlay {
+                    @include opacity(.2);
+                }
+                
+                .content {
+                    @include transform(translate(0,0));
+                    @include transition(.2s);
+                }
+            }
         }
     }
 
-    .content {
-        position: relative;
-        
-        .container {
-            position: static;
-            width: auto; height: auto;
-            @include transform(none);
-        }
-        
-        a {
+    br {
+        display: none;
+    }
+
+    a {
+        display: inline-block; position: relative; z-index: 9999;
+        height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
+        overflow: hidden;
+        font-size: 20px; line-height: 1em; text-decoration: none;
+
+        &.a0 {
             display: inline-block;
-            margin: 5px; padding: 16px 26px;
-            overflow: hidden;
-            color: white; text-decoration: none; font-size: 28px; line-height: 1em; font-weight: 700;
-            @include border-radius(4px);
-            
-            &.a0 {display: none;}
-            &.a1 {background-color: $red;}
-            &.a2 {background-color: $blue;}
-            &.a3 {background-color: $green;}
-            &.a4 {background-color: $orange;}
+            font-size: 0;
+
+            svg {
+                width: 20px; height: 20px;
+            }
+
+            &.active, &:hover {
+                polygon {
+                    fill: $red;
+                }
+            }
         }
-        
-        @include ON_DESKTOP {
-            
-            br {
-                display: none;
+
+        &.a1.active, &.a1:hover {color: $blue;}
+        &.a2.active, &.a2:hover {color: $green;}
+        &.a3.active, &.a3:hover {color: $orange;}
+
+        &.a1, &.a2, &.a3 {
+            background: none;
+            color: #676d86;
+
+            &:before, 
+            &:hover:before {
+                @include opacity(0);
+                @include transform(none);
             }
-            
-            a {
-                position: relative; z-index: 9999;
-                height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
-                overflow: hidden;
-                font-size: 20px;
-                
-                &.a0 {
-                    display: inline-block;
-                    font-size: 0;
-                
-                    svg {
-                        width: 20px; height: 20px;
-                    }
-                    
-                    &.active, &:hover {
-                        polygon {
-                            fill: $red;
-                        }
-                    }
-                }
-                
-                &.a1.active, &.a1:hover {color: $blue;}
-                &.a2.active, &.a2:hover {color: $green;}
-                &.a3.active, &.a3:hover {color: $orange;}
-                
-                &.a1, &.a2, &.a3 {
-                    background: none;
-                    color: #676d86;
-                
-                    &:before, 
-                    &:hover:before {
-                        @include opacity(0);
-                        @include transform(none);
-                    }
-                }
-            }
-            
-            .hover-bg {
-                display: none; position: absolute; top: 15px; left: -100%; z-index: 1;
-                height: 46px;
-                border: 2px solid white;
-                @include transition(.2s);
-    
-                @include ON_REDUCED_MOTION {
-                    @include transition(none);
-                }
-            }
-            
-            a.a0.active ~ .hover-bg {
-                @include border-radius(20px);
-            }
-            
-            a:not(.a0).active ~ .hover-bg {
-                @include border-radius(4px);
-            }
-            
-            a.a0:hover ~ .hover-bg {
-                @include border-radius(20px);
-            }
-            
-            a:not(.a0):hover ~ .hover-bg {
-                @include border-radius(4px);
-            }
-            
-            a.a0.active ~ .hover-bg {border-color: $red;}
-            a.a1.active ~ .hover-bg {border-color: $blue;}
-            a.a2.active ~ .hover-bg {border-color: $green;}
-            a.a3.active ~ .hover-bg {border-color: $orange;}
-            a.a0:hover ~ .hover-bg {border-color: $red;}
-            a.a1:hover ~ .hover-bg {border-color: $blue;}
-            a.a2:hover ~ .hover-bg {border-color: $green;}
-            a.a3:hover ~ .hover-bg {border-color: $orange;}
         }
     }
+
+    .hover-bg {
+        display: none; position: absolute; top: 15px; left: -100%; z-index: 1;
+        height: 46px;
+        border: 2px solid white;
+        @include transition(.2s);
+
+        @include ON_REDUCED_MOTION {
+            @include transition(none);
+        }
+    }
+
+    a.a0.active ~ .hover-bg {
+        @include border-radius(20px);
+    }
+
+    a:not(.a0).active ~ .hover-bg {
+        @include border-radius(4px);
+    }
+
+    a.a0:hover ~ .hover-bg {
+        @include border-radius(20px);
+    }
+
+    a:not(.a0):hover ~ .hover-bg {
+        @include border-radius(4px);
+    }
+
+    a.a0.active ~ .hover-bg {border-color: $red;}
+    a.a1.active ~ .hover-bg {border-color: $blue;}
+    a.a2.active ~ .hover-bg {border-color: $green;}
+    a.a3.active ~ .hover-bg {border-color: $orange;}
+    a.a0:hover ~ .hover-bg {border-color: $red;}
+    a.a1:hover ~ .hover-bg {border-color: $blue;}
+    a.a2:hover ~ .hover-bg {border-color: $green;}
+    a.a3:hover ~ .hover-bg {border-color: $orange;}
     
 }
 

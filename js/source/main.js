@@ -5,13 +5,15 @@ var NODE = function () {
     NODE.html = document.documentElement  || _.tag('html')[0];
     NODE.head = document.head             || _.tag('head')[0];
     NODE.body = document.body             || _.tag('body')[0];
+    NODE.main =                              _.tag('main')[0];
     
     NODE.nav                = _.id('nav');
     // hidden mobile menu
     NODE.nav_btn            = _.id('hamburger-btn');
-    NODE.nav_hidden_menu    = _.class('hidden-window', NODE.nav)[0];
+    NODE.mobile_menu        = _.id('mobile-menu');
+    NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
     // nav links
-    NODE.nav_links          = _.tag('a', NODE.nav_hidden_menu);
+    NODE.nav_links          = _.tag('a', NODE.mobile_menu);
     // add CSS for the nav indicator
     // (dependent on browser and button content)
     NODE.nav_indicator      = _.class('hover-bg')[0];
@@ -42,6 +44,7 @@ var NAV = {
         
         // add effect to mobile nav button
         _.onClick(NODE.nav_btn, NAV.toggleWindow);
+        _.onClick(NODE.mobile_overlay, NAV.closeWindow);
         
         // remove anchor link and add scroll effect to nav links
         for (var i = NODE.nav_links.length; i--;) {
@@ -80,16 +83,18 @@ var NAV = {
     openWindow : function () {
         if (!NAV.is_open) {
             NAV.is_open = true;
-            _.addClass(NODE.nav_btn, 'nav-visible');
-            _.removeClass(NODE.nav_hidden_menu, 'hidden');
+            _.addClass(NODE.nav_btn,            'nav-visible');
+            _.addClass(NODE.mobile_menu,        'show');
+            _.addClass(NODE.main,               'blur');
         }
     },
 
     closeWindow : function () {
         if (NAV.is_open) {
             NAV.is_open = false;
-            _.removeClass(NODE.nav_btn, 'nav-visible');
-            _.addClass(NODE.nav_hidden_menu, 'hidden');
+            _.removeClass(NODE.nav_btn,         'nav-visible');
+            _.removeClass(NODE.mobile_menu,     'show');
+            _.removeClass(NODE.main,            'blur');
         }
     },
 

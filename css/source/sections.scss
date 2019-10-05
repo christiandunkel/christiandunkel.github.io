@@ -1,14 +1,17 @@
 main {
-    width: 100%; padding: 0 20px 20px 20px;
     text-align: center;
+    
+    &.blur {
+        @include filter(blur(5px));
+    }
 }
 
 section {
-    max-width: $max-width; width: 100%; margin: 0 auto;
+    max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
     text-align: left;
     
     &.content-section {
-        padding: 10% 0;
+        padding: 10% 20px;
     }
     
     h2 {
