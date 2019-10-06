@@ -113,13 +113,20 @@ hr {
     border: dashed #e8e8e8; border-width: 3px 0 0 0;
 }
 
+// messages displayed on bottom-right corner (mostly warnings and infos)
 .hidden-message {
     display: table-cell; position: fixed; right: 30px; bottom: 30px; z-index: 99;
-    max-width: 95%; padding: 15px 22px;
-    background: rgba(0,0,0,.95);
-    color: white; font-size: 20px; line-height: 25px;
-    @include border-radius(5px);
+    max-width: 95%; padding: 0 0 0 30px;;
     @include animation(fade-out 2s 13s, hidden 999s 15s infinite);
+    
+    &:after {
+        content: '';
+        display: table-cell;
+        padding: 15px 22px;
+        background: rgba(0,0,0,.95);
+        color: white; font-size: 20px; line-height: 25px;
+        @include border-radius(5px);
+    }
 }
 
 #reduced-motion-preference {

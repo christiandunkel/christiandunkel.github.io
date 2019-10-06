@@ -1,129 +1,3 @@
-// hidden windows, can be triggered to be shown
-
-.hidden-window {
-    position: fixed; top: 0; left: 0; z-index: 9998;
-    width: 100%; height: 100%;
-    overflow: hidden;
-
-    > * {
-        position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%;
-
-        &.red {
-            z-index: 1;
-            background-color: $red;
-            @include transition(.4s);
-        }
-
-        &.blue {
-            z-index: 2;
-            background-color: $blue;
-            @include transition(.4s .06s);
-        }
-
-        &.orange {
-            z-index: 3;
-            background-color: $orange;
-            @include transition(.4s .11s);
-        }
-
-        &.green {
-            z-index: 4;
-            background-color: $green;
-            @include transition(.4s .15s);
-        }
-
-        &.content {
-            z-index: 5;
-            background-color: white;
-            @include transition(.4s .18s);
-            
-            .container {
-                position: absolute; top: 0; left: 50%;
-                max-width: $max-width; width: 100%; height: 100%;
-                @include transform(translate(-50%,0));
-            }
-
-            .cross {
-                position: absolute; top: 15px; right: 15px; z-index: 2;
-            }
-
-            .center {
-                display: inline-block; position: absolute; top: 50%; left: 50%; z-index: 1;
-                max-width: 300px; width: 100%; padding: 15px;
-                text-align: center;
-                @include transform(translate(-50%,-50%));
-            }
-        }
-        
-        @include ON_REDUCED_MOTION {
-            @include transition-property(none !important);
-        }
-    }
-
-    &.hidden {
-        top: -110%;
-        @include transition(all 0s .7s);
-        
-        @include ON_REDUCED_MOTION {
-            @include transition-property(none);
-        }
-
-        > * {
-            @include transform(translate(0, -100%));
-
-            &.red       {@include transition(.35s .05s);}
-            &.blue      {@include transition(.3s .025s);}
-            &.orange    {@include transition(.25s .0125s);}
-            &.green     {@include transition(.2s .00625s);}
-            &.content   {@include transition(.15s);}
-        }
-    }
-    
-}
-
-.cross {
-    position: relative; width: 44px; height: 44px;
-    @include transition(.1s);
-    
-    &:before, &:after {
-        content: '';
-        position: absolute; top: 44%; left: 0;
-        width: 100%; height: 12%;
-        background-color: #6d6d6d;
-        @include border-radius(5px);
-        @include transition(.2s);
-    }
-    
-    &:before {
-        @include transform(rotate(45deg));
-    }
-    
-    &:after {
-        @include transform(rotate(-45deg));
-    }
-    
-    &:hover {
-        &:before {
-            @include transform(rotate(40deg));
-        }
-        &:after {
-            @include transform(rotate(-40deg));
-        }
-    }
-    
-    &:active {
-        &:before, &:after {
-            left: 10%;
-            width: 80%;
-        }
-    }
-}
-
-
-
-
-
 // navigation bar
 
 #nav {
@@ -138,7 +12,6 @@
         0 8px 8px rgba(0,0,0,.03)
     );
     @include animation(slide-in-from-top .5s .2s, hidden .2s);
-    @include transition(.5s .2s);
     
     @include ON_REDUCED_MOTION {
         @include animation(none);
@@ -151,7 +24,7 @@
     }
     
     #mobile-menu {
-        float: left; position: relative;
+        position: relative;
         height: 100%;
         
         .overlay {
@@ -160,6 +33,11 @@
         
         .content {
             height: 100%;
+            text-align: left;
+        }
+        
+        .center {
+            display: inline-block;
         }
         
         @include ON_MOBILE {
@@ -190,6 +68,10 @@
                 @include transition(.2s);
                 @include transition(.2s cubic-bezier(.45, -0.47, .86, 1));
                 
+                @include ON_REDUCED_MOTION {
+                    @include transition-property(none !important);
+                }
+                
                 // extra white padding to the right, so that the cubic-bezier transition
                 // does not move .content so wide to the left, that one can see the background
                 &:after {
@@ -199,15 +81,17 @@
                     background: white;
                     @include transform(translate(-1px,0));
                 }
-                    
+                
+                // div only active in mobile menu, centers buttons
                 .center {
                     display: inline-block; position: absolute; top: 50%; left: 0;
-                    width: 100%;
+                    width: 100%; max-height: 100%;
+                    overflow-y: auto;
                     @include transform(translate(0,-50%));
 
                     a {
                         display: block;
-                        height: auto; padding: 20px 30px;
+                        height: auto; margin: 5px 0; padding: 20px 30px;
                         color: $gray; font-size: 30px; line-height: 1em; text-align: center;
                         @include transition(.2s);
                         
@@ -228,6 +112,10 @@
                 
                 .hover-bg {
                     display: none !important;
+                }
+                    
+                #language-btn {
+                    float: none; position: absolute; top: 0; left: 28px;
                 }
             }
             
@@ -318,39 +206,6 @@
     a.a2:hover ~ .hover-bg {border-color: $green;}
     a.a3:hover ~ .hover-bg {border-color: $orange;}
     
-}
-
-#language-btn {
-    display: inline-block; position: relative; z-index: 9997;
-    width: 78px; height: 100%; padding: 22px 13px;
-
-    @include ON_MOBILE {
-        margin-right: 15px;
-    }
-
-    &:hover b {
-        @include opacity(.8);
-    }
-
-    &:active b {
-        @include transform(scale(.9));
-        
-        @include ON_REDUCED_MOTION {
-            @include transform(none);
-        }
-    }
-    
-    b {
-        display: inline-block; width: 100%; height: 100%;
-        border: 1px solid #bebebe; overflow: hidden;
-        background-repeat: no-repeat;
-        @include background-size(100% 100%);
-        @include border-radius(4px);
-        @include transition(.2s);
-
-        html[lang=en] & {@extend %flag-usa;}
-        html[lang=de] & {@extend %flag-germany;}
-    }
 }
 
 #hamburger-btn {
@@ -445,65 +300,100 @@
 
 
 
+#language-btn {
+    display: inline-block; position: relative; float: right; z-index: 9997;
+    width: 78px; height: 76px; padding: 22px 13px;
+    @include transition(.2s);
 
-#language-menu {
-    z-index: 10000;
-    
-    .center {
-        max-width: 400px;
+    &:hover b {
+        @include opacity(0.8s);
     }
-    
-    .lang-select-btn {
-        display: inline-block; position: relative;
-        width: 100%; margin: 6px 0; padding: 25px 25px 25px 128px;
-        color: #747474; font-size: 30px; line-height: 1em; text-decoration: none;
-        @include text-wrap;
-        @include border-radius(5px);
-        @include transition(.2s);
+
+    &:active b {
+        @include transform(scale(.9));
         
         @include ON_REDUCED_MOTION {
-            @include transition-property(none);
+            @include transform(none);
         }
-
-        &.current {
-            background: rgba(0,0,0,.05); cursor: auto;
-        }
-
-        &:not(.current):hover {
-            background-color: rgba(0,0,0,.1);
-        }
-
-        &:before {
-            content: '';
-            display: block; position: absolute; top: 16px; left: 25px;
-            width: 80px; height: 48px;
-            border: 1px solid #bebebe; background-repeat: no-repeat;
-            @include background-size(100% 100%);
-            @include border-radius(3px);
-        }
-
-        &.en:before {@extend %flag-usa;}
-        &.de:before {@extend %flag-germany;}
     }
-        
-    @include ON_PHONE {
-        
-        .center {
-            max-width: 290px;
-        }
-        
-        .content a {
-            padding: 15px 15px 15px 90px;
-            font-size: 24px;
+    
+    b {
+        display: inline-block; position: relative;
+        width: 100%; height: 100%;
+        border: 1px solid #e8e8e8;
+        @include border-radius(4px);
+        @include transition(.2s);
 
-            &:before {
-                top: 9px; left: 15px;
-                width: 60px; height: 36px;
+        span {
+            display: inline-block; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            
+            // language indicator circles
+            $circle-width: 6px;
+            &:after {
+                content: '';
+                position: absolute; left: -($circle-width + 4px);
+                width: 6px; height: 6px;
+                background: #5596ff;
+                @include border-radius(50%);
             }
+            &.en:after {top: 3px;}
+            &.de:after {top: 3px * 2 + $circle-width;}
+            
+            // flag icons
+            &:before {
+                content: '';
+                display: inline-block; position: absolute; top: 0; left: 0;
+                width: 100%; height: 100%;
+                background-repeat: no-repeat;
+                @include background-size(100% 100%);
+                @include border-radius(4px);
+                @include transform-origin(top left);
+            }
+            &.en:before {@extend %flag-usa;}
+            &.de:before {@extend %flag-germany;}
+            
+            // a language is selected
+            html[lang=en] &.en,
+            html[lang=de] &.de {
+                
+                &:before {
+                    z-index: 3;
+                    @include box-shadow(
+                        0 1px 1px rgba(0,0,0,.15),
+                        0 2px 2px rgba(0,0,0,.2)
+                    );
+                }
+            }
+            
+            // a language is unselected
+            // (shuffling animation on switch)
+            html[lang=en] &.de,
+            html[lang=de] &.en {
+                
+                &:before {
+                    z-index: 2;
+                    @include animation(shuffle-flag .4s);
+        
+                    @include ON_REDUCED_MOTION {
+                        @include animation(none);
+                    }
+                }
+                
+                &:after {
+                    @include opacity(0.4);
+                }
+            }
+            
         }
     }
 }
 
+@include keyframes(shuffle-flag) {
+    0% {z-index: 99;}
+    50% {@include transform(translate(0,-100%) rotate(-45deg)); z-index: 1;}
+    100% {@include transform(translate(0,0) rotate(0)); z-index: 1;}
+}
 
 
 

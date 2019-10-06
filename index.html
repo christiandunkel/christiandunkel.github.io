@@ -64,6 +64,7 @@
             <div id=mobile-menu>
                 <div class=overlay></div>
                 <div class="content">
+                    
                     <div class="center">
                         <a class="a0 active" href="#html" title="Home" title-de="Nach oben">
                             <svg version="1.1" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
@@ -84,12 +85,17 @@
                         </a>
                         <div class=hover-bg></div>
                     </div>
+
+                    <button id=language-btn title="Select a language" title-de="Wähle eine Sprache">
+                        <b>
+                            <span class=en></span>
+                            <span class=de></span>
+                        </b>
+                    </button>
+                    
                 </div>
             </div>
-
-            <button id=language-btn title="Select a language" title-de="Wähle eine Sprache">
-                <b></b>
-            </button>
+            
             <button id=hamburger-btn title="Open the navigation" title-de="Öffne die Navigation">
                 <b>
                     <i class=i1></i>
@@ -98,25 +104,9 @@
                     <i class=i4></i>
                 </b>
             </button>
+            
         </div>
     </nav>
-    
-    <div id=language-menu class="hidden-window hidden">
-        <div class=red></div>
-        <div class=blue></div>
-        <div class=orange></div>
-        <div class=green></div>
-        
-        <div class=content>
-            <div class=container>
-            <button class=cross title="Close menu" title-de="Schließe des Menü"></button>
-                <div class=center>
-                    <button class="lang-select-btn en">English</button>
-                    <button class="lang-select-btn de" title="German">Deutsch</button>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <main>
     
@@ -346,7 +336,10 @@
                 <span lang=de>Sie können mich <b>per E-Mail</b> kontaktieren, und ich werde so schnell wie möglich auf Sie zurück kommen!</span>
             </p>
             
-            <a class=mail href="mailto:">Get in touch</a>
+            <a class=mail href="mailto:">
+                <span lang=en>Get in touch</span>
+                <span lang=de>Kontaktiere mich</span>
+            </a>
             
             <hr />
             

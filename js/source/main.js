@@ -22,11 +22,8 @@ var NODE = function () {
     
     NODE.to_top_btn         = _.id('to-top');
     
-    // language menu
+    // language selection
     NODE.lang_btn           = _.id('language-btn');
-    NODE.lang_menu          = _.id('language-menu');
-    NODE.close_lang_btn     = _.class('cross', NODE.lang_menu)[0];
-    NODE.lang_select_btns   = _.class('lang-select-btn');
     // elements with title attributes
     NODE.titled_elems       = _.select('*[title]');
     NODE.valid_titled_elems = [];
@@ -218,16 +215,7 @@ var LANG = {
     initialize : function () {
         
         // events to open and close language menu
-        _.onClick(NODE.lang_btn, LANG.toggleWindow);
-        _.onClick(NODE.close_lang_btn, LANG.closeWindow);
-        
-        // events to change language
-        for (var i = NODE.lang_select_btns.length; i--;) {
-            _.onClick(NODE.lang_select_btns[i], LANG.changeLanguage);
-        }
-        
-        // update currently selected language button
-        LANG.setButtonActive( NODE.html.getAttribute('lang') );
+        _.onClick(NODE.lang_btn, LANG.toggleLanguage);
         
         LANG.filterTitledElements();
         
@@ -238,53 +226,30 @@ var LANG = {
         
     },
     
-    toggleWindow : function () {
-        _.toggleClass(NODE.lang_menu, 'hidden');
-    },
-
-    closeWindow : function () {
-        _.addClass(NODE.lang_menu, 'hidden');
-    },
+    language_order : ['en', 'de'],
     
-    changeLanguage : function (e) {
+    toggleLanguage : function (lang) {
 
-        var target          = _.target(e);
-        var lang            = _.hasClass(target, 'de') ? 'de' : 'en';
-        var current_lang    = NODE.html.getAttribute('lang');
-
-        // if a new language was selected
-        if (lang != current_lang) {
-
-            // set target button as current, and all others as not
-            LANG.setButtonActive(target);
-
-            // set value of global lang attribute
-            NODE.html.setAttribute('lang', lang);
-
-            LANG.closeWindow();
-            LANG.updateTitles();
+        var current_lang = NODE.html.getAttribute('lang');
+        
+        for (var i = 0, len = LANG.language_order.length; i < len; i++) {
             
-            NAV.updateSectionData();
-            NAV.updateSectionIndicator();
-        }
-    },
-    
-    // sets a language button active
-    // either a HTML element is given, or a string with a language code
-    setButtonActive : function (elem) {
-        
-        for (var i = NODE.lang_select_btns.length; i--;) {
+            // find current language in order
+            if (LANG.language_order[i] == current_lang) {
+                var next = i + 1;
+                
+                if (next >= LANG.language_order.length) {
+                    next = 0;
+                }
 
-            // get element if it's a string (class)
-            if (_.isString(elem) && _.hasClass(NODE.lang_select_btns[i], elem)) {
-                elem = NODE.lang_select_btns[i];
+                // set value of global lang attribute
+                NODE.html.setAttribute('lang', LANG.language_order[next]);
+                
+                LANG.updateTitles();
+                NAV.updateSectionData();
+                NAV.updateSectionIndicator();
             }
-
-            _.removeClass(NODE.lang_select_btns[i], 'current');
         }
-
-        _.addClass(elem, 'current');
-        
     },
     
     // save selection of valid titled elements
