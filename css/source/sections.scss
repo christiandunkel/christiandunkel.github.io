@@ -128,14 +128,48 @@ section {
     // category buttons
     > button {
         display: inline-block;
-        margin: 10px 10px 0 0;
-        background: #c4e0f8;
-        color: $gray;
+        margin: 10px 10px 0 0; padding: 0;
+        overflow: hidden;
         @include border-radius(30px);
         
-        &.inactive {
-            background: #eaedf0;
+        span {
+            display: inline-block; position: relative;
+            padding: 1em 2.2em 1em 1em;
+            background: #ddf0ff;
+            color: $blue;
+            @include border-radius(30px);
+            @include transition(transform .1s, background .2s);
+            
+            &:after,
+            &:before {
+                content: '';
+                position: absolute; top: 50%; right: 1em; z-index: 2;
+                width: .6em; height: .15em;
+                background: currentColor;
+                @include border-radius(4px);
+            }
+
+            &:after {@include transform(translate(0,-50%) rotate(45deg));}
+            &:before {@include transform(translate(0,-50%) rotate(-45deg));}
+        }
+        
+        &:hover span {
+            background: #d1eaff;
+        }
+        
+        &:active span {
+            @include transform(scale(.9));
+        }
+        
+        &.inactive span {
+            padding: 1em;
+            background: #f4f4f4;
             color: $lightgray;
+            
+            &:after,
+            &:before {
+                display: none;
+            }
         }
     }
 }
@@ -152,32 +186,41 @@ section {
         0 8px 8px rgba(0,0,0,.1),
         0 16px 16px rgba(0,0,0,.1)
     );
+    @include transition(all 0s, transform .3s);
+    
+    &.hidden {
+        position: absolute;
+        width: 0; height: 0;
+        visibility: hidden;
+        @include transform(scale(0));
+        @include transition-property(none);
+    }
     
     
     
-    /* PROJECT BUTTONS */
+    /* PROJECT CARDS */
     
-    // long rectangle button
-    @mixin project-long($parts) {
+    // long rectangle card
+    @mixin card-long($parts) {
         $size: 96% / $parts;
         width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.65) 0;
     }
     
-    // almost square button
-    @mixin project-normal($parts) {
+    // almost square card
+    @mixin card-normal($parts) {
         $size: 96% / $parts;
         width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
     }
     
-    // 3 buttons beside each other
-    @include project-normal(3);
+    // 3 cards beside each other
+    @include card-normal(3);
     
-    // 2 buttons beside each other
+    // 2 cards beside each other
     @media (max-width: 1200px) {
-        @include project-long(2);
+        @include card-long(2);
     }
     
-    // all buttons below one another
+    // all cards below one another
     @media (max-width: 650px) {
         width: 100%; margin: 1% 0; padding: 0 0 60% 0;
     }
@@ -230,12 +273,12 @@ section {
             h3 {
                 display: inline-block;
                 margin: 0;
-                font-size: 26px; line-height: 1em; font-weight: 700;
+                font-size: 26px; line-height: 1.2em; font-weight: 700;
                 @include text-wrap;
             }
 
             p {
-                margin: 10px 0;
+                margin: 4px 0 10px 0;
             }
             
             a {

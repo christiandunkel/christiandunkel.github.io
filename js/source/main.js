@@ -31,6 +31,11 @@ var NODE = function () {
     NODE.titled_elems       = _.select('*[title]');
     NODE.valid_titled_elems = [];
     
+    // project selection
+    var projects_section        = _.id('projects');
+    NODE.project_category_btns  = _.tag('button', projects_section);
+    NODE.project_cards          = _.tag('figure', projects_section);
+    
 };
 
 
@@ -307,6 +312,93 @@ var LANG = {
 
 
 
+var PROJECT = {
+    
+    initialize : function () {
+        
+        // go through all project category buttons
+        for (var i = NODE.project_category_btns.length; i--;) {
+            
+            var btn = NODE.project_category_btns[i];
+            
+            // save category info
+            PROJECT.categories[btn.getAttribute('category')] = !_.hasClass(btn, 'inactive');
+            
+            // add event to toggle category on and off
+            _.onClick(btn, function (e) {
+                
+                var target      = _.target(e);
+                
+                // if event was triggered by child inside button,
+                // go upwards in DOM tree to button
+                while (target.tagName != 'BUTTON' && target.tagName != 'button') {
+                    target = target.parentElement;
+                }
+                
+                // toggle category
+                var category = target.getAttribute('category');
+                PROJECT.categories[category] = !PROJECT.categories[category];
+                
+                // toggle button appearance
+                _.toggleClass(target, 'inactive');
+                
+                // apply new category selection
+                PROJECT.updateSelection();
+            });
+        }
+        
+        PROJECT.updateSelection();
+        
+    },
+    
+    // name -> true|false
+    categories : {},
+    
+    updateSelection : function () {
+        
+        // go through all project cards 
+        // and toggle them on / off depending on selection
+        card_loop: for (var i = NODE.project_cards.length; i--;) {
+            
+            var project = NODE.project_cards[i];
+            var categories = project.getAttribute('categories');
+            
+            // go through all categories that are currently turned on
+            // and check if project card has at least one of them
+            for (var c in PROJECT.categories) {
+                
+                // ignore prototype properties
+                if (!Object.prototype.hasOwnProperty.call(PROJECT.categories, c)) {
+                    return;
+                }
+                
+                // cheeck if the category is selected
+                if (PROJECT.categories[c] == false) {
+                    continue;
+                }
+                
+                // return if a category was found
+                if (categories.match(new RegExp(_.escapeRegex(c), 'i'))) {
+                    // toggle project card on
+                    _.removeClass(project, 'hidden');
+                    continue card_loop;
+                }
+                
+            }
+            
+            // otherwise, if reached here, toggle project card off
+            _.addClass(project, 'hidden');
+            
+        }
+        
+    }
+    
+};
+
+
+
+
+
 // scroll effects
 var SCROLL = {
     
@@ -556,5 +648,6 @@ var SCROLL = {
     NODE();
     NAV.initialize();
     LANG.initialize();
+    PROJECT.initialize();
     SCROLL.initialize();
 })();

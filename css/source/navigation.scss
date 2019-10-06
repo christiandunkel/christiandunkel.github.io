@@ -145,15 +145,22 @@
         display: inline-block; position: relative; z-index: 9999;
         height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
         overflow: hidden;
-        font-size: 20px; line-height: 1em; text-decoration: none;
-        @include transition(color .2s .2s);
+        color: $gray; font-size: 20px; line-height: 1em; text-decoration: none;
+        @include transition(color .2s);
+        
+        &.active, 
+        &:hover {
+            color: $red;
+        }
         
         &.a0 {
             display: inline-block;
             width: 46px; height: 76px; margin: 0 20px 0 0;
 
-            &.active, &:hover {
+            &.active, 
+            &:hover {
                 color: $blue;
+                @include transition-delay(.2s);
             }
             
             &:before,
@@ -175,15 +182,6 @@
                 z-index: 2;
                 font-size: 1.5em; font-weight: 700;
             }
-        }
-
-        &.a1.active, &.a1:hover {color: $blue;}
-        &.a2.active, &.a2:hover {color: $green;}
-        &.a3.active, &.a3:hover {color: $orange;}
-
-        &.a0, &.a1, &.a2, &.a3 {
-            background: none;
-            color: $gray;
         }
         
         // clickable logo on the left on mobile view
@@ -218,7 +216,7 @@
     .hover-bg {
         display: none; position: absolute; top: 15px; left: -100%; z-index: 1;
         height: 46px;
-        border: 2px solid white;
+        border: 2px solid $red;
         @include border-radius(4px);
         @include transition(.2s .2s);
 
@@ -250,15 +248,6 @@
         border-width: 2px;
         @include transform(rotate(0));
     }
-
-    a.a0.active ~ .hover-bg {border-color: $red;}
-    a.a1.active ~ .hover-bg {border-color: $blue;}
-    a.a2.active ~ .hover-bg {border-color: $green;}
-    a.a3.active ~ .hover-bg {border-color: $orange;}
-    a.a0:hover ~ .hover-bg {border-color: $red;}
-    a.a1:hover ~ .hover-bg {border-color: $blue;}
-    a.a2:hover ~ .hover-bg {border-color: $green;}
-    a.a3:hover ~ .hover-bg {border-color: $orange;}
 }
 
 #hamburger-btn {
@@ -470,14 +459,10 @@
     }
     
     i {
-        position: absolute; top: 0; left: 42.5%; z-index: 1;
+        position: absolute; top: 30%; left: 42.5%; z-index: 1;
         width: 15%;
         background-color: white;
         @include border-radius(4px);
-        
-        &.bar {
-            height: 100%;
-        }
         
         &.head1, &.head2 {
             height: 60%;

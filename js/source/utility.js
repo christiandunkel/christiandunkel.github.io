@@ -1,6 +1,6 @@
 var _ = {
     
-    /* selectors */
+    /* SELECTORS */
     
     id : function (selector) {
         return document.getElementById(selector);
@@ -47,7 +47,7 @@ var _ = {
     
     
     
-    /* manipulation */
+    /* MANIPULATION */
     
     create : function (str, settings) {
         
@@ -151,7 +151,7 @@ var _ = {
     
     
     
-    /* events */
+    /* EVENTS */
     
     addEvent : function (elem, event, fn, useCapture) {
         
@@ -212,7 +212,7 @@ var _ = {
     
     
     
-    /* classes */
+    /* CLASSES */
     
     addClass : function (elem, class_) {
 
@@ -305,7 +305,7 @@ var _ = {
     
     
     
-    /* type tests */
+    /* TYPE TESTS */
     
     exists : function (n) {
         return typeof(n) !== 'undefined' && n !== null;
@@ -353,6 +353,36 @@ var _ = {
 
     isFloat : function (n) {
         return typeof(n) === 'number' && n % 1 !== 0;
+    },
+    
+    
+    
+    /* SANITIZATION */
+    
+    escapeRegex : function (str) {
+        
+        return ('' + str).replace(/[\.\*\+\?\^\$\{\}\(\)\|\[\]\\\/\-]/g, '\\$&');
+        
+    },
+
+    encodeHTML : function (str) {
+        
+        return ('' + str).replace(/&/g, '\&amp\;')
+                         .replace(/</g, '\&lt\;')
+                         .replace(/>/g, '\&gt\;')
+                         .replace(/"/g, '\&quot\;')
+                         .replace(/'/g, '\&#039\;');
+        
+    },
+
+    decodeHTML : function (str) {
+        
+        return ('' + str).replace(/\&amp\;/g, '&')
+                         .replace(/\&lt\;/g, '<')
+                         .replace(/\&gt\;/g, '>')
+                         .replace(/\&quot\;/g, '"')
+                         .replace(/\&#039\;/g, '\'');
+        
     }
     
 }

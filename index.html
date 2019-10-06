@@ -131,21 +131,22 @@
                 <span lang=de>Projekte</span>
             </h2>
             
-            <p class=responsive>De-select the <b>categories</b> you don't want to show:</p>
+            <p class=responsive>Select the <b>categories</b> you want to display:</p>
             
-            <button class="responsive small html">HTML</button>
-            <button class="responsive small css">CSS/Sass</button>
-            <button class="responsive small svg">SVG</button>
-            <button class="responsive small js">JavaScript</button>
-            <button class="responsive small js-lib">JS Library</button>
-            <button class="responsive small php">PHP</button>
-            <button class="responsive small java">Java</button>
-            <button class="responsive small cpp">C++</button>
-            <button class="responsive small csharp">C#</button>
+            <button class="responsive small" category=website><span>Website</span></button>
+            <button class="responsive small" category=lib><span>Library</span></button>
+            <button class="responsive small inactive" category=html><span>HTML</span></button>
+            <button class="responsive small inactive" category=css><span>CSS/Sass</span></button>
+            <button class="responsive small inactive" category=svg><span>SVG</span></button>
+            <button class="responsive small inactive" category=js><span>JavaScript</span></button>
+            <button class="responsive small inactive" category=php><span>PHP</span></button>
+            <button class="responsive small inactive" category=java><span>Java</span></button>
+            <button class="responsive small inactive" category=cpp><span>C++</span></button>
+            <button class="responsive small inactive" category=csharp><span>C#</span></button>
             
             <hr />
 
-            <figure class="project time-visualizer" used="js html css">
+            <figure class="project time-visualizer" categories="website html css js">
                 <figcaption class=desc>
                     <div class=center>
                         <h3>
@@ -162,7 +163,7 @@
                 </figcaption>
             </figure>
 
-            <figure class="project tensquared" used="csharp">
+            <figure class="project tensquared" categories="csharp">
                 <figcaption class=desc>
                     <div class=center>
                         <h3>tensquared</h3>
@@ -176,7 +177,7 @@
                 </figcaption>
             </figure>
 
-            <figure class="project raytracer" used="cpp">
+            <figure class="project raytracer" categories="cpp">
                 <figcaption class=desc>
                     <div class=center>
                         <h3>Raytracer</h3>
@@ -370,7 +371,6 @@
             <b>
                 <i class=head1></i>
                 <i class=head2></i>
-                <i class=bar></i>
             </b>
         </button>
         
