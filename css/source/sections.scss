@@ -234,7 +234,7 @@ section {
                 
                 background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICAgIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iOCI+DQogICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjY0LDIwIDQsMjAgNCw5NiA3OCw5NiA3OCwzNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4NCiAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iNjAsNCA5Niw0IDk2LDQwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPg0KICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSI5Niw0IDM2LDY0IiAvPg0KICAgIDwvZz4NCjwvc3ZnPg==);
                 
-                &[title~="Github"] {
+                &[title~="GitHub"] {
                     @extend %icon-github-white;
                 }
                 
