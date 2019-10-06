@@ -475,5 +475,6 @@ section {
         }
         
         &.github:before {@extend %icon-github;}
+        &.twitter:before {@extend %icon-twitter;}
     }
 }

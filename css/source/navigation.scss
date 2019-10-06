@@ -108,7 +108,7 @@
                         }
                         
                         &.a0 {
-                            svg {
+                            &:before {
                                 display: none;
                             }
                             &:after {
@@ -156,19 +156,34 @@
         height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
         overflow: hidden;
         font-size: 20px; line-height: 1em; text-decoration: none;
-
+        @include transition(.2s .2s);
+        
         &.a0 {
             display: inline-block;
-            font-size: 0;
-
-            svg {
-                width: 20px; height: 20px;
-            }
+            width: 46px; height: 76px; margin: 0 20px 0 0;
 
             &.active, &:hover {
-                polygon {
-                    fill: $red;
-                }
+                color: $blue;
+            }
+            
+            &:before,
+            &:after {
+                position: absolute; top: 50%; left: 50%;
+                @include transform(translate(-50%, -50%));
+            }
+            
+            &:before {
+                content: '';
+                display: inline-block; z-index: 1;
+                width: 42px; height: 42px;
+                border: 3px solid currentColor;
+                @include border-radius(5px);
+            }
+
+            &:after {
+                content: 'C';
+                z-index: 2;
+                font-size: 1.5em; font-weight: 700;
             }
         }
 
@@ -186,7 +201,8 @@
         display: none; position: absolute; top: 15px; left: -100%; z-index: 1;
         height: 46px;
         border: 2px solid white;
-        @include transition(.2s);
+        @include border-radius(4px);
+        @include transition(.2s .2s);
 
         @include ON_REDUCED_MOTION {
             @include transition(none);
@@ -194,19 +210,23 @@
     }
 
     a.a0.active ~ .hover-bg {
-        @include border-radius(20px);
+        border-width: 4px;
+        @include transform(rotate(4deg));
     }
 
     a:not(.a0).active ~ .hover-bg {
-        @include border-radius(4px);
+        border-width: 2px;
+        @include transform(rotate(0));
     }
 
     a.a0:hover ~ .hover-bg {
-        @include border-radius(20px);
+        border-width: 4px;
+        @include transform(rotate(4deg));
     }
 
     a:not(.a0):hover ~ .hover-bg {
-        @include border-radius(4px);
+        border-width: 2px;
+        @include transform(rotate(0));
     }
 
     a.a0.active ~ .hover-bg {border-color: $red;}

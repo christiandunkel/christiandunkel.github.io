@@ -273,7 +273,7 @@ var _ = {
     getStyle : function (elem, style) {
         
         if ('getComputedStyle' in window) {
-            return window.getComputedStyle(elem, null).getPropertyValue(style);
+            return window.getComputedStyle(elem).getPropertyValue(style);
         }
         else if ('currentStyle' in elem) {
             return elem.currentStyle[style];

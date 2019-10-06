@@ -275,7 +275,7 @@ var _ = {
     getStyle : function (elem, style) {
         
         if ('getComputedStyle' in window) {
-            return window.getComputedStyle(elem, null).getPropertyValue(style);
+            return window.getComputedStyle(elem).getPropertyValue(style);
         }
         else if ('currentStyle' in elem) {
             return elem.currentStyle[style];
@@ -489,20 +489,27 @@ var NAV = {
 
         var sizes = {
             height      : _.getHeight(NODE.nav_links[1]),
-            marginRight : 2,
+            marginRight : {},
             width       : {},
             left        : {}
         };
 
         // get sizes of all elements
         for (var i = 0; i < num; i++) {
-            sizes.width[i] = _.getWidth(NODE.nav_links[i]);
+            
+            // get computed CSS values
+            sizes.width[i]          = _.getWidth(NODE.nav_links[i]);
+            sizes.marginRight[i]    = Number.parseFloat(
+                _.getStyle(NODE.nav_links[i], 'margin-right').replace(/[a-z]+/gi, '')
+            );
 
+            // calculate x position
             var left = 0;
             for (var j = i; j--;) {
-                left += sizes.width[j];
+                left += sizes.width[j] + sizes.marginRight[j];
             }
-            sizes.left[i] = left + i * sizes.marginRight;
+            sizes.left[i] = left;
+            
         }
 
         // generate code for '.active' CSS effect
