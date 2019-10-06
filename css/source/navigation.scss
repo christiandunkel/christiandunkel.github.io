@@ -306,7 +306,7 @@
     @include transition(.2s);
 
     &:hover b {
-        @include opacity(0.8s);
+        @include opacity(0.8);
     }
 
     &:active b {
