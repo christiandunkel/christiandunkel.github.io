@@ -56,7 +56,7 @@
             
             .content {
                 position: absolute; top: 0; right: 0; z-index: 2;
-                max-width: 320px; width: 90%; height: 100%;
+                max-width: 320px; width: 90%; height: 100%; padding: 76px 0;
                 background: white;
                 @include box-shadow(
                     -1px 0 1px rgba(0,0,0,.03),
@@ -72,6 +72,14 @@
                     @include transition-property(none !important);
                 }
                 
+                // white background behind nav mobile button
+                &:before {
+                    content: '';
+                    display: block; position: absolute; top: 0; left: 0; z-index: 3;
+                    width: 100%; height: 76px;
+                    background: white;
+                }
+                
                 // extra white padding to the right, so that the cubic-bezier transition
                 // does not move .content so wide to the left, that one can see the background
                 &:after {
@@ -84,16 +92,20 @@
                 
                 // div only active in mobile menu, centers buttons
                 .center {
-                    display: inline-block; position: absolute; top: 50%; left: 0;
-                    width: 100%; max-height: 100%;
+                    display: inline-block; position: absolute; top: 50%; left: 0; z-index: 2;
+                    width: 100%; max-height: 100%; padding: 76px 0;
                     overflow-y: auto;
                     @include transform(translate(0,-50%));
 
                     a {
                         display: block;
-                        height: auto; margin: 5px 0; padding: 20px 30px;
+                        height: auto; margin: 5px 0; padding: 20px 0;
                         color: $gray; font-size: 30px; line-height: 1em; text-align: center;
                         @include transition(.2s);
+                        
+                        @include ON_PHONE {
+                            font-size: 24px; line-height: 1em;
+                        }
                         
                         &.a0 {
                             svg {
