@@ -108,12 +108,7 @@
                         }
                         
                         &.a0 {
-                            &:before {
-                                display: none;
-                            }
-                            &:after {
-                                content: 'About';
-                            }
+                            display: none;
                         }
                         
                         &:hover {
@@ -156,7 +151,7 @@
         height: 100%; margin: 0 2px 0 0; padding: 28px 13px;
         overflow: hidden;
         font-size: 20px; line-height: 1em; text-decoration: none;
-        @include transition(.2s .2s);
+        @include transition(color .2s .2s);
         
         &.a0 {
             display: inline-block;
@@ -195,6 +190,26 @@
             background: none;
             color: $gray;
         }
+        
+        // clickable logo on the left on mobile view
+        &.logo {
+            // mimic nav link a0
+            @extend .a0;
+            float: left; z-index: 9997;
+            color: $blue;
+            
+            @include ON_DESKTOP {
+                display: none;
+            }
+            
+            i {
+                position: absolute; top: 15px; left: 0;
+                width: 46px; height: 46px;
+                border: 4px solid $red;
+                @include border-radius(4px);
+                @include transform(rotate(4deg));
+            }
+        }
     }
 
     .hover-bg {
@@ -207,6 +222,10 @@
         @include ON_REDUCED_MOTION {
             @include transition(none);
         }
+    }
+    
+    a:hover ~ .hover-bg {
+        @include transition-delay(0s);
     }
 
     a.a0.active ~ .hover-bg {
@@ -237,7 +256,6 @@
     a.a1:hover ~ .hover-bg {border-color: $blue;}
     a.a2:hover ~ .hover-bg {border-color: $green;}
     a.a3:hover ~ .hover-bg {border-color: $orange;}
-    
 }
 
 #hamburger-btn {
@@ -338,7 +356,10 @@
     @include transition(.2s);
 
     &:hover b {
-        @include opacity(0.8);
+        
+        @include ON_DESKTOP {
+            @include opacity(0.8);
+        }
     }
 
     &:active b {

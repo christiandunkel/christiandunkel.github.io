@@ -377,8 +377,11 @@ var NODE = function () {
     NODE.nav_btn            = _.id('hamburger-btn');
     NODE.mobile_menu        = _.id('mobile-menu');
     NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
+    // logo visible on mobile view
+    NODE.mobile_logo        = _.class('logo', NODE.nav)[0];
     // nav links
-    NODE.nav_links          = _.tag('a', NODE.mobile_menu);
+    var mobile_content      = _.class('content', NODE.mobile_menu)[0];
+    NODE.nav_links          = _.tag('a', mobile_content);
     // add CSS for the nav indicator
     // (dependent on browser and button content)
     NODE.nav_indicator      = _.class('hover-bg')[0];
@@ -408,10 +411,19 @@ var NAV = {
         _.onClick(NODE.nav_btn, NAV.toggleWindow);
         _.onClick(NODE.mobile_overlay, NAV.closeWindow);
         
+        // scroll 
+        NODE.mobile_logo
+        
         // remove anchor link and add scroll effect to nav links
-        for (var i = NODE.nav_links.length; i--;) {
+        for (var i = NODE.nav_links.length + 1; i--;) {
 
-            var a = NODE.nav_links[i];
+            var a;
+            if (i < NODE.nav_links.length) {
+                a = NODE.nav_links[i];
+            }
+            else {
+                a = NODE.mobile_logo;
+            }
 
             // only keep anchor link (which is the element id)
             var href = a.href.replace(/.*#/i, '');
