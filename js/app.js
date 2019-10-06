@@ -457,18 +457,14 @@ var NAV = {
     openWindow : function () {
         if (!NAV.is_open) {
             NAV.is_open = true;
-            _.addClass(NODE.nav_btn,            'nav-visible');
-            _.addClass(NODE.mobile_menu,        'show');
-            _.addClass(NODE.main,               'blur');
+            _.addClass(NODE.html, 'mobile-nav-open');
         }
     },
 
     closeWindow : function () {
         if (NAV.is_open) {
             NAV.is_open = false;
-            _.removeClass(NODE.nav_btn,         'nav-visible');
-            _.removeClass(NODE.mobile_menu,     'show');
-            _.removeClass(NODE.main,            'blur');
+            _.removeClass(NODE.html, 'mobile-nav-open');
         }
     },
 

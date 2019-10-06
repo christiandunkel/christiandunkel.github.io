@@ -1,8 +1,14 @@
+/* GENERIC */
+
 main {
     text-align: center;
     
-    &.blur {
-        @include filter(blur(3px));
+    // blur, if mobile navigation is opened
+    .mobile-nav-open & {
+        
+        @include ON_MOBILE {
+            @include filter(blur(3px));
+        }
     }
 }
 
@@ -14,25 +20,9 @@ section {
         padding: 90px 20px;
     }
     
-    h2 {
-        position: relative;
-        height: .85em; margin: .35em 0 0 0;
-        font-size: 150px; font-size: 13vw; line-height: 1em;
-
-        span {
-            position: absolute; top: 0; left: 0; z-index: 1;
-            line-height: 1em; font-weight: 700; color: #848484;
-        }
-
-        @media (min-width: 1201px) {
-            font-size: 150px;
-        }
-
-        @include ON_PHONE {
-            height: 1em; margin: 30px 0 10px 0;
-        }
-    }
     
+    
+    // fade in animations on page load
     &#about {
         .greet {
             @include animation(fade-in-from-top 1s .5s, hidden .5s);
@@ -46,6 +36,7 @@ section {
         
     }
     
+    // fade in animations when scrolling down
     .jsOn & {
         
         &#projects, 
@@ -71,7 +62,7 @@ section {
 
 
 
-
+/* INTRO / ABOUT SECTION */
 
 #about {
     display: -ms-flexbox;
@@ -129,7 +120,7 @@ section {
 
 
 
-
+/* PROJECTS SECTION */
 
 .project {
     display: inline-block; position: relative; z-index: 2;
@@ -263,6 +254,7 @@ section {
 
 
 
+/* TECHNOLOGIES SECTION */
 
 #technologies {
     
@@ -323,6 +315,10 @@ section {
                     width: 80%; margin: 0;
                     font-size: 15px; line-height: 1.3em;
                     @include transform(translate(-50%, -50%));
+                    
+                    span {
+                        display: block;
+                    }
                 }
                 
                 a {
@@ -404,27 +400,9 @@ section {
 
 
 
-
+/* CONTACT SECTION*/
 
 #contact {
-    
-    p {
-        margin: 2em 0 0 0;
-        font-size: 25px; font-size: 3.5vw; line-height: 1.2em; color: $gray;
-        
-        @media (min-width: 1501px) {
-            font-size: 52px;
-        }
-        
-        @include ON_PHONE {
-            margin: 20px 0 0 0;
-            font-size: 18px; line-height: 1.25em;
-        }
-        
-        b {
-            color: $red;
-        }
-    }
     
     a {
         display: inline-block;
@@ -442,7 +420,7 @@ section {
     }
     
     .mail {
-        margin: 2em 0 0 0; padding: 1em;
+        padding: 1em;
         border: .1em solid currentColor;
         color: $blue;
         
@@ -459,7 +437,7 @@ section {
     }
     
     .socialmedia {
-        margin: 20px 20px 0 0; padding: .8em 1em;
+        margin: 10px 10px 0 0; padding: .8em 1em;
         background: rgba(0,0,0,.05);
         color: #525252;
         

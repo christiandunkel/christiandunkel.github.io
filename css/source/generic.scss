@@ -1,4 +1,4 @@
-// font
+/* FONT(S) */
 
 @font-face {
     font-family: 'Ubunutu';
@@ -16,7 +16,7 @@
 
 
 
-// custom scrollbar in webkit browsers
+/* CUSTOM SCROLLBAR */
 
 ::-webkit-scrollbar {
     width: 10px; height: 10px;
@@ -33,7 +33,7 @@
 
 
 
-// simple animations
+/* GENERAL-PURPOSE ANIMATIONS */
 
 @include keyframes(fade-in) {
     0% {opacity: 0;}
@@ -57,7 +57,7 @@
 
 
 
-// general elements
+/* CONTAINERS */
 
 div {
     font-size: 0;
@@ -93,10 +93,10 @@ html {
     
     // disable elements depending on language
     &[lang=en] [lang]:not([lang=en]) {
-        display: none;
+        display: none !important;
     }
     &[lang=de] [lang]:not([lang=de]) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -108,10 +108,54 @@ body {
     @include transition(.2s);
 }
 
+
+
+/* FORMATTING ELEMENTS */
+
 hr {
     margin: 50px 0;
     border: dashed #e8e8e8; border-width: 3px 0 0 0;
 }
+    
+h2.responsive {
+    position: relative;
+    height: .85em; margin: .35em 0 0 0;
+    color: $lightgray; font-size: 150px; font-size: 13vw; line-height: 1em; font-weight: 700;
+
+    span {
+        position: absolute; top: 0; left: 0; z-index: 1;
+    }
+
+    @media (min-width: 1201px) {
+        font-size: 150px;
+    }
+
+    @include ON_PHONE {
+        height: 1em; margin: 30px 0 10px 0;
+    }
+}
+
+p.responsive {
+    margin: 1em 0;
+    font-size: 25px; font-size: 3.5vw; line-height: 1.4em; color: $gray;
+
+    @media (min-width: 1501px) {
+        font-size: 52px;
+    }
+
+    @include ON_PHONE {
+        margin: 20px 0;
+        font-size: 18px; line-height: 1.25em;
+    }
+
+    b {
+        color: $red;
+    }
+}
+
+
+
+/* ACCESSIBILITY */
 
 // messages displayed on bottom-right corner (mostly warnings and infos)
 .hidden-message {

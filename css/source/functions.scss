@@ -1,4 +1,4 @@
-// css short-cuts
+/* CSS SHORT-CUTS */
 
 @mixin text-wrap($type: ellipsis) {
     white-space: nowrap;
@@ -8,7 +8,7 @@
 
 
 
-// media queries
+/* MEDIA QUERIES */
 
 @mixin ON_DESKTOP {
     @media (min-width: 801px) {
@@ -23,14 +23,21 @@
 }
 
 @mixin ON_PHONE {
-    @media (max-width: 450px) {
+    @media (max-width: 550px) {
+        @content;
+    }
+}
+
+// below most smallest screen devices 
+@mixin ON_MIN_SCREEN {
+    @media (max-width: 300px) {
         @content;
     }
 }
 
 
 
-// accessability
+/* ACCESSIBILITY */
 
 @mixin ON_DARK_THEME {
     @media (prefers-color-scheme: dark) {
