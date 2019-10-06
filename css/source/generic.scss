@@ -127,7 +127,7 @@ h2.responsive {
     }
 
     @media (min-width: 1201px) {
-        font-size: 150px;
+        font-size: 156px;
     }
 
     @include ON_PHONE {
@@ -139,8 +139,8 @@ p.responsive {
     margin: 1em 0;
     font-size: 25px; font-size: 3.5vw; line-height: 1.4em; color: $gray;
 
-    @media (min-width: 1501px) {
-        font-size: 52px;
+    @media (min-width: 1201px) {
+        font-size: 42px;
     }
 
     @include ON_PHONE {
