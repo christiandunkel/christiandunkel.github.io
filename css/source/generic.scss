@@ -151,6 +151,18 @@ p.responsive {
     b {
         color: $red;
     }
+    
+    &.small {
+        font-size: 20px; font-size: 2.8vw;
+
+        @media (min-width: 1201px) {
+            font-size: 33.6px;
+        }
+        
+        @include ON_PHONE {
+            font-size: 14.4px; line-height: 1.25em;
+        }
+    }
 }
 
 a.responsive,

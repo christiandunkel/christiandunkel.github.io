@@ -20,7 +20,7 @@
     .bar {
         display: inline-block;
         max-width: $max-width; width: 100%; height: 100%; padding: 0 15px;
-        text-align: right;
+        text-align: left;
     }
     
     #mobile-menu {
@@ -33,11 +33,6 @@
         
         .content {
             height: 100%;
-            text-align: left;
-        }
-        
-        .center {
-            display: inline-block;
         }
         
         @include ON_MOBILE {
@@ -95,13 +90,13 @@
                     display: inline-block; position: absolute; top: 50%; left: 0; z-index: 2;
                     width: 100%; max-height: 100%; padding: 76px 0;
                     overflow-y: auto;
+                    font-size: 30px;
                     @include transform(translate(0,-50%));
 
                     a {
                         display: block;
                         height: auto; margin: 5px 0; padding: 20px 0;
-                        color: $gray; font-size: 30px; line-height: 1em; text-align: center;
-                        @include transition(.2s);
+                        color: $gray; font-size: 1em; line-height: 1em; text-align: center;
                         
                         @include ON_PHONE {
                             font-size: 24px; line-height: 1em;
@@ -110,19 +105,30 @@
                         &.a0 {
                             display: none;
                         }
-                        
-                        &:hover {
-                            background: rgba(0,0,0,.08);
+                    }
+                
+                    .hover-bg {
+                        display: none !important;
+                    }
+
+                    #language-btn {
+                        float: none;
+                        width: 100%; margin: 20px 0; padding: 20px 0;
+
+
+                        b {
+                            width: 1em; height: .7em;
+                            @include transform(translate(0,3px));
+
+                            > span:after {
+                                display: none;
+                            }
+                        }
+
+                        > span {
+                            color: $lightgray; font-size: .6em; line-height: 1em; text-align: center;
                         }
                     }
-                }
-                
-                .hover-bg {
-                    display: none !important;
-                }
-                    
-                #language-btn {
-                    float: none; position: absolute; top: 0; left: 28px;
                 }
             }
             
@@ -188,7 +194,7 @@
         &.logo {
             // mimic nav link a0
             @extend .a0;
-            float: left; z-index: 9997;
+            z-index: 9997;
             color: $blue;
             
             @include ON_DESKTOP {
@@ -251,7 +257,7 @@
 }
 
 #hamburger-btn {
-    display: inline-block; position: relative; z-index: 9999;
+    display: inline-block; position: relative; float: right; z-index: 9999;
     width: 66px; height: 100%; padding: 18px 13px;
     @include transition(.1s);
     
@@ -345,7 +351,7 @@
 
 #language-btn {
     display: inline-block; position: relative; float: right; z-index: 9997;
-    width: 78px; height: 76px; padding: 22px 13px;
+    height: 76px; padding: 22px 13px;
     @include transition(.2s);
 
     &:hover b {
@@ -365,7 +371,7 @@
     
     b {
         display: inline-block; position: relative;
-        width: 100%; height: 100%;
+        width: 52px; height: 100%;
         border: 1px solid #e8e8e8;
         @include border-radius(4px);
         @include transition(.2s);
@@ -447,7 +453,7 @@
 
 #to-top {
     position: relative;
-    width: 100%; height: 120px; margin: 70px 0 0 0;
+    width: 100%; height: 120px; margin: 100px 0 0 0;
     background-color: $red;
     @include transition(.2s);
     

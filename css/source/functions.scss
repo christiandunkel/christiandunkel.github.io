@@ -68,3 +68,9 @@
         @content;
     }
 }
+
+@mixin ON_SLOW_DEVICE {
+    @media (update: slow) {
+        @content;
+    }
+}
