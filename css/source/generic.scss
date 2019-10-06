@@ -153,6 +153,36 @@ p.responsive {
     }
 }
 
+a.responsive,
+button.responsive {
+    display: inline-block;
+    padding: 1em;
+    font-size: 40px; font-size: 3vw; line-height: 1em; text-decoration: none;
+    @include border-radius(5px);
+    @include transition(color .3s, background .3s);
+
+    @media (min-width: 1201px) {
+        font-size: 36px;
+    }
+
+    @include ON_PHONE {
+        font-size: 18px;
+    }
+    
+    // two-thirds-size version
+    &.small {
+        font-size: 30px; font-size: 2vw;
+
+        @media (min-width: 1201px) {
+            font-size: 24px;
+        }
+
+        @include ON_PHONE {
+            font-size: 12px;
+        }
+    }
+}
+
 
 
 /* ACCESSIBILITY */

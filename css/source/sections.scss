@@ -122,6 +122,24 @@ section {
 
 /* PROJECTS SECTION */
 
+
+#projects {
+    
+    // category buttons
+    > button {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+        background: #c4e0f8;
+        color: $gray;
+        @include border-radius(30px);
+        
+        &.inactive {
+            background: #eaedf0;
+            color: $lightgray;
+        }
+    }
+}
+
 .project {
     display: inline-block; position: relative; z-index: 2;
     overflow: hidden;
@@ -135,28 +153,31 @@ section {
         0 16px 16px rgba(0,0,0,.1)
     );
     
-    // long rectangle
+    
+    
+    /* PROJECT BUTTONS */
+    
+    // long rectangle button
     @mixin project-long($parts) {
         $size: 96% / $parts;
         width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.65) 0;
     }
     
-    // almost square
+    // almost square button
     @mixin project-normal($parts) {
         $size: 96% / $parts;
         width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
     }
     
-    
-    // 3 beside each other
+    // 3 buttons beside each other
     @include project-normal(3);
     
-    // 2 beside each other
+    // 2 buttons beside each other
     @media (max-width: 1200px) {
         @include project-long(2);
     }
     
-    // all below one another
+    // all buttons below one another
     @media (max-width: 650px) {
         width: 100%; margin: 1% 0; padding: 0 0 60% 0;
     }
@@ -400,27 +421,11 @@ section {
 
 
 
-/* CONTACT SECTION*/
+/* CONTACT SECTION */
 
 #contact {
     
-    a {
-        display: inline-block;
-        font-size: 40px; font-size: 3vw; line-height: 1em; text-decoration: none;
-        @include border-radius(5px);
-        @include transition(color .3s, background .3s);
-        
-        @media (min-width: 1201px) {
-            font-size: 36px;
-        }
-        
-        @include ON_PHONE {
-            font-size: 18px;
-        }
-    }
-    
     .mail {
-        padding: 1em;
         border: .1em solid currentColor;
         color: $blue;
         
@@ -437,7 +442,7 @@ section {
     }
     
     .socialmedia {
-        margin: 10px 10px 0 0; padding: .8em 1em;
+        margin: 10px 10px 0 0;
         background: rgba(0,0,0,.05);
         color: #525252;
         
