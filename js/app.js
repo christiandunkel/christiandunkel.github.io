@@ -524,14 +524,15 @@ var NAV = {
         
         _.remove(NODE.nav_indicator_style);
 
-        var selector = '#nav .content';
-        var style = selector + ' .hover-bg {display: block !important;}';
-        var num = NODE.nav_links.length;
+        var selector    = '#nav .content';
+        var style       = selector + ' .hover-bg {display: block !important;}';
+        var num         = NODE.nav_links.length;
 
         if (num == 0) return;
 
         var sizes = {
             height      : _.getHeight(NODE.nav_links[1]),
+            marginLeft  : {},
             marginRight : {},
             width       : {},
             left        : {}
@@ -542,14 +543,17 @@ var NAV = {
             
             // get computed CSS values
             sizes.width[i]          = _.getWidth(NODE.nav_links[i]);
+            sizes.marginLeft[i]     = Number.parseFloat(
+                _.getStyle(NODE.nav_links[i], 'margin-left').replace(/[a-z]+/gi, '')
+            );
             sizes.marginRight[i]    = Number.parseFloat(
                 _.getStyle(NODE.nav_links[i], 'margin-right').replace(/[a-z]+/gi, '')
             );
 
             // calculate x position
-            var left = 0;
+            var left = sizes.marginLeft[i];
             for (var j = i; j--;) {
-                left += sizes.width[j] + sizes.marginRight[j];
+                left += sizes.width[j] + sizes.marginLeft[j] + sizes.marginRight[j];
             }
             sizes.left[i] = left;
             

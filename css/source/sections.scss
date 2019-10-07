@@ -187,6 +187,7 @@ section {
 .project {
     display: inline-block; position: relative; z-index: 2;
     overflow: hidden;
+    background-position: top center;
     @include border-radius(5px);
     @include background-size(cover);
     @include box-shadow(
@@ -240,7 +241,7 @@ section {
     
     // background images
     &.time-visualizer   {background-image: url(../img/project-time-visualizer.png);}
-    &.tensquared        {background-image: url(../img/project-tensquared.png);}
+    &.tensquared        {background-image: url(../img/project-tensquared.jpg);}
     &.raytracer         {background-image: url(../img/project-raytracer.png);}
     
     > * {
