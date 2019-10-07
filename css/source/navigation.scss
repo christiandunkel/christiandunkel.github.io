@@ -311,7 +311,7 @@
     .mobile-nav-open & {
         
         b {
-            @include transform(rotateY(180deg));
+            @include transform(rotate(180deg));
             @include transition(.3s .25s);
         }
         
@@ -330,14 +330,14 @@
                 @include transform-origin(left center);
             }
         
-            &.i1 {@include transform(rotate(45deg));}
-            &.i2 {@include transform(rotate(-45deg));}
-            &.i3 {@include transform(rotate(-45deg));}
+            &.i1 {@include transform(rotate(-45deg));}
+            &.i2 {@include transform(rotate(45deg));}
+            &.i3 {@include transform(rotate(45deg));}
             &.i4 {
                 // stretched longer and translated to center of cross, 
                 // to hide small empty spot in middle of cross
                 width: 53%;
-                @include transform(rotate(45deg) translate(-3%,0));
+                @include transform(rotate(-45deg) translate(-3%,0));
             }
             
         }
