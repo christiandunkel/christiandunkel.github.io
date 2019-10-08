@@ -6,6 +6,10 @@
     @include text-overflow($type);
 }
 
+%user-select-none {
+    @include user-select(none);
+}
+
 
 
 /* DEVICE MEDIA QUERIES */

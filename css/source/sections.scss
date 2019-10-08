@@ -143,6 +143,7 @@ section {
     
     // category buttons
     > button {
+        @extend %user-select-none;
         display: inline-block;
         margin: 10px 10px 0 0; padding: 0;
         overflow: hidden;
@@ -496,6 +497,7 @@ section {
 #contact {
     
     .mail {
+        @extend %user-select-none;
         border: .1em solid currentColor;
         color: $blue;
         
@@ -512,6 +514,7 @@ section {
     }
     
     .socialmedia {
+        @extend %user-select-none;
         margin: 10px 10px 0 0;
         background: rgba(0,0,0,.05);
         color: #525252;
