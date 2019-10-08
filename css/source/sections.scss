@@ -170,22 +170,37 @@ section {
             &:before {@include transform(translate(0,-50%) rotate(-45deg));}
         }
         
-        &:hover span {
-            background: #d1eaff;
+        &:focus,
+        &:hover {
+            
+            span {
+                background: #c7e5ff;
+            }
         }
         
         &:active span {
             @include transform(scale(.9));
         }
         
-        &.inactive span {
-            padding: 1em;
-            background: #f4f4f4;
-            color: $lightgray;
+        &.inactive {
             
-            &:after,
-            &:before {
-                display: none;
+            span {
+                padding: 1em;
+                background: #f4f4f4;
+                color: $lightgray;
+
+                &:after,
+                &:before {
+                    display: none;
+                }
+            }
+        
+            &:focus,
+            &:hover {
+
+                span {
+                    background: #eaeaea;
+                }
             }
         }
     }
@@ -501,6 +516,7 @@ section {
         border: .1em solid currentColor;
         color: $blue;
         
+        &:focus,
         &:hover {
             color: $red;
         }
@@ -519,6 +535,7 @@ section {
         background: rgba(0,0,0,.05);
         color: #525252;
         
+        &:focus,
         &:hover {
             background: rgba(0,0,0,.15);
         }

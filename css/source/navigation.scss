@@ -40,6 +40,7 @@
             float: none;
             position: fixed; top: 0; right: -110%; z-index: 9998;
             width: 100%; height: 100%;
+            visibility: hidden;
             @include transition(0s .2s);
             
             .overlay {
@@ -106,6 +107,11 @@
                         &.a0 {
                             display: none;
                         }
+                        
+                        &:focus,
+                        &:hover {
+                            @include opacity(.7);
+                        }
                     }
                 
                     .hover-bg {
@@ -135,6 +141,7 @@
             
             .mobile-nav-open & {
                 right: 0;
+                visibility: visible;
                 @include transition(0s);
                 
                 .overlay {
@@ -155,7 +162,8 @@
         color: $gray; font-size: 20px; line-height: 1em; text-decoration: none;
         @include transition(color .2s);
         
-        &.active, 
+        &.active,
+        &:focus,
         &:hover {
             color: $red;
         }
@@ -165,6 +173,7 @@
             width: 46px; height: 76px; margin: 0 20px 0 13px;
 
             &.active, 
+            &:focus,
             &:hover {
                 color: $blue;
                 @include transition-delay(.2s);
@@ -276,6 +285,11 @@
         }
     }
     
+    &:hover,
+    &:focus {
+        @include opacity(.7);
+    }
+    
     &:active b {
         @include transform(scale(.9));
         @include transition(.1s);
@@ -355,10 +369,11 @@
     height: 76px; padding: 22px 13px;
     @include transition(.2s);
 
+    &:focus b,
     &:hover b {
         
         @include ON_DESKTOP {
-            @include opacity(0.8);
+            @include opacity(0.7);
         }
     }
 
@@ -406,7 +421,7 @@
             &.en:before {@extend %flag-usa;}
             &.de:before {@extend %flag-germany;}
             
-            // a language is selected
+            // specific language is selected
             html[lang=en] &.en,
             html[lang=de] &.de {
                 
@@ -419,11 +434,11 @@
                 }
             }
             
-            // a language is unselected
-            // (shuffling animation on switch)
+            // specific language is NOT selected
             html[lang=en] &.de,
             html[lang=de] &.en {
                 
+                // shuffling animation on switch
                 &:before {
                     z-index: 2;
                     @include animation(shuffle-flag .4s);

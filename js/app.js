@@ -404,7 +404,7 @@ var NODE = function () {
     
     NODE.nav                = _.id('nav');
     // hidden mobile menu
-    NODE.nav_btn            = _.id('hamburger-btn');
+    NODE.hamburger_btn      = _.id('hamburger-btn');
     NODE.mobile_menu        = _.id('mobile-menu');
     NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
     // logo visible on mobile view
@@ -443,11 +443,8 @@ var NAV = {
     initialize : function () {
         
         // add effect to mobile nav button
-        _.onClick(NODE.nav_btn, NAV.toggleWindow);
-        _.onClick(NODE.mobile_overlay, NAV.closeWindow);
-        
-        // scroll 
-        NODE.mobile_logo
+        _.onClick(NODE.hamburger_btn,   NAV.toggleWindow);
+        _.onClick(NODE.mobile_overlay,  NAV.closeWindow);
         
         // remove anchor link and add scroll effect to nav links
         for (var i = NODE.nav_links.length + 1; i--;) {
@@ -493,6 +490,11 @@ var NAV = {
         if (!NAV.is_open) {
             NAV.is_open = true;
             _.addClass(NODE.html, 'mobile-nav-open');
+            
+            // focus on first link in mobile menu
+            setTimeout(function () {
+                NODE.nav_links[1].focus();
+            }, 150);
         }
     },
 
@@ -500,6 +502,11 @@ var NAV = {
         if (NAV.is_open) {
             NAV.is_open = false;
             _.removeClass(NODE.html, 'mobile-nav-open');
+            
+            // focus on mobile menu button
+            setTimeout(function () {
+                NODE.hamburger_btn.focus();
+            }, 150);
         }
     },
 
