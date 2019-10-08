@@ -172,16 +172,16 @@
             
             &:before,
             &:after {
-                position: absolute; top: 50%; left: 50%;
-                @include transform(translate(-50%, -50%));
+                @extend %translate-center;
+                position: absolute;
             }
             
             &:before {
+                @extend %border-radius-5px;
                 content: '';
                 display: inline-block; z-index: 1;
                 width: 42px; height: 42px;
                 border: 3px solid currentColor;
-                @include border-radius(5px);
             }
 
             &:after {
@@ -282,9 +282,9 @@
     }
     
     i {
+        @extend %border-radius-5px;
         position: absolute; left: 0; z-index: 1;
         width: 100%; height: 10%; // three 12% gaps between i's
-        @include border-radius(3px);
         @include transition(all .2s, width .2s .2s, top .2s .2s, left .2s .2s);
     
         @include ON_REDUCED_MOTION {
@@ -371,10 +371,10 @@
     }
     
     b {
+        @extend %border-radius-5px;
         display: inline-block; position: relative;
         width: 52px; height: 100%;
         border: 1px solid #e8e8e8;
-        @include border-radius(4px);
         @include transition(.2s);
 
         span {
@@ -395,12 +395,12 @@
             
             // flag icons
             &:before {
+                @extend %border-radius-5px;
                 content: '';
                 display: inline-block; position: absolute; top: 0; left: 0;
                 width: 100%; height: 100%;
                 background-repeat: no-repeat;
                 @include background-size(100% 100%);
-                @include border-radius(4px);
                 @include transform-origin(top left);
             }
             &.en:before {@extend %flag-usa;}
@@ -459,17 +459,17 @@
     @include transition(.2s);
     
     b {
-        display: block; position: absolute; top: 50%; left: 50%; z-index: 2;
+        @extend %translate-center;
+        display: block; position: absolute; z-index: 2;
         width: 40px; height: 40px;
-        @include transform(translate(-50%,-50%));
         @include transition(.2s);
     }
     
     i {
+        @extend %border-radius-5px;
         position: absolute; top: 30%; left: 42.5%; z-index: 1;
         width: 15%;
         background-color: white;
-        @include border-radius(4px);
         
         &.head1, &.head2 {
             height: 60%;

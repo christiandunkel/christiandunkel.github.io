@@ -117,10 +117,10 @@ section {
             font-size: 2.2em; font-weight: 700;
             
             span {
+                @extend %border-radius-5px;
                 padding: 0 3%;
                 background: $red;
                 color: #f9f9f9;
-                @include border-radius(8px);
             }
         }
         
@@ -159,11 +159,11 @@ section {
             
             &:after,
             &:before {
+                @extend %border-radius-5px;
                 content: '';
                 position: absolute; top: 50%; right: 1em; z-index: 2;
-                width: .6em; height: .15em;
+                width: .65em; height: .15em;
                 background: currentColor;
-                @include border-radius(4px);
             }
 
             &:after {@include transform(translate(0,-50%) rotate(45deg));}
@@ -202,10 +202,10 @@ section {
 
 // project cards
 .project {
+    @extend %border-radius-5px;
     display: inline-block; position: relative; z-index: 2;
     overflow: hidden;
     background-position: top center;
-    @include border-radius(5px);
     @include background-size(cover);
     @include box-shadow(
         0 1px 1px rgba(0,0,0,.1),
@@ -351,9 +351,9 @@ section {
 #technologies {
     
     .container {
+        @extend %border-radius-5px;
         padding: 20px;
         background: white; overflow: hidden;
-        @include border-radius(5px);
         @include box-shadow(
             0 1px 1px rgba(0,0,0,.03),
             0 2px 2px rgba(0,0,0,.03),
@@ -389,12 +389,12 @@ section {
             }
             
             .desc {
+                @extend %border-radius-5px;
                 position: absolute; top: 50%; left: 50%; z-index: 1;
                 width: 200px; height: 200px;
                 background: rgba(0,0,0,.85);
                 color: white; text-align: left;
                 @include opacity(0);
-                @include border-radius(5px);
                 @include transform(translate(-50%, -45%) scale(1.07));
                 @include transition(.1s);
         
@@ -403,10 +403,10 @@ section {
                 }
                 
                 p {
-                    position: absolute; top: 50%; left: 50%; z-index: 2;
+                    @extend %translate-center;
+                    position: absolute; z-index: 2;
                     width: 80%; margin: 0;
                     font-size: 15px; line-height: 1.3em;
-                    @include transform(translate(-50%, -50%));
                     
                     span {
                         display: block;
@@ -426,9 +426,9 @@ section {
             }
             
             &:hover .desc {
+                @extend %translate-center;
                 z-index: 2;
                 @include opacity(1);
-                @include transform(translate(-50%,-50%));
             }
             
             &:before {
