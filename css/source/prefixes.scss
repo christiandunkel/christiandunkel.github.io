@@ -144,7 +144,7 @@
 
 @mixin opacity($value) {
     opacity: $value;
-    filter: alpha(opacity=($value * 100)); //IE8
+    filter: alpha(opacity=($value * 100)); // for IE8
 }
 
 @mixin text-overflow($value) {

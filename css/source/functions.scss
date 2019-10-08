@@ -8,7 +8,7 @@
 
 
 
-/* MEDIA QUERIES */
+/* DEVICE MEDIA QUERIES */
 
 @mixin ON_DESKTOP {
     @media (min-width: 801px) {
@@ -27,6 +27,10 @@
         @content;
     }
 }
+
+
+
+/* SCREEN MEDIA QUERIES */
 
 // below most smallest screen devices 
 @mixin ON_MIN_SCREEN {

@@ -1,3 +1,5 @@
+/* BLOCK ELEMENTS */
+
 div, span, h1, h2, h3, h4, h5, h6, p, pre, a, del, img, ins, small, strike, strong, b, u, i, center, ol, ul, li, form, label, table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption, header, main, footer, menu, nav, input {
     font: inherit; font-size: 100%;
 }
@@ -18,12 +20,11 @@ blockquote, q {
 	   content: '';
 	   content: none;
     }
-    
 }
 
 
 
-// tables
+/* TABLES */
 
 table {
     display: table;
@@ -32,7 +33,7 @@ table {
     border-color: transparent;
 }
 
-// table areas
+// areas
 
 thead, tbody, tfoot {
     vertical-align: middle;
@@ -51,18 +52,7 @@ tfoot {
     display: table-footer-group;
 }
 
-// table cells
-
-td, th {
-    display: table-cell;
-    vertical-align: inherit;
-    border-color: transparent;
-}
-
-th {
-    font-weight: normal;
-    text-align: center;
-}
+// rows and cells
 
 tr {
     display: table-row;
@@ -70,9 +60,21 @@ tr {
     border-color: transparent;
 }
 
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    border-color: transparent;
+}
+
+th {
+    @extend td;
+    font-weight: normal;
+    text-align: center;
+}
 
 
-// user input elements
+
+/* INPUTS */
 
 textarea {
     font-family: inherit;
@@ -101,12 +103,11 @@ button {
         padding: 0;
         border: 0;
     }
-    
 }
 
 
 
-// text formatting elements
+/* TEXT FORMATTING */
 
 h1 {
     margin: 60px 0 0 0;
