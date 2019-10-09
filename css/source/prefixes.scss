@@ -1,3 +1,469 @@
+/* VALUE TESTING */
+
+// checks if a value is within a list
+@function is-in-list($val, $list) {
+    @each $item in $list {
+        @if ($item == $val) {
+            @return true;
+        }
+    }
+    @return false;
+}
+
+// check if a value is a number and in range $range: ($min, $max)
+@function is-number-in-range($val, $range) {
+    @return is-number($val) and $val >= nth($range, 1) and $val <= nth($range, 2);
+}
+
+// check if a value is a unitless number in range
+@function is-unitless-number-in-range($val, $range) {
+    @return is-number-in-range($val, $range) and unitless($val);
+}
+
+// ternary operator --> true ? 1 : 0
+@function if-do-else($condition, $val1, $val2) {
+    @if ($condition == true) {
+        @return $val1;
+    } 
+    @else {
+        @return $val2;
+    }
+}
+
+
+
+/* TYPE TESTING */
+
+@function is-number($val) {
+    @return type-of($val) == 'number';
+}
+ 
+@function is-time($val) {
+    $unit: unit($val);
+    @return is-number($val) and index('ms' 's', $unit) != null;
+}
+ 
+@function is-angle($val) {
+    $unit: unit($val);
+    @return is-number($val) and index('deg' 'rad' 'grad' 'turn', $unit) != null;
+}
+ 
+@function is-integer($val) {
+    @return is-number($val) and round($val) == $val;
+}
+ 
+@function is-percent($val) {
+    $unit: unit($val);
+    @return is-number($val) and $unit == '%';
+}
+ 
+@function is-length($val) {
+    $unit: unit($val);
+    @return is-number($val) and index('em' 'ex' 'ch' 'rem' 'vw' 'vh' 'vmin' 'vmax' 'cm' 'mm' 'in' 'px' 'pt' 'pc', $unit) != null;
+}
+
+@function is-width($val) {
+    @return is-percent($val) or is-length($val);
+}
+
+@function is-position($val) {
+    @return is-length($val) or is-percentage($val) or index('top' 'right' 'bottom' 'left' 'center', $val) != null;
+}
+
+
+
+/* DISPLAY */
+
+@mixin display($val) {
+    
+    @if ($val == 'flex') {
+        
+        display: -moz-flexbox;
+         display: -ms-flexbox; // IE 10
+         display: -webkit-box; // Safari 3.1+
+        display: -webkit-flex; // Safari 6.1+
+                display: flex;
+        
+    }
+    @if ($val == 'inline-flex') {
+        
+        display: -moz-inline-flexbox;
+         display: -ms-inline-flexbox; // IE 10
+         display: -webkit-inline-box; // Safari 3.1+
+        display: -webkit-inline-flex; // Safari 6.1+
+                display: inline-flex;
+        
+    }
+    @else {
+        display: $val;
+    }
+    
+}
+
+
+/* FLEX-BOX */
+
+@mixin align-content($val) {
+    
+    @if (is-in-list($val, ('center', 'stretch'))) {
+        
+        -ms-flex-line-pack: $val;
+        
+    }
+    @else if ($val == 'flex-start') {
+        
+        -ms-flex-line-pack: start;
+        
+    }
+    @else if ($val == 'flex-end') {
+        
+        -ms-flex-line-pack: end;
+        
+    }
+    @else if (is-in-list($val, ('space-around', 'space-between'))) {
+        
+        -ms-flex-line-pack: justify;
+        
+    }
+    @else {
+        
+        @error "Unknown 'box-align: #{$val};'. Allowed are 'center|flex-end|flex-start|space-around|space-between|stretch'.";
+        
+    }
+    
+    // newest version
+    -webkit-align-content: $val;
+            align-content: $val;
+    
+}
+
+@mixin align-items($val) {
+    
+    $old-attr: 0;
+    
+    @if (is-in-list($val, ('baseline', 'center', 'stretch'))) {
+        $old-attr: $val;
+    }
+    @else if ($val == 'flex-start') {
+        $old-attr: start;
+    }
+    @else if ($val == 'flex-end') {
+        $old-attr: end;
+    }
+    @else {
+        
+        @error "Unknown 'box-align: #{$val};'. Allowed are 'baseline|center|flex-end|flex-start|stretch'.";
+        
+    }
+    
+    // older version
+    -webkit-box-align: $old-attr;
+       -moz-box-align: $old-attr;
+      -moz-flex-align: $old-attr;
+       -ms-flex-align: $old-attr;
+    
+    // newest version
+    -webkit-align-items: $val;
+            align-items: $val;
+    
+}
+
+@mixin align-self($val) {
+    
+    @if (is-in-list($val, ('auto', 'baseline', 'center', 'stretch'))) {
+        
+        -ms-flex-item-align: $val;
+        
+    }
+    @else if ($val == 'flex-start') {
+        
+        -ms-flex-item-align: start;
+        
+    }
+    @else if ($val == 'flex-end') {
+        
+        -ms-flex-item-align: end;
+        
+    }
+    @else {
+        
+        @error "Unknown 'align-self: #{$val};'. Allowed are 'auto|baseline|center|flex-end|flex-start|stretch'.";
+        
+    }
+    
+    // newest version
+    -webkit-align-self: $val;
+            align-self: $val;
+    
+}
+
+@mixin flex($val) {
+        
+    // element needs to have width set (for older syntax), otherwise element collapses
+    
+    // process flex using keyword
+    @if (is-in-list($val, ('none', 'initial', 'auto'))) {
+        
+        $flex: (1, 1, auto); // = 'auto'
+        
+        // resolve keywords into their values
+        @if ($val == 'none') {
+            $flex: (0, 0, auto);
+        }
+        @else if ($val == 'initial') {
+            $flex: (0, 1, auto);
+        }
+        
+        // set first value (index) of resolved values
+        -webkit-box-flex: nth($flex, 1); // Safari 3.1+
+           -moz-box-flex: nth($flex, 1); // Firefox 19-
+        
+        // set complete resolved values
+            -webkit-flex: $flex;
+                    flex: $flex;
+        
+        // set keywords
+        -webkit-flex: $val; // Chrome
+            -ms-flex: $val; // IE 10
+                flex: $val; // Opera 12.1, Firefox 20+
+        
+    }
+    // process flex using values
+    @else {
+        
+        $error: false;
+        
+        @if (length($val) == 3) {
+        
+            // go through parameters in list
+            
+            $v: nth($val, 1);
+            @if (is-integer($v) and $v >= 0 and unitless($v)) {
+                -moz-box-flex: $v;
+                -webkit-box-flex: $v;
+            }
+            @else {
+                $error: true;
+            }
+            
+            $v: nth($val, 2);
+            @if (not (is-integer($v) and $v >= 0 and unitless($v))) {
+                $error: true;
+            }
+            
+            $v: nth($val, 3);
+            @if ($v == 'auto' or (is-integer($v) and $v >= 0 and unitless($v))) {
+                -ms-flex: $val;
+                -webkit-flex: $val;
+                flex: $val;
+            }
+            @else {
+                $error: true;
+            }
+            
+        }
+        @else {
+            $error: true;
+        }
+        
+        @if ($error) {
+            @error "Unknown 'flex: #{$val};'. Allowed are 'auto|initial|none' or '0|1 0|1 auto|0|1'.";
+        }
+        
+    }
+    
+}
+
+@mixin flex-direction($val) {
+    
+    @if (is-in-list($val, ('column', 'column-reverse'))) {
+        
+        // older version
+        -webkit-box-direction: if-do-else($val == 'column', normal, reverse);
+           -webkit-box-orient: vertical;
+           -moz-box-direction: if-do-else($val == 'column', normal, reverse);
+              -moz-box-orient: vertical;
+        
+        // newer version
+        -webkit-flex-direction: $val;
+            -ms-flex-direction: $val; // IE 10
+                flex-direction: $val;
+        
+    }
+    @else if ($val == 'row' or $val == 'row-reverse') {
+        
+        // older version
+        -webkit-box-direction: if-do-else($val == 'row', normal, reverse);
+           -webkit-box-orient: horizontal;
+           -moz-box-direction: if-do-else($val == 'row', normal, reverse);
+              -moz-box-orient: horizontal;
+        
+        // newer version
+        -webkit-flex-direction: $val;
+            -ms-flex-direction: $val; // IE 10
+                flex-direction: $val;
+        
+    }
+    @else {
+        @error "Unknown 'flex-direction: #{$val};'. Allowed are 'column|column-reverse|row|row-reverse'.";
+    }
+    
+}
+
+@mixin flex-flow($flex-direction, $flex-wrap) {
+    
+    @include flex-direction($flex-direction);
+    @include flex-wrap($flex-wrap);
+    
+}
+
+@mixin flex-basis($val) {
+    
+    // must be positive, unitless number
+    @if (
+        is-in-list($val, ('auto', 'content', 'fill', 'fit-content', 'inherit', 'initial', 'max-content', 'min-content', 'unset')) or 
+        (is-width($val) and $val >= 0) or
+        $val == 0
+    ) {
+        
+        -ms-flex-preferred-size: $val; // IE 10
+             -webkit-flex-basis: $val; // Windows Chrome 21+
+                     flex-basis: $val; // Firefox 22+, IE 11, Opera 12.1+
+        
+    }
+    @else {
+        
+        @error "Unknown 'flex-grow: #{$val};'. Allowed are 'inherit|initial|unset' or a positive, unitless number.";
+        
+    }
+    
+}
+
+@mixin flex-grow($val) {
+    
+    // must be positive, unitless number
+    @if (
+        is-in-list($val, ('inherit', 'initial', 'unset')) or 
+        (is-number($val) and unitless($val) and $val >= 0)
+    ) {
+        
+        -ms-flex-positive: $val; // IE 10
+        -webkit-flex-grow: $val;
+                flex-grow: $val;
+        
+    }
+    @else {
+        
+        @error "Unknown 'flex-grow: #{$val};'. Allowed are 'inherit|initial|unset' or a positive number.";
+        
+    }
+    
+}
+
+@mixin flex-shrink($val) {
+    
+    // must be positive, unitless number
+    @if (
+        is-in-list($val, ('inherit', 'initial', 'unset')) or 
+        (is-number($val) and unitless($val) and $val >= 0)
+    ) {
+        
+                flex-shrink: 1; // set default to 1 for IE 10
+          -ms-flex-negative: $val; // IE 10
+        -webkit-flex-shrink: $val;
+                flex-shrink: $val;
+        
+    }
+    @else {
+        
+        @error "Unknown 'flex-shrink: #{$val};'. Allowed are 'inherit|initial|unset' or a positive number.";
+        
+    }
+    
+}
+
+@mixin flex-wrap($val) {
+    
+    @if (is-in-list($val, ('nowrap', 'wrap', 'wrap-reverse'))) {
+        
+        $is-nowrap: ($val == 'nowrap');
+        
+        // older version
+        -webkit-box-lines: if-do-else($is-nowrap, single, multiple);
+           -moz-box-lines: if-do-else($is-nowrap, single, multiple);
+        
+        // newer version
+        -webkit-flex-wrap: $val;
+            -ms-flex-wrap: if-do-else($is-nowrap, none, $val); // IE 10
+                flex-wrap: $val;
+        
+    }
+    @else {
+        
+        @error "Unknown 'flex-wrap: #{$val};'. Allowed are 'nowrap|wrap|wrap-reverse'.";
+        
+    }
+    
+}
+
+@mixin justify-content($val) {
+    
+    @if ($val == 'center') {
+        -ms-flex-pack:      center;
+        -moz-flex-pack:     center;
+        -webkit-box-pack:   center;
+    }
+    @else if ($val == 'flex-start') {
+        -ms-flex-pack:      start;
+        -moz-flex-pack:     start;
+        -webkit-box-pack:   start;
+    }
+    @else if ($val == 'flex-end') {
+        -ms-flex-pack:      end;
+        -moz-flex-pack:     end;
+        -webkit-box-pack:   end;
+    }
+    @else if (is-in-list($val, ('space-around', 'space-between'))) {
+        -ms-flex-pack:      if-do-else($val == 'space-around', distribute, justify);
+        -moz-flex-pack:     justify;
+        -webkit-box-pack:   justify;
+    }
+    @else {
+        @error "Unknown 'justify-content: #{$val};'. Allowed are 'center|flex-end|flex-start|space-around|space-between'.";
+    }
+    
+    // newest version
+    -webkit-justify-content: $val;
+       -moz-justify-content: $val;
+            justify-content: $val;
+    
+}
+
+@mixin order($val) {
+    
+    // must be integer
+    @if (is-integer($val)) {
+        
+        // older version starts at 1
+        -webkit-box-ordinal-group:  $val + 1;
+        -moz-box-ordinal-group:     $val + 1;
+        
+        // newer version starts at 0
+        -ms-flex-order:             $val;
+        -webkit-order:              $val;
+        order:                      $val;
+        
+    }
+    @else {
+        @error "Unknown 'order: #{$val};'. Requires an integer.";
+    }
+
+}
+
+
+
+/* GENERAL */
+
 @mixin animation($animations...) {
     -o-animation: $animations;
     -moz-animation: $animations;
@@ -61,47 +527,53 @@
     animation-timing-function: $timing;
 }
 
-@mixin appearance($value) {
-    -moz-appearance: $value;
-    -webkit-appearance: $value;
-    appearance: $value;
+@mixin appearance($val) {
+    -moz-appearance: $val;
+    -webkit-appearance: $val;
+    appearance: $val;
 }
 
-@mixin background-size($value) {
-    -o-background-size: $value;
-    -moz-background-size: $value;
-    -webkit-background-size: $value;
-    background-size: $value;
+@mixin background-clip($val) {
+    -moz-background-clip: $val;
+    -webkit-background-clip: $val;
+    background-clip: $val;
 }
 
-@mixin border-radius($value) {
-    -moz-border-radius: $value;
-    -webkit-border-radius: $value;
-    border-radius: $value;
+@mixin background-size($val) {
+    -o-background-size: $val;
+    -moz-background-size: $val;
+    -webkit-background-size: $val;
+    background-size: $val;
 }
 
-@mixin border-bottom-right-radius($value) {
-    -moz-border-bottom-right-radius: $value;
-    -webkit-border-bottom-right-radius: $value;
-    border-bottom-right-radius: $value;
+@mixin border-radius($val) {
+    -moz-border-radius: $val;
+    -webkit-border-radius: $val;
+    border-radius: $val;
 }
 
-@mixin border-bottom-left-radius($value) {
-    -moz-border-bottom-left-radius: $value;
-    -webkit-border-bottom-left-radius: $value;
-    border-bottom-left-radius: $value;
+@mixin border-bottom-right-radius($val) {
+    -moz-border-bottom-right-radius: $val;
+    -webkit-border-bottom-right-radius: $val;
+    border-bottom-right-radius: $val;
 }
 
-@mixin border-top-right-radius($value) {
-    -moz-border-top-right-radius: $value;
-    -webkit-border-top-right-radius: $value;
-    border-top-right-radius: $value;
+@mixin border-bottom-left-radius($val) {
+    -moz-border-bottom-left-radius: $val;
+    -webkit-border-bottom-left-radius: $val;
+    border-bottom-left-radius: $val;
 }
 
-@mixin border-top-left-radius($value) {
-    -moz-border-top-left-radius: $value;
-    -webkit-border-top-left-radius: $value;
-    border-top-left-radius: $value;
+@mixin border-top-right-radius($val) {
+    -moz-border-top-right-radius: $val;
+    -webkit-border-top-right-radius: $val;
+    border-top-right-radius: $val;
+}
+
+@mixin border-top-left-radius($val) {
+    -moz-border-top-left-radius: $val;
+    -webkit-border-top-left-radius: $val;
+    border-top-left-radius: $val;
 }
 
 @mixin box-shadow($shadows...) {
@@ -110,15 +582,40 @@
     box-shadow: $shadows;
 }
 
-@mixin box-sizing($value) {
-    -moz-box-sizing: $value;
-    -webkit-box-sizing: $value;
-    box-sizing: $value;
+@mixin box-sizing($val) {
+    -moz-box-sizing: $val;
+    -webkit-box-sizing: $val;
+    box-sizing: $val;
 }
 
-@mixin filter($value) {
-    -webkit-filter: $value;
-    filter: $value;
+@mixin column-count($val) {
+    -moz-column-count: $val; // Firefox
+    -webkit-column-count: $val; // Chrome, Safari, BB
+    column-count: $val; // IE 10, Opera 11.1+
+}
+
+@mixin column-gap($val) {
+    -moz-column-gap: $val;
+    -webkit-column-gap: $val;
+    column-gap: $val;
+}
+
+@mixin column-rule($vals...) {
+    -moz-column-rule: $vals; 
+    -webkit-column-rule: $vals;
+    column-rule: $vals;
+}
+
+@mixin filter($val) {
+    -webkit-filter: $val;
+    filter: $val;
+}
+
+@mixin hyphens($val) {
+    -ms-hyphens: auto; // IE 10+
+    -moz-hyphens: auto; // Firefox 6+
+    -webkit-hyphens: auto; // Safari 5.1+
+    hyphens: auto;
 }
 
 @mixin keyframes($name) {
@@ -136,44 +633,197 @@
     }
 }
 
-@mixin linear-gradient($values...) {
-    background: -moz-linear-gradient($values);
-    background: -webkit-linear-gradient($values);
-    background: linear-gradient($values);
+@mixin linear-gradient($vals...) {
+    background: -moz-linear-gradient($vals);
+    background: -webkit-linear-gradient($vals);
+    background: linear-gradient($vals);
 }
 
-@mixin opacity($value) {
-    opacity: $value;
-    filter: alpha(opacity=($value * 100)); // for IE8
+@mixin max-height($val) {
+    
+    @if ($val == 'fit-content') {
+        
+        max-height: -webkit-fit-content;
+           max-height: -moz-fit-content;
+                max-height: fit-content;
+                  max-height: intrinsic; // Safari
+        
+    }
+    @else if ($val == 'max-content') {
+        
+        max-height: -webkit-max-content;
+           max-height: -moz-max-content;
+                max-height: max-content;
+        
+        
+    }
+    @else if ($val == 'min-content') {
+        
+        max-height: -webkit-min-content;
+           max-height: -moz-min-content;
+                max-height: min-content;
+        
+    }
+    @else if (is-in-list($val, ('fill-available', 'stretch'))) {
+        
+        // archaic version used by some browsers
+        max-height: -webkit-available;
+           max-height: -moz-available;
+                max-height: available;
+        
+        // newer version
+        max-height: -webkit-fill-available;
+           max-height: -moz-fill-available;
+                max-height: fill-available;
+                       max-height: stretch;
+        
+    }
+    @else if (
+        is-in-list($val, ('inherit', 'initial', 'none', 'unset')) or 
+        is-length($val) or 
+        is-percent($val)
+    ) {
+        
+        max-height: $val;
+        
+    }
+    @else {
+        
+        @error "Unknown 'max-height: #{$val};'. Allowed are 'fill-available|fit-content|inherit|initial|max-content|min-content|none|stretch', a percentage value or a length value.";
+        
+    }
+    
 }
 
-@mixin text-overflow($value) {
-    -o-text-overflow: $value;
-    text-overflow: $value;
+@mixin max-width($val) {
+    
+    @if ($val == 'min-content') {
+        -moz-max-width: min-content;
+        -webkit-max-width: min-content;
+        max-width: intrinsic; // Safari
+    }
+    @else if ($val == 'max-content') {
+        -moz-max-width: max-content;
+        -webkit-max-width: max-content;
+        max-width: intrinsic; // Safari
+    }
+    @else if ($val == 'fit-content') {
+        -moz-max-width: fit-content;
+        -webkit-max-width: fit-content;
+        max-width: intrinsic; // Safari
+    }
+    @else if ($val == 'stretch') {
+        -webkit-fill-available: stretch;
+    }
+    
+    max-width: $val;
 }
 
-@mixin transform($value...) {
-    -o-transform: $value;
-    -ms-transform: $value;
-    -moz-transform: $value;
-    -webkit-transform: $value;
-    transform: $value;
+@mixin min-height($val) {
+    
+    @if ($val == 'min-content') {
+        -moz-min-height: min-content;
+        -webkit-min-height: min-content;
+    }
+    @else if ($val == 'max-content') {
+        -moz-min-height: max-content;
+        -webkit-min-height: max-content;
+    }
+    @else if ($val == 'fit-content') {
+        -moz-min-height: fit-content;
+        -webkit-min-height: fit-content;
+        min-height: intrinsic; // Safari
+    }
+    @else if ($val == 'stretch') {
+        -webkit-fill-available: stretch;
+    }
+    
+    min-height: $val;
 }
 
-@mixin transform-origin($value) {
-    -o-transform-origin: $value;
-    -ms-transform-origin: $value;
-    -moz-transform-origin: $value;
-    -webkit-transform-origin: $value;
-    transform-origin: $value;
+@mixin min-width($val) {
+    
+    @if ($val == 'min-content') {
+        -moz-min-width: min-content;
+        -webkit-min-width: min-content;
+        min-width: min-intrinsic; // Safari
+    }
+    @else if ($val == 'max-content') {
+        -moz-min-width: max-content;
+        -webkit-min-width: max-content;
+        min-width: intrinsic; // Safari
+    }
+    @else if ($val == 'fit-content') {
+        -moz-min-width: fit-content;
+        -webkit-min-width: fit-content;
+        -webkit-fill-available: fit-content; // Samsung Internet 5+
+    }
+    @else if ($val == 'stretch') {
+        -webkit-fill-available: stretch;
+    }
+    
+    min-width: $val;
 }
 
-@mixin transform-style($value) {
-    -o-transform-style: $value;
-    -ms-transform-style: $value;
-    -moz-transform-style: $value;
-    -webkit-transform-style: $value;
-    transform-style: $value;
+@mixin object-fit($val) {
+    -o-object-fit: $val;
+    object-fit: $val;
+}
+
+@mixin opacity($val) {
+    
+    @if (is-unitless-number-in-range($val, (0, 1))) {
+        opacity: $val;
+        filter: alpha(opacity=($val * 100)); // for IE8
+    }
+    @else {
+        @error "Unknown 'opacity: #{$val};'. Requires a number in range of 0 to 1.";
+    }
+    
+}
+
+@mixin position($val) {
+    
+    @if ($val == 'sticky') {
+        position: -webkit-$val;
+        position: $val;
+    }
+    @else if (is-in-list($val, ('absolute', 'fixed', 'relative', 'static'))) {
+        position: $val;
+    }
+    @else {
+        @error "Unknown 'position: #{$val};'. Allowed are 'absolute|fixed|relative|static|sticky'.";
+    }
+    
+}
+
+@mixin text-overflow($val) {
+    -o-text-overflow: $val;
+       text-overflow: $val;
+}
+
+@mixin transform($val...) {
+    -webkit-transform: $val; // Chrome 36-, Safari 5.1+
+       -moz-transform: $val;
+        -ms-transform: $val; // IE 9
+         -o-transform: $val;
+            transform: $val; // IE 10, Firefox 16+, Opera 12.1+, Chrome
+}
+
+@mixin transform-origin($val) {
+    -webkit-transform-origin: $val;
+       -moz-transform-origin: $val;
+        -ms-transform-origin: $val;
+         -o-transform-origin: $val;
+            transform-origin: $val;
+}
+
+@mixin transform-style($val) {
+    -o-transform-style: $val;
+    -ms-transform-style: $val;
+    -moz-transform-style: $val;
+    -webkit-transform-style: $val;
+    transform-style: $val;
 }
 
 @mixin transition($transitions...) {
@@ -211,9 +861,25 @@
     transition-timing-function: $timing;
 }
 
-@mixin user-select($value) {
-    -ms-user-select: $value;
-    -moz-user-select: $value;
-    -webkit-user-select: $value;
-    user-select: $value;
+@mixin user-select($val) {
+    
+    @if (is-in-list($val, ('all', 'auto', 'contain', 'none', 'text'))) {
+        
+        -webkit-user-select: $val;
+           -moz-user-select: $val;
+            -ms-user-select: $val;
+                user-select: $val;
+        
+    }
+    @else {
+        
+        @error "Unknown 'user-select: #{$val};'. Allowed are 'all|auto|contain|none|text'.";
+        
+    }
+    
+}
+
+@mixin word-break($val) {
+    -ms-word-break: $val;
+        word-break: $val;
 }
