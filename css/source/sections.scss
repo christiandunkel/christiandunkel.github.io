@@ -544,6 +544,7 @@ section {
             display: inline-block;
             width: .9em; height: .9em; margin: 0 .8em 0 0;
             @include opacity(.8);
+            @include transform(translate(0,.05em));
         }
         
         &.github:before {@extend %icon-github;}
