@@ -140,6 +140,26 @@
                 <span lang=de>Wähle die <b>Kategorien</b> aus, die du anschauen willst:</span>
             </p>
             
+            <button class="project-select-btn responsive small" category=website>
+                <span lang=en>Website</span>
+                <span lang=de>Webseite</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=lib>
+                <span>Library</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=css>
+                <span>CSS/Sass</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=js>
+                <span>JavaScript</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=cpp>
+                <span>C++</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=csharp>
+                <span>C#</span>
+            </button>
+            
             <button id=project-switch-logic-btn class="responsive small" title="Switch selection logic" title-de="Ändere Logik der Selektion" logic="AND">
                 <i lang=en>
                     <span class=and>&and; AND</span>
@@ -151,43 +171,11 @@
                 </i>
             </button>
             
-            <button class="project-select-btn responsive small" category=website>
-                <span lang=en>Website</span>
-                <span lang=de>Webseite</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=lib>
-                <span>Library</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=html>
-                <span>HTML</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=css>
-                <span>CSS/Sass</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=svg>
-                <span>SVG</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=js>
-                <span>JavaScript</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=php>
-                <span>PHP</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=java>
-                <span>Java</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=cpp>
-                <span>C++</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=csharp>
-                <span>C#</span>
-            </button>
-            
             <br />
             
             <hr />
 
-            <figure class="project time-visualizer" categories="website html css js">
+            <figure class="project time-visualizer" categories="website css js">
                 <figcaption class=desc>
                     <div class=center>
                         <h3>
@@ -200,6 +188,19 @@
                         </p>
                         <a href="https://christiandunkel.github.io/time-visualizer" title="Visit the website" title-de="Besuche die Webseite" target="_blank" rel="noopener noreferrer"></a>
                         <a href="https://github.com/christiandunkel/time-visualizer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                    </div>
+                </figcaption>
+            </figure>
+
+            <figure class="project power-prefixer" categories="lib css">
+                <figcaption class=desc>
+                    <div class=center>
+                        <h3>Sass Power Prefixer</h3>
+                        <p>
+                            <span lang=en>Sass/SCSS library for prefixing CSS properties</span>
+                            <span lang=de>Sass/SCSS Library zum Prefixen von CSS Eigenschaften</span>
+                        </p>
+                        <a href="https://github.com/christiandunkel/power-prefixer.scss" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
                     </div>
                 </figcaption>
             </figure>
