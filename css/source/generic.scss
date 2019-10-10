@@ -168,7 +168,7 @@ button.responsive {
     display: inline-block;
     padding: 1em;
     font-size: 40px; font-size: 3vw; line-height: 1em; text-decoration: none;
-    @extend %border-radius-5px;
+    @include border-radius(5px);
     @include transition(color .3s, background .3s);
 
     @media (min-width: 1201px) {
@@ -215,7 +215,7 @@ a, button {
         padding: 15px 22px;
         background: rgba(0,0,0,.95);
         color: white; font-size: 20px; line-height: 25px;
-        @extend %border-radius-5px;
+        @include border-radius(5px);
     }
 }
 

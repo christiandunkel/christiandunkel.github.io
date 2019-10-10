@@ -105,7 +105,7 @@ section {
                 padding: 0 3%;
                 background: $red;
                 color: #f9f9f9;
-                @extend %border-radius-5px;
+                @include border-radius(5px);
             }
         }
         
@@ -156,7 +156,7 @@ section {
         display: inline-block;
         margin: 10px 10px 0 0; padding: 0;
         overflow: hidden;
-        @extend %user-select-none;
+        @include user-select(none);
         @include border-radius(30px);
         
         span {
@@ -173,7 +173,7 @@ section {
                 position: absolute; top: 50%; right: 1em; z-index: 2;
                 width: .65em; height: .15em;
                 background: currentColor;
-                @extend %border-radius-5px;
+                @include border-radius(5px);
             }
 
             &:after {@include transform(translate(0,-50%) rotate(45deg));}
@@ -228,6 +228,7 @@ section {
 // project cards
 .project {
     display: inline-block; position: relative;
+    @include transition(.2s);
     
     // 3 cards beside each other
     width: 32%; margin: 1% 0.5%;
@@ -313,7 +314,7 @@ section {
         display: inline-block; position: relative; z-index: 2;
         width: 100%; padding: 0 0 60% 0;
         overflow: hidden;
-        @extend %border-radius-5px;
+        @include border-radius(5px);
         @include box-shadow(
             0 1px 1px rgba(0,0,0,.1),
             0 2px 2px rgba(0,0,0,.1),
@@ -378,7 +379,7 @@ section {
     .container {
         padding: 20px;
         background: white; overflow: hidden;
-        @extend %border-radius-5px;
+        @include border-radius(5px);
         @include box-shadow(
             0 1px 1px rgba(0,0,0,.03),
             0 2px 2px rgba(0,0,0,.03),
@@ -431,7 +432,7 @@ section {
                     width: 90%; margin: 0; padding: 20px;
                     background: rgba(0,0,0,.85);
                     color: white; text-align: left; font-size: 15px; line-height: 1.3em;
-                    @extend %border-radius-5px;
+                    @include border-radius(5px);
                     @extend %translate-center;
                     
                     span {
@@ -515,7 +516,7 @@ section {
     .mail {
         border: .1em solid currentColor;
         color: $blue;
-        @extend %user-select-none;
+        @include user-select(none);
         
         &:focus,
         &:hover {
@@ -527,7 +528,7 @@ section {
         margin: 10px 10px 0 0;
         background: rgba(0,0,0,.05);
         color: #525252;
-        @extend %user-select-none;
+        @include user-select(none);
         
         &:focus,
         &:hover {
@@ -572,7 +573,7 @@ footer {
             position: absolute; top: 30%; left: 42.5%; z-index: 1;
             width: 15%;
             background-color: white;
-            @extend %border-radius-5px;
+            @include border-radius(5px);
 
             &.head1, &.head2 {
                 height: 60%;

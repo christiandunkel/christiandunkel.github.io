@@ -11,14 +11,6 @@
     @include transform(translate(-50%, -50%));
 }
 
-%user-select-none {
-    @include user-select(none);
-}
-
-%border-radius-5px {
-    @include border-radius(5px);
-}
-
 
 
 /* DEVICE MEDIA QUERIES */
