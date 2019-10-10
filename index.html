@@ -128,6 +128,10 @@
             
         </section>
         
+        
+        
+        
+        
         <section id=projects class=content-section>
         
             <h2 class=responsive>
@@ -140,97 +144,130 @@
                 <span lang=de>Wähle die <b>Kategorien</b> aus, die du anschauen willst:</span>
             </p>
             
-            <button class="project-select-btn responsive small" category=website>
-                <span lang=en>Website</span>
-                <span lang=de>Webseite</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=lib>
-                <span>Library</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=css>
-                <span>CSS/Sass</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=js>
-                <span>JavaScript</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=cpp>
-                <span>C++</span>
-            </button>
-            <button class="project-select-btn responsive small inactive" category=csharp>
-                <span>C#</span>
-            </button>
+            <!-- project category selection -->
             
             <button id=project-switch-logic-btn class="responsive small" title="Switch selection logic" title-de="Ändere Logik der Selektion" logic="AND">
                 <i lang=en>
-                    <span class=and>&and; AND</span>
-                    <span class=or>&or; OR</span>
+                    <span class=and>Logic: AND</span>
+                    <span class=or>Logic: OR</span>
                 </i>
                 <i lang=de>
-                    <span class=or>&or; ODER</span>
-                    <span class=and>&and; UND</span>
+                    <span class=or>Logik: ODER</span>
+                    <span class=and>Logik: UND</span>
                 </i>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=website>
+                <span lang=en>Website</span>
+                <span lang=de>Webseite</span>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=lib>
+                <span>Library</span>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=css>
+                <span>CSS/Sass</span>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=js>
+                <span>JavaScript</span>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=cpp>
+                <span>C++</span>
+            </button>
+            
+            <button class="project-select-btn responsive small inactive" category=csharp>
+                <span>C#</span>
             </button>
             
             <br />
             
             <hr />
+            
+            <!-- project cards -->
 
-            <figure class="project time-visualizer" categories="website css js">
-                <figcaption class=desc>
-                    <div class=center>
-                        <h3>
-                            <span lang=en>Time Visualizer</span>
-                            <span lang=de>Zeit Visualisierer</span>
-                        </h3>
-                        <p>
-                            <span lang=en>A simple web tool for visualizing data over time</span>
-                            <span lang=de>Ein simples Web-Tool für das Visualisieren von Daten über Zeit</span>
-                        </p>
-                        <a href="https://christiandunkel.github.io/time-visualizer" title="Visit the website" title-de="Besuche die Webseite" target="_blank" rel="noopener noreferrer"></a>
+            <div class=project categories="website css js">
+                
+                <div class=top>
+                    <h3>
+                        <span lang=en>Time Visualizer</span>
+                        <span lang=de>Zeit Visualisierer</span>
+                    </h3>
+                    <div class=links>
                         <a href="https://github.com/christiandunkel/time-visualizer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                        <a href="https://christiandunkel.github.io/time-visualizer" title="Visit the website" title-de="Besuche die Webseite" target="_blank" rel="noopener noreferrer"></a>
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+                    
+                <figure>
+                    <div class=img style="background-image: url(img/project-time-visualizer.png)"></div>
+                    <figcaption>
+                        <span lang=en><b>Time Visualizer</b> is a simple web tool for visualizing data over time.</span>
+                        <span lang=de>Der <b>Zeit Visualisierer</b> ist ein simples Web-Tool für das Visualisieren von Daten über Zeit.</span>
+                    </figcaption>
+                </figure>
+                
+            </div>
 
-            <figure class="project power-prefixer" categories="lib css">
-                <figcaption class=desc>
-                    <div class=center>
-                        <h3>Sass Power Prefixer</h3>
-                        <p>
-                            <span lang=en>Sass/SCSS library for prefixing CSS properties</span>
-                            <span lang=de>Sass/SCSS Library zum Prefixen von CSS Eigenschaften</span>
-                        </p>
+            <div class=project categories="lib css">
+                
+                <div class=top>
+                    <h3>Sass Power Prefixer</h3>
+                    <div class=links>
                         <a href="https://github.com/christiandunkel/power-prefixer.scss" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+                    
+                <figure>
+                    <div class=img style="background-image: url(img/project-power-prefixer.png)"></div>
+                    <figcaption>
+                        <span lang=en>The <b>Power Prefixer</b> is a Sass/SCSS library for automatically prefixing CSS properties.</span>
+                        <span lang=de>Der <b>Power Prefixer</b> ist eine Sass/SCSS Library zum automatischen Hinzufügen von CSS Prefixen.</span>
+                    </figcaption>
+                </figure>
+                
+            </div>
 
-            <figure class="project tensquared" categories="csharp">
-                <figcaption class=desc>
-                    <div class=center>
-                        <h3>tensquared</h3>
-                        <p>
-                            <span lang=en>2D puzzle platform game made in Unity</span>
-                            <span lang=de>2D Puzzle Platformer Spiel erstellt in Unity</span>
-                        </p>
-                        <a href="https://github.com/christiandunkel/tensquared/releases" title="Download the game" title-de="Lade das Spiel herunter" target="_blank" rel="noopener noreferrer"></a>
+            <div class=project categories="csharp">
+                
+                <div class=top>
+                    <h3>tensquared</h3>
+                    <div class=links>
                         <a href="https://github.com/christiandunkel/tensquared" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                        <a href="https://github.com/christiandunkel/tensquared/releases" title="Download the game" title-de="Lade das Spiel herunter" target="_blank" rel="noopener noreferrer"></a>
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+                    
+                <figure>
+                    <div class=img style="background-image: url(img/project-tensquared.jpg)"></div>
+                    <figcaption>
+                        <span lang=en><b>tensquared</b> is a 2D puzzle platform game made in Unity.</span>
+                        <span lang=de><b>tensquared</b> ist ein 2D Puzzle Platformer Spiel erstellt in Unity.</span>
+                    </figcaption>
+                </figure>
+                
+            </div>
 
-            <figure class="project raytracer" categories="cpp">
-                <figcaption class=desc>
-                    <div class=center>
-                        <h3>Raytracer</h3>
-                        <p>
-                            <span lang=en>C++ Raytracer with shading, reflection, transparency &amp; more</span>
-                            <span lang=de>C++ Raytracer mit Schatten, Reflektion, Transparenz &amp; mehr</span>
-                        </p>
+            <div class=project categories="cpp">
+                
+                <div class=top>
+                    <h3>Raytracer</h3>
+                    <div class=links>
                         <a href="https://github.com/christiandunkel/raytracer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
                     </div>
-                </figcaption>
-            </figure>
+                </div>
+                    
+                <figure>
+                    <div class=img style="background-image: url(img/project-raytracer.png)"></div>
+                    <figcaption>
+                        <span lang=en>This C++ <b>Raytracer</b> supports rendering of simple shades with shading, reflection, transparency &amp; more.</span>
+                        <span lang=de>Dieser C++ <b>Raytracer</b> unterstützt das Rendern simpler Objekte mit Schaftten, Reflektion, Transparenz &amp; mehr.</span>
+                    </figcaption>
+                </figure>
+                
+            </div>
             
             <p class="responsive small no-projects-selected">
                 <span lang=en>No projects selected.</span>
@@ -238,6 +275,10 @@
             </p>
             
         </section>
+        
+        
+        
+        
         
         <section id=technologies class=content-section>
             
@@ -384,6 +425,10 @@
             
         </section>
         
+        
+        
+        
+        
         <section id=contact class=content-section>
         
             <h2 class=responsive>
@@ -413,6 +458,10 @@
             <a class="responsive socialmedia twitter" href="https://twitter.com/chrdunkel" target="_blank" rel="noopener noreferrer">Twitter</a>
             
         </section>
+        
+        
+        
+        
     
         <footer>
         

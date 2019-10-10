@@ -127,50 +127,25 @@ section {
 #projects {
     
     #project-switch-logic-btn {
-        float: right;
-        margin: 10px 10px 2em 2em; padding: 0;
+        margin: 10px 10px 0 0; padding: 0;
         
         i {
             display: inline-block;
             padding: 1em;
-            font-style: normal;
+            background: #def6f7;
+            color: #2e7889; font-style: normal;
             @include border-radius(30px);
             @include transition(transform .1s, background .2s);
         }
-        
-        &[logic='AND'] {
             
-            i {
-                background: #f7e2de;
-                color: #8e473a;
-            }
-            
-            &:focus i,
-            &:hover i {
-                background: #ecc9c3;
-            }
-            
-            span:not(.and) {
-                display: none;
-            }
+        &:focus i,
+        &:hover i {
+            background: #beebed;
         }
         
-        &[logic='OR'] i {
-            
-            i {
-                background: #d7f7d7;
-                color: #187318;
-            }
-            
-            &:focus i,
-            &:hover i {
-                background: #baeaba;
-            }
-            
-            span:not(.or) {
-                display: none;
-            }
-        }
+        &[logic='AND'] span:not(.and),
+        &[logic='OR'] span:not(.or) {display: none;}
+        
         &:active i {
             @include transform(scale(.9));
         }
@@ -252,22 +227,27 @@ section {
 
 // project cards
 .project {
-    @extend %border-radius-5px;
-    display: inline-block; position: relative; z-index: 2;
-    overflow: hidden;
-    background-position: top center;
-    @include background-size(cover);
-    @include box-shadow(
-        0 1px 1px rgba(0,0,0,.1),
-        0 2px 2px rgba(0,0,0,.1),
-        0 4px 4px rgba(0,0,0,.1),
-        0 8px 8px rgba(0,0,0,.1),
-        0 16px 16px rgba(0,0,0,.1)
-    );
-    @include transition(all 0s, transform .3s);
+    display: inline-block; position: relative;
+    
+    // 3 cards beside each other
+    width: 32%; margin: 0.5%;
+    
+    // 2 cards beside each other
+    @media (max-width: 1200px) {
+        width: 48%; margin: 2% 0;
+        &:nth-child(even)   {margin-right: 4%;}
+        &:nth-child(odd)    {margin-right: 0;}
+    }
+    
+    // all cards below one another
+    @media (max-width: 650px) {
+        width: 100%; margin: 4% 0;
+        &:nth-child(even)   {margin-right: 0;}
+        &:nth-child(odd)    {margin-right: 0;}
+    }
     
     &.hidden {
-        position: absolute;
+        position: absolute; z-index: 3;
         width: 0; height: 0;
         visibility: hidden;
         @include transform(scale(0));
@@ -276,118 +256,112 @@ section {
     
     
     
-    /* PROJECT CARDS */
-    
-    // long rectangle card
-    @mixin card-long($parts) {
-        $size: 96% / $parts;
-        width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.65) 0;
-    }
-    
-    // almost square card
-    @mixin card-normal($parts) {
-        $size: 96% / $parts;
-        width: $size; margin: 4% / ($parts * 2); padding: 0 0 ($size * 0.8) 0;
-    }
-    
-    // 3 cards beside each other
-    @include card-normal(3);
-    
-    // 2 cards beside each other
-    @media (max-width: 1200px) {
-        @include card-long(2);
-    }
-    
-    // all cards below one another
-    @media (max-width: 650px) {
-        width: 100%; margin: 1% 0; padding: 0 0 60% 0;
-    }
-    @include ON_PHONE {
-        padding: 0 0 80% 0;
-    }
-    
-    // background images
-    &.time-visualizer   {background-image: url(../img/project-time-visualizer.png);}
-    &.power-prefixer    {background-image: url(../img/power-prefixer.png);}
-    &.tensquared        {background-image: url(../img/project-tensquared.jpg);}
-    &.raytracer         {background-image: url(../img/project-raytracer.png);}
-    
-    > * {
-        position: absolute;
-    }
-    
-    .desc {
-        position: absolute; top: -1%; left: -1%;
-        width: 102%; height: 102%;
-        @include opacity(0);
-        @include transform(scale(1.2));
-        @include transition(.3s .12s);
-        
-        @include ON_REDUCED_MOTION {
-            @include transition-property(none !important);
-        }
-        
-        &:before {
-            content: '';
-            position: absolute; top: 0; left: 0; z-index: -1;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,.92);
-            @include opacity(.9);
-        }
-        
-        .center {
-            display: inline-block; position: absolute; top: 50%; left: 0;
-            width: 100%; padding: 34px;
-            @include transform(translate(0, -50%));
-            
-            @include ON_DESKTOP {
-                padding: 60px;
-            }
-            
-            h3, p {
-                text-shadow: 1px 1px rgba(0,0,0,.2);
-                color: white;
-            }
-    
-            h3 {
-                display: inline-block;
-                margin: 0;
-                font-size: 26px; line-height: 1.2em; font-weight: 700;
-                @extend %text-wrap;
-            }
+    .top {
+        position: relative;
+        margin: 0 0 7px 0; padding: 0 76px 0 0;
 
-            p {
-                margin: 4px 0 10px 0;
+        h3 {
+            margin: 0;
+            color: $gray; font-size: 28px; line-height: 32px; font-weight: 700;
+            @extend %text-wrap;
+        }
+            
+        @media (max-width: 450px) {
+            margin: 0;
+            
+            h3 {
+                font-size: 22px; font-weight: normal;
             }
+        }
+        
+        .links {
+            position: absolute; top: -2px; right: 0;
+            width: 70px; height: 32px;
+            text-align: right;
             
             a {
                 display: inline-block;
-                width: 28px; height: 28px; margin: 5px 10px 0 0; padding: 8px;
+                width: 32px; height: 32px; margin: 0 0 0 3px;
+                background-repeat: no-repeat;
+                background-position: center;
                 text-decoration: none;
+                @include opacity(.45);
                 @include transition(.2s);
-                
-                background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICAgIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iOCI+DQogICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjY0LDIwIDQsMjAgNCw5NiA3OCw5NiA3OCwzNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4NCiAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iNjAsNCA5Niw0IDk2LDQwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPg0KICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSI5Niw0IDM2LDY0IiAvPg0KICAgIDwvZz4NCjwvc3ZnPg==);
-                
+
                 &[title~="GitHub"] {
-                    @extend %icon-github-white;
+                    @extend %icon-github;
+                    @include background-size(24px 24px);
                 }
-                
+
+                &:not([title~="GitHub"]) {
+                    right: 32px;
+                    background-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSI4Ij4KICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSI2NCwyMCA0LDIwIDQsOTYgNzgsOTYgNzgsMzYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+CiAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iNjAsNCA5Niw0IDk2LDQwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiAvPgogICAgICAgIDxwb2x5bGluZSBwb2ludHM9Ijk2LDQgMzYsNjQiIC8+CiAgICA8L2c+Cjwvc3ZnPg==);
+                    @include background-size(20px 20px);
+                }
+
+                &:focus,
                 &:hover {
-                    @include opacity(.7);
+                    @include opacity(.85);
                 }
             }
         }
     }
     
-    @media (max-width: 300px) {
-        .desc .center {
-            padding: 18px;
-        }
-    }
     
-    &:hover {
+    
+    figure {
+        display: inline-block; position: relative; z-index: 2;
+        width: 100%; padding: 0 0 60% 0;
+        overflow: hidden;
+        @extend %border-radius-5px;
+        @include box-shadow(
+            0 1px 1px rgba(0,0,0,.1),
+            0 2px 2px rgba(0,0,0,.1),
+            0 4px 4px rgba(0,0,0,.1),
+            0 8px 8px rgba(0,0,0,.1),
+            0 16px 16px rgba(0,0,0,.1)
+        );
+        @include transition(all 0s, transform .3s);
         
-        .desc {
+        .img {
+            position: absolute;
+            width: 101%; height: 101%;
+            background-repeat: no-repeat;
+            background-position: left top;
+            @include background-size(cover);
+            @extend %translate-center;
+        }
+        
+        figcaption {
+            position: absolute; top: -1%; left: -1%; z-index: 4;
+            width: 102%; height: 102%;
+            background: rgba(0,0,0,.8);
+            @include opacity(0);
+            @include transition(.3s .1s);
+
+            @include ON_REDUCED_MOTION {
+                @include transition-property(none !important);
+            }
+            
+            // center paragraph inside
+            span {
+                display: inline-block; position: absolute;
+                width: 100%; padding: 0 10%;
+                text-shadow: 1px 1px rgba(0,0,0,.2);
+                font-size: 16px; line-height: 1.5em; color: white;
+                @extend %translate-center;
+            
+                @include ON_DESKTOP {
+                    padding: 60px;
+                }
+    
+                @media (max-width: 300px) {
+                    padding: 18px;
+                }
+            }
+        }
+        
+        &:hover figcaption {
             @include opacity(1);
             @include transform(scale(1));
             @include transition(.3s);

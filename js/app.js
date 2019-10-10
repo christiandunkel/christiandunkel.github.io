@@ -427,9 +427,8 @@ var NODE = function () {
     NODE.valid_titled_elems = [];
     
     // project selection
-    var projects_section        = _.id('projects');
     NODE.project_category_btns  = _.class('project-select-btn');
-    NODE.project_cards          = _.tag('figure', projects_section);
+    NODE.project_cards          = _.class('project');
     NODE.project_switch_logic   = _.id('project-switch-logic-btn');
     
 };
@@ -824,9 +823,9 @@ var PROJECT = {
             
             var card                = NODE.project_cards[i];
             
-            // if no category is selected, hide all cards
+            // if no category is selected, show all cards
             if (no_category_selected) {
-                _.addClass(card, 'hidden');
+                _.removeClass(card, 'hidden');
                 continue;
             }
             
