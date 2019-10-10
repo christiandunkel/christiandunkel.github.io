@@ -809,12 +809,28 @@ var PROJECT = {
     
     updateSelection : function () {
         
+        // check if no category is selected, to save time in later loop
+        var no_category_selected = true;
+        for (var c in PROJECT.categories) {
+            if (PROJECT.categories[c] == true) {
+                no_category_selected = false;
+                break;
+            }
+        }
+        
         // go through all project cards 
         // and toggle them on / off depending on selection
         card_loop: for (var i = NODE.project_cards.length; i--;) {
             
             var card                = NODE.project_cards[i];
-            var categories          = card.getAttribute('categories');
+            
+            // if no category is selected, hide all cards
+            if (no_category_selected) {
+                _.addClass(card, 'hidden');
+                continue;
+            }
+            
+            var card_categories     = card.getAttribute('categories');
             var category_counter    = 0;
             var categories_apply    = 0;
             
@@ -836,7 +852,7 @@ var PROJECT = {
                 category_counter++;
                 
                 // return if a category was found
-                if (categories.match(new RegExp(_.escapeRegex(c), 'i'))) {
+                if (card_categories.match(new RegExp(_.escapeRegex(c), 'i'))) {
                     
                     // if OR logic, enable card if just one selected category was found on it
                     if (PROJECT.current_logic == 'OR') {
@@ -862,7 +878,7 @@ var PROJECT = {
                 }
             }
             
-            // otherwise, if reached here, toggle project card off
+            // otherwise, if reached here, hide project card
             _.addClass(card, 'hidden');
             
         }
