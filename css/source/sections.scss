@@ -126,8 +126,42 @@ section {
 
 #projects {
     
+    #project-switch-logic-btn {
+        float: right;
+        margin: 10px 10px 2em 2em; padding: 0;
+        
+        i {
+            display: inline-block;
+            padding: 1em;
+            font-style: normal;
+            @include border-radius(30px);
+            @include transition(transform .1s, background .2s);
+        }
+        
+        &[logic='AND'] i {
+            background: #f7e2de;
+            color: #8e473a;
+            
+            &:hover {background: #ecc9c3;}
+            
+            span:not(.and) {display: none;}
+        }
+        
+        &[logic='OR'] i {
+            background: #d7f7d7;
+            color: #187318;
+            
+            &:hover {background: #baeaba;}
+            
+            span:not(.or) {display: none;}
+        }
+        &:active i {
+            @include transform(scale(.9));
+        }
+    }
+    
     // category buttons
-    > button {
+    .project-select-btn {
         @extend %user-select-none;
         display: inline-block;
         margin: 10px 10px 0 0; padding: 0;
@@ -302,7 +336,7 @@ section {
                 display: inline-block;
                 margin: 0;
                 font-size: 26px; line-height: 1.2em; font-weight: 700;
-                @include text-wrap;
+                @extend %text-wrap;
             }
 
             p {

@@ -1,9 +1,9 @@
 /* CSS SHORT-CUTS */
 
-@mixin text-wrap($type: ellipsis) {
+%text-wrap {
     white-space: nowrap;
     overflow: hidden;
-    @include text-overflow($type);
+    @include text-overflow(ellipsis);
 }
 
 %translate-center {

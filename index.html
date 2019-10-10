@@ -140,19 +140,50 @@
                 <span lang=de>Wähle die <b>Kategorien</b> aus, die du anschauen willst:</span>
             </p>
             
-            <button class="responsive small" category=website>
+            <button id=project-switch-logic-btn class="responsive small" title="Switch selection logic" title-de="Ändere Logik der Selektion" logic="AND">
+                <i lang=en>
+                    <span class=and>&and; AND</span>
+                    <span class=or>&or; OR</span>
+                </i>
+                <i lang=de>
+                    <span class=or>&or; ODER</span>
+                    <span class=and>&and; UND</span>
+                </i>
+            </button>
+            
+            <button class="project-select-btn responsive small" category=website>
                 <span lang=en>Website</span>
                 <span lang=de>Webseite</span>
             </button>
-            <button class="responsive small" category=lib><span>Library</span></button>
-            <button class="responsive small inactive" category=html><span>HTML</span></button>
-            <button class="responsive small inactive" category=css><span>CSS/Sass</span></button>
-            <button class="responsive small inactive" category=svg><span>SVG</span></button>
-            <button class="responsive small inactive" category=js><span>JavaScript</span></button>
-            <button class="responsive small inactive" category=php><span>PHP</span></button>
-            <button class="responsive small inactive" category=java><span>Java</span></button>
-            <button class="responsive small inactive" category=cpp><span>C++</span></button>
-            <button class="responsive small inactive" category=csharp><span>C#</span></button>
+            <button class="project-select-btn responsive small inactive" category=lib>
+                <span>Library</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=html>
+                <span>HTML</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=css>
+                <span>CSS/Sass</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=svg>
+                <span>SVG</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=js>
+                <span>JavaScript</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=php>
+                <span>PHP</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=java>
+                <span>Java</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=cpp>
+                <span>C++</span>
+            </button>
+            <button class="project-select-btn responsive small inactive" category=csharp>
+                <span>C#</span>
+            </button>
+            
+            <br />
             
             <hr />
 

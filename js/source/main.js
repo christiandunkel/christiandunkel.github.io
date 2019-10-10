@@ -33,8 +33,9 @@ var NODE = function () {
     
     // project selection
     var projects_section        = _.id('projects');
-    NODE.project_category_btns  = _.tag('button', projects_section);
+    NODE.project_category_btns  = _.class('project-select-btn');
     NODE.project_cards          = _.tag('figure', projects_section);
+    NODE.project_switch_logic   = _.id('project-switch-logic-btn');
     
 };
 
@@ -355,8 +356,50 @@ var PROJECT = {
                 
                 // apply new category selection
                 PROJECT.updateSelection();
+                
             });
         }
+        
+        // get amount of logic operators that can be applied to selection
+        PROJECT.logic_operators_num = PROJECT.logic_operators.length;
+        // get current logic operator from HTML button
+        PROJECT.current_logic = NODE.project_switch_logic.getAttribute('logic');
+        
+        // add button for switching between selection logic e.g. AND, OR
+        _.onClick(NODE.project_switch_logic, function () {
+            
+            var num         = PROJECT.logic_operators_num; // operator amount
+            var last_index  = num - 1;
+            var operators   = PROJECT.logic_operators;
+            var current     = PROJECT.current_logic;
+            
+            // go through logic operators and set current to the next one
+            for (var i = num; i--;) {
+                
+                // current logic operator is at index i in operator list
+                if (current == operators[i]) {
+                    
+                    if (last_index == i) {
+                        // select first operator in list
+                        PROJECT.current_logic = operators[0];
+                    }
+                    else {
+                        // otherwise, select next operator in list
+                        PROJECT.current_logic = operators[i+1];
+                    }
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            // apply logic as HTML class
+            NODE.project_switch_logic.setAttribute('logic', PROJECT.current_logic);
+            
+            PROJECT.updateSelection();
+            
+        });
         
         PROJECT.updateSelection();
         
@@ -365,14 +408,20 @@ var PROJECT = {
     // name -> true|false
     categories : {},
     
+    current_logic       : null,
+    logic_operators     : ['AND', 'OR'],
+    logic_operators_num : null,
+    
     updateSelection : function () {
         
         // go through all project cards 
         // and toggle them on / off depending on selection
         card_loop: for (var i = NODE.project_cards.length; i--;) {
             
-            var project = NODE.project_cards[i];
-            var categories = project.getAttribute('categories');
+            var card                = NODE.project_cards[i];
+            var categories          = card.getAttribute('categories');
+            var category_counter    = 0;
+            var categories_apply    = 0;
             
             // go through all categories that are currently turned on
             // and check if project card has at least one of them
@@ -383,22 +432,43 @@ var PROJECT = {
                     return;
                 }
                 
-                // cheeck if the category is selected
+                // check if the category is selected (if it's true)
                 if (PROJECT.categories[c] == false) {
                     continue;
                 }
                 
+                // counter for categories currently selected
+                category_counter++;
+                
                 // return if a category was found
                 if (categories.match(new RegExp(_.escapeRegex(c), 'i'))) {
-                    // toggle project card on
-                    _.removeClass(project, 'hidden');
-                    continue card_loop;
+                    
+                    // if OR logic, enable card if just one selected category was found on it
+                    if (PROJECT.current_logic == 'OR') {
+                        // toggle project card on
+                        _.removeClass(card, 'hidden');
+                        continue card_loop;
+                    }
+                    // if AND logic, enable card if all selected categories were found on it
+                    else if (PROJECT.current_logic == 'AND') {
+                        // counter for categories applied
+                        categories_apply++;
+                    }
+                    
                 }
                 
             }
             
+            if (PROJECT.current_logic == 'AND') {
+                // show card, if total category counter equals the categories on the item
+                if (category_counter == categories_apply) {
+                    _.removeClass(card, 'hidden');
+                    continue;
+                }
+            }
+            
             // otherwise, if reached here, toggle project card off
-            _.addClass(project, 'hidden');
+            _.addClass(card, 'hidden');
             
         }
         
