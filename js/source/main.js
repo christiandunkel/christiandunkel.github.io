@@ -5,7 +5,7 @@ var NODE = function () {
     NODE.html = document.documentElement  || _.tag('html')[0];
     NODE.head = document.head             || _.tag('head')[0];
     NODE.body = document.body             || _.tag('body')[0];
-    NODE.main =                              _.tag('main')[0];
+    NODE.main = _.tag('main')[0];
     
     NODE.nav                = _.id('nav');
     // hidden mobile menu
@@ -712,9 +712,6 @@ var SCROLL = {
             _.removeClass(NODE.nav_links[i], 'active');
         }
         _.addClass(target, 'active');
-
-        // close nav hidden window
-        NAV.closeWindow();
         
     }
     

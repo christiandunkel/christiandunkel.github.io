@@ -539,13 +539,6 @@ section {
         &:hover {
             color: $red;
         }
-        
-        &:after {
-            content: '\2192';
-            display: inline-block;
-            margin: 0 0 0 10px;
-            @include transition(.2s);
-        }
     }
     
     .socialmedia {
