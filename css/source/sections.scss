@@ -413,21 +413,18 @@ section {
             width: 25%; padding: 40px 0;
             text-align: center;
             
-            @include ON_MOBILE {
-                width: 50%;
-            }
-            
             > span {
                 display: block;
-                font-size: 24px; color: #575757;
+                font-size: 18px; color: #575757;
+                @extend %text-wrap;
             }
             
             .desc {
-                @extend %border-radius-5px;
                 position: absolute; top: 50%; left: 50%; z-index: 1;
                 width: 200px; height: 200px;
-                background: rgba(0,0,0,.85);
+                background: rgba(0,0,0,.85); cursor: auto;
                 color: white; text-align: left;
+                @extend %border-radius-5px;
                 @include opacity(0);
                 @include transform(translate(-50%, -45%) scale(1.07));
                 @include transition(.1s);
@@ -446,19 +443,9 @@ section {
                         display: block;
                     }
                 }
-                
-                a {
-                    display: inline-block;
-                    margin: 7px 0 0 0;
-                    color: white; font-size: 14px; text-decoration: none;
-                    
-                    &:hover {
-                        color: #cecece;
-                        @include transition(.2s);
-                    }
-                }
             }
             
+            .desc:focus,
             &:hover .desc {
                 @extend %translate-center;
                 z-index: 2;
@@ -473,24 +460,8 @@ section {
                 @include background-size(100% 100%);
             }
             
-            @include ON_PHONE {
-                padding: 20px 0;
-                
-                > span {
-                    font-size: 18px;
-                }
-                
-                .desc {
-                    display: none;
-                }
-                
-                &:before {
-                    width: 60px; height: 60px;
-                }
-            }
-            
-            @media (max-width: 350px) {
-                padding: 10px 0;
+            @include ON_MOBILE {
+                padding: 20px;
                 
                 > span {
                     font-size: 16px;
@@ -501,8 +472,24 @@ section {
                 }
                 
                 &:before {
-                    width: 44px; height: 44px;
+                    width: 50px; height: 50px; margin-bottom: 5px;
                 }
+            }
+            
+            @include ON_PHONE {
+                padding: 10px;
+                
+                > span {
+                    font-size: 14px;
+                }
+                
+                &:before {
+                    width: 40px; height: 40px;
+                }
+            }
+            
+            @media (max-width: 450px) {
+                width: 50%;
             }
             
             &.html:before      {@extend %icon-html;}
