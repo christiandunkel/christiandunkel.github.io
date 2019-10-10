@@ -25,13 +25,13 @@ section {
     // fade in animations on page load
     &#about {
         .greet {
-            @include animation(fade-in-from-top 1s .5s, hidden .5s);
+            @include animation(fade-in-from-top 1s .5s, invisible .5s);
         }
         .name {
-            @include animation(fade-in-from-top 1.2s 1s, hidden 1s);
+            @include animation(fade-in-from-top 1.2s 1s, invisible 1s);
         }
         .desc {
-            @include animation(fade-in-from-top 1.4s 1.5s, hidden 1.5s);
+            @include animation(fade-in-from-top 1.4s 1.5s, invisible 1.5s);
         }
         
     }
@@ -42,7 +42,7 @@ section {
         &#projects, 
         &#technologies, 
         &#contact {
-            @include animation(hidden 1s infinite);
+            @include animation(invisible 1s infinite);
 
             &.appear {
                  @include animation(fade-in-from-top 1s);
@@ -102,10 +102,10 @@ section {
             font-size: 2.2em; font-weight: 700;
             
             span {
-                @extend %border-radius-5px;
                 padding: 0 3%;
                 background: $red;
                 color: #f9f9f9;
+                @extend %border-radius-5px;
             }
         }
         
@@ -153,10 +153,10 @@ section {
     
     // category buttons
     .project-select-btn {
-        @extend %user-select-none;
         display: inline-block;
         margin: 10px 10px 0 0; padding: 0;
         overflow: hidden;
+        @extend %user-select-none;
         @include border-radius(30px);
         
         span {
@@ -169,11 +169,11 @@ section {
             
             &:after,
             &:before {
-                @extend %border-radius-5px;
                 content: '';
                 position: absolute; top: 50%; right: 1em; z-index: 2;
                 width: .65em; height: .15em;
                 background: currentColor;
+                @extend %border-radius-5px;
             }
 
             &:after {@include transform(translate(0,-50%) rotate(45deg));}
@@ -376,9 +376,9 @@ section {
 #technologies {
     
     .container {
-        @extend %border-radius-5px;
         padding: 20px;
         background: white; overflow: hidden;
+        @extend %border-radius-5px;
         @include box-shadow(
             0 1px 1px rgba(0,0,0,.03),
             0 2px 2px rgba(0,0,0,.03),
@@ -442,9 +442,9 @@ section {
             
             .desc:focus,
             &:hover .desc {
-                @extend %translate-center;
                 z-index: 2;
                 @include opacity(1);
+                @extend %translate-center;
             }
             
             &:before {
@@ -513,9 +513,9 @@ section {
 #contact {
     
     .mail {
-        @extend %user-select-none;
         border: .1em solid currentColor;
         color: $blue;
+        @extend %user-select-none;
         
         &:focus,
         &:hover {
@@ -524,10 +524,10 @@ section {
     }
     
     .socialmedia {
-        @extend %user-select-none;
         margin: 10px 10px 0 0;
         background: rgba(0,0,0,.05);
         color: #525252;
+        @extend %user-select-none;
         
         &:focus,
         &:hover {
@@ -542,8 +542,8 @@ section {
             @include transform(translate(0,.05em));
         }
         
-        &.github:before {@extend %icon-github;}
-        &.twitter:before {@extend %icon-twitter;}
+        &.github:before     {@extend %icon-github;}
+        &.twitter:before    {@extend %icon-twitter;}
     }
 }
 
@@ -553,27 +553,26 @@ section {
 
 footer {
     margin: 100px 0 0 0;
-    background: $blue;
+    background: $red;
     text-align: center;
     
     #to-top {
         position: relative;
         width: 100%; height: 120px;
-        background-color: $red;
         @include transition(.2s);
 
         b {
-            @extend %translate-center;
             display: block; position: absolute; z-index: 2;
             width: 40px; height: 40px;
+            @extend %translate-center;
             @include transition(.2s);
         }
 
         i {
-            @extend %border-radius-5px;
             position: absolute; top: 30%; left: 42.5%; z-index: 1;
             width: 15%;
             background-color: white;
+            @extend %border-radius-5px;
 
             &.head1, &.head2 {
                 height: 60%;
@@ -602,9 +601,5 @@ footer {
         display: inline-block;
         max-width: 100%; padding: 30px;
         color: rgba(255,255,255,.7); font-size: 14px;
-        
-        &:hover {
-            
-        }
     }
 }

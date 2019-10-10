@@ -55,6 +55,10 @@
     0%, 100% {visibility: hidden; pointer-events: none; opacity: 0;}
 }
 
+@include keyframes(invisible) {
+    0%, 100% {opacity: 0;}
+}
+
 
 
 /* CONTAINERS */
@@ -161,10 +165,10 @@ p.responsive {
 
 a.responsive,
 button.responsive {
-    @extend %border-radius-5px;
     display: inline-block;
     padding: 1em;
     font-size: 40px; font-size: 3vw; line-height: 1em; text-decoration: none;
+    @extend %border-radius-5px;
     @include transition(color .3s, background .3s);
 
     @media (min-width: 1201px) {
@@ -206,12 +210,12 @@ a, button {
     @include animation(fade-out 2s 13s, hidden 999s 15s infinite);
     
     &:after {
-        @extend %border-radius-5px;
         content: '';
         display: table-cell;
         padding: 15px 22px;
         background: rgba(0,0,0,.95);
         color: white; font-size: 20px; line-height: 25px;
+        @extend %border-radius-5px;
     }
 }
 
