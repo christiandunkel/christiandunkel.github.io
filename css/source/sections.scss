@@ -551,3 +551,71 @@ section {
         &.twitter:before {@extend %icon-twitter;}
     }
 }
+
+
+
+/* FOOTER */
+
+
+
+
+
+/* FOOTER TO-TOP BUTTON */
+
+footer {
+    margin: 100px 0 0 0;
+    background: $blue;
+    text-align: center;
+    
+    #to-top {
+        position: relative;
+        width: 100%; height: 120px;
+        background-color: $red;
+        @include transition(.2s);
+
+        b {
+            @extend %translate-center;
+            display: block; position: absolute; z-index: 2;
+            width: 40px; height: 40px;
+            @include transition(.2s);
+        }
+
+        i {
+            @extend %border-radius-5px;
+            position: absolute; top: 30%; left: 42.5%; z-index: 1;
+            width: 15%;
+            background-color: white;
+
+            &.head1, &.head2 {
+                height: 60%;
+                @include transform-origin(top center);
+                @include transition(.2s);
+            }
+
+            &.head1 {@include transform(rotate(-45deg) translate(0,-8%));}
+            &.head2 {@include transform(rotate(45deg) translate(0,-8%));}
+        }
+
+        &:hover {
+
+            b {
+                top: 50%;
+            }
+
+            i {
+                &.head1 {@include transform(rotate(-36deg) translate(0,-10%));}
+                &.head2 {@include transform(rotate(36deg) translate(0,-10%));}
+            }
+        }
+    }
+    
+    .content {
+        display: inline-block;
+        max-width: 100%; padding: 30px;
+        color: rgba(255,255,255,.7); font-size: 14px;
+        
+        &:hover {
+            
+        }
+    }
+}
