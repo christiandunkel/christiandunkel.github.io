@@ -1,5 +1,5 @@
 <!doctype html>
-<html id=html lang=en dir=ltr>
+<html id=html lang=en dir=ltr class=js-off>
 
 <head>
     
@@ -31,7 +31,7 @@
             var html = document.getElementsByTagName('html')[0];
             
             // tell CSS that Javascript is on
-            html.className += 'jsOn';
+            html.className = html.className.replace(/js\-off/, 'js-on');
             
             // get current language e.g. "en"
             // not really reliable, but best option since there's no back-end on Github pages
@@ -139,7 +139,7 @@
                 <span lang=de>Projekte</span>
             </h2>
             
-            <p class=responsive>
+            <p class="responsive hide-without-js">
                 <span lang=en>Select the <b>categories</b> you want to display:</span>
                 <span lang=de>Wähle die <b>Kategorien</b> aus, die du anschauen willst:</span>
             </p>
@@ -184,7 +184,7 @@
             
             <br />
             
-            <hr />
+            <hr class="responsive hide-without-js" />
             
             <!-- project cards -->
 

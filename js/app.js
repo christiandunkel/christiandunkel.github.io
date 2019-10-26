@@ -219,7 +219,7 @@ var _ = {
     addClass : function (elem, class_) {
 
         // use classList API if available
-        if ('classList' in document) {
+        if ('classList' in document.documentElement) {
             elem.classList.add(class_);
         }
         else if (elem.className.split(" ").indexOf(class_) == -1) {
@@ -231,7 +231,7 @@ var _ = {
     removeClass : function (elem, class_) {
         
         // use classList API if available
-        if ('classList' in document) {
+        if ('classList' in document.documentElement) {
             elem.classList.remove(class_);
         }
         else {
@@ -277,7 +277,7 @@ var _ = {
         if ('getComputedStyle' in window) {
             return window.getComputedStyle(elem).getPropertyValue(style);
         }
-        else if ('currentStyle' in document) {
+        else if ('currentStyle' in document.documentElement) {
             return elem.currentStyle[style];
         }
         

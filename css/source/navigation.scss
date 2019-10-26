@@ -118,7 +118,6 @@
                         float: none;
                         width: 100%; margin: 20px 0; padding: 20px 0;
 
-
                         b {
                             width: 1em; height: .7em;
                             @include transform(translate(0,3px));
@@ -374,6 +373,10 @@
     display: inline-block; position: relative; float: right; z-index: 9997;
     height: 76px; padding: 22px 13px;
     @include transition(.2s);
+    
+    html.js-off & {
+        display: none;
+    }
 
     &:focus b,
     &:hover b {

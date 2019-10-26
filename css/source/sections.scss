@@ -37,7 +37,7 @@ section {
     }
     
     // fade in animations when scrolling down
-    .jsOn & {
+    .js-on & {
         
         &#projects, 
         &#technologies, 
@@ -125,6 +125,14 @@ section {
 
 
 #projects {
+    
+    html.js-off & {
+        
+        .project-select-btn,
+        #project-switch-logic-btn {
+            display: none;
+        }
+    }
     
     #project-switch-logic-btn {
         margin: 10px 10px 0 0; padding: 0;
@@ -561,6 +569,10 @@ footer {
         position: relative;
         width: 100%; height: 120px;
         @include transition(.2s);
+        
+        html.js-off & {
+            display: none;
+        }
 
         b {
             display: block; position: absolute; z-index: 2;
