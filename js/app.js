@@ -161,7 +161,7 @@ var _ = {
             useCapture = false;
         }
 
-        if ('addEventListener' in elem) {
+        if ('addEventListener' in document) {
             elem.addEventListener(event, fn, useCapture);
         }
         else {
@@ -177,7 +177,7 @@ var _ = {
             useCapture = false;
         }
 
-        if ('removeEventListener' in elem) {
+        if ('removeEventListener' in document) {
             elem.removeEventListener(event, fn, useCapture);
         }
         else {
@@ -219,7 +219,7 @@ var _ = {
     addClass : function (elem, class_) {
 
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             elem.classList.add(class_);
         }
         else if (elem.className.split(" ").indexOf(class_) == -1) {
@@ -231,7 +231,7 @@ var _ = {
     removeClass : function (elem, class_) {
         
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             elem.classList.remove(class_);
         }
         else {
@@ -257,7 +257,7 @@ var _ = {
     hasClass : function (elem, class_) {
         
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             return elem.classList.contains(class_);
         }
         else if (elem.className.split(" ").indexOf(class_) == -1) {
@@ -277,7 +277,7 @@ var _ = {
         if ('getComputedStyle' in window) {
             return window.getComputedStyle(elem).getPropertyValue(style);
         }
-        else if ('currentStyle' in elem) {
+        else if ('currentStyle' in document) {
             return elem.currentStyle[style];
         }
         
@@ -901,29 +901,27 @@ var SCROLL = {
         
     },
     
-    scrollY : 0,
+    scrollY      : 0,
     has_scrolled : false,
     
-    // actual scroll event
+    // if user has scrolled, set variable to true
     event : function () {
         SCROLL.has_scrolled = true;
     },
     
-    // runs on an interval, triggers functions on scroll
+    // called on interval; if variable is true, apply scroll effects
     update : function () {
         
         // only do stuff, if user has scrolled
-        if (!SCROLL.has_scrolled) {
+        if (SCROLL.has_scrolled == false) {
             return;
         }
-        
-        var scrollY = window.scrollY || window.pageYOffset;
     
         // get scroll position
         SCROLL.scrollY = window.scrollY || window.pageYOffset;
         SCROLL.has_scrolled = false;
         
-        SCROLL.showSection();
+        SCROLL.showHiddenSections();
         
         NAV.updateSectionData();
         
@@ -935,7 +933,7 @@ var SCROLL = {
     },
     
     // fades in sections after scrolling to them
-    showSection : function () {
+    showHiddenSections : function () {
         
         var allAppeared = true;
         
@@ -948,7 +946,7 @@ var SCROLL = {
         }
         // if all sections already appeared, disable this function
         if (allAppeared) {
-            SCROLL.showSection = function () {};
+            SCROLL.showHiddenSections = function () {};
             return;
         }
         

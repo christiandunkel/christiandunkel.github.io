@@ -159,7 +159,7 @@ var _ = {
             useCapture = false;
         }
 
-        if ('addEventListener' in elem) {
+        if ('addEventListener' in document) {
             elem.addEventListener(event, fn, useCapture);
         }
         else {
@@ -175,7 +175,7 @@ var _ = {
             useCapture = false;
         }
 
-        if ('removeEventListener' in elem) {
+        if ('removeEventListener' in document) {
             elem.removeEventListener(event, fn, useCapture);
         }
         else {
@@ -217,7 +217,7 @@ var _ = {
     addClass : function (elem, class_) {
 
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             elem.classList.add(class_);
         }
         else if (elem.className.split(" ").indexOf(class_) == -1) {
@@ -229,7 +229,7 @@ var _ = {
     removeClass : function (elem, class_) {
         
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             elem.classList.remove(class_);
         }
         else {
@@ -255,7 +255,7 @@ var _ = {
     hasClass : function (elem, class_) {
         
         // use classList API if available
-        if ('classList' in elem) {
+        if ('classList' in document) {
             return elem.classList.contains(class_);
         }
         else if (elem.className.split(" ").indexOf(class_) == -1) {
@@ -275,7 +275,7 @@ var _ = {
         if ('getComputedStyle' in window) {
             return window.getComputedStyle(elem).getPropertyValue(style);
         }
-        else if ('currentStyle' in elem) {
+        else if ('currentStyle' in document) {
             return elem.currentStyle[style];
         }
         
