@@ -92,19 +92,28 @@ var NAV = {
     is_open : false,
     
     openWindow : function () {
+        
         if (!NAV.is_open) {
+            
             NAV.is_open = true;
             _.addClass(NODE.html, 'mobile-nav-open');
             
-            // focus on first link in mobile menu
-            setTimeout(function () {
-                NODE.nav_links[1].focus();
-            }, 150);
+            FOCUS_CHAIN.add([
+                NODE.nav_links[1],
+                NODE.nav_links[2],
+                NODE.nav_links[3],
+                NODE.lang_btn,
+                NODE.hamburger_btn
+            ]);
+            
         }
+        
     },
 
     closeWindow : function () {
+        
         if (NAV.is_open) {
+            
             NAV.is_open = false;
             _.removeClass(NODE.html, 'mobile-nav-open');
             
@@ -112,7 +121,11 @@ var NAV = {
             setTimeout(function () {
                 NODE.hamburger_btn.focus();
             }, 150);
+            
+            FOCUS_CHAIN.remove();
+            
         }
+        
     },
 
     toggleWindow : function () {
@@ -313,6 +326,93 @@ var LANG = {
         for (var i = NODE.valid_titled_elems.length; i--;) {
             var elem = NODE.valid_titled_elems[i];
             elem.title = elem.getAttribute('title-' + lang_code);
+        }
+        
+    }
+    
+};
+
+
+
+
+
+// manages chains of elements that can be focussed via the tab key
+// hijacks the tab key event, and prevents normal focussing via browser
+var FOCUS_CHAIN = {
+    
+    is_active: false,
+    
+    // all elements in focuschain
+    elems: [],
+    
+    // adds a focus chain
+    add : function (elems) {
+        
+        if (!FOCUS_CHAIN.is_active) {
+            
+            FOCUS_CHAIN.is_active = true;
+
+            // remove focus from element that currently has focus
+            document.activeElement.blur();
+
+            FOCUS_CHAIN.elems = elems;
+
+            _.addEvent(window, 'keydown', FOCUS_CHAIN.hijack_event);
+            
+        }
+        
+    },
+    
+    // removes the current focus chain
+    remove : function () {
+        
+        if (FOCUS_CHAIN.is_active) {
+            
+            FOCUS_CHAIN.is_active = false;
+        
+            FOCUS_CHAIN.elems = [];
+
+            _.removeEvent(window, 'keydown', FOCUS_CHAIN.hijack_event);
+        
+        }
+        
+    },
+    
+    hijack_event : function (e) {
+        
+        // needs at least one element in chain
+        if (FOCUS_CHAIN.elems.length < 1) {
+            return;
+        }
+        
+        // tab key was pressed
+        if (e.keyCode == 9) {
+            e.preventDefault();
+            
+            // only check for next focus element, if there's at least two elems
+            if (FOCUS_CHAIN.elems.length != 1) {
+                // find currently focussed element in chain, and focus on next in line
+                for (var i = FOCUS_CHAIN.elems.length; i--;) {
+                    if (document.activeElement == FOCUS_CHAIN.elems[i]) {
+
+                        // last element is in focus
+                        if (i == FOCUS_CHAIN.elems.length - 1) {
+                            // focus on first
+                            FOCUS_CHAIN.elems[0].focus();
+                        }
+                        else {
+                            // otherwise, focus on next
+                            FOCUS_CHAIN.elems[i+1].focus();
+                        }
+
+                        return;
+                    }
+                }
+            }
+            
+            // if no element in chain is currently focussed on, focus on first in list
+            FOCUS_CHAIN.elems[0].focus();
+            
         }
         
     }
