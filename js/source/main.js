@@ -594,6 +594,49 @@ var PROJECT = {
 
 
 
+// handles effects for the HTML sections
+var SECTION = {
+    
+    initialize : function () {
+        
+        _.addEvent(window, 'keyup', SECTION.tabEvent);
+        
+    },
+    
+    // on every tab, check if the tabbed element is inside a section
+    // and unveil the section if it's still hidden
+    tabEvent : function (e) {
+        
+        if (e.keyCode == 9) {
+            
+            // get element that just aquired focus
+            var target = document.activeElement;
+            
+            // check for parent section
+            while (!(target.tagName == 'section' || target.tagName == 'SECTION')) {
+                
+                target = target.parentElement;
+                
+                // stop if no parent element anymore (root node)
+                if (target == null) {
+                    console.log('FAIL: ', _.target(e));
+                    return;
+                }
+                
+            }
+            
+            // if section was found, make it appear if it's hidden
+            _.addClass(target, 'appear');
+            
+        }
+        
+    }
+    
+};
+
+
+
+
 
 // scroll effects
 var SCROLL = {
@@ -841,4 +884,5 @@ var SCROLL = {
     LANG.initialize();
     PROJECT.initialize();
     SCROLL.initialize();
+    SECTION.initialize();
 })();
