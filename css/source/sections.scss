@@ -163,11 +163,6 @@ section {
         
         &.show {
             display: inline-block;
-            
-            .menu {
-                @include opacity(1);
-                @include transform(translate(-10px,100%));
-            }
         }
         
         .menu {
@@ -176,7 +171,6 @@ section {
             background: #3c3c3c;
             font-size: 1vw;
             @include border-radius(8px);
-            @include opacity(.5);
             @include box-shadow(
                 0 1px 1px rgba(0,0,0,0.1),
                 0 2px 2px rgba(0,0,0,0.1),
@@ -184,8 +178,7 @@ section {
                 0 8px 8px rgba(0,0,0,0.1),
                 0 16px 16px rgba(0,0,0,0.1)
             );
-            @include transform(translate(-10px,95%));
-            @include transition(.2s);
+            @include transform(translate(-10px,100%));
 
             // font size manages the size of the menu and some of its parts
             @media (min-width: 1201px) {
