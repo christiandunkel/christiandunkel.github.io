@@ -47,6 +47,22 @@ var _ = {
         
     },
     
+    // returns true, if the parent contains the child HTML element
+    contains : function (parent, child) {
+        
+        var node = child.parentNode;
+        
+         while (node != null) {
+             if (node == parent) {
+                 return true;
+             }
+             node = node.parentNode;
+         }
+        
+         return false;
+        
+    },
+    
     
     
     /* MANIPULATION */
@@ -429,6 +445,8 @@ var NODE = function () {
     // project selection
     NODE.project_category_btns  = _.class('project-select-btn');
     NODE.project_cards          = _.class('project');
+    NODE.project_settings_btn   = _.id('project-settings-btn');
+    NODE.project_settings_menu  = _.id('project-settings-menu');
     NODE.project_switch_logic   = _.id('project-switch-logic-btn');
     
 };
@@ -854,6 +872,12 @@ var PROJECT = {
             });
         }
         
+        
+        
+        /* SETTINGS */
+        
+        _.onClick(NODE.project_settings_btn, PROJECT.toggleSettingsMenu); 
+        
         // get amount of logic operators that can be applied to selection
         PROJECT.logic_operators_num = PROJECT.logic_operators.length;
         // get current logic operator from HTML button
@@ -896,6 +920,50 @@ var PROJECT = {
         });
         
         PROJECT.updateSelection();
+        
+    },
+    
+    settings_menu_is_open : false,
+    
+    toggleSettingsMenu : function () {
+        
+        if (PROJECT.settings_menu_is_open) {
+            PROJECT.closeSettingsMenu();
+        }
+        else {
+            PROJECT.openSettingsMenu();
+        }
+        
+    },
+    
+    openSettingsMenu : function () {
+        PROJECT.settings_menu_is_open = true;
+        _.addClass(NODE.project_settings_menu, 'show');
+        NODE.project_settings_menu.setAttribute('aria-hidden', 'false');
+        
+        setTimeout(function () {
+            _.onClick(document,                PROJECT.handleClickOutsideSettingsMenu);
+            _.addEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+        }, 50);
+        
+    },
+    
+    closeSettingsMenu : function () {
+        PROJECT.settings_menu_is_open = false;
+        _.removeClass(NODE.project_settings_menu, 'show');
+        NODE.project_settings_menu.setAttribute('aria-hidden', 'true');
+    },
+    
+    handleClickOutsideSettingsMenu : function (e) {
+        
+        var elem = _.target(e);
+        
+        // click is not on menu or one of its children -> hide menu
+        if (!_.contains(NODE.project_settings_menu, elem)) {
+            PROJECT.closeSettingsMenu();
+            _.removeClick(document,               PROJECT.handleClickOutsideSettingsMenu);
+            _.removeEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+        }
         
     },
     

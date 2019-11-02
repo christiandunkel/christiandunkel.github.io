@@ -129,33 +129,110 @@ section {
     html.js-off & {
         
         .project-select-btn,
-        #project-switch-logic-btn {
+        #project-settings-btn {
             display: none;
         }
     }
     
-    #project-switch-logic-btn {
-        margin: 10px 10px 0 0; padding: 0;
+    #project-settings-btn {
+        @extend %icon-settings;
+        display: inline-block;
+        width: 3em; height: 3em; margin: 10px 10px 0 0; padding: 0;
+        background-repeat: no-repeat; background-position: center;
+        @include background-size(40% 40%);
+        @include opacity(.35);
+        @include transition(.2s);
         
-        i {
+        span {
+            color: transparent;
+        }
+        
+        &:hover,
+        &:focus {
+            @include opacity(.7);
+        }
+        
+        &:active {
+            @include background-size(36% 36%);
+        }
+    }
+    
+    #project-settings-menu {
+        display: none; position: relative; z-index: 5;
+        width: 1px; height: 1px;
+        
+        &.show {
             display: inline-block;
-            padding: 1em;
-            background: #def6f7;
-            color: #2e7889; font-style: normal;
-            @include border-radius(30px);
-            @include transition(transform .1s, background .2s);
-        }
             
-        &:focus i,
-        &:hover i {
-            background: #beebed;
+            .menu {
+                @include opacity(1);
+                @include transform(translate(-10px,100%));
+            }
         }
         
-        &[logic='AND'] span:not(.and),
-        &[logic='OR'] span:not(.or) {display: none;}
-        
-        &:active i {
-            @include transform(scale(.9));
+        .menu {
+            display: inline-block; position: absolute; bottom: -5em; left: -6em;
+            min-width: 180px; width: 35em; padding: 1.5em;
+            background: #3c3c3c;
+            font-size: 1vw;
+            @include border-radius(8px);
+            @include opacity(.5);
+            @include box-shadow(
+                0 1px 1px rgba(0,0,0,0.1),
+                0 2px 2px rgba(0,0,0,0.1),
+                0 4px 4px rgba(0,0,0,0.1),
+                0 8px 8px rgba(0,0,0,0.1),
+                0 16px 16px rgba(0,0,0,0.1)
+            );
+            @include transform(translate(-10px,95%));
+            @include transition(.2s);
+
+            // font size manages the size of the menu and some of its parts
+            @media (min-width: 1201px) {
+                font-size: 12px;
+            }
+            
+            &:after {
+                content: '';
+                position: absolute; top: -1.33em; left: 1.33em;
+                width: 0; height: 0; 
+                border-left: 2em solid transparent;
+                border-right: 2em solid transparent;
+                border-bottom: 2em solid #3c3c3c;
+                font-size: inherit;
+            }
+            
+            #project-switch-logic-btn {
+                width: 100%; padding: 1em;
+                background: rgba(255, 255, 255, 0.05);
+                text-align: left;
+                
+                &:focus,
+                &:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                }
+
+                &:active {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+                
+                i {
+                    display: block;
+                    color: #cecece; font-style: normal;
+                    @include border-radius(5px);
+                    @include transition(transform .1s, background .2s);
+                }
+                
+                b {
+                    display: inline-block; float: right;
+                    margin: 10px 0 0 10px;
+                }
+
+                &[logic='AND'] b:not(.and),
+                &[logic='OR'] b:not(.or) {
+                    text-decoration: line-through; font-weight: normal;
+                }
+            } 
         }
     }
     
@@ -244,15 +321,15 @@ section {
     // 2 cards beside each other
     @media (max-width: 1200px) {
         width: 48%; margin: 2% 0;
-        &:nth-child(even)   {margin-right: 4%;}
-        &:nth-child(odd)    {margin-right: 0;}
+        #projects-container &:nth-child(odd)   {margin-right: 4%;}
+        #projects-container &:nth-child(even)    {margin-right: 0;}
     }
     
     // all cards below one another
     @media (max-width: 650px) {
         width: 100%; margin: 4% 0;
-        &:nth-child(even)   {margin-right: 0;}
-        &:nth-child(odd)    {margin-right: 0;}
+        #projects-container &:nth-child(even)   {margin-right: 0;}
+        #projects-container &:nth-child(odd)    {margin-right: 0;}
     }
     
     &.hidden {

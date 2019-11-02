@@ -144,18 +144,34 @@
                 <span lang=de>Wähle die <b>Kategorien</b> aus, die du anschauen willst:</span>
             </p>
             
-            <!-- project category selection -->
+            <!-- project display settings -->
             
-            <button id=project-switch-logic-btn class="responsive small" title="Switch selection logic" title-de="Ändere Logik der Selektion" logic="AND">
-                <i lang=en>
-                    <span class=and>Logic: AND</span>
-                    <span class=or>Logic: OR</span>
-                </i>
-                <i lang=de>
-                    <span class=or>Logik: ODER</span>
-                    <span class=and>Logik: UND</span>
-                </i>
+            <button id=project-settings-btn class="responsive small" title="Settings" title-de="Einstellungen">
+                <span>+</span>
             </button>
+            
+            <div id=project-settings-menu aria-hidden=true>
+                
+                <div class=menu>
+
+                    <button id=project-switch-logic-btn class="responsive small" logic="AND">
+                        <i lang=en>
+                            Change the project selection logic:<br />
+                            <b class=or>OR</b>
+                            <b class=and>AND</b>
+                        </i>
+                        <i lang=de>
+                            Ändere die Projekt-Auswahl Logik:<br />
+                            <b class=or>ODER</b>
+                            <b class=and>UND</b>
+                        </i>
+                    </button>
+                    
+                </div>
+
+            </div>
+            
+            <!-- project category selection -->
             
             <button class="project-select-btn responsive small inactive" category=website>
                 <span lang=en>Website</span>
@@ -163,7 +179,8 @@
             </button>
             
             <button class="project-select-btn responsive small inactive" category=lib>
-                <span>Library</span>
+                <span lang=en>Library</span>
+                <span lang=de>Bibliothek</span>
             </button>
             
             <button class="project-select-btn responsive small inactive" category=css>
@@ -187,92 +204,96 @@
             <hr class="responsive hide-without-js" />
             
             <!-- project cards -->
-
-            <div class=project categories="website css js">
-                
-                <div class=top>
-                    <h3>
-                        <span lang=en>Time Visualizer</span>
-                        <span lang=de>Zeit Visualisierer</span>
-                    </h3>
-                    <div class=links>
-                        <a href="https://github.com/christiandunkel/time-visualizer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
-                        <a href="https://christiandunkel.github.io/time-visualizer" title="Visit the website" title-de="Besuche die Webseite" target="_blank" rel="noopener noreferrer"></a>
-                    </div>
-                </div>
-                    
-                <figure>
-                    <div class=img style="background-image: url(img/project-time-visualizer.png)"></div>
-                    <figcaption>
-                        <span lang=en><b>Time Visualizer</b> is a simple web tool for visualizing data over time.</span>
-                        <span lang=de>Der <b>Zeit Visualisierer</b> ist ein simples Web-Tool für das Visualisieren von Daten über Zeit.</span>
-                    </figcaption>
-                </figure>
-                
-            </div>
-
-            <div class=project categories="lib css">
-                
-                <div class=top>
-                    <h3>Sass Power Prefixer</h3>
-                    <div class=links>
-                        <a href="https://github.com/christiandunkel/power-prefixer.scss" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
-                    </div>
-                </div>
-                    
-                <figure>
-                    <div class=img style="background-image: url(img/project-power-prefixer.png)"></div>
-                    <figcaption>
-                        <span lang=en>The <b>Power Prefixer</b> is a Sass/SCSS library for automatically prefixing CSS properties.</span>
-                        <span lang=de>Der <b>Power Prefixer</b> ist eine Sass/SCSS Library zum automatischen Hinzufügen von CSS Prefixen.</span>
-                    </figcaption>
-                </figure>
-                
-            </div>
-
-            <div class=project categories="csharp">
-                
-                <div class=top>
-                    <h3>tensquared</h3>
-                    <div class=links>
-                        <a href="https://github.com/christiandunkel/tensquared" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
-                        <a href="https://github.com/christiandunkel/tensquared/releases" title="Download the game" title-de="Lade das Spiel herunter" target="_blank" rel="noopener noreferrer"></a>
-                    </div>
-                </div>
-                    
-                <figure>
-                    <div class=img style="background-image: url(img/project-tensquared.jpg)"></div>
-                    <figcaption>
-                        <span lang=en><b>tensquared</b> is a 2D puzzle platform game made in Unity.</span>
-                        <span lang=de><b>tensquared</b> ist ein 2D Puzzle Platformer Spiel erstellt in Unity.</span>
-                    </figcaption>
-                </figure>
-                
-            </div>
-
-            <div class=project categories="cpp">
-                
-                <div class=top>
-                    <h3>Raytracer</h3>
-                    <div class=links>
-                        <a href="https://github.com/christiandunkel/raytracer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
-                    </div>
-                </div>
-                    
-                <figure>
-                    <div class=img style="background-image: url(img/project-raytracer.png)"></div>
-                    <figcaption>
-                        <span lang=en>This C++ <b>Raytracer</b> supports rendering of simple shapes with shading, reflection, transparency &amp; more.</span>
-                        <span lang=de>Dieser C++ <b>Raytracer</b> unterstützt das Rendern simpler Objekte mit Schatten, Reflektion, Transparenz &amp; mehr.</span>
-                    </figcaption>
-                </figure>
-                
-            </div>
             
-            <p class="responsive small no-projects-selected">
-                <span lang=en>No projects selected.</span>
-                <span lang=de>Keine Projekte ausgewählt.</span>
-            </p>
+            <div id=projects-container>
+
+                <div class=project categories="website css js">
+
+                    <div class=top>
+                        <h3>
+                            <span lang=en>Time Visualizer</span>
+                            <span lang=de>Zeit Visualisierer</span>
+                        </h3>
+                        <div class=links>
+                            <a href="https://github.com/christiandunkel/time-visualizer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                            <a href="https://christiandunkel.github.io/time-visualizer" title="Visit the website" title-de="Besuche die Webseite" target="_blank" rel="noopener noreferrer"></a>
+                        </div>
+                    </div>
+
+                    <figure>
+                        <div class=img style="background-image: url(img/project-time-visualizer.png)"></div>
+                        <figcaption>
+                            <span lang=en><b>Time Visualizer</b> is a simple web tool for visualizing data over time.</span>
+                            <span lang=de>Der <b>Zeit Visualisierer</b> ist ein simples Web-Tool für das Visualisieren von Daten über Zeit.</span>
+                        </figcaption>
+                    </figure>
+
+                </div>
+
+                <div class=project categories="lib css">
+
+                    <div class=top>
+                        <h3>Sass Power Prefixer</h3>
+                        <div class=links>
+                            <a href="https://github.com/christiandunkel/power-prefixer.scss" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                        </div>
+                    </div>
+
+                    <figure>
+                        <div class=img style="background-image: url(img/project-power-prefixer.png)"></div>
+                        <figcaption>
+                            <span lang=en>The <b>Power Prefixer</b> is a Sass/SCSS library for automatically prefixing CSS properties.</span>
+                            <span lang=de>Der <b>Power Prefixer</b> ist eine Sass/SCSS Library zum automatischen Hinzufügen von CSS Prefixen.</span>
+                        </figcaption>
+                    </figure>
+
+                </div>
+
+                <div class=project categories="csharp">
+
+                    <div class=top>
+                        <h3>tensquared</h3>
+                        <div class=links>
+                            <a href="https://github.com/christiandunkel/tensquared" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                            <a href="https://github.com/christiandunkel/tensquared/releases" title="Download the game" title-de="Lade das Spiel herunter" target="_blank" rel="noopener noreferrer"></a>
+                        </div>
+                    </div>
+
+                    <figure>
+                        <div class=img style="background-image: url(img/project-tensquared.jpg)"></div>
+                        <figcaption>
+                            <span lang=en><b>tensquared</b> is a 2D puzzle platform game made in Unity.</span>
+                            <span lang=de><b>tensquared</b> ist ein 2D Puzzle Platformer Spiel erstellt in Unity.</span>
+                        </figcaption>
+                    </figure>
+
+                </div>
+
+                <div class=project categories="cpp">
+
+                    <div class=top>
+                        <h3>Raytracer</h3>
+                        <div class=links>
+                            <a href="https://github.com/christiandunkel/raytracer" title="GitHub Repository" target="_blank" rel="noopener noreferrer"></a>
+                        </div>
+                    </div>
+
+                    <figure>
+                        <div class=img style="background-image: url(img/project-raytracer.png)"></div>
+                        <figcaption>
+                            <span lang=en>This C++ <b>Raytracer</b> supports rendering of simple shapes with shading, reflection, transparency &amp; more.</span>
+                            <span lang=de>Dieser C++ <b>Raytracer</b> unterstützt das Rendern simpler Objekte mit Schatten, Reflektion, Transparenz &amp; mehr.</span>
+                        </figcaption>
+                    </figure>
+
+                </div>
+            
+                <p class="responsive small no-projects-selected">
+                    <span lang=en>No projects selected.</span>
+                    <span lang=de>Keine Projekte ausgewählt.</span>
+                </p>
+            
+            </div>
             
         </section>
         
