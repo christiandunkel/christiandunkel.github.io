@@ -1192,9 +1192,23 @@ var SECTION = {
         SECTION.addSquareToAnimatedBackground(80);
         SECTION.addSquareToAnimatedBackground(95);
         
-        // add other random squares
-        for (var i = 15; i--;) {
-            SECTION.addSquareToAnimatedBackground(_.randomInt(15,75));
+        // add animated squares in website main body
+        SECTION.addSquareToAnimatedBackground(65);
+        SECTION.addSquareToAnimatedBackground(58);
+        SECTION.addSquareToAnimatedBackground(45);
+        SECTION.addSquareToAnimatedBackground(42);
+        SECTION.addSquareToAnimatedBackground(39);
+        SECTION.addSquareToAnimatedBackground(32);
+        SECTION.addSquareToAnimatedBackground(19);
+        SECTION.addSquareToAnimatedBackground(15);
+        SECTION.addSquareToAnimatedBackground(10);
+        SECTION.addSquareToAnimatedBackground(5);
+        SECTION.addSquareToAnimatedBackground(0);
+        
+        // add some randomized squares for good measure
+        for (var i = 2; i--;) {
+            SECTION.addSquareToAnimatedBackground(_.randomInt(75,95));
+            SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
         setInterval(SECTION.addSquareToAnimatedBackground, 3000);
@@ -1211,7 +1225,7 @@ var SECTION = {
         
         // generate styles
         var size = _.randomFloat(5,20) + '%';
-        var left = SECTION.spread_values.last_left > 50 ? _.randomInt(5,48) : _.randomInt(52,95);
+        var left = SECTION.spread_values.last_left > 50 ? _.randomInt(0,48) : _.randomInt(52,100);
         SECTION.spread_values.last_left = left;
         var styles = {
             style : {
