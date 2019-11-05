@@ -167,6 +167,10 @@
         color: $gray; font-size: 20px; line-height: 1em; text-decoration: none;
         @include transition(color .2s);
         
+        @include ON_REDUCED_MOTION {
+            @include transition(0s);
+        }
+        
         &.active,
         &:focus,
         &:hover {
@@ -234,11 +238,24 @@
         }
     }
     
-    a,
-    button {
+    @include ON_DESKTOP {
         
-        &:focus {
-            outline: 2px dashed grey;
+        button {
+
+            &:focus {
+                outline: 2px dotted grey;
+            }
+        }
+    }
+    
+    @include ON_MOBILE {
+        
+        a,
+        button {
+
+            &:focus {
+                outline: 2px dotted grey;
+            }
         }
     }
 
