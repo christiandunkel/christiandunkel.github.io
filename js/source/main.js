@@ -556,7 +556,9 @@ var PROJECT = {
     },
     
     openSettingsMenu : function () {
+        
         PROJECT.settings_menu_is_open = true;
+        
         _.addClass(NODE.project_settings_menu, 'show');
         NODE.project_settings_menu.setAttribute('aria-hidden', 'false');
         
@@ -568,9 +570,16 @@ var PROJECT = {
     },
     
     closeSettingsMenu : function () {
+        
         PROJECT.settings_menu_is_open = false;
+        
         _.removeClass(NODE.project_settings_menu, 'show');
         NODE.project_settings_menu.setAttribute('aria-hidden', 'true');
+        
+        // remove events if still existing
+        _.removeClick(document,               PROJECT.handleClickOutsideSettingsMenu);
+        _.removeEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+        
     },
     
     handleClickOutsideSettingsMenu : function (e) {
@@ -578,10 +587,20 @@ var PROJECT = {
         var elem = _.target(e);
         
         // click is not on menu or one of its children -> hide menu
-        if (!_.contains(NODE.project_settings_menu, elem)) {
+        if (
+            // filter out click on settings menu
+            !_.contains(NODE.project_settings_menu, elem) && 
+            
+            // filter out click on button that opens settings menu
+            elem != NODE.project_settings_btn &&
+            !_.contains(NODE.project_settings_btn, elem)
+        ) {
+            
             PROJECT.closeSettingsMenu();
+            
             _.removeClick(document,               PROJECT.handleClickOutsideSettingsMenu);
             _.removeEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+            
         }
         
     },
