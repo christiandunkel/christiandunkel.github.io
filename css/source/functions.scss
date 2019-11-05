@@ -67,9 +67,6 @@
 }
 
 @mixin ON_REDUCED_MOTION {
-    @media all {
-        @content;
-    }
     @media (prefers-reduced-motion: reduce) {
         @content;
     }
