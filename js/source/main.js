@@ -34,6 +34,7 @@ var NODE = function () {
     // project selection
     NODE.project_category_btns  = _.class('project-select-btn');
     NODE.project_cards          = _.class('project');
+    NODE.project_card_show_info_btns = _.class('project-show-info-btn');
     NODE.project_settings_btn   = _.id('project-settings-btn');
     NODE.project_settings_menu  = _.id('project-settings-menu');
     NODE.project_switch_logic   = _.id('project-switch-logic-btn');
@@ -429,6 +430,8 @@ var PROJECT = {
     
     initialize : function () {
         
+        /* CATEGORIES */
+        
         // go through all project category buttons
         for (var i = NODE.project_category_btns.length; i--;) {
             
@@ -509,6 +512,33 @@ var PROJECT = {
         });
         
         PROJECT.updateSelection();
+        
+        
+        
+        /* CARDS */
+        
+        for (var i = NODE.project_card_show_info_btns.length; i--;) {
+            
+            var show_info_btn = NODE.project_card_show_info_btns[i];
+            
+            _.onClick(show_info_btn, function (e) {
+                
+                var btn = _.target(e);
+                var is_shown = _.hasClass(btn, 'show');
+                
+                // remove 'show' class from other buttons
+                for (var i = NODE.project_card_show_info_btns.length; i--;) {
+                    _.removeClass(NODE.project_card_show_info_btns[i], 'show');
+                }
+                
+                // if info was hidden previously, show it now
+                if (!is_shown) {
+                    _.addClass(btn, 'show');
+                }
+            
+            });
+            
+        }
         
     },
     
