@@ -65,11 +65,18 @@ section {
 /* INTRO / ABOUT SECTION */
 
 #about {
+    position: relative;
+    max-width: none; width: 100%;
     
-    // apply flex column to fix the div not centering in IE, since no height is set
-    // https://stackoverflow.com/a/33222765
-    @include display(flex);
-    @include flex-direction(column);
+    .text {
+        position: relative; z-index: 2;
+        max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
+        
+        // apply flex column to fix the div not centering in IE, since no height is set
+        // https://stackoverflow.com/a/33222765
+        @include display(flex);
+        @include flex-direction(column);
+    }
     
     .flex {
         position: relative;
@@ -137,7 +144,7 @@ section {
     #project-settings-btn {
         @extend %icon-settings;
         display: inline-block;
-        width: 3em; height: 3em; margin: 10px 10px 0 0; padding: 0;
+        width: 3em; height: 3em; margin: .5em .5em 0 0; padding: 0;
         background-repeat: no-repeat; background-position: center;
         @include background-size(40% 40%);
         @include opacity(.35);
@@ -166,7 +173,7 @@ section {
         }
         
         .menu {
-            display: inline-block; position: absolute; bottom: -5em; left: -6em;
+            display: inline-block; position: absolute; bottom: -5em; left: -6.5em;
             min-width: 180px; width: 35em; padding: 1.5em;
             background: #3c3c3c;
             font-size: 1vw;
@@ -178,16 +185,20 @@ section {
                 0 8px 8px rgba(0,0,0,0.1),
                 0 16px 16px rgba(0,0,0,0.1)
             );
-            @include transform(translate(-10px,100%));
+            @include transform(translate(0,100%));
 
             // font size manages the size of the menu and some of its parts
             @media (min-width: 1201px) {
                 font-size: 12px;
             }
+
+            @include ON_PHONE {
+                font-size: 6px;
+            }
             
             &:after {
                 content: '';
-                position: absolute; top: -1.33em; left: 1.33em;
+                position: absolute; top: -1.33em; left: .5em;
                 width: 0; height: 0; 
                 border-left: 2em solid transparent;
                 border-right: 2em solid transparent;
@@ -233,7 +244,7 @@ section {
     // category buttons
     .project-select-btn {
         display: inline-block;
-        margin: 10px 10px 0 0; padding: 0;
+        margin: .5em .5em 0 0; padding: 0;
         overflow: hidden;
         @include user-select(none);
         @include border-radius(30px);
@@ -334,8 +345,6 @@ section {
         @include transition-property(none);
     }
     
-    
-    
     .top {
         position: relative;
         margin: 0 0 7px 0; padding: 0 76px 0 0;
@@ -386,8 +395,6 @@ section {
             }
         }
     }
-    
-    
     
     figure {
         display: inline-block; position: relative; z-index: 2;
@@ -497,16 +504,7 @@ section {
 #technologies {
     
     .container {
-        padding: 20px;
-        background: white; overflow: hidden;
-        @include border-radius(5px);
-        @include box-shadow(
-            0 1px 1px rgba(0,0,0,.03),
-            0 2px 2px rgba(0,0,0,.03),
-            0 4px 4px rgba(0,0,0,.03),
-            0 8px 8px rgba(0,0,0,.03),
-            0 16px 16px rgba(0,0,0,.03)
-        );
+        padding: 40px 0 0 0;
     
         ul {
             display: block;
@@ -517,95 +515,28 @@ section {
             &:nth-child(4) {
                 background-color: rgba(0,0,0,.03);
             }
-            
-            @include ON_PHONE {
-                padding: 2.5% 0;
-            }
         }
         
         li {
             list-style: none;
             display: inline-block; position: relative;
-            width: 25%; padding: 40px 0;
+            width: 25%; padding: 20px;
             text-align: center;
             
             > span {
                 display: block;
-                font-size: 18px; color: #575757;
+                font-size: 16px; color: #6c6c6c;
                 @extend %text-wrap;
             }
             
-            .desc {
-                position: absolute; top: 50%; left: 50%; z-index: 1;
-                width: 200px; height: 200px;
-                cursor: auto;
-                @include opacity(0);
-                @include transform(translate(-50%, -45%) scale(1.07));
-                @include transition(.1s);
-        
-                @include ON_REDUCED_MOTION {
-                    @include transition-property(none !important);
-                }
-                
-                p {
-                    position: absolute; z-index: 2;
-                    width: 90%; margin: 0; padding: 20px;
-                    background: rgba(0,0,0,.85);
-                    color: white; text-align: left; font-size: 15px; line-height: 1.3em;
-                    @include border-radius(5px);
-                    @extend %translate-center;
-                    
-                    span {
-                        display: block;
-                    }
-                }
-            }
-            
-            .desc:focus,
-            &:hover .desc {
-                z-index: 2;
-                @include opacity(1);
-                @extend %translate-center;
-            }
+            /* ICONS */
             
             &:before {
                 content: '';
                 display: inline-block;
-                width: 80px; height: 80px; margin: 0 auto 10px auto;
+                width: 60px; height: 60px; margin: 0 auto 5px auto;
                 background-repeat: no-repeat;
                 @include background-size(100% 100%);
-            }
-            
-            @include ON_MOBILE {
-                padding: 20px;
-                
-                > span {
-                    font-size: 16px;
-                }
-                
-                .desc {
-                    display: none;
-                }
-                
-                &:before {
-                    width: 50px; height: 50px; margin-bottom: 5px;
-                }
-            }
-            
-            @include ON_PHONE {
-                padding: 10px;
-                
-                > span {
-                    font-size: 14px;
-                }
-                
-                &:before {
-                    width: 40px; height: 40px;
-                }
-            }
-            
-            @media (max-width: 450px) {
-                width: 50%;
             }
             
             &.html:before      {@extend %icon-html;}
@@ -623,6 +554,37 @@ section {
             &.gimp:before      {@extend %icon-gimp;}
             &.github:before    {@extend %icon-github;}
             &.unity:before     {@extend %icon-unity;}
+            
+        }
+        
+        
+            
+        @include ON_MOBILE {
+            padding: 20px 0 0 0;
+
+            ul {
+                padding: 2.5% 0;
+            }
+            
+            li {
+                padding: 10px;
+
+                > span {
+                    font-size: 14px;
+                }
+
+                &:before {
+                    width: 40px; height: 40px;
+                }
+            }
+        }
+
+        @media (max-width: 450px) {
+            padding: 10px 0 0 0;
+            
+            li {
+                width: 50%;
+            }
         }
     }
 }
