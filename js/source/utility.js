@@ -399,6 +399,22 @@ var _ = {
                          .replace(/\&quot\;/g, '"')
                          .replace(/\&#039\;/g, '\'');
         
+    },
+    
+    
+    
+    /* OTHER */
+    
+    // returns random float between min and max, min included
+    randomFloat : function (min, max) {
+        return Math.random() * (max - min) + min;
+    },
+    
+    // returns random integer between min and max, min and max included
+    randomInt : function (min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max) + 1;
+        return Math.floor(Math.random() * (max - min)) + min;
     }
     
 }

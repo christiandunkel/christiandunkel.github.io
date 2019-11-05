@@ -6,6 +6,7 @@ var NODE = function () {
     NODE.head = document.head             || _.tag('head')[0];
     NODE.body = document.body             || _.tag('body')[0];
     NODE.main = _.tag('main')[0];
+    NODE.animated_background = _.id('animated-background');
     
     NODE.nav                = _.id('nav');
     // hidden mobile menu
@@ -22,6 +23,7 @@ var NODE = function () {
     NODE.nav_indicator      = _.class('hover-bg')[0];
     // semantic sections of site
     NODE.sections           = _.class('content-section');
+    NODE.section_about      = _.id('about');
     
     NODE.to_top_btn         = _.id('to-top');
     
@@ -700,6 +702,8 @@ var SECTION = {
     
     initialize : function () {
         
+        SECTION.loadAnimatedBackground();
+        
         _.addEvent(window, 'keyup', SECTION.tabEvent);
         
     },
@@ -730,6 +734,88 @@ var SECTION = {
             _.addClass(target, 'appear');
             
         }
+        
+    },
+    
+    
+    
+    spread_values : {
+        
+        last_left : 0,
+        last_colors : [0,0]
+        
+    },
+    
+    square_list : [],
+    
+    loadAnimatedBackground : function (e) {
+        
+        // don't add animated background, if user prefers reduced motion
+        if (window.matchMedia) {
+            var  media_query = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (media_query.matches) {
+                return;
+            }
+        }
+        
+        // add animated squares to top section
+        SECTION.addSquareToAnimatedBackground(92);
+        SECTION.addSquareToAnimatedBackground(76);
+        SECTION.addSquareToAnimatedBackground(70);
+        SECTION.addSquareToAnimatedBackground(80);
+        SECTION.addSquareToAnimatedBackground(95);
+        
+        // add other random squares
+        for (var i = 15; i--;) {
+            SECTION.addSquareToAnimatedBackground(_.randomInt(15,75));
+        }
+        
+        setInterval(SECTION.addSquareToAnimatedBackground, 3000);
+        
+    },
+    
+    addSquareToAnimatedBackground : function (animation_delay) {
+        
+        // remove the oldest rectangle (first item in list)
+        if (SECTION.square_list.length > 70) {
+            var removed = SECTION.square_list.shift();
+            _.remove(removed);
+        }
+        
+        // generate styles
+        var size = _.randomFloat(5,20) + '%';
+        var left = SECTION.spread_values.last_left > 50 ? _.randomInt(5,48) : _.randomInt(52,95);
+        SECTION.spread_values.last_left = left;
+        var styles = {
+            style : {
+                width               : size,
+                padding             : '0 0 '+size+' 0',
+                left                : left + '%'
+            }
+        };
+        if (animation_delay) {
+            styles.style['animation-delay'] = '-' + (animation_delay || 0) + 's';
+        }
+        
+        // last-colors: [0: before-last, 1: last]
+        // generate current color
+        var curr_color = 
+            SECTION.spread_values.last_colors[0] == SECTION.spread_values.last_colors[1] ?
+                        // if last two were the same, switch colors
+                        (SECTION.spread_values.last_colors[1] + 1) % 2 : SECTION.spread_values.last_colors[1];
+        // make before-last become last, and current become last for next round
+        SECTION.spread_values.last_colors[0] = SECTION.spread_values.last_colors[1];
+        SECTION.spread_values.last_colors[1] = curr_color;
+        
+        // alternate color every new square
+        var color       = (curr_color == 0 ? 'red' : 'blue');
+        
+        var animation   = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
+        var square      = _.create('div.square.'+color+'.'+animation, styles);
+        
+        // add rectangle to list and DOM
+        SECTION.square_list[SECTION.square_list.length] = square;
+        _.append(NODE.animated_background, square);
         
     }
     

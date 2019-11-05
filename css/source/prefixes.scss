@@ -1,4 +1,4 @@
-/* VALUE TESTING */
+// === VALUE TESTING ===
 
 // checks if a value is within a list
 @function -power-is-in-list($val, $list) {
@@ -32,7 +32,11 @@
 
 
 
-/* TYPE TESTING */
+// === TYPE TESTING ===
+
+@function -power-is-color($val) {
+    @return type-of($val) == 'color';
+}
 
 @function -power-is-number($val) {
     @return type-of($val) == 'number';
@@ -72,7 +76,7 @@
 
 
 
-/* DISPLAY */
+// === DISPLAY ===
 
        @mixin display($val) {@include -power-display($val);}
 @mixin -power-display($val) {
@@ -104,7 +108,7 @@
 }
 
 
-/* FLEX-BOX */
+// === FLEX-BOX ===
 
        @mixin align-content($val) {@include -power-align-content($val);}
 @mixin -power-align-content($val) {
@@ -486,7 +490,7 @@
 
 
 
-/* GENERAL */
+// === GENERIC ===
 
        @mixin animation($anis...) {@include -power-animation($anis...);}
 @mixin -power-animation($anis...) {
@@ -757,9 +761,52 @@
        @mixin linear-gradient($vals...) {@include -power-linear-gradient($vals...);}
 @mixin -power-linear-gradient($vals...) {
     
-    background-image: -webkit-linear-gradient($vals);
-    background-image:    -moz-linear-gradient($vals);
-    background-image:         linear-gradient($vals);
+    $error: false;
+    $first-color: null;
+    $last-color: null;
+    
+    @each $item in $vals {
+        
+        // index of item
+        $index: index($vals, $item);
+        
+        @if ($index == 1) {
+            // first value must be degree
+            @if (not -power-is-angle($item)) {
+                $error: true;
+            }
+        }
+        @else {
+            
+            $color: nth($item, 1);
+            $percentage: nth($item, 2);
+            
+            // next values must be color-percentage pairs
+            @if (not -power-is-color($color) or 
+                 not -power-is-percent($percentage)) {
+                $error: true;
+            }
+            // get color of first color-percentage pair
+            @else if ($index == 2) {
+                $first-color: $color;
+            }
+            // get color of last color-percentage pair
+            @else if ($index == length($vals)) {
+                $last-color: $color;
+            }
+        }
+        
+    }
+    
+    @if $error {
+        @error "Unknown 'linear-gradient(#{$vals})'. The gradient must be in the format '90deg, #ffffff 0%, #000000 100%'.";
+    }
+    
+    background: $first-color;
+    background: -webkit-linear-gradient($vals);
+    background:    -moz-linear-gradient($vals);
+    background:         linear-gradient($vals);
+    -ms-filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#{$first-color}',endColorstr='#{$last-color}',GradientType=1);
     
 }
 
