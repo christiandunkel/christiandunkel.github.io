@@ -419,6 +419,12 @@
         }
     }
     
+    @include ON_DESKTOP {
+        > span {
+            display: none;
+        }
+    }
+    
     b {
         display: inline-block; position: relative;
         width: 52px; height: 100%;
