@@ -1186,24 +1186,14 @@ var SECTION = {
         }
         
         // add animated squares to top section
-        SECTION.addSquareToAnimatedBackground(92);
-        SECTION.addSquareToAnimatedBackground(76);
-        SECTION.addSquareToAnimatedBackground(70);
-        SECTION.addSquareToAnimatedBackground(80);
-        SECTION.addSquareToAnimatedBackground(95);
+        var y_positions = [
+            0, 5, 10, 15, 19, 32, 39, 42, 45, 58, 65, 70, 76, 80, 92, 95
+        ];
         
-        // add animated squares in website main body
-        SECTION.addSquareToAnimatedBackground(65);
-        SECTION.addSquareToAnimatedBackground(58);
-        SECTION.addSquareToAnimatedBackground(45);
-        SECTION.addSquareToAnimatedBackground(42);
-        SECTION.addSquareToAnimatedBackground(39);
-        SECTION.addSquareToAnimatedBackground(32);
-        SECTION.addSquareToAnimatedBackground(19);
-        SECTION.addSquareToAnimatedBackground(15);
-        SECTION.addSquareToAnimatedBackground(10);
-        SECTION.addSquareToAnimatedBackground(5);
-        SECTION.addSquareToAnimatedBackground(0);
+        for (var i = y_positions.length; i--;) {
+            var y_pos = y_positions[i];
+            SECTION.addSquareToAnimatedBackground(y_pos);
+        }
         
         // add some randomized squares for good measure
         for (var i = 2; i--;) {
