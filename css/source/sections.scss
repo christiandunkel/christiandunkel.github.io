@@ -87,7 +87,6 @@ section {
     .js-on & {
         
         &#projects, 
-        &#technologies, 
         &#contact {
             @include animation(invisible 1s infinite);
 
@@ -100,7 +99,6 @@ section {
     @include ON_REDUCED_MOTION {
         &#about *,
         &#projects, 
-        &#technologies, 
         &#contact {
             @include animation(none !important);
         }
@@ -557,94 +555,6 @@ section {
             &:active:after {
                 @include transform(scale(.8));
                 @include transition(.1s);
-            }
-        }
-    }
-}
-
-
-
-/* TECHNOLOGIES SECTION */
-
-#technologies {
-    
-    .container {
-        padding: 30px 0;
-        border: 2px solid #e1e1e1; background: rgba(255,255,255,.5);
-        @include border-radius(9px);
-    
-        ul {
-            display: block;
-            margin: 0; padding: 3% 0;
-            font-size: 0;
-        }
-        
-        li {
-            list-style: none;
-            display: inline-block; position: relative;
-            width: 25%; padding: 20px;
-            text-align: center;
-            
-            > span {
-                display: block;
-                font-size: 16px; color: #6c6c6c;
-                @extend %text-wrap;
-            }
-            
-            /* ICONS */
-            
-            &:before {
-                content: '';
-                display: inline-block;
-                width: 60px; height: 60px; margin: 0 auto 5px auto;
-                background-repeat: no-repeat;
-                @include background-size(100% 100%);
-                @include filter(drop-shadow(1px 1px 2px rgba(0,0,0,.3)));
-            }
-            
-            &.html:before      {@extend %icon-html;}
-            &.css:before       {@extend %icon-css;}
-            &.svg:before       {@extend %icon-svg;}
-            &.js:before        {@extend %icon-js;}
-                
-            &.php:before       {@extend %icon-php;}
-            
-            &.java:before      {@extend %icon-java;}
-            &.csharp:before    {@extend %icon-csharp;}
-            &.cpp:before       {@extend %icon-cpp;}
-            
-            &.camtasia:before  {@extend %icon-camtasia;}
-            &.gimp:before      {@extend %icon-gimp;}
-            &.github:before    {@extend %icon-github;}
-            &.unity:before     {@extend %icon-unity;}
-            
-        }
-        
-        @include ON_MOBILE {
-            padding: 20px 0;
-
-            ul {
-                padding: 2.5% 0;
-            }
-            
-            li {
-                padding: 10px;
-
-                > span {
-                    font-size: 14px;
-                }
-
-                &:before {
-                    width: 40px; height: 40px;
-                }
-            }
-        }
-
-        @media (max-width: 450px) {
-            padding: 10px 0;
-            
-            li {
-                width: 50%;
             }
         }
     }
