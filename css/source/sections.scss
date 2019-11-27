@@ -288,13 +288,12 @@ section {
     .project-select-btn {
         display: inline-block;
         margin: .5em .5em 0 0; padding: 0;
-        overflow: hidden;
         @include user-select(none);
         @include border-radius(30px);
         
         span {
             display: inline-block; position: relative;
-            padding: 1em 2.2em 1em 1em;
+            padding: 1em;
             background: rgba(12, 142, 255, 0.12);
             color: $blue;
             @include border-radius(30px);
@@ -307,7 +306,7 @@ section {
             &:after,
             &:before {
                 content: '';
-                position: absolute; top: 50%; right: 1em; z-index: 2;
+                position: absolute; top: .3em; right: 0; z-index: 2;
                 width: .65em; height: .15em;
                 background: currentColor;
                 @include border-radius(5px);
@@ -336,7 +335,6 @@ section {
         &.inactive {
             
             span {
-                padding: 1em;
                 background: rgba(226, 226, 226, 0.5);
                 color: $lightgray;
 
