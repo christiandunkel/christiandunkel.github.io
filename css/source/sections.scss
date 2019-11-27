@@ -543,15 +543,127 @@ section {
 
 /* FOOTER */
 
+#footer-graphic {
+    position: relative;
+    margin: 100px 0 0 0; height: 1em;
+    overflow: hidden;
+    font-size: 16vw;
+    
+    @media (min-width: 1201px) {
+        font-size: 192px;
+    }
+    
+    > * {
+        position: absolute; top: 0; left: 50%;
+        max-width: 1200px; width: 100%; height: 100%;
+        font-size: inherit;
+        @include transform(translate(-50%, 0));
+        
+        .rect {
+            position: absolute;
+            font-size: inherit;
+            @include border-radius(6px);
+        }
+        
+        &.layer1 {
+            z-index: 2;
+            
+            .rect {
+                background-color: $red;
+            
+                &:nth-child(1) {
+                    top: .9em; left: -.8em;
+                    width: 1.5em; height: 1.5em;
+                    @include transform(rotate(-35deg));
+                }
+            
+                &:nth-child(2) {
+                    top: .55em; left: .2em;
+                    width: 1.5em; height: 1.5em;
+                    @include transform(rotate(-30deg));
+                }
+            
+                &:nth-child(3) {
+                    top: .7em; left: 1.5em;
+                    width: 1.5em; height: 1.5em;
+                    @include transform(rotate(-58deg));
+                }
+            
+                &:nth-child(4) {
+                    top: .37em; left: 3em;
+                    width: 1.6em; height: 1.6em;
+                    @include transform(rotate(52deg));
+                }
+            
+                &:nth-child(5) {
+                    top: .7em; left: 4em;
+                    width: 1.3em; height: 1.3em;
+                    @include transform(rotate(-45deg));
+                }
+            
+                &:nth-child(6) {
+                    top: .7em; left: 4.8em;
+                    width: 1.5em; height: 1.5em;
+                    @include transform(rotate(116deg));
+                }
+            }
+        }
+        
+        &.layer2 {
+            z-index: 1;
+            
+            .rect {
+                background-color: $blue;
+            
+                &:nth-child(1) {
+                    top: .5em; left: .3em;
+                    width: 1.3em; height: 1.3em;
+                    @include transform(rotate(-37deg));
+                }
+            
+                &:nth-child(2) {
+                    top: .3em; left: 1.2em;
+                    width: 1.3em; height: 1.3em;
+                    @include transform(rotate(-52deg));
+                }
+            
+                &:nth-child(3) {
+                    top: .4em; left: 2.8em;
+                    width: 1.2em; height: 1.2em;
+                    @include transform(rotate(45deg));
+                }
+            
+                &:nth-child(4) {
+                    top: .4em; left: 3.9em;
+                    width: 1.1em; height: 1.1em;
+                    @include transform(rotate(50deg));
+                }
+            
+                &:nth-child(5) {
+                    top: .3em; left: 4.6em;
+                    width: 1.6em; height: 1.6em;
+                    @include transform(rotate(58deg));
+                }
+            
+                &:nth-child(6) {
+                    top: .7em; left: 5.8em;
+                    width: 1.6em; height: 1.6em;
+                    @include transform(rotate(30deg));
+                }
+            }
+        }
+    }
+}
+
 footer {
     position: relative; z-index: 1;
-    margin: 100px 0 0 0; padding: 0 0 20px 0;
+    padding: 20px 0 200px 0;
     background: $red;
     text-align: center;
     
     #to-top {
         position: relative;
-        width: 100%; height: 120px;
+        width: 100%; height: 120px; margin: 20px 0;
         @include transition(.2s);
         
         html.js-off & {

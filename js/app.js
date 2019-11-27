@@ -452,8 +452,6 @@ var NODE = function () {
     NODE.sections           = _.class('content-section');
     NODE.section_about      = _.id('about');
     
-    NODE.to_top_btn         = _.id('to-top');
-    
     // language selection
     NODE.lang_btn           = _.id('language-btn');
     // elements with title attributes
@@ -467,6 +465,13 @@ var NODE = function () {
     NODE.project_settings_btn   = _.id('project-settings-btn');
     NODE.project_settings_menu  = _.id('project-settings-menu');
     NODE.project_switch_logic   = _.id('project-switch-logic-btn');
+    
+    // footer
+    NODE.footer            = _.tag('footer')[0];
+    NODE.to_top_btn        = _.id('to-top');
+    NODE.footer_graphic    = _.id('footer-graphic');
+    NODE.footer_graphic_l1 = _.class('layer1', NODE.footer_graphic)[0];
+    NODE.footer_graphic_l2 = _.class('layer2', NODE.footer_graphic)[0];
     
 };
 
@@ -1186,7 +1191,6 @@ var SECTION = {
         
         SECTION.playAnimatedBackground();
         
-        //_.onClick(window, SECTION.playAnimatedBackground);
         _.addEvent(window, 'focus', SECTION.playAnimatedBackground);
         _.addEvent(window, 'blur', SECTION.clearAnimatedBackground);
         
@@ -1238,8 +1242,6 @@ var SECTION = {
     },
     
     addSquareToAnimatedBackground : function (animation_delay) {
-        
-        console.log(SECTION.square_list.length);
         
         // remove the oldest rectangle (first item in list)
         if (SECTION.square_list.length > 70) {
@@ -1302,11 +1304,22 @@ var SCROLL = {
     },
     
     scrollY      : 0,
+    page_height  : 0,
+    from_bottomY : 0, // nr of pixels users bottom browser border is away from bottom of page
     has_scrolled : false,
+    
+    footer_height : 0,
     
     // if user has scrolled, set variable to true
     event : function () {
         SCROLL.has_scrolled = true;
+        
+        // update footer graphic
+        SCROLL.scrollY = window.scrollY || window.pageYOffset;
+        SCROLL.from_bottomY = Math.abs(SCROLL.page_height - window.innerHeight - SCROLL.scrollY);
+        if (SCROLL.from_bottomY < SCROLL.footer_height) {
+            SCROLL.animateFooterGraphic();
+        }
     },
     
     // called on interval; if variable is true, apply scroll effects
@@ -1318,11 +1331,28 @@ var SCROLL = {
         }
     
         // get scroll position
-        SCROLL.scrollY = window.scrollY || window.pageYOffset;
+        SCROLL.page_height = Math.max(
+            NODE.body.scrollHeight,
+            NODE.body.offsetHeight,
+            NODE.html.clientHeight,
+            NODE.html.scrollHeight,
+            NODE.html.offsetHeight
+        );
         SCROLL.has_scrolled = false;
         
-        SCROLL.showHiddenSections();
+        // update footer graphic
+        SCROLL.footer_height = Math.max(
+            NODE.footer_graphic.scrollHeight,
+            NODE.footer_graphic.clientHeight,
+            NODE.footer_graphic.offsetHeight
+        ) + Math.max(
+            NODE.footer.scrollHeight,
+            NODE.footer.clientHeight,
+            NODE.footer.offsetHeight
+        );
         
+        // show sections on screen
+        SCROLL.showHiddenSections();
         NAV.updateSectionData();
         
         // only update nav indicator if desktop nav is visible
@@ -1332,20 +1362,48 @@ var SCROLL = {
         
     },
     
+    animateFooterGraphic : function () {
+        
+        var original_left = 50;
+        var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
+        var move_by = percentage_scrolled_of_footer * 5; // can move by max 5%
+        
+        // move layer1 to the right
+        _.setStyles(NODE.footer_graphic_l1, {
+            left: (original_left + move_by)+'%'
+        });
+        
+        // move layer2 to the left
+        _.setStyles(NODE.footer_graphic_l2, {
+            left: (original_left - move_by)+'%'
+        });
+        
+        
+    },
+    
     // fades in sections after scrolling to them
     showHiddenSections : function () {
         
-        var allAppeared = true;
+        var all_appeared = true;
         
-        // check if all sections already appeared
-        for (var i = NODE.sections.length; i--;) {
-            if (!_.hasClass(NODE.sections[i], 'appear')) {
-                allAppeared = false;
-                break;
+        // show all sections, if one has (almost) scrolled to the bottom
+        if (SCROLL.from_bottomY < 200) {
+            for (var i = NODE.sections.length; i--;) {
+                _.addClass(NODE.sections[i], 'appear');
             }
         }
+        // otherwise, check if any section has not yet appeared
+        else {
+            for (var i = NODE.sections.length; i--;) {
+                if (!_.hasClass(NODE.sections[i], 'appear')) {
+                    all_appeared = false;
+                    break;
+                }
+            }
+        }
+        
         // if all sections already appeared, disable this function
-        if (allAppeared) {
+        if (all_appeared) {
             SCROLL.showHiddenSections = function () {};
             return;
         }
