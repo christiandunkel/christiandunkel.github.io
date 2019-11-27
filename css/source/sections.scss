@@ -3,14 +3,6 @@
 main {
     position: relative;
     text-align: center;
-    
-    // blur, if mobile navigation is opened
-    .mobile-nav-open & {
-        
-        @include ON_MOBILE {
-            @include filter(blur(3px));
-        }
-    }
 }
 
 // animated background
@@ -555,7 +547,7 @@ section {
 
 footer {
     position: relative; z-index: 1;
-    margin: 100px 0 0 0;
+    margin: 100px 0 0 0; padding: 0 0 20px 0;
     background: $red;
     text-align: center;
     
@@ -591,7 +583,8 @@ footer {
             &.head2 {@include transform(rotate(45deg) translate(0,-8%));}
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
 
             b {
                 top: 50%;
@@ -604,9 +597,17 @@ footer {
         }
     }
     
-    .content {
-        display: inline-block;
-        max-width: 100%; padding: 30px;
-        color: rgba(255,255,255,.7); font-size: 14px;
+    p {
+        margin: 6px 0; padding: 0 14px;
+        font-size: 14px; color: rgba(255,255,255,.92);
+        
+        a {
+            text-decoration: none; color: inherit; font-weight: 700;
+            
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
     }
 }

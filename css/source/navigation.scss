@@ -140,7 +140,7 @@
                 @include transition(0s);
                 
                 .overlay {
-                    @include opacity(.2);
+                    @include opacity(.7);
                 }
                 
                 .content {
@@ -218,14 +218,6 @@
             
             @include ON_DESKTOP {
                 display: none;
-            }
-    
-            // blur logo if mobile nav is open
-            .mobile-nav-open & {
-                
-                @include ON_MOBILE {
-                    @include filter(blur(3px));
-                }
             }
             
             i {
