@@ -394,6 +394,10 @@ section {
         width: 100%; margin: 4% 0;
         #projects-container &:nth-child(even) {margin-right: 0;}
         #projects-container &:nth-child(odd)  {margin-right: 0;}
+        
+        figure {
+            max-width: 400px;
+        }
     }
     
     &.hidden {
@@ -402,6 +406,26 @@ section {
         visibility: hidden;
         @include transform(scale(0));
         @include transition-property(none);
+    }
+    
+    figure {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        @include border-radius(5px);
+        @include box-shadow(
+            0 1px 1px rgba(0,0,0,.05),
+            0 2px 2px rgba(0,0,0,.05),
+            0 4px 4px rgba(0,0,0,.05),
+            0 8px 8px rgba(0,0,0,.05),
+            0 16px 16px rgba(0,0,0,.05)
+        );
+        
+        .img {
+            width: 100%; padding: 0 0 60% 0;
+            background-repeat: no-repeat; background-position: left top;
+            @include background-size(cover);
+        }
     }
     
     .project-info {
@@ -470,30 +494,6 @@ section {
                 color: #717171; font-size: 13px;
                 @include border-radius(2px);
             }
-        }
-    }
-    
-    figure {
-        display: inline-block; position: relative; z-index: 2;
-        width: 100%; padding: 0 0 60% 0;
-        overflow: hidden;
-        @include border-radius(5px);
-        @include box-shadow(
-            0 1px 1px rgba(0,0,0,.05),
-            0 2px 2px rgba(0,0,0,.05),
-            0 4px 4px rgba(0,0,0,.05),
-            0 8px 8px rgba(0,0,0,.05),
-            0 16px 16px rgba(0,0,0,.05)
-        );
-        @include transition(all 0s, transform .3s);
-        
-        .img {
-            position: absolute;
-            width: 101%; height: 101%;
-            background-repeat: no-repeat;
-            background-position: left top;
-            @include background-size(cover);
-            @extend %translate-center;
         }
     }
 }
