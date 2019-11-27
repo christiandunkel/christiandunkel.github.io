@@ -391,7 +391,7 @@ section {
     
     // all cards below one another
     @media (max-width: 650px) {
-        width: 100%; margin: 4% 0;
+        width: 100%; margin: 7% 0;
         #projects-container &:nth-child(even) {margin-right: 0;}
         #projects-container &:nth-child(odd)  {margin-right: 0;}
         
