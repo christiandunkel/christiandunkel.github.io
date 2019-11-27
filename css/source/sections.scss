@@ -563,6 +563,10 @@ section {
             position: absolute;
             font-size: inherit;
             @include border-radius(6px);
+            
+            @media (max-width: 700px) {
+                @include border-radius(3px);
+            }
         }
         
         &.layer1 {
