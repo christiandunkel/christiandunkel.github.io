@@ -106,7 +106,6 @@ var NAV = {
             FOCUS_CHAIN.add([
                 NODE.nav_links[1],
                 NODE.nav_links[2],
-                NODE.nav_links[3],
                 NODE.lang_btn,
                 NODE.hamburger_btn
             ]);
