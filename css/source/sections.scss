@@ -695,6 +695,11 @@ footer {
 
             &.head1 {@include transform(rotate(-45deg) translate(0,-8%));}
             &.head2 {@include transform(rotate(45deg) translate(0,-8%));}
+            
+            @include ON_REDUCED_MOTION {
+                &.head1 {@include transform(rotate(-45deg) translate(0,-8%) !important);}
+                &.head2 {@include transform(rotate(45deg) translate(0,-8%) !important);}
+            }
         }
 
         &:hover,

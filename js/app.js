@@ -1297,6 +1297,14 @@ var SCROLL = {
     
     initialize : function () {
         
+        // don't add scroll effects on reduced motion
+        if (window.matchMedia) {
+            var  media_query = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (media_query.matches) {
+                return;
+            }
+        }
+        
         // less expensive scroll checker
         window.onscroll = SCROLL.event;
         setInterval(SCROLL.update, 100);
@@ -1366,7 +1374,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 5; // can move by max 5%
+        var move_by = percentage_scrolled_of_footer * 8; // can move by max 5%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
