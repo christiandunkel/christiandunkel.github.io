@@ -1184,6 +1184,25 @@ var SECTION = {
             }
         }
         
+        SECTION.playAnimatedBackground();
+        
+        //_.onClick(window, SECTION.playAnimatedBackground);
+        _.addEvent(window, 'focus', SECTION.playAnimatedBackground);
+        _.addEvent(window, 'blur', SECTION.clearAnimatedBackground);
+        
+    },
+    
+    background_interval : null,
+    
+    playAnimatedBackground : function () {
+        
+        // check if it's already running
+        if (SECTION.background_interval) {
+            return;
+        }
+        
+        SECTION.clearAnimatedBackground();
+        
         // add animated squares to top section
         var y_positions = [
             0, 5, 10, 15, 19, 32, 39, 42, 45, 58, 65, 70, 76, 80, 92, 95
@@ -1200,11 +1219,27 @@ var SECTION = {
             SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
-        setInterval(SECTION.addSquareToAnimatedBackground, 3000);
+        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 3000);
+        
+    },
+    
+    clearAnimatedBackground : function () {
+        
+        if (SECTION.background_interval) {
+            clearInterval(SECTION.background_interval);
+            SECTION.background_interval = null;
+        }
+        
+        for (var i = SECTION.square_list.length; i--;) {
+            _.remove(SECTION.square_list[i]);
+        }
+        SECTION.square_list = [];
         
     },
     
     addSquareToAnimatedBackground : function (animation_delay) {
+        
+        console.log(SECTION.square_list.length);
         
         // remove the oldest rectangle (first item in list)
         if (SECTION.square_list.length > 70) {
