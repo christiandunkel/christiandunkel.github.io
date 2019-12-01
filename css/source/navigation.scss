@@ -100,7 +100,7 @@
                         height: auto; margin: 5px 0; padding: 20px 0;
                         color: $gray; font-size: 1em; line-height: 1em; text-align: center;
                         
-                        &.a0 {
+                        &.logo-link {
                             display: none;
                         }
                         
@@ -172,12 +172,11 @@
         }
         
         &.active,
-        &:focus,
         &:hover {
             color: $red;
         }
         
-        &.a0 {
+        &.logo-link {
             display: inline-block;
             width: 46px; height: 76px; margin: 0 20px 0 13px;
 
@@ -210,9 +209,9 @@
         }
         
         // clickable logo on the left on mobile view
-        &.logo {
-            // mimic nav link a0
-            @extend .a0;
+        &.mobile-logo {
+            // mimic nav logo link
+            @extend .logo-link;
             z-index: 9997;
             color: $blue;
             
@@ -267,22 +266,22 @@
         @include transition-delay(0s);
     }
 
-    a.a0.active ~ .hover-bg {
+    a.logo-link.active ~ .hover-bg {
         border-width: 4px;
         @include transform(rotate(4deg));
     }
 
-    a:not(.a0).active ~ .hover-bg {
+    a:not(.logo-link).active ~ .hover-bg {
         border-width: 2px;
         @include transform(rotate(0));
     }
 
-    a.a0:hover ~ .hover-bg {
+    a.logo-link:hover ~ .hover-bg {
         border-width: 4px;
         @include transform(rotate(4deg));
     }
 
-    a:not(.a0):hover ~ .hover-bg {
+    a:not(.logo-link):hover ~ .hover-bg {
         border-width: 2px;
         @include transform(rotate(0));
     }

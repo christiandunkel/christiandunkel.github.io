@@ -118,11 +118,38 @@ hr {
     margin: 50px 0;
     border: dashed #e8e8e8; border-width: 3px 0 0 0;
 }
+
+h1 {
+    margin: 60px 0 0 0;
+    color: $lightgray; font-size: 34px; line-height: 1.1em;
+}
+
+h2 {
+    margin: 40px 0 0 0;
+    color: $lightgray; font-size: 29px; line-height: 1.2em;
+}
+
+h3 {
+    margin: 20px 0 0 0;
+    color: $lightgray; font-size: 22px; line-height: 1.3em;
+}
+
+p {
+    margin: 18px 0;
+    color: $gray; font-size: 16px; line-height: 1.5em;
+    
+    b {color: $red;}
+    .blue {color: $blue;}
+}
+
+
+
+/* RESPONSIVE ELEMENTS */
     
 h2.responsive {
     position: relative;
     height: .85em; margin: .35em 0 0 0;
-    color: $lightgray; font-size: 150px; font-size: 13vw; line-height: 1em; font-weight: 700;
+    font-size: 150px; font-size: 13vw; line-height: 1em; font-weight: 700;
 
     span {
         position: absolute; top: 0; left: 0; z-index: 1;
@@ -139,7 +166,7 @@ h2.responsive {
 
 p.responsive {
     margin: 1em 0;
-    font-size: 25px; font-size: 3.5vw; line-height: 1.4em; color: $gray;
+    font-size: 25px; font-size: 3.5vw; line-height: 1.5em;
 
     @media (min-width: 1201px) {
         font-size: 42px;
@@ -147,11 +174,7 @@ p.responsive {
 
     @include ON_PHONE {
         margin: 20px 0;
-        font-size: 18px; line-height: 1.25em;
-    }
-
-    b {
-        color: $red;
+        font-size: 18px;
     }
     
     &.small {

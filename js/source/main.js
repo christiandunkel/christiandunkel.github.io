@@ -8,22 +8,22 @@ var NODE = function () {
     NODE.main = _.tag('main')[0];
     NODE.animated_background = _.id('animated-background');
     
+    // navigation
     NODE.nav                = _.id('nav');
+    NODE.nav_links          = _.tag('a', _.class('content', NODE.mobile_menu)[0]);
+    // add CSS for the nav indicator
+    // (dependent on browser and button content)
+    NODE.nav_indicator      = _.class('hover-bg')[0];
+    
     // hidden mobile menu
     NODE.hamburger_btn      = _.id('hamburger-btn');
     NODE.mobile_menu        = _.id('mobile-menu');
     NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
     // logo visible on mobile view
-    NODE.mobile_logo        = _.class('logo', NODE.nav)[0];
-    // nav links
-    var mobile_content      = _.class('content', NODE.mobile_menu)[0];
-    NODE.nav_links          = _.tag('a', mobile_content);
-    // add CSS for the nav indicator
-    // (dependent on browser and button content)
-    NODE.nav_indicator      = _.class('hover-bg')[0];
+    NODE.mobile_logo        = _.class('mobile-logo', NODE.nav)[0];
+    
     // semantic sections of site
     NODE.sections           = _.class('content-section');
-    NODE.section_about      = _.id('about');
     
     // language selection
     NODE.lang_btn           = _.id('language-btn');
@@ -111,6 +111,7 @@ var NAV = {
             FOCUS_CHAIN.set([
                 NODE.nav_links[1],
                 NODE.nav_links[2],
+                NODE.nav_links[3],
                 NODE.lang_btn,
                 NODE.hamburger_btn
             ]);

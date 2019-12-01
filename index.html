@@ -4,7 +4,7 @@
 <head>
     
     <meta charset="utf-8" />
-    <title>Christian Dunkel - Web Developer</title>
+    <title>Christian Dunkel - Portfolio</title>
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=1,minimum-scale=1.0" />
@@ -60,19 +60,23 @@
     <nav id=nav>
         <div class=bar>
             
-            <a class=logo href="#html" title="Go to top" title-de="Nach oben"><i></i></a>
+            <a class=mobile-logo href="#html" title="Go to top" title-de="Nach oben"><i></i></a>
 
             <div id=mobile-menu>
                 <div class=overlay></div>
                 <div class="content">
                     
                     <div class="center">
-                        <a class="a0 active" href="#html" title="To top" title-de="Nach oben"></a>
-                        <a class=a1 href="#projects">
+                        <a class="a0 logo-link active" href="#html" title="To top" title-de="Nach oben"></a>
+                        <a class="a1" href="#about">
+                            <span lang=en>About</span>
+                            <span lang=de>Über</span>
+                        </a>
+                        <a class="a2" href="#projects">
                             <span lang=en>Projects</span>
                             <span lang=de>Projekte</span>
                         </a>
-                        <a class=a2 href="#contact">
+                        <a class="a3" href="#contact">
                             <span lang=en>Contact</span>
                             <span lang=de>Kontakt</span>
                         </a>
@@ -107,7 +111,7 @@
             
         <div id=animated-background></div>
     
-        <section id=about>
+        <section id=intro>
             
             <div class=text>
 
@@ -126,6 +130,29 @@
                 </div>
                 
             </div>
+            
+        </section>
+        
+        
+        
+        
+    
+        <section id=about class=content-section>
+        
+            <h2 class=responsive>
+                <span lang=en>About me</span>
+                <span lang=de>Über mich</span>
+            </h2>
+            
+            <p class="responsive">
+                <span lang=en>I started out editing videos and images, before I discovered the wonders of <b class=blue>web development</b>!</span>
+                <span lang=de>Ich begann mit dem Bearbeiten von Videos und Bildern, bevor ich die Wunder der <b class=blue>Web-Entwicklung</b> entdeckt habe!</span>
+            </p>
+            
+            <p class="responsive">
+                <span lang=en>Now I create <b>responsive, accessible websites</b> with JavaScript, PHP and other technologies!</span>
+                <span lang=de>Nun erstelle ich <b>anpassungsfähige, zugängliche Websites</b> mit JavaScript, PHP und anderen Technologien!</span>
+            </p>
             
         </section>
         
@@ -429,12 +456,12 @@
                 </b>
             </button>
             
-            <p>
+            <p class="responsive small">
                 <span lang=en>This website is hosted <a href="https://github.com/christiandunkel/christiandunkel.github.io" target="_blank" rel="noopener noreferrer">here</a> on GitHub.</span>
                 <span lang=de>Diese Webseite wird auf <a href="https://github.com/christiandunkel/christiandunkel.github.io" target="_blank" rel="noopener noreferrer">GitHub</a> gehostet.</span>
             </p>
             
-            <p class=content> 
+            <p class="responsive small"> 
                 <span lang=en>&copy; Copyright 2019, Christian Dunkel</span>
                 <span lang=de>&copy; Urheberrecht 2019, Christian Dunkel</span>
             </p>
@@ -447,7 +474,7 @@
     
     <!-- scripts -->
     
-    <script src="js/app.min.js"></script>
+    <script src="js/app.js"></script>
     
 </body>
 
