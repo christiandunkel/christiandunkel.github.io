@@ -455,6 +455,7 @@ section {
                 text-decoration: none; font-size: 16px; line-height: 20px; color: black;
                 @include opacity(.7);
                 @include border-radius(3px);
+                @include user-select(none);
                 @include transition(.2s);
 
                 &.github {

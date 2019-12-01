@@ -535,7 +535,7 @@ var NAV = {
             NAV.is_open = true;
             _.addClass(NODE.html, 'mobile-nav-open');
             
-            FOCUS_CHAIN.add([
+            FOCUS_CHAIN.set([
                 NODE.nav_links[1],
                 NODE.nav_links[2],
                 NODE.lang_btn,
@@ -558,7 +558,7 @@ var NAV = {
                 NODE.hamburger_btn.focus();
             }, 150);
             
-            FOCUS_CHAIN.remove();
+            FOCUS_CHAIN.reset();
             
         }
         
@@ -776,80 +776,172 @@ var LANG = {
 // hijacks the tab key event, and prevents normal focussing via browser
 var FOCUS_CHAIN = {
     
-    is_active: false,
+    selection_type : 0,
+    // 0: unselected
+    // 1: by elems array
+    // 2: by start_elem, end_elem and elems_container
     
-    // all elements in focuschain
-    elems: [],
+    // for selection type 1, elements in focuschain
+    elems : [],
+    // for selection type 2:
+    start_elem : null,
+    end_elem : null,
+    elems_container : null,
     
-    // adds a focus chain
-    add : function (elems) {
+    isActive : function () {
+        return selection_type === 0;
+    },
+    
+    set : function (input) {
         
-        if (!FOCUS_CHAIN.is_active) {
+        // remove focus from element that currently has focus
+        document.activeElement.blur();
+        
+        if (_.isArray(input)) {
+            FOCUS_CHAIN.selection_type = 1;
+            FOCUS_CHAIN.elems = input;
+        }
+        else {
+            FOCUS_CHAIN.selection_type = 2;
+            FOCUS_CHAIN.start_elem = input.start;
+            FOCUS_CHAIN.end_elem = input.end;
+            FOCUS_CHAIN.elems_container = input.container;
+        }
+        
+        _.addEvent(window, 'keydown', FOCUS_CHAIN.event);
+        
+    },
+    
+    reset : function () {
+        
+        FOCUS_CHAIN.selection_type = 0;
+        // reset stuff for selection type 1
+        FOCUS_CHAIN.elems = [];
+        // reset stuff for selection type 2
+        FOCUS_CHAIN.start_elem = null;
+        FOCUS_CHAIN.end_elem = null;
+        FOCUS_CHAIN.elems_container = null;
+        
+        _.removeEvent(window, 'keydown', FOCUS_CHAIN.event);
+        
+    },
+    
+    event : function (e) {
+        
+        // tab key was pressed
+        if (e.keyCode == 9) {
             
-            FOCUS_CHAIN.is_active = true;
-
-            // remove focus from element that currently has focus
-            document.activeElement.blur();
-
-            FOCUS_CHAIN.elems = elems;
-
-            _.addEvent(window, 'keydown', FOCUS_CHAIN.hijack_event);
+            var is_backwards_tab = (e.shiftKey === true);
+            
+            // handle selection
+            if (FOCUS_CHAIN.selection_type == 1) {
+                FOCUS_CHAIN.handleSelectionType1(e, is_backwards_tab);
+            }
+            else {
+                FOCUS_CHAIN.handleSelectionType2(e, is_backwards_tab);
+            }
             
         }
         
     },
     
-    // removes the current focus chain
-    remove : function () {
-        
-        if (FOCUS_CHAIN.is_active) {
-            
-            FOCUS_CHAIN.is_active = false;
-        
-            FOCUS_CHAIN.elems = [];
-
-            _.removeEvent(window, 'keydown', FOCUS_CHAIN.hijack_event);
-        
-        }
-        
-    },
-    
-    hijack_event : function (e) {
+    handleSelectionType1 : function (e, go_backwards) {
         
         // needs at least one element in chain
         if (FOCUS_CHAIN.elems.length < 1) {
             return;
         }
-        
-        // tab key was pressed
-        if (e.keyCode == 9) {
+        // if multiple elems, focus chain can work, so prevent default focus change by browser
+        else {
             e.preventDefault();
+        }
             
-            // only check for next focus element, if there's at least two elems
-            if (FOCUS_CHAIN.elems.length != 1) {
-                // find currently focussed element in chain, and focus on next in line
-                for (var i = FOCUS_CHAIN.elems.length; i--;) {
-                    if (document.activeElement == FOCUS_CHAIN.elems[i]) {
+        // only check for next focus element, if there's at least two elems
+        if (FOCUS_CHAIN.elems.length != 1) {
+            // find currently focussed element in chain, and focus on next in line
+            for (var i = FOCUS_CHAIN.elems.length; i--;) {
+                
+                if (document.activeElement == FOCUS_CHAIN.elems[i]) {
 
-                        // last element is in focus
-                        if (i == FOCUS_CHAIN.elems.length - 1) {
-                            // focus on first
+                    // last element is in focus
+                    if (i == FOCUS_CHAIN.elems.length - 1) {
+                        // if going backwards, focus on before-last elem
+                        if (go_backwards) {
+                            FOCUS_CHAIN.elems[FOCUS_CHAIN.elems.length - 2].focus();
+                        }
+                        // if going forwards, focus on first elem
+                        else {
                             FOCUS_CHAIN.elems[0].focus();
                         }
+                    }
+                    // first element is in focus
+                    else if (i == 0) {
+                        // if going backwards, focus on last elem
+                        if (go_backwards) {
+                            FOCUS_CHAIN.elems[FOCUS_CHAIN.elems.length - 1].focus();
+                        }
+                        // if going forwards, focus on next (second) elem
                         else {
-                            // otherwise, focus on next
+                            FOCUS_CHAIN.elems[1].focus();
+                        }
+                    }
+                    else {
+                        // if going backwards, focus on previous
+                        if (go_backwards) {
+                            FOCUS_CHAIN.elems[i-1].focus();
+                        }
+                        // if going forwards, focus on next
+                        else {
                             FOCUS_CHAIN.elems[i+1].focus();
                         }
-
-                        return;
                     }
+
+                    return;
                 }
+                
+            }
+        }
+
+        // if no element in chain is currently focussed on, focus on first in list
+        FOCUS_CHAIN.elems[0].focus();
+        
+    },
+    
+    handleSelectionType2 : function (e, go_backwards) {
+        
+        // check element that had focus until now
+        if (
+            !go_backwards &&
+            // if last element reached, focus on first
+            document.activeElement == FOCUS_CHAIN.end_elem
+        ) {
+            e.preventDefault();
+            FOCUS_CHAIN.start_elem.focus();
+            return;
+        }
+        
+        // check element that now gets focus
+        setTimeout(function () {
+            
+            if (
+                // if no element inside window is being focussed
+                !_.contains(FOCUS_CHAIN.elems_container, document.activeElement)
+            ) {
+                
+                e.preventDefault();
+                
+                // if user is tabbing backwards, focus end_elem
+                if (go_backwards) {
+                    FOCUS_CHAIN.end_elem.focus();
+                }
+                // if user is tabbing forwards, focus start_elem
+                else {
+                    FOCUS_CHAIN.start_elem.focus();
+                }
+                
             }
             
-            // if no element in chain is currently focussed on, focus on first in list
-            FOCUS_CHAIN.elems[0].focus();
-            
-        }
+        }, 5);
         
     }
     
@@ -1155,7 +1247,6 @@ var SECTION = {
                 
                 // stop if no parent element anymore (root node)
                 if (target == null) {
-                    console.log('FAIL: ', _.target(e));
                     return;
                 }
                 
@@ -1374,7 +1465,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 8; // can move by max 5%
+        var move_by = percentage_scrolled_of_footer * 8; // can move by max 8% to either side
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
