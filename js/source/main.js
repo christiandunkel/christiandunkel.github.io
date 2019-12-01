@@ -1037,7 +1037,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 10; // move by 0-10%
+        var move_by = percentage_scrolled_of_footer * 8; // move by 0-8%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
@@ -1046,7 +1046,7 @@ var SCROLL = {
         
         // move layer2 to the left
         _.setStyles(NODE.footer_graphic_l2, {
-            left: (original_left - (move_by * (3/4)))+'%'
+            left: (original_left - (move_by * .75))+'%'
         });
         
         

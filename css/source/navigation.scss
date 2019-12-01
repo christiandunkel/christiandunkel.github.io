@@ -210,21 +210,26 @@
         
         // clickable logo on the left on mobile view
         &.mobile-logo {
-            // mimic nav logo link
-            @extend .logo-link;
-            z-index: 9997;
-            color: $blue;
+            display: inline-block; z-index: 9997;
+            height: 100%; margin: 0 20px 0 13px; padding: 0;
             
             @include ON_DESKTOP {
                 display: none;
             }
             
-            i {
-                position: absolute; top: 15px; left: 0;
-                width: 46px; height: 46px;
-                border: 4px solid $red;
-                @include border-radius(4px);
-                @include transform(rotate(4deg));
+            span {
+                display: block;
+                width: auto;
+                font-size: 18px; line-height: 16px;
+            
+                &:first-child {
+                    margin: 18px 0 4px 0;
+                    color: $red;
+                }
+
+                &:last-child {
+                    color: $blue; font-size: 22px;
+                }
             }
         }
     }

@@ -1473,7 +1473,7 @@ var SCROLL = {
         
         // move layer2 to the left
         _.setStyles(NODE.footer_graphic_l2, {
-            left: (original_left - (move_by * (3/4)))+'%'
+            left: (original_left - (move_by * .75))+'%'
         });
         
         
