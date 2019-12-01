@@ -2,6 +2,7 @@
 
 main {
     position: relative;
+    padding: 0 5vw;
     text-align: center;
 }
 
@@ -160,14 +161,6 @@ section {
             }
         }
     }
-}
-
-
-
-/* ABOUT SECTION */
-
-#about {
-    
 }
 
 
@@ -676,7 +669,7 @@ footer {
     
     #to-top {
         display: inline-block; position: relative;
-        width: 100px; height: 100px; margin: 20px 0;
+        width: 140px; height: 140px; margin: 8vw 0 4vw 0;
         @include transition(.2s);
         
         html.js-off & {
@@ -691,6 +684,7 @@ footer {
         }
         
         @media (max-width: 600px) {
+            width: 100px; height: 100px;
             
             b {
                 width: 40px; height: 40px;
@@ -733,9 +727,7 @@ footer {
     }
     
     p {
-        margin: 6px 0; padding: 0 14px;
         color: white;
-        @include opacity(.92);
         
         a {
             text-decoration: none; color: inherit; font-weight: 700;
