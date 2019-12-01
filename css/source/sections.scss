@@ -6,51 +6,6 @@ main {
     text-align: center;
 }
 
-// animated background
-#animated-background {
-    position: absolute; top: 0; left: 0; z-index: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;
-    
-    &:before {
-        content: '';
-        position: absolute; top: 90vh; left: 0; z-index: 1;
-        width: 100%; height: 100%;
-        @include linear-gradient(0deg, rgba(249, 249, 249, 0.8) 0%, rgba(249, 249, 249, 0.8) 90%, rgba(0,0,0,0) 100%);
-    }
-
-    .square {
-        display: block; position: absolute; top: 100%; z-index: 0;
-        @include opacity(.5);
-        @include border-radius(7%);
-        @include transform(rotate(0deg) translate(0,-100%));
-        @include transition(4s);
-
-        &.red {
-            background: #f29eb5;
-        }
-        &.blue {
-            background: #8ecee8;
-        }
-        &.rotating-left {
-            @include animation(square-float-up-left 100s linear forwards);
-        }
-        &.rotating-right {
-            @include animation(square-float-up-right 100s linear forwards);
-        }
-    }
-}
-
-@include keyframes(square-float-up-left) {
-    0% {@include transform(rotate(-200deg));}
-    100% {top: 0%;}
-}
-
-@include keyframes(square-float-up-right) {
-    0% {@include transform(rotate(200deg));}
-    100% {top: 0%;}
-}
-
 section {
     position: relative; z-index: 2;
     max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
@@ -79,6 +34,7 @@ section {
     // fade in animations when scrolling down
     .js-on & {
         
+        &#about, 
         &#projects, 
         &#contact {
             @include animation(invisible 1s infinite);
@@ -91,6 +47,7 @@ section {
         
     @include ON_REDUCED_MOTION {
         &#intro *,
+        &#about, 
         &#projects, 
         &#contact {
             @include animation(none !important);
@@ -105,23 +62,25 @@ section {
 #intro {
     
     .text {
-        position: relative; z-index: 2;
-        max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
         
         // apply flex column to fix the div not centering in IE, since no height is set
         // https://stackoverflow.com/a/33222765
         @include display(flex);
         @include flex-direction(column);
+        
+        position: relative; z-index: 2;
+        max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
     }
     
     .flex {
-        position: relative;
-        max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
         
         // center element using flex-box
         @include display(flex);
         @include align-items(center);
         @include justify-content(center);
+        
+        position: relative;
+        max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
     }
     
     .center {
@@ -161,6 +120,63 @@ section {
             }
         }
     }
+}
+
+// animated background behind intro text (and parts of the about section)
+#animated-background {
+    position: absolute; top: 0; left: 0; z-index: 0;
+    width: 100%; height: 160%;
+    
+    &:before,
+    &:after {
+        content: '';
+        position: absolute; left: 50%; z-index: 1;
+        width: 100vw;
+        @include transform(translate(-50%, 0));
+    }
+    
+    &:before {
+        top: 30%;
+        height: 70%;
+        @include linear-gradient(0deg, #f9f9f9 0%, #f9f9f9 10%, rgba(0,0,0,0) 100%);
+    }
+    
+    &:after {
+        top: 99%;
+        height: 50%;
+        background-color: #f9f9f9;
+    }
+
+    .square {
+        display: block; position: absolute; top: 100%; z-index: 0;
+        @include opacity(.5);
+        @include border-radius(7%);
+        @include transform(rotate(0deg) translate(0,-100%));
+        @include transition(4s);
+
+        &.red {
+            background: #f29eb5;
+        }
+        &.blue {
+            background: #8ecee8;
+        }
+        &.rotating-left {
+            @include animation(square-float-up-left 70s linear forwards);
+        }
+        &.rotating-right {
+            @include animation(square-float-up-right 70s linear forwards);
+        }
+    }
+}
+
+@include keyframes(square-float-up-left) {
+    0% {@include transform(rotate(-200deg));}
+    100% {top: 0%;}
+}
+
+@include keyframes(square-float-up-right) {
+    0% {@include transform(rotate(200deg));}
+    100% {top: 0%;}
 }
 
 

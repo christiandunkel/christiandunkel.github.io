@@ -873,9 +873,7 @@ var SECTION = {
         SECTION.clearAnimatedBackground();
         
         // add animated squares to top section
-        var y_positions = [
-            0, 5, 10, 15, 19, 32, 39, 42, 45, 58, 65, 70, 76, 80, 92, 95
-        ];
+        var y_positions = [0, 10, 22, 32, 50, 61, 72, 87];
         
         for (var i = y_positions.length; i--;) {
             var y_pos = y_positions[i];
@@ -888,7 +886,7 @@ var SECTION = {
             SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
-        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 3000);
+        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 5000);
         
     },
     
@@ -920,9 +918,9 @@ var SECTION = {
         SECTION.spread_values.last_left = left;
         var styles = {
             style : {
-                width               : size,
-                padding             : '0 0 '+size+' 0',
-                left                : left + '%'
+                width   : size,
+                padding : '0 0 '+size+' 0',
+                left    : left + '%'
             }
         };
         if (animation_delay) {
@@ -940,10 +938,10 @@ var SECTION = {
         SECTION.spread_values.last_colors[1] = curr_color;
         
         // alternate color every new square
-        var color       = (curr_color == 0 ? 'red' : 'blue');
+        var color     = (curr_color == 0 ? 'red' : 'blue');
         
-        var animation   = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
-        var square      = _.create('div.square.'+color+'.'+animation, styles);
+        var animation = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
+        var square    = _.create('div.square.' + color + '.' + animation, styles);
         
         // add rectangle to list and DOM
         SECTION.square_list[SECTION.square_list.length] = square;
@@ -1039,7 +1037,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 8; // can move by max 8% to either side
+        var move_by = percentage_scrolled_of_footer * 10; // move by 0-10%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
@@ -1048,7 +1046,7 @@ var SCROLL = {
         
         // move layer2 to the left
         _.setStyles(NODE.footer_graphic_l2, {
-            left: (original_left - move_by)+'%'
+            left: (original_left - (move_by * (3/4)))+'%'
         });
         
         
