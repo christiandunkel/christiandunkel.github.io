@@ -59,6 +59,58 @@ section {
 
 /* INTRO SECTION */
 
+// animated background behind intro text (and parts of the about section)
+#animated-background {
+    position: absolute; top: 0; left: 0; z-index: 0;
+    width: 100%;
+    height: 140vh; min-height: (600px/100*140); // height relative (140vh) to min height of #intro section
+    overflow: hidden;
+    
+    &:before {
+        $ab-top: (100%/(140/100));
+        content: '';
+        position: absolute; top: $ab-top; left: -5%; z-index: 1;
+        width: 110%; height: (100% + 1% - $ab-top);
+        @include linear-gradient(0deg, #f9f9f9 0%, #f9f9f9 5%, #f9f9f9 10%, rgba(0,0,0,0) 100%);
+        
+        @media (max-height: 600px) {
+            top: 600px;
+            height: 246px;
+        }
+    }
+
+    .square {
+        display: block; position: absolute; top: 100%; z-index: 0;
+        @include opacity(.5);
+        @include border-radius(7%);
+        @include transform(rotate(0deg) translate(0,-100%));
+        @include transition(4s);
+
+        &.red {
+            background: #f29eb5;
+        }
+        &.blue {
+            background: #8ecee8;
+        }
+        &.rotating-left {
+            @include animation(square-float-up-left 70s linear forwards);
+        }
+        &.rotating-right {
+            @include animation(square-float-up-right 70s linear forwards);
+        }
+    }
+}
+
+@include keyframes(square-float-up-left) {
+    0% {@include transform(rotate(-200deg));}
+    100% {top: 0%;}
+}
+
+@include keyframes(square-float-up-right) {
+    0% {@include transform(rotate(200deg));}
+    100% {top: 0%;}
+}
+
 #intro {
     
     .text {
@@ -120,63 +172,6 @@ section {
             }
         }
     }
-}
-
-// animated background behind intro text (and parts of the about section)
-#animated-background {
-    position: absolute; top: 0; left: 0; z-index: 0;
-    width: 100%; height: 160%;
-    
-    &:before,
-    &:after {
-        content: '';
-        position: absolute; left: 50%; z-index: 1;
-        width: 100vw;
-        @include transform(translate(-50%, 0));
-    }
-    
-    &:before {
-        top: 30%;
-        height: 70%;
-        @include linear-gradient(0deg, #f9f9f9 0%, #f9f9f9 10%, rgba(0,0,0,0) 100%);
-    }
-    
-    &:after {
-        top: 99%;
-        height: 50%;
-        background-color: #f9f9f9;
-    }
-
-    .square {
-        display: block; position: absolute; top: 100%; z-index: 0;
-        @include opacity(.5);
-        @include border-radius(7%);
-        @include transform(rotate(0deg) translate(0,-100%));
-        @include transition(4s);
-
-        &.red {
-            background: #f29eb5;
-        }
-        &.blue {
-            background: #8ecee8;
-        }
-        &.rotating-left {
-            @include animation(square-float-up-left 70s linear forwards);
-        }
-        &.rotating-right {
-            @include animation(square-float-up-right 70s linear forwards);
-        }
-    }
-}
-
-@include keyframes(square-float-up-left) {
-    0% {@include transform(rotate(-200deg));}
-    100% {top: 0%;}
-}
-
-@include keyframes(square-float-up-right) {
-    0% {@include transform(rotate(200deg));}
-    100% {top: 0%;}
 }
 
 

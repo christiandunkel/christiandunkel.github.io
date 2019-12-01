@@ -1300,7 +1300,7 @@ var SECTION = {
         SECTION.clearAnimatedBackground();
         
         // add animated squares to top section
-        var y_positions = [0, 10, 22, 32, 50, 61, 72, 87];
+        var y_positions = [0, 5, 10, 22, 32, 50, 61, 72, 87];
         
         for (var i = y_positions.length; i--;) {
             var y_pos = y_positions[i];
@@ -1313,7 +1313,7 @@ var SECTION = {
             SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
-        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 5000);
+        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 4000);
         
     },
     
@@ -1464,7 +1464,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 10; // move by 0-10%
+        var move_by = percentage_scrolled_of_footer * 8; // move by 0-8%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {

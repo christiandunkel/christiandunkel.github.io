@@ -873,7 +873,7 @@ var SECTION = {
         SECTION.clearAnimatedBackground();
         
         // add animated squares to top section
-        var y_positions = [0, 10, 22, 32, 50, 61, 72, 87];
+        var y_positions = [0, 5, 10, 22, 32, 50, 61, 72, 87];
         
         for (var i = y_positions.length; i--;) {
             var y_pos = y_positions[i];
@@ -886,7 +886,7 @@ var SECTION = {
             SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
-        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 5000);
+        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 4000);
         
     },
     
