@@ -417,6 +417,67 @@ var _ = {
         min = Math.ceil(min);
         max = Math.floor(max) + 1;
         return Math.floor(Math.random() * (max - min)) + min;
+    },
+    
+    // lerps from start RGB color to end RGB color in time 0 to 1
+    lerpColorRGB : function (start_color, end_color, time) {
+        
+        if (start_color.a === undefined) {
+            start_color.a = 1;
+        }
+        if (end_color.a === undefined) {
+            end_color.a = 1;
+        }
+
+        return {
+            r : start_color.r + time * (end_color.r - start_color.r),
+            g : start_color.g + time * (end_color.g - start_color.g),
+            b : start_color.b + time * (end_color.b - start_color.b),
+            a : start_color.a + time * (end_color.a - start_color.a)
+        };
+        
+    },
+    
+    // lerps from start Hex color to end Hex color in time 0 to 1
+    lerpColorHex : function (start_color, end_color, time) {
+        
+        // convert Hex strings to numbers
+        start_color = start_color.replace(/#/g, '');
+        start_color = parseInt(start_color, 16);
+        end_color = end_color.replace(/#/g, '');
+        end_color = parseInt(end_color, 16);
+
+        var start_color_rgb = {
+            r : start_color >> 16,
+            g : start_color >> 8 & 0xff,
+            b : start_color & 0xff
+        };
+
+        var end_color_rgb = {
+            r : end_color >> 16,
+            g : end_color >> 8 & 0xff,
+            b : end_color & 0xff
+        };
+
+        var result = _.lerpColorRGB(start_color_rgb, end_color_rgb, time);
+
+        return '#' + ((result.r << 16) + (result.g << 8) + (result.b | 0)).toString(16).slice(1);
+        
+    },
+    
+    // converts "rgb(1,2,3)" and "rgba(1,2,3,1)" strings to objects
+    objectifyRGBstring : function (rgb) {
+        
+        rgb = rgb.replace(/^rgb(a)?\(| |\)$/g, '')
+                 .split(',');
+        
+        return {
+            r : parseInt(rgb[0]),
+            g : parseInt(rgb[1]),
+            b : parseInt(rgb[2]),
+            a : rgb.length == 4 ? parseInt(rgb[3]) : 1
+        }
+        
     }
     
 }
@@ -1399,6 +1460,12 @@ var SCROLL = {
         window.onscroll = SCROLL.event;
         setInterval(SCROLL.update, 100);
         
+        // initialize footer colors as rgba objects
+        SCROLL.footer_color_l1 = _.getStyle(NODE.footer_graphic_l1, 'color');
+        SCROLL.footer_color_l1 = _.objectifyRGBstring(SCROLL.footer_color_l1);
+        SCROLL.footer_color_l2 = _.getStyle(NODE.footer_graphic_l2, 'color');
+        SCROLL.footer_color_l2 = _.objectifyRGBstring(SCROLL.footer_color_l2);
+        
     },
     
     scrollY      : 0,
@@ -1407,6 +1474,8 @@ var SCROLL = {
     has_scrolled : false,
     
     footer_height : 0,
+    footer_color_l1 : 0,
+    footer_color_l2 : 0,
     
     // if user has scrolled, set variable to true
     event : function () {
@@ -1438,13 +1507,11 @@ var SCROLL = {
         );
         SCROLL.has_scrolled = false;
         
-        // update footer graphic
+        // update height of footer + footer graphic
         SCROLL.footer_height = Math.max(
-            NODE.footer_graphic.scrollHeight,
             NODE.footer_graphic.clientHeight,
             NODE.footer_graphic.offsetHeight
         ) + Math.max(
-            NODE.footer.scrollHeight,
             NODE.footer.clientHeight,
             NODE.footer.offsetHeight
         );
@@ -1464,7 +1531,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 8; // move by 0-8%
+        var move_by = percentage_scrolled_of_footer * 6; // move by 0-6%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
@@ -1476,6 +1543,31 @@ var SCROLL = {
             left: (original_left - (move_by * .75))+'%'
         });
         
+        if (percentage_scrolled_of_footer > 0.1) {
+        
+            // lerp colors of layer 1 and footer
+            var new1 = _.lerpColorRGB(
+                SCROLL.footer_color_l1, SCROLL.footer_color_l2, 
+                percentage_scrolled_of_footer
+            );
+            new1 = 'rgb('+new1.r+','+new1.g+','+new1.b+')';
+            _.setStyles(NODE.footer_graphic_l1, {
+                color: new1
+            });
+            _.setStyles(NODE.footer, {
+                'background-color': new1
+            })
+
+            // lerp colors of layer 2
+            var new2 = _.lerpColorRGB(
+                SCROLL.footer_color_l2, SCROLL.footer_color_l1, 
+                percentage_scrolled_of_footer
+            );
+            _.setStyles(NODE.footer_graphic_l2, {
+                color: 'rgb('+new2.r+','+new2.g+','+new2.b+')'
+            });
+            
+        }
         
     },
     

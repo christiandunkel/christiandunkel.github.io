@@ -415,6 +415,67 @@ var _ = {
         min = Math.ceil(min);
         max = Math.floor(max) + 1;
         return Math.floor(Math.random() * (max - min)) + min;
+    },
+    
+    // lerps from start RGB color to end RGB color in time 0 to 1
+    lerpColorRGB : function (start_color, end_color, time) {
+        
+        if (start_color.a === undefined) {
+            start_color.a = 1;
+        }
+        if (end_color.a === undefined) {
+            end_color.a = 1;
+        }
+
+        return {
+            r : start_color.r + time * (end_color.r - start_color.r),
+            g : start_color.g + time * (end_color.g - start_color.g),
+            b : start_color.b + time * (end_color.b - start_color.b),
+            a : start_color.a + time * (end_color.a - start_color.a)
+        };
+        
+    },
+    
+    // lerps from start Hex color to end Hex color in time 0 to 1
+    lerpColorHex : function (start_color, end_color, time) {
+        
+        // convert Hex strings to numbers
+        start_color = start_color.replace(/#/g, '');
+        start_color = parseInt(start_color, 16);
+        end_color = end_color.replace(/#/g, '');
+        end_color = parseInt(end_color, 16);
+
+        var start_color_rgb = {
+            r : start_color >> 16,
+            g : start_color >> 8 & 0xff,
+            b : start_color & 0xff
+        };
+
+        var end_color_rgb = {
+            r : end_color >> 16,
+            g : end_color >> 8 & 0xff,
+            b : end_color & 0xff
+        };
+
+        var result = _.lerpColorRGB(start_color_rgb, end_color_rgb, time);
+
+        return '#' + ((result.r << 16) + (result.g << 8) + (result.b | 0)).toString(16).slice(1);
+        
+    },
+    
+    // converts "rgb(1,2,3)" and "rgba(1,2,3,1)" strings to objects
+    objectifyRGBstring : function (rgb) {
+        
+        rgb = rgb.replace(/^rgb(a)?\(| |\)$/g, '')
+                 .split(',');
+        
+        return {
+            r : parseInt(rgb[0]),
+            g : parseInt(rgb[1]),
+            b : parseInt(rgb[2]),
+            a : rgb.length == 4 ? parseInt(rgb[3]) : 1
+        }
+        
     }
     
 }

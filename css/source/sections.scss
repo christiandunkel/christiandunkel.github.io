@@ -574,6 +574,7 @@ section {
         
         .rect {
             position: absolute;
+            background-color: currentColor;
             font-size: inherit;
             @include border-radius(6px);
             
@@ -584,9 +585,9 @@ section {
         
         &.layer1 {
             z-index: 2;
+            color: $red;
             
             .rect {
-                background-color: $red;
             
                 &:nth-child(1) {
                     top: .9em; left: -.8em;
@@ -628,9 +629,9 @@ section {
         
         &.layer2 {
             z-index: 1;
+            color: $blue;
             
             .rect {
-                background-color: $blue;
             
                 &:nth-child(1) {
                     top: .5em; left: .3em;

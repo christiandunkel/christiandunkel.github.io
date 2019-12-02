@@ -972,6 +972,12 @@ var SCROLL = {
         window.onscroll = SCROLL.event;
         setInterval(SCROLL.update, 100);
         
+        // initialize footer colors as rgba objects
+        SCROLL.footer_color_l1 = _.getStyle(NODE.footer_graphic_l1, 'color');
+        SCROLL.footer_color_l1 = _.objectifyRGBstring(SCROLL.footer_color_l1);
+        SCROLL.footer_color_l2 = _.getStyle(NODE.footer_graphic_l2, 'color');
+        SCROLL.footer_color_l2 = _.objectifyRGBstring(SCROLL.footer_color_l2);
+        
     },
     
     scrollY      : 0,
@@ -980,6 +986,8 @@ var SCROLL = {
     has_scrolled : false,
     
     footer_height : 0,
+    footer_color_l1 : 0,
+    footer_color_l2 : 0,
     
     // if user has scrolled, set variable to true
     event : function () {
@@ -1011,13 +1019,11 @@ var SCROLL = {
         );
         SCROLL.has_scrolled = false;
         
-        // update footer graphic
+        // update height of footer + footer graphic
         SCROLL.footer_height = Math.max(
-            NODE.footer_graphic.scrollHeight,
             NODE.footer_graphic.clientHeight,
             NODE.footer_graphic.offsetHeight
         ) + Math.max(
-            NODE.footer.scrollHeight,
             NODE.footer.clientHeight,
             NODE.footer.offsetHeight
         );
@@ -1037,7 +1043,7 @@ var SCROLL = {
         
         var original_left = 50;
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
-        var move_by = percentage_scrolled_of_footer * 8; // move by 0-8%
+        var move_by = percentage_scrolled_of_footer * 6; // move by 0-6%
         
         // move layer1 to the right
         _.setStyles(NODE.footer_graphic_l1, {
@@ -1049,6 +1055,31 @@ var SCROLL = {
             left: (original_left - (move_by * .75))+'%'
         });
         
+        if (percentage_scrolled_of_footer > 0.1) {
+        
+            // lerp colors of layer 1 and footer
+            var new1 = _.lerpColorRGB(
+                SCROLL.footer_color_l1, SCROLL.footer_color_l2, 
+                percentage_scrolled_of_footer
+            );
+            new1 = 'rgb('+new1.r+','+new1.g+','+new1.b+')';
+            _.setStyles(NODE.footer_graphic_l1, {
+                color: new1
+            });
+            _.setStyles(NODE.footer, {
+                'background-color': new1
+            })
+
+            // lerp colors of layer 2
+            var new2 = _.lerpColorRGB(
+                SCROLL.footer_color_l2, SCROLL.footer_color_l1, 
+                percentage_scrolled_of_footer
+            );
+            _.setStyles(NODE.footer_graphic_l2, {
+                color: 'rgb('+new2.r+','+new2.g+','+new2.b+')'
+            });
+            
+        }
         
     },
     
