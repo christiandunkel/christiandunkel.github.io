@@ -1542,32 +1542,44 @@ var SCROLL = {
         _.setStyles(NODE.footer_graphic_l2, {
             left: (original_left - (move_by * .75))+'%'
         });
-        
-        if (percentage_scrolled_of_footer > 0.1) {
-        
-            // lerp colors of layer 1 and footer
-            var new1 = _.lerpColorRGB(
-                SCROLL.footer_color_l1, SCROLL.footer_color_l2, 
-                percentage_scrolled_of_footer
-            );
-            new1 = 'rgb('+new1.r+','+new1.g+','+new1.b+')';
-            _.setStyles(NODE.footer_graphic_l1, {
-                color: new1
-            });
-            _.setStyles(NODE.footer, {
-                'background-color': new1
-            })
-
-            // lerp colors of layer 2
-            var new2 = _.lerpColorRGB(
-                SCROLL.footer_color_l2, SCROLL.footer_color_l1, 
-                percentage_scrolled_of_footer
-            );
-            _.setStyles(NODE.footer_graphic_l2, {
-                color: 'rgb('+new2.r+','+new2.g+','+new2.b+')'
-            });
             
-        }
+        // 0.3 (30%) to 1 (100%) mapped to 0 (0%) to 1 (100%)
+        var mapped_percentage = percentage_scrolled_of_footer > 0.3 ? 
+            (percentage_scrolled_of_footer - 0.3) / (1 - 0.3) : 0;
+
+        // lerp colors of layer 1 and footer
+        var rgb_1 = _.lerpColorRGB(
+            SCROLL.footer_color_l1, 
+            SCROLL.footer_color_l2, 
+            mapped_percentage
+        );
+        var color_1 = 'rgb(' + 
+            Math.round(rgb_1.r) + ',' + 
+            Math.round(rgb_1.g) + ',' + 
+            Math.round(rgb_1.b) + 
+        ')';
+        _.setStyles(NODE.footer_graphic_l1, {
+            color : color_1
+        });
+
+        _.setStyles(NODE.footer, {
+            'background-color' : color_1
+        })
+
+        // lerp colors of layer 2
+        var rgb_2 = _.lerpColorRGB(
+            SCROLL.footer_color_l2, 
+            SCROLL.footer_color_l1, 
+            mapped_percentage
+        );
+        var color_2 = 'rgb(' + 
+            Math.round(rgb_2.r) + ',' + 
+            Math.round(rgb_2.g) + ',' +
+            Math.round(rgb_2.b) +
+        ')';
+        _.setStyles(NODE.footer_graphic_l2, {
+            color : color_2
+        });
         
     },
     
