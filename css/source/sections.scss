@@ -20,13 +20,13 @@ section {
     // fade in animations on page load
     &#intro {
         .greet {
-            @include animation(fade-in-from-top 1s .5s, invisible .5s);
+            @include animation(fade-in-from-top 1s .45s, invisible .5s);
         }
         .name {
-            @include animation(fade-in-from-top 1.2s 1s, invisible 1s);
+            @include animation(fade-in-from-top 1.2s .95s, invisible 1s);
         }
         .desc {
-            @include animation(fade-in-from-top 1.4s 1.5s, invisible 1.5s);
+            @include animation(fade-in-from-top 1.4s 1.45s, invisible 1.5s);
         }
         
     }
@@ -65,11 +65,19 @@ section {
     width: 100%;
     height: 140vh; min-height: (600px/100*140); // height relative (140vh) to min height of #intro section
     overflow: hidden;
+    @include animation(fade-in 2s);
+        
+    @include ON_REDUCED_MOTION {
+        @include animation(none);
+    }
+        
+    // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
+    @include transition(height 2s .5s);
     
     &:before {
         $ab-top: (100%/(140/100));
         content: '';
-        position: absolute; top: $ab-top; left: -5%; z-index: 1;
+        position: absolute; top: $ab-top; left: -5%; z-index: 30;
         width: 110%; height: (100% + 1% - $ab-top);
         @include linear-gradient(0deg, #f9f9f9 0%, #f9f9f9 5%, #f9f9f9 10%, rgba(0,0,0,0) 100%);
         
@@ -81,16 +89,20 @@ section {
 
     .square {
         display: block; position: absolute; top: 100%; z-index: 0;
-        @include opacity(.5);
+        border: 2px solid #f9f9f9;
         @include border-radius(7%);
         @include transform(rotate(0deg) translate(0,-100%));
         @include transition(4s);
+        
+        @for $i from 1 to 30 {
+            &:nth-child(#{$i}) {z-index: $i;}
+        }
 
         &.red {
-            background: #f29eb5;
+            background-color: lighten($red, 50%);
         }
         &.blue {
-            background: #8ecee8;
+            background-color: lighten($blue, 65%);
         }
         &.rotating-left {
             @include animation(square-float-up-left 70s linear forwards);
@@ -135,7 +147,7 @@ section {
         max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
         
         // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
-        @include transition(2s .5s);
+        @include transition(min-height 2s .5s);
     }
     
     .center {
