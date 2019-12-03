@@ -1055,6 +1055,10 @@ var SCROLL = {
             left: (original_left - (move_by * .75))+'%'
         });
             
+        
+        
+        // color lerping (starts at 30% of footer scrolled)
+        
         // 0.3 (30%) to 1 (100%) mapped to 0 (0%) to 1 (100%)
         var mapped_percentage = percentage_scrolled_of_footer > 0.3 ? 
             (percentage_scrolled_of_footer - 0.3) / (1 - 0.3) : 0;
