@@ -380,147 +380,194 @@ section {
             }
         }
     }
-}
 
-// message if no projects are selected
-.no-projects-selected {
-    color: $lightgray;
-    
-    .project:not(.hidden) ~ & {
-        display: none;
-    }
-}
+    #projects-container {
+        @include display(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
 
-#projects-container {
-    @include display(flex);
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
-}
+        // add margin at top, as menu above vanished with javascript disabled
+        .js-off & {
+            margin-top: 35px;
 
-// project cards
-.project {
-    display: inline-block; position: relative;
-    @include transition(.2s);
-            
-    @include ON_REDUCED_MOTION {
-        @include transition(0s);
+            @media (max-width: 650px) {
+                margin-top: 20px;
+            }
+        }
+
+        // message if no projects are selected
+        .no-projects-selected {
+            color: $lightgray;
+        }
+
+        .project:not(.hidden) ~ .no-projects-selected {
+            display: none;
+        }
+
+        // project cards
+        .project {
+            display: inline-block; position: relative;
+            @include transition(.2s);
+
+            @include ON_REDUCED_MOTION {
+                @include transition(0s);
+            }
+
+            // 3 cards beside each other
+            width: 31%; margin: 1% 1%;
+
+            // 2 cards beside each other
+            @media (max-width: 1200px) {
+                width: 48%; margin: 2% 0;
+                &:nth-child(odd)  {margin-right: 4%;}
+                &:nth-child(even) {margin-right: 0;}
+            }
+
+            // all cards below one another
+            @media (max-width: 650px) {
+                width: 100%; margin: 7% 0;
+                &:nth-child(even) {margin-right: 0;}
+                &:nth-child(odd)  {margin-right: 0;}
+
+                figure {
+                    max-width: 400px;
+                }
+            }
+
+            &.hidden {
+                position: absolute; z-index: 3;
+                width: 0; height: 0;
+                visibility: hidden;
+                @include transform(scale(0));
+                @include transition-property(none);
+            }
+
+            figure {
+                display: inline-block;
+                width: 100%;
+                overflow: hidden;
+                @include border-radius(5px);
+                @include box-shadow(
+                    0 1px 1px rgba(0,0,0,.05),
+                    0 2px 2px rgba(0,0,0,.05),
+                    0 4px 4px rgba(0,0,0,.05),
+                    0 8px 8px rgba(0,0,0,.05),
+                    0 16px 16px rgba(0,0,0,.05)
+                );
+
+                .img {
+                    width: 100%; padding: 0 0 60% 0;
+                    background-repeat: no-repeat; background-position: left top;
+                    @include background-size(cover);
+                }
+            }
+
+            .project-info {
+                position: relative;
+                margin: 25px 0 7px 0;
+
+                h3 {
+                    margin: 0;
+                    color: $gray; font-size: 28px; line-height: 32px; font-weight: 700;
+                    @extend %text-wrap;
+                }
+
+                .links {
+                    margin: 10px 0 0 0;
+
+                    a {
+                        display: inline-block;
+                        margin: 5px 5px 0 0; padding: 10px 10px 10px 40px;
+                        background-repeat: no-repeat;
+                        text-decoration: none; font-size: 16px; line-height: 20px; color: black;
+                        @include opacity(.7);
+                        @include border-radius(3px);
+                        @include user-select(none);
+                        @include transition(.2s);
+
+                        &.github {
+                            @extend %icon-github;
+                            @include background-size(24px 24px);
+                            background-position: 8px center;
+                        }
+
+                        &:not(.github) {
+                            @extend %icon-new-tab;
+                            @include background-size(16px 16px);
+                            background-position: 12px center;
+                        }
+
+                        &:hover,
+                        &:focus {
+                            background-color: rgba(0,0,0,.1);
+                            @include opacity(1);
+                        }
+                    }
+                }
+
+                .desc {
+                    min-height: 48px; margin: 10px 0;
+                    overflow: hidden;
+                    font-size: 16px; color: #5a5a5a;
+                }
+
+                .tags {
+                    margin: 10px 0; padding: 0;
+                    list-style: none;
+
+                    li {
+                        display: inline-block;
+                        padding: 5px 8px; margin: 5px 5px 0 0;
+                        background: rgba(0,0,0,.1);
+                        color: #717171; font-size: 13px;
+                        @include border-radius(2px);
+                    }
+                }
+            }
+        }
     }
     
-    // 3 cards beside each other
-    width: 31%; margin: 1% 1%;
-    
-    // 2 cards beside each other
-    @media (max-width: 1200px) {
-        width: 48%; margin: 2% 0;
-        #projects-container &:nth-child(odd)  {margin-right: 4%;}
-        #projects-container &:nth-child(even) {margin-right: 0;}
-    }
-    
-    // all cards below one another
     @media (max-width: 650px) {
-        width: 100%; margin: 7% 0;
-        #projects-container &:nth-child(even) {margin-right: 0;}
-        #projects-container &:nth-child(odd)  {margin-right: 0;}
         
-        figure {
-            max-width: 400px;
-        }
-    }
-    
-    &.hidden {
-        position: absolute; z-index: 3;
-        width: 0; height: 0;
-        visibility: hidden;
-        @include transform(scale(0));
-        @include transition-property(none);
-    }
-    
-    figure {
-        display: inline-block;
-        width: 100%;
-        overflow: hidden;
-        @include border-radius(5px);
-        @include box-shadow(
-            0 1px 1px rgba(0,0,0,.05),
-            0 2px 2px rgba(0,0,0,.05),
-            0 4px 4px rgba(0,0,0,.05),
-            0 8px 8px rgba(0,0,0,.05),
-            0 16px 16px rgba(0,0,0,.05)
-        );
-        
-        .img {
-            width: 100%; padding: 0 0 60% 0;
-            background-repeat: no-repeat; background-position: left top;
-            @include background-size(cover);
-        }
-    }
-    
-    .project-info {
-        position: relative;
-        margin: 25px 0 7px 0;
-
-        h3 {
-            margin: 0;
-            color: $gray; font-size: 28px; line-height: 32px; font-weight: 700;
-            @extend %text-wrap;
-        }
-            
-        @media (max-width: 450px) {
-            
-            h3 {
-                font-size: 22px;
-            }
+        hr, br {
+            display: none;
         }
         
-        .links {
-            margin: 10px 0 0 0;
+        #projects-container {
+            margin-top: 20px;
             
-            a {
-                display: inline-block;
-                margin: 5px 5px 0 0; padding: 10px 10px 10px 40px;
-                background-repeat: no-repeat;
-                text-decoration: none; font-size: 16px; line-height: 20px; color: black;
-                @include opacity(.7);
-                @include border-radius(3px);
-                @include user-select(none);
-                @include transition(.2s);
-
-                &.github {
-                    @extend %icon-github;
-                    @include background-size(24px 24px);
-                    background-position: 8px center;
+            .project {
+            
+                figure {
+                    max-width: 300px;
                 }
-
-                &:not(.github) {
-                    @extend %icon-new-tab;
-                    @include background-size(16px 16px);
-                    background-position: 12px center;
+                
+                .project-info {
+                    margin: 12px 0 0 0;
+                    
+                    h3 {
+                        font-size: 22px;
+                    }
+                    
+                    .desc {
+                        min-height: auto; margin: 5px 0;
+                        font-size: 15px;
+                    }
+                    
+                    .tags {
+                        display: none;
+                    }
+                    
+                    .links {
+                        
+                        a {
+                            padding: 5px 5px 5px 24px;
+                            font-size: 14px; line-height: 16px;
+                            background-position: 5px center !important;
+                            @include background-size(12px 12px !important);
+                        }
+                    }
                 }
-
-                &:hover,
-                &:focus {
-                    background-color: rgba(0,0,0,.1);
-                    @include opacity(1);
-                }
-            }
-        }
-        
-        .desc {
-            min-height: 48px; margin: 10px 0;
-            overflow: hidden;
-            font-size: 16px; color: #5a5a5a;
-        }
-        
-        .tags {
-            margin: 10px 0; padding: 0;
-            list-style: none;
-            
-            li {
-                display: inline-block;
-                padding: 5px 8px; margin: 5px 5px 0 0;
-                background: rgba(0,0,0,.1);
-                color: #717171; font-size: 13px;
-                @include border-radius(2px);
             }
         }
     }
@@ -690,18 +737,14 @@ section {
 
 footer {
     position: relative; z-index: 2;
-    padding: 20px 0 200px 0;
+    padding: 8.5vw 0 200px 0;
     background: $red;
     text-align: center;
     
     #to-top {
         display: inline-block; position: relative;
-        width: 140px; height: 140px; margin: 8vw 0 4vw 0;
+        width: 140px; height: 140px; margin: 0 0 4vw 0;
         @include transition(.2s);
-        
-        html.js-off & {
-            display: none;
-        }
 
         b {
             display: block; position: absolute; z-index: 2;

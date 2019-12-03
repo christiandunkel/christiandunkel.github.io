@@ -1394,7 +1394,7 @@ var SECTION = {
     
     addSquareToAnimatedBackground : function (animation_delay) {
         
-        // remove the oldest rectangle (first item in list)
+        // remove the oldest square (first item in list)
         if (SECTION.square_list.length > 70) {
             var removed = SECTION.square_list.shift();
             _.remove(removed);
@@ -1431,7 +1431,7 @@ var SECTION = {
         var animation = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
         var square    = _.create('div.square.' + color + '.' + animation, styles);
         
-        // add rectangle to list and DOM
+        // add square to list and DOM
         SECTION.square_list[SECTION.square_list.length] = square;
         _.append(NODE.animated_background, square);
         
@@ -1717,7 +1717,7 @@ var SCROLL = {
         var elem_y = elem.getBoundingClientRect().top + y;
         var diff = elem_y - y;
 
-        // directly skip to pos, if distance is too small
+        // skip to position, if distance is too small
         if (Math.abs(diff) < 10) {
             window.scrollTo(0, elem_y);
             return;
