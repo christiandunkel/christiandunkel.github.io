@@ -876,8 +876,6 @@ var FOCUS_CHAIN = {
     
     reset : function () {
         
-        FOCUS_CHAIN.reset();
-        
         FOCUS_CHAIN.selection_type = 0;
         // reset stuff for selection type 1
         FOCUS_CHAIN.elems = [];
