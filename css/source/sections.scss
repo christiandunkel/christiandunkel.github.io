@@ -581,14 +581,55 @@ section {
 
 #contact {
     
-    .mail {
-        border: .1em solid currentColor;
-        color: $blue;
-        @include user-select(none);
+    .mail-container {
+        display: inline-block; position: relative;
         
-        &:focus,
-        &:hover {
+        .checkbox {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+            @include opacity(0);
+            
+            &:checked {
+                top: -5px; left: -5px;
+                width: 0; height: 0; margin: 0; padding: 0;
+                visibility: hidden; overflow: hidden;
+            }
+        }
+        
+        .mail-btn {
+            @extend a.responsive;
+            border: .1em solid currentColor;
+            color: $blue;
+            @include user-select(none);
+        }
+        
+        .checkbox:hover ~ .mail-btn,
+        .checkbox:focus ~ .mail-btn {
             color: $red;
+        }
+        
+        .checkbox:checked ~ .mail-btn {
+            cursor: auto;
+            color: $lightgray;
+        }
+    
+        .mail {
+            display: inline-block;
+            color: $blue;
+            @include transition(.1s);
+            
+            &:hover,
+            &:focus {
+                color: $red;
+            }
+        }
+
+        .checkbox:not(:checked) ~ .mail {
+            width: 0; height: 0; margin: 0;
+            visibility: hidden; overflow: hidden;
+            font-size: 0;
+            @include opacity(0);
         }
     }
     
