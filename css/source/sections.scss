@@ -87,28 +87,30 @@ section {
         }
     }
 
-    .square {
-        display: block; position: absolute; top: 100%; z-index: 0;
-        border: 2px solid #f9f9f9;
-        @include border-radius(7%);
+    .square-wrapper {
+        display: inline-block; position: absolute; top: 100%; z-index: 0;
+        background-color: #f9f9f9;// border
         @include transform(rotate(0deg) translate(0,-100%));
-        @include transition(4s);
-        
-        @for $i from 1 to 30 {
-            &:nth-child(#{$i}) {z-index: $i;}
-        }
+        @include border-radius(6%);
 
-        &.red {
-            background-color: lighten($red, 50%);
-        }
-        &.blue {
-            background-color: lighten($blue, 65%);
-        }
         &.rotating-left {
             @include animation(square-float-up-left 70s linear forwards);
         }
         &.rotating-right {
             @include animation(square-float-up-right 70s linear forwards);
+        }
+        
+        .square {
+            display: block; position: absolute; top: 2%; left: 2%;
+            width: 96%; height: 96%;
+            @include border-radius(7%);
+
+            &.red {
+                background-color: lighten($red, 50%);
+            }
+            &.blue {
+                background-color: lighten($blue, 65%);
+            }
         }
     }
 }

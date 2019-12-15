@@ -918,16 +918,6 @@ var SECTION = {
         var size = _.randomFloat(5,20) + '%';
         var left = SECTION.spread_values.last_left > 50 ? _.randomInt(0,48) : _.randomInt(52,100);
         SECTION.spread_values.last_left = left;
-        var styles = {
-            style : {
-                width   : size,
-                padding : '0 0 '+size+' 0',
-                left    : left + '%'
-            }
-        };
-        if (animation_delay) {
-            styles.style['animation-delay'] = '-' + (animation_delay || 0) + 's';
-        }
         
         // last-colors: [0: before-last, 1: last]
         // generate current color
@@ -941,13 +931,26 @@ var SECTION = {
         
         // alternate color every new square
         var color     = (curr_color == 0 ? 'red' : 'blue');
+        var square    = _.create('div.square.' + color);
         
+        // generate wrapper element that is then animated
+        var styles = {
+            style : {
+                width   : size,
+                padding : '0 0 '+size+' 0',
+                left    : left + '%'
+            }
+        };
+        if (animation_delay) {
+            styles.style['animation-delay'] = '-' + (animation_delay || 0) + 's';
+        }
         var animation = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
-        var square    = _.create('div.square.' + color + '.' + animation, styles);
+        var square_wrapper = _.create('div.square-wrapper.' + animation, styles);
         
         // add square to list and DOM
-        SECTION.square_list[SECTION.square_list.length] = square;
-        _.append(NODE.animated_background, square);
+        SECTION.square_list[SECTION.square_list.length] = square_wrapper;
+        _.append(square_wrapper, square);
+        _.append(NODE.animated_background, square_wrapper);
         
     }
     
