@@ -33,15 +33,35 @@
             // tell CSS that Javascript is on
             html.className = html.className.replace(/js\-off/, 'js-on');
             
-            // get current language e.g. "en"
-            // not really reliable, but best option since there's no back-end on Github pages
-            var n = window.navigator;
-            var lang_code = n.languages ? n.languages[0] : 
-                            (n.userLanguage || n.browserLanguage || n.language).substring(0,2);
+            // determine user language (only front-end, unreliable)
             
-            // check if user uses supported language besides English
-            if (lang_code == 'de') {
-                html.setAttribute('lang', lang_code);
+            // get current language properties
+            var n = window.navigator;
+            var lang_props = [
+                n.languages ? n.languages[0] : undefined,
+                n.userLanguage,
+                n.browserLanguage,
+                n.language
+            ];
+            
+            for (var i = lang_props.length; i--;) {
+                
+                // get language code from property
+                var code = lang_props[i];
+                if (!code) {
+                    continue;
+                }
+                
+                // shorten code if needed e.g. "en_US" -> "en"
+                code = code.substring(0,2);
+                
+                // if a different language than "en" is detected in any of the properties
+                // and it's supported, load it
+                if (code == 'de') {
+                    html.setAttribute('lang', code);
+                    break;
+                }
+                
             }
             
         })();
