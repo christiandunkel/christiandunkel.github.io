@@ -39,9 +39,10 @@
             var n = window.navigator;
             var lang_props = [
                 n.languages ? n.languages[0] : undefined,
+                n.language,
                 n.userLanguage,
-                n.browserLanguage,
-                n.language
+                n.systemLanguage,
+                n.browserLanguage
             ];
             
             for (var i = lang_props.length; i--;) {
@@ -52,7 +53,7 @@
                     continue;
                 }
                 
-                // shorten code if needed e.g. "en_US" -> "en"
+                // shorten code if needed e.g. "en-us" -> "en"
                 code = code.substring(0,2);
                 
                 // if a different language than "en" is detected in 
