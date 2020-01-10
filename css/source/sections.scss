@@ -461,8 +461,24 @@ section {
                     width: 100%; padding: 0 0 60% 0;
                     background-repeat: no-repeat; background-position: left top;
                     @include background-size(cover);
+                    @include transition(1.2s);
+                    
+                    @include ON_REDUCED_MOTION {
+                        @include transform(none !important);
+                        @include transition(0s !important);
+                    }
                 }
             }
+            
+            > a {
+                &:hover,
+                &:focus {
+                    .img {
+                        @include transform(scale(1.1));
+                        @include transition(.2s);
+                    }
+                }
+            } 
 
             .project-info {
                 position: relative;
