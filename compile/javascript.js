@@ -1,6 +1,6 @@
 /**
  * execute from the project root directory:
- * > node compile/javascript.js
+ * > node compile/javascript
  *
  * @file combines and minifies javascript source files
  * @requires NodeJS (nodejs.org)

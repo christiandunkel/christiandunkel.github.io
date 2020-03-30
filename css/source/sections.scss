@@ -63,54 +63,44 @@ section {
 #animated-background {
     position: absolute; top: 0; left: 0; z-index: 0;
     width: 100%;
-    height: 140vh; min-height: (600px/100*140); // height relative (140vh) to min height of #intro section
+    height: 102vh; min-height: (600px/100*102); // height relative (102vh) to min height of #intro section
     overflow: hidden;
+    border-bottom: 1vh solid $red;
+    outline: 1vh solid $blue;
     @include animation(fade-in 2s);
+        
+    // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
+    @include transition(height 2s .5s);
         
     @include ON_REDUCED_MOTION {
         @include animation(none);
     }
-        
-    // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
-    @include transition(height 2s .5s);
-    
-    &:before {
-        $ab-top: (100%/(140/100));
-        content: '';
-        position: absolute; top: $ab-top; left: -5%; z-index: 30;
-        width: 110%; height: (100% + 1% - $ab-top);
-        @include linear-gradient(0deg, #f9f9f9 0%, #f9f9f9 5%, #f9f9f9 10%, rgba(0,0,0,0) 100%);
-        
-        @media (max-height: 600px) {
-            top: 600px;
-            height: 246px;
-        }
-    }
 
     .square-wrapper {
-        display: inline-block; position: absolute; top: 100%; z-index: 0;
-        background-color: #f9f9f9;// border
-        @include transform(rotate(0deg) translate(0,-100%));
+        display: inline-block; position: absolute; top: 112%; z-index: 0;
+        overflow: hidden; background-color: $bg-color;
         @include border-radius(6%);
+        @include transform(rotate(0deg) translate(0,-100%));
 
         &.rotating-left {
-            @include animation(square-float-up-left 70s linear forwards);
+            @include animation(square-float-up-left 43s linear forwards);
         }
         &.rotating-right {
-            @include animation(square-float-up-right 70s linear forwards);
+            @include animation(square-float-up-right 43s linear forwards);
         }
         
         .square {
-            display: block; position: absolute; top: 2%; left: 2%;
-            width: 96%; height: 96%;
-            @include border-radius(7%);
+            display: block; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
 
             &.red {
-                background-color: lighten($red, 50%);
+                background-color: lighten($red, 38%);
             }
             &.blue {
-                background-color: lighten($blue, 65%);
+                background-color: lighten($blue, 52%);
             }
+            
+            @include animation(long-fade-in 25s linear);
         }
     }
 }
@@ -123,6 +113,12 @@ section {
 @include keyframes(square-float-up-right) {
     0% {@include transform(rotate(200deg));}
     100% {top: 0%;}
+}
+
+@include keyframes(long-fade-in) {
+    0% {@include opacity(0);}
+    20% {@include opacity(0.3);}
+    100% {@include opacity(1);}
 }
 
 #intro {
@@ -164,6 +160,13 @@ section {
             display: inline-block;
             line-height: 1.3em;
         }
+        
+        .greet,
+        .desc {
+            padding: .02em .15em;
+            background-color: #e9f1f9;
+            @include border-radius(.1em);
+        }
 
         .greet {
             font-size: 1em;
@@ -177,7 +180,7 @@ section {
                 padding: 0 3%;
                 background: $red;
                 color: #f9f9f9;
-                @include border-radius(5px);
+                @include border-radius(.1em);
             }
         }
         
@@ -861,10 +864,12 @@ footer {
         
         a {
             text-decoration: none; color: inherit; font-weight: 700;
+            @include box-shadow(0 2px 0 currentColor);
+            @include transition(.2s);
             
             &:hover,
             &:focus {
-                text-decoration: underline;
+                @include box-shadow(0 5px 0 currentColor);
             }
         }
     }

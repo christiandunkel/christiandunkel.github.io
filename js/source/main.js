@@ -886,7 +886,7 @@ var SECTION = {
             SECTION.addSquareToAnimatedBackground(_.randomInt(0,60));
         }
         
-        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 4000);
+        SECTION.background_interval = setInterval(SECTION.addSquareToAnimatedBackground, 6000);
         
     },
     

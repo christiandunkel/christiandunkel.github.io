@@ -59,6 +59,8 @@
     0%, 100% {opacity: 0;}
 }
 
+$bg-color: #f9f9f9;
+
 
 
 /* CONTAINERS */
@@ -81,7 +83,7 @@ html {
     scroll-behavior:                smooth;                 // prevent instant scroll, enable smooth movement
     
     min-height: 100%;
-    background: #f9f9f9;
+    background: $bg-color;
     font-family: 'Ubunutu', 'Arial', sans-serif; color: #484848;
     
     
