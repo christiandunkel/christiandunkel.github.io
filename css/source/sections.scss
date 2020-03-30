@@ -163,32 +163,35 @@ section {
         
         .greet,
         .desc {
-            padding: .02em .15em;
-            background-color: #e9f1f9;
-            @include border-radius(.1em);
+            padding: .04em .25em;
+            @include border-radius(.15em);
         }
 
         .greet {
-            font-size: 1em;
+            background-color: #f9e9e9; border: .07em solid $red;
+            color: $red; font-size: 1em;
         }
         
         .name {
             margin: 0;
             font-size: 2.2em; font-weight: 700;
+            color: $red;
             
             span {
                 padding: 0 3%;
                 background: $red;
-                color: #f9f9f9;
+                color: $bg-color;
                 @include border-radius(.1em);
             }
         }
         
         .desc {
-            font-size: 0.8em; line-height: 1.2em;
+            margin-top: .2em;
+            background-color: #e9f4f9; border: .07em solid $blue;
+            color: $blue; font-size: .8em; line-height: 1.2em;
             
             b {
-                color: $blue; font-weight: 700;
+                font-weight: 700;
             }
         }
     }
