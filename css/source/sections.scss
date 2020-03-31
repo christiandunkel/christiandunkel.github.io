@@ -72,14 +72,6 @@ section {
     @include ON_REDUCED_MOTION {
         @include animation(none);
     }
-    
-    &:before {
-        content: '';
-        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
-        width: 300%; height: 1vh;
-        background-color: $red;
-        @include transform(translate(-50%,0) rotate(-2deg));
-    }
 
     .square-wrapper {
         display: inline-block; position: absolute; top: 112%; z-index: 0;
@@ -127,6 +119,14 @@ section {
 }
 
 #intro {
+    
+    &:before {
+        content: '';
+        position: absolute; bottom: -4vh; left: 50%; z-index: 1;
+        width: 300%; height: 2vh;
+        background-color: $red;
+        @include transform(translate(-50%,0) rotate(-2deg));
+    }
     
     .text {
         
@@ -207,7 +207,7 @@ section {
     &:before {
         content: '';
         position: absolute; bottom: -2vh; left: 50%; z-index: 1;
-        width: 300%; height: 1vh;
+        width: 300%; height: 3vh;
         background-color: $blue;
         @include transform(translate(-50%,0) rotate(2deg));
     }
@@ -222,7 +222,7 @@ section {
     &:before {
         content: '';
         position: absolute; bottom: -2vh; left: 50%; z-index: 1;
-        width: 300%; height: 1vh;
+        width: 300%; height: 4vh;
         background-color: $red;
         @include transform(translate(-50%,0) rotate(-2deg));
     }
