@@ -63,10 +63,7 @@ section {
 #animated-background {
     position: absolute; top: 0; left: 0; z-index: 0;
     width: 100%;
-    height: 102vh; min-height: (600px/100*102); // height relative (102vh) to min height of #intro section
-    overflow: hidden;
-    border-bottom: 1vh solid $red;
-    outline: 1vh solid $blue;
+    height: 102vh; min-height: (700px/100*102); // height relative (102vh) to min height of #intro section
     @include animation(fade-in 2s);
         
     // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
@@ -74,6 +71,14 @@ section {
         
     @include ON_REDUCED_MOTION {
         @include animation(none);
+    }
+    
+    &:before {
+        content: '';
+        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
+        width: 300%; height: 1vh;
+        background-color: $red;
+        @include transform(translate(-50%,0) rotate(-2deg));
     }
 
     .square-wrapper {
@@ -152,8 +157,8 @@ section {
         display: inline-block;
         font-size: 100px; font-size: 7.5vw;
     
-        @media (min-width: 1531px) {
-            font-size: 115px;
+        @media (min-width: 1000px) {
+            font-size: 75px;
         }
         
         > * {
@@ -197,11 +202,30 @@ section {
     }
 }
 
+#about {
+    
+    &:before {
+        content: '';
+        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
+        width: 300%; height: 1vh;
+        background-color: $blue;
+        @include transform(translate(-50%,0) rotate(2deg));
+    }
+}
+
 
 
 /* PROJECTS SECTION */
 
 #projects {
+    
+    &:before {
+        content: '';
+        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
+        width: 300%; height: 1vh;
+        background-color: $red;
+        @include transform(translate(-50%,0) rotate(-2deg));
+    }
     
     html.js-off & {
         
