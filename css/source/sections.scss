@@ -120,14 +120,6 @@ section {
 
 #intro {
     
-    &:before {
-        content: '';
-        position: absolute; bottom: -4vh; left: 50%; z-index: 1;
-        width: 300%; height: 2vh;
-        background-color: $red;
-        @include transform(translate(-50%,0) rotate(-2deg));
-    }
-    
     .text {
         
         // apply flex column to fix the div not centering in IE, since no height is set
@@ -206,10 +198,10 @@ section {
     
     &:before {
         content: '';
-        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
-        width: 300%; height: 3vh;
-        background-color: $blue;
-        @include transform(translate(-50%,0) rotate(2deg));
+        position: absolute; top: 4vh; left: 50%; z-index: 1;
+        width: 300%; height: 2vh;
+        background-color: $red;
+        @include transform(translate(-50%,0) rotate(-2deg));
     }
 }
 
@@ -221,10 +213,10 @@ section {
     
     &:before {
         content: '';
-        position: absolute; bottom: -2vh; left: 50%; z-index: 1;
-        width: 300%; height: 4vh;
-        background-color: $red;
-        @include transform(translate(-50%,0) rotate(-2deg));
+        position: absolute; top: 2vh; left: 50%; z-index: 1;
+        width: 300%; height: 3vh;
+        background-color: $blue;
+        @include transform(translate(-50%,0) rotate(2deg));
     }
     
     html.js-off & {
@@ -626,6 +618,14 @@ section {
 /* CONTACT SECTION */
 
 #contact {
+    
+    &:before {
+        content: '';
+        position: absolute; top: 2vh; left: 50%; z-index: 1;
+        width: 300%; height: 4vh;
+        background-color: $red;
+        @include transform(translate(-50%,0) rotate(-2deg));
+    }
     
     .mail-container {
         display: inline-block; position: relative;

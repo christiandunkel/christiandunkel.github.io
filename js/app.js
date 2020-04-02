@@ -1620,7 +1620,7 @@ var SCROLL = {
         // get scroll section where user is currently at
         var section = 0;
         for (var i = NAV.section_positions.length; i--;) {
-            if (NAV.section_positions[i] - SCROLL.scrollY < 300) {
+            if (NAV.section_positions[i] - SCROLL.scrollY < 500) {
                 section = i;
                 break;
             }
