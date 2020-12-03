@@ -506,10 +506,17 @@ section {
                 position: relative;
                 margin: 25px 0 7px 0;
 
-                h3 {
+                .heading {
+                    display: inline-block; vertical-align: bottom;
                     margin: 0;
-                    color: $gray; font-size: 28px; line-height: 32px; font-weight: 700;
+                    color: $gray; font-size: 28px; line-height: 1em; font-weight: 700;
                     @extend %text-wrap;
+                }
+                
+                .year {
+                    display: inline-block; vertical-align: bottom;
+                    margin-left: 8px;
+                    font-size: 20px; line-height: 1em; color: $lightgray;
                 }
 
                 .links {

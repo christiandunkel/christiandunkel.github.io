@@ -35,17 +35,6 @@
 
 
 
-/* SCREEN MEDIA QUERIES */
-
-// below most smallest screen devices 
-@mixin ON_MIN_SCREEN {
-    @media (max-width: 300px) {
-        @content;
-    }
-}
-
-
-
 /* ACCESSIBILITY */
 
 @mixin ON_DARK_THEME {
@@ -54,32 +43,8 @@
     }
 }
 
-@mixin ON_HIGH_CONTRAST {
-    @media (prefers-contrast: high) {
-        @content;
-    }
-}
-
-@mixin ON_LOW_CONTRAST {
-    @media (prefers-contrast: low) {
-        @content;
-    }
-}
-
 @mixin ON_REDUCED_MOTION {
     @media (prefers-reduced-motion: reduce) {
-        @content;
-    }
-}
-
-@mixin ON_REDUCED_TRANSPARENCY {
-    @media (prefers-reduced-transparency: reduce) {
-        @content;
-    }
-}
-
-@mixin ON_SLOW_DEVICE {
-    @media (update: slow) {
         @content;
     }
 }
