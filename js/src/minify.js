@@ -26,6 +26,7 @@ const EOL = _.os.EOL;
     
 const INPUT_PATHS = [
     'utility.js',
+    'data-projects.js',
     'main.js'
 ];
 const OUTPUT_PATH = _.path.join(__dirname, '..', 'app.min.js');

@@ -1,51 +1,55 @@
 // holds references to HTML elements
-var NODE = function () {
+var NODE = {
     
-    // general elements
-    NODE.html = document.documentElement  || _.tag('html')[0];
-    NODE.head = document.head             || _.tag('head')[0];
-    NODE.body = document.body             || _.tag('body')[0];
-    NODE.main = _.tag('main')[0];
-    NODE.animated_background = _.id('animated-background');
-    
-    // navigation
-    NODE.nav                = _.id('nav');
-    NODE.nav_links          = _.tag('a', _.class('content', NODE.mobile_menu)[0]);
-    // add CSS for the nav indicator
-    // (dependent on browser and button content)
-    NODE.nav_indicator      = _.class('hover-bg')[0];
-    
-    // hidden mobile menu
-    NODE.hamburger_btn      = _.id('hamburger-btn');
-    NODE.mobile_menu        = _.id('mobile-menu');
-    NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
-    // logo visible on mobile view
-    NODE.mobile_logo        = _.class('mobile-logo', NODE.nav)[0];
-    
-    // semantic sections of site
-    NODE.sections           = _.class('content-section');
-    
-    // language selection
-    NODE.lang_btn           = _.id('language-btn');
-    // elements with title attributes
-    NODE.titled_elems       = _.select('*[title]');
-    NODE.valid_titled_elems = [];
-    
-    // project selection
-    NODE.project_category_btns  = _.class('project-select-btn');
-    NODE.project_cards          = _.class('project');
-    NODE.project_card_show_info_btns = _.class('project-show-info-btn');
-    NODE.project_settings_btn   = _.id('project-settings-btn');
-    NODE.project_settings_menu  = _.id('project-settings-menu');
-    NODE.project_switch_logic   = _.id('project-switch-logic-btn');
-    
-    // footer
-    NODE.footer            = _.tag('footer')[0];
-    NODE.to_top_btn        = _.id('to-top');
-    NODE.footer_graphic    = _.id('footer-graphic');
-    NODE.footer_graphic_l1 = _.class('layer1', NODE.footer_graphic)[0];
-    NODE.footer_graphic_l2 = _.class('layer2', NODE.footer_graphic)[0];
-    
+    initialize : function () {
+        // general elements
+        NODE.html = document.documentElement || _.tag('html')[0];
+        NODE.head = document.head || _.tag('head')[0];
+        NODE.body = document.body || _.tag('body')[0];
+        NODE.main = _.tag('main')[0];
+        NODE.animated_background = _.id('animated-background');
+
+        // navigation
+        NODE.nav                = _.id('nav');
+        NODE.nav_links          = _.tag('a', _.class('content', NODE.mobile_menu)[0]);
+        // add CSS for the nav indicator
+        // (dependent on browser and button content)
+        NODE.nav_indicator      = _.class('hover-bg')[0];
+
+        // hidden mobile menu
+        NODE.hamburger_btn      = _.id('hamburger-btn');
+        NODE.mobile_menu        = _.id('mobile-menu');
+        NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
+        // logo visible on mobile view
+        NODE.mobile_logo        = _.class('mobile-logo', NODE.nav)[0];
+
+        // semantic sections of site
+        NODE.sections           = _.class('content-section');
+
+        // language selection
+        NODE.lang_btn           = _.id('language-btn');
+        // elements with title attributes
+        NODE.titled_elems       = _.query('[title]');
+        NODE.valid_titled_elems = [];
+
+        // project selection
+        NODE.project_category_btns  = _.class('project-select-btn');
+        NODE.project_container      = _.id('projects-container');
+        NODE.project_cards          = _.class('project');
+        NODE.project_card_show_info_btns = _.class('project-show-info-btn');
+        NODE.project_settings_btn   = _.id('project-settings-btn');
+        NODE.project_settings_menu  = _.id('project-settings-menu');
+        NODE.project_switch_logic   = _.id('project-switch-logic-btn');
+
+        // footer
+        NODE.footer            = _.tag('footer')[0];
+        NODE.to_top_btn        = _.id('to-top');
+        NODE.footer_graphic    = _.id('footer-graphic');
+        NODE.footer_graphic_l1 = _.class('layer1', NODE.footer_graphic)[0];
+        NODE.footer_graphic_l2 = _.class('layer2', NODE.footer_graphic)[0];
+        
+        delete NODE.initialize;
+    }
 };
 
 
@@ -58,8 +62,8 @@ var NAV = {
     initialize : function () {
         
         // add effect to mobile nav button
-        _.onClick(NODE.hamburger_btn,   NAV.toggleWindow);
-        _.onClick(NODE.mobile_overlay,  NAV.closeWindow);
+        NODE.hamburger_btn.onClick(NAV.toggleWindow);
+        NODE.mobile_overlay.onClick(NAV.closeWindow);
         
         // remove anchor link and add scroll effect to nav links
         for (var i = NODE.nav_links.length + 1; i--;) {
@@ -78,7 +82,7 @@ var NAV = {
             // save reference to HTML element
             NODE['section_' + href] = _.id(href);
 
-            _.onClick(a, SCROLL.toSection);
+            a.onClick(SCROLL.toSection);
 
         }
         
@@ -86,17 +90,16 @@ var NAV = {
         NAV.updateSectionData();
         
         // update sizes/positions for section indicator dynamically
-        _.onLoad(window, NAV.updateSectionIndicator);
-        
-        _.addEvent(window, 'resize', function () {
-            NAV.updateSectionData();
-            NAV.setLinkForSectionActive();
-            NAV.updateSectionIndicator();
-        });
+        window
+            .onLoad(NAV.updateSectionIndicator)
+            .onEvent('resize', function () {
+                NAV.updateSectionData();
+                NAV.setLinkForSectionActive();
+                NAV.updateSectionIndicator();
+            });
         
         // scroll to top effect on click
-        _.onClick(NODE.to_top_btn, SCROLL.toTop);
-        
+        NODE.to_top_btn.onClick(SCROLL.toTop);
     },
     
     is_open : false,
@@ -106,7 +109,7 @@ var NAV = {
         if (!NAV.is_open) {
             
             NAV.is_open = true;
-            _.addClass(NODE.html, 'mobile-nav-open');
+            NODE.html.addClass('mobile-nav-open');
             
             FOCUS_CHAIN.set([
                 NODE.nav_links[1],
@@ -125,7 +128,7 @@ var NAV = {
         if (NAV.is_open) {
             
             NAV.is_open = false;
-            _.removeClass(NODE.html, 'mobile-nav-open');
+            NODE.html.removeClass('mobile-nav-open');
             
             // focus on mobile menu button
             setTimeout(function () {
@@ -157,11 +160,13 @@ var NAV = {
     // set section indicators position by which section is currently in view
     updateSectionIndicator : function () {
         
-        _.remove(NODE.nav_indicator_style);
+        if (NODE.nav_indicator_style) {
+            NODE.nav_indicator_style.remove();
+        }
 
-        var selector    = '#nav .content';
-        var style       = selector + ' .hover-bg {display: block !important;}';
-        var num         = NODE.nav_links.length;
+        var selector = '#nav .content';
+        var style    = selector + ' .hover-bg {display: block !important;}';
+        var num      = NODE.nav_links.length;
 
         if (num == 0) return;
 
@@ -177,11 +182,11 @@ var NAV = {
         for (var i = 0; i < num; i++) {
             
             // get computed CSS values
-            sizes.width[i]          = _.getWidth(NODE.nav_links[i]);
-            sizes.marginLeft[i]     = Number.parseFloat(
+            sizes.width[i]      = _.getWidth(NODE.nav_links[i]);
+            sizes.marginLeft[i] = Number.parseFloat(
                 _.getStyle(NODE.nav_links[i], 'margin-left').replace(/[a-z]+/gi, '')
             );
-            sizes.marginRight[i]    = Number.parseFloat(
+            sizes.marginRight[i] = Number.parseFloat(
                 _.getStyle(NODE.nav_links[i], 'margin-right').replace(/[a-z]+/gi, '')
             );
 
@@ -220,12 +225,10 @@ var NAV = {
         }
 
         NODE.nav_indicator_style = _.create('style', {
-            'type' : 'text/css',
-            'innerHTML' : style
-        });
-
-        _.append(NODE.head, NODE.nav_indicator_style);
-        
+                type : 'text/css',
+                innerHTML : style
+            })
+            .appendTo(NODE.head);
     },
     
     // set nav link active depending on which section is currently in view
@@ -251,12 +254,10 @@ var NAV = {
 
         // if not, enable it and disable all other buttons
         for (var i = NODE.nav_links.length; i--;) {
-            _.removeClass(NODE.nav_links[i], 'active');
+            NODE.nav_links[i].removeClass('active');
         }
-        _.addClass(active_btn, 'active');
-        
+        active_btn.addClass('active');
     }
-    
 };
 
 
@@ -269,7 +270,7 @@ var LANG = {
     initialize : function () {
         
         // events to open and close language menu
-        _.onClick(NODE.lang_btn, LANG.toggleLanguage);
+        NODE.lang_btn.onClick(LANG.toggleLanguage);
         
         LANG.filterTitledElements();
         
@@ -315,9 +316,9 @@ var LANG = {
             var elem = NODE.titled_elems[i];
 
             // check if element has all other title language variations 
-            if (elem.hasAttribute('title-de')) {
-                // copy current "title" HTML attribute and add it as "title-en" attribute
-                elem.setAttribute('title-en', NODE.titled_elems[i].title);
+            if (elem.hasAttribute('data-title-de')) {
+                // copy current "title" HTML attribute and add it as "data-title-en" attribute
+                elem.setAttribute('data-title-en', NODE.titled_elems[i].title);
                 // add element to valid ones
                 var num = NODE.valid_titled_elems.length;
                 NODE.valid_titled_elems[num] = elem;
@@ -335,7 +336,7 @@ var LANG = {
         // loop all (valid) titled elements
         for (var i = NODE.valid_titled_elems.length; i--;) {
             var elem = NODE.valid_titled_elems[i];
-            elem.title = elem.getAttribute('title-' + lang_code);
+            elem.title = elem.getAttribute('data-title-' + lang_code);
         }
         
     }
@@ -382,8 +383,7 @@ var FOCUS_CHAIN = {
             FOCUS_CHAIN.elems_container = input.container;
         }
         
-        _.addEvent(window, 'keydown', FOCUS_CHAIN.event);
-        
+        window.onEvent('keydown', FOCUS_CHAIN.event);
     },
     
     reset : function () {
@@ -396,8 +396,7 @@ var FOCUS_CHAIN = {
         FOCUS_CHAIN.end_elem = null;
         FOCUS_CHAIN.elems_container = null;
         
-        _.removeEvent(window, 'keydown', FOCUS_CHAIN.event);
-        
+        window.removeEvent('keydown', FOCUS_CHAIN.event);
     },
     
     event : function (e) {
@@ -499,7 +498,7 @@ var FOCUS_CHAIN = {
             
             if (
                 // if no element inside window is being focussed
-                !_.contains(FOCUS_CHAIN.elems_container, document.activeElement)
+                !FOCUS_CHAIN.elems_container.contains(document.activeElement)
             ) {
                 
                 e.preventDefault();
@@ -524,8 +523,126 @@ var FOCUS_CHAIN = {
 
 
 
-
 var PROJECT = {
+    
+    generateProjectsHTML : function () {
+        
+        // create project-category-selection buttons from project data
+        for (var i = PROJECT_CATEGORIES.length; i--;) {
+            
+            // get the category
+            var category = PROJECT_CATEGORIES[i];
+            
+            // generate the language-specific text content inside the category button
+            var btn_content = '';
+            var lang_keys = Object.keys(category.lang);
+            for (var j = lang_keys.length; j--;) {
+                var lang = lang_keys[j];
+                btn_content += '<span lang="' + lang + '">' + category.lang[lang] + '</span>';
+            }
+            
+            // create a button element and add it to the DOM
+            var btn = _.create('button.project-select-btn.responsive.small.inactive', {
+                    innerHTML : btn_content,
+                    'data-select-category' : category.id 
+                })
+                .addAfter(NODE.project_settings_menu);
+        }
+        
+        // create project-cards from project data
+        for (var i = PROJECTS.length; i--;) {
+            
+            // get the project
+            var project = PROJECTS[i];
+            
+            var project_categories = '';
+            for (var j = project.categories.length; j--;) {
+                project_categories += project.categories[j] + (j > 0 ? ' ' : '');
+            }
+            var card = _.create('div.project', {
+                    'data-categories' : project_categories
+                })
+                .prependTo(NODE.project_container);
+            
+            _.create('a', {
+                    href : project.links[0].link,
+                    target : '_blank',
+                    rel : 'noopener noreferrer',
+                    innerHTML : '<figure>' +
+                                    '<img class="image" loading="lazy" src="' + project.image + '" alt="' + project.lang.en.title + ' Preview Image" />' +
+                                '</figure>'
+                })
+                .appendTo(card);
+            
+            var project_info = _.create('div.project-info').appendTo(card);
+            var heading = _.create('h3.heading').appendTo(project_info);
+            
+            _.create('time.year', {
+                    innerHTML : project.year,
+                    datetime : project.year
+                })
+                .appendTo(project_info);
+            
+            var description = _.create('p.desc').appendTo(project_info);
+            
+            // generate the language-specific heading and description
+            var lang_keys = Object.keys(project.lang);
+            for (var j = lang_keys.length; j--;) {
+                
+                var lang = lang_keys[j];
+                
+                _.create('span', {
+                        lang : lang,
+                        innerHTML : project.lang[lang].title
+                    })
+                    .appendTo(heading);
+                
+                _.create('span', {
+                        lang : lang,
+                        innerHTML : project.lang[lang].description
+                    })
+                    .appendTo(description);
+            }
+            
+            var links = _.create('ul.links').appendTo(project_info);
+            for (var j = 0, len = project.links.length; j < len; j++) {
+                var link = project.links[j];
+                var li = _.create('li').appendTo(links);
+                var a = _.create('a' + (link.link.match(/github\.com/gi) ? '.github' : ''), {
+                        href : link.link,
+                        target : '_blank',
+                        rel : 'noopener noreferrer'
+                    })
+                    .appendTo(li);
+                var link_lang_keys = Object.keys(link.lang);
+                for (var k = link_lang_keys.length; k--;) {
+                    var lang = link_lang_keys[k];
+                    _.create('span', {
+                            lang : lang,
+                            innerHTML : link.lang[lang]
+                        })
+                        .appendTo(a);
+                }
+            }
+            
+            var tags = _.create('ul.tags').appendTo(project_info);
+            for (var j = 0, len = PROJECT_CATEGORIES.length; j < len; j++) {
+                var category = PROJECT_CATEGORIES[j];
+                if (project.categories.includes(category.id)) {
+                    var li = _.create('li').appendTo(tags);
+                    var category_lang_keys = Object.keys(category.lang);
+                    for (var k = category_lang_keys.length; k--;) {
+                        var lang = category_lang_keys[k];
+                        _.create('span', {
+                                lang : lang,
+                                innerHTML : category.lang[lang]
+                            })
+                            .appendTo(li);
+                    }
+                }
+            }
+        }
+    },
     
     initialize : function () {
         
@@ -537,12 +654,12 @@ var PROJECT = {
             var btn = NODE.project_category_btns[i];
             
             // save category info
-            PROJECT.categories[btn.getAttribute('category')] = !_.hasClass(btn, 'inactive');
+            PROJECT.categories[btn.getAttribute('data-select-category')] = !_.hasClass(btn, 'inactive');
             
             // add event to toggle category on and off
-            _.onClick(btn, function (e) {
+            btn.onClick(function (e) {
                 
-                var target      = _.target(e);
+                var target = _.target(e);
                 
                 // if event was triggered by child inside button,
                 // go upwards in DOM tree to button
@@ -551,15 +668,14 @@ var PROJECT = {
                 }
                 
                 // toggle category
-                var category = target.getAttribute('category');
+                var category = target.getAttribute('data-select-category');
                 PROJECT.categories[category] = !PROJECT.categories[category];
                 
                 // toggle button appearance
-                _.toggleClass(target, 'inactive');
+                target.toggleClass('inactive');
                 
                 // apply new category selection
                 PROJECT.updateSelection();
-                
             });
         }
         
@@ -567,7 +683,7 @@ var PROJECT = {
         
         /* SETTINGS */
         
-        _.onClick(NODE.project_settings_btn, PROJECT.toggleSettingsMenu); 
+        NODE.project_settings_btn.onClick(PROJECT.toggleSettingsMenu); 
         
         // get amount of logic operators that can be applied to selection
         PROJECT.logic_operators_num = PROJECT.logic_operators.length;
@@ -575,7 +691,7 @@ var PROJECT = {
         PROJECT.current_logic = NODE.project_switch_logic.getAttribute('logic');
         
         // add button for switching between selection logic e.g. AND, OR
-        _.onClick(NODE.project_switch_logic, function () {
+        NODE.project_switch_logic.onClick(function () {
             
             var num         = PROJECT.logic_operators_num; // operator amount
             var last_index  = num - 1;
@@ -620,19 +736,19 @@ var PROJECT = {
             
             var show_info_btn = NODE.project_card_show_info_btns[i];
             
-            _.onClick(show_info_btn, function (e) {
+            show_info_btn.onClick(function (e) {
                 
                 var btn = _.target(e);
                 var is_shown = _.hasClass(btn, 'show');
                 
                 // remove 'show' class from other buttons
                 for (var i = NODE.project_card_show_info_btns.length; i--;) {
-                    _.removeClass(NODE.project_card_show_info_btns[i], 'show');
+                    NODE.project_card_show_info_btns[i].removeClass('show');
                 }
                 
                 // if info was hidden previously, show it now
                 if (!is_shown) {
-                    _.addClass(btn, 'show');
+                    btn.addClass('show');
                 }
             
             });
@@ -658,12 +774,14 @@ var PROJECT = {
         
         PROJECT.settings_menu_is_open = true;
         
-        _.addClass(NODE.project_settings_menu, 'show');
-        NODE.project_settings_menu.setAttribute('aria-hidden', 'false');
+        NODE.project_settings_menu
+            .addClass('show')
+            .prop('aria-hidden', 'false');
         
         setTimeout(function () {
-            _.onClick(document,                PROJECT.handleClickOutsideSettingsMenu);
-            _.addEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+            document
+                .onClick(PROJECT.handleClickOutsideSettingsMenu)
+                .onEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         }, 50);
         
     },
@@ -672,12 +790,14 @@ var PROJECT = {
         
         PROJECT.settings_menu_is_open = false;
         
-        _.removeClass(NODE.project_settings_menu, 'show');
-        NODE.project_settings_menu.setAttribute('aria-hidden', 'true');
+        NODE.project_settings_menu
+            .removeClass('show')
+            .prop('aria-hidden', 'true');
         
         // remove events if still existing
-        _.removeClick(document,               PROJECT.handleClickOutsideSettingsMenu);
-        _.removeEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
+        document
+            .removeClick(PROJECT.handleClickOutsideSettingsMenu)
+            .removeEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         
     },
     
@@ -688,18 +808,18 @@ var PROJECT = {
         // click is not on menu or one of its children -> hide menu
         if (
             // filter out click on settings menu
-            !_.contains(NODE.project_settings_menu, elem) && 
+            !NODE.project_settings_menu.contains(elem) && 
             
             // filter out click on button that opens settings menu
             elem != NODE.project_settings_btn &&
-            !_.contains(NODE.project_settings_btn, elem)
+            !NODE.project_settings_btn.contains(elem)
         ) {
             
             PROJECT.closeSettingsMenu();
             
-            _.removeClick(document,               PROJECT.handleClickOutsideSettingsMenu);
-            _.removeEvent(document, 'touchstart', PROJECT.handleClickOutsideSettingsMenu);
-            
+            document
+                .removeClick(PROJECT.handleClickOutsideSettingsMenu)
+                .removeEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         }
         
     },
@@ -726,17 +846,17 @@ var PROJECT = {
         // and toggle them on / off depending on selection
         card_loop: for (var i = NODE.project_cards.length; i--;) {
             
-            var card                = NODE.project_cards[i];
+            var card = NODE.project_cards[i];
             
             // if no category is selected, show all cards
             if (no_category_selected) {
-                _.removeClass(card, 'hidden');
+                card.removeClass('hidden');
                 continue;
             }
             
-            var card_categories     = card.getAttribute('categories');
-            var category_counter    = 0;
-            var categories_apply    = 0;
+            var card_categories  = card.getAttribute('data-categories');
+            var category_counter = 0;
+            var categories_apply = 0;
             
             // go through all categories that are currently turned on
             // and check if project card has at least one of them
@@ -761,7 +881,7 @@ var PROJECT = {
                     // if OR logic, enable card if just one selected category was found on it
                     if (PROJECT.current_logic == 'OR') {
                         // toggle project card on
-                        _.removeClass(card, 'hidden');
+                        card.removeClass('hidden');
                         continue card_loop;
                     }
                     // if AND logic, enable card if all selected categories were found on it
@@ -777,14 +897,13 @@ var PROJECT = {
             if (PROJECT.current_logic == 'AND') {
                 // show card, if total category counter equals the categories on the item
                 if (category_counter == categories_apply) {
-                    _.removeClass(card, 'hidden');
+                    card.removeClass('hidden');
                     continue;
                 }
             }
             
             // otherwise, if reached here, hide project card
-            _.addClass(card, 'hidden');
-            
+            card.addClass('hidden');
         }
         
     }
@@ -801,8 +920,7 @@ var SECTION = {
         
         SECTION.loadAnimatedBackground();
         
-        _.addEvent(window, 'keyup', SECTION.tabEvent);
-        
+        window.onEvent('keyup', SECTION.tabEvent);
     },
     
     // on every tab, check if the tabbed element is inside a section
@@ -827,8 +945,7 @@ var SECTION = {
             }
             
             // if section was found, make it appear if it's hidden
-            _.addClass(target, 'appear');
-            
+            target.addClass('appear');
         }
         
     },
@@ -856,8 +973,9 @@ var SECTION = {
         
         SECTION.playAnimatedBackground();
         
-        _.addEvent(window, 'focus', SECTION.playAnimatedBackground);
-        _.addEvent(window, 'blur', SECTION.clearAnimatedBackground);
+        window
+            .onEvent('focus', SECTION.playAnimatedBackground)
+            .onEvent('blur', SECTION.clearAnimatedBackground);
         
     },
     
@@ -898,7 +1016,7 @@ var SECTION = {
         }
         
         for (var i = SECTION.square_list.length; i--;) {
-            _.remove(SECTION.square_list[i]);
+            SECTION.square_list[i].remove();
         }
         SECTION.square_list = [];
         
@@ -908,8 +1026,7 @@ var SECTION = {
         
         // remove the oldest square (first item in list)
         if (SECTION.square_list.length > 70) {
-            var removed = SECTION.square_list.shift();
-            _.remove(removed);
+            SECTION.square_list.shift().remove();
         }
         
         // generate styles
@@ -928,8 +1045,8 @@ var SECTION = {
         SECTION.spread_values.last_colors[1] = curr_color;
         
         // alternate color every new square
-        var color     = (curr_color == 0 ? 'red' : 'blue');
-        var square    = _.create('div.square.' + color);
+        var color  = (curr_color == 0 ? 'red' : 'blue');
+        var square = _.create('div.square.' + color);
         
         // generate wrapper element that is then animated
         var styles = {
@@ -943,13 +1060,12 @@ var SECTION = {
             styles.style['animation-delay'] = '-' + (animation_delay || 0) + 's';
         }
         var animation = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
-        var square_wrapper = _.create('div.square-wrapper.' + animation, styles);
+        var square_wrapper = _.create('div.square-wrapper.' + animation, styles)
+            .append(square)
+            .appendTo(NODE.animated_background);
         
         // add square to list and DOM
         SECTION.square_list[SECTION.square_list.length] = square_wrapper;
-        _.append(square_wrapper, square);
-        _.append(NODE.animated_background, square_wrapper);
-        
     }
     
 };
@@ -1049,12 +1165,12 @@ var SCROLL = {
         var move_by = percentage_scrolled_of_footer * 6; // move by 0-6%
         
         // move layer1 to the right
-        _.setStyles(NODE.footer_graphic_l1, {
+        NODE.footer_graphic_l1.setStyles({
             left: (original_left + move_by)+'%'
         });
         
         // move layer2 to the left
-        _.setStyles(NODE.footer_graphic_l2, {
+        NODE.footer_graphic_l2.setStyles({
             left: (original_left - (move_by * .75))+'%'
         });
             
@@ -1077,13 +1193,13 @@ var SCROLL = {
             Math.round(rgb_1.g) + ',' + 
             Math.round(rgb_1.b) + 
         ')';
-        _.setStyles(NODE.footer_graphic_l1, {
+        NODE.footer_graphic_l1.setStyles({
             color : color_1
         });
 
-        _.setStyles(NODE.footer, {
+        NODE.footer.setStyles({
             'background-color' : color_1
-        })
+        });
 
         // lerp colors of layer 2
         var rgb_2 = _.lerpColorRGB(
@@ -1096,10 +1212,9 @@ var SCROLL = {
             Math.round(rgb_2.g) + ',' +
             Math.round(rgb_2.b) +
         ')';
-        _.setStyles(NODE.footer_graphic_l2, {
+        NODE.footer_graphic_l2.setStyles({
             color : color_2
         });
-        
     },
     
     // fades in sections after scrolling to them
@@ -1110,7 +1225,7 @@ var SCROLL = {
         // show all sections, if one has (almost) scrolled to the bottom
         if (SCROLL.from_bottomY < 200) {
             for (var i = NODE.sections.length; i--;) {
-                _.addClass(NODE.sections[i], 'appear');
+                NODE.sections[i].addClass('appear');
             }
         }
         // otherwise, check if any section has not yet appeared
@@ -1142,9 +1257,8 @@ var SCROLL = {
 
         // filter out intro section
         if (section != 0) {
-            _.addClass(NODE.sections[section - 1], 'appear');
+            NODE.sections[section - 1].addClass('appear');
         }
-        
     },
     
     // triggers an animated scroll effect to the top of the page
@@ -1298,10 +1412,9 @@ var SCROLL = {
 
         // set button as active, and all others inactive
         for (var i = NODE.nav_links.length; i--;) {
-            _.removeClass(NODE.nav_links[i], 'active');
+            NODE.nav_links[i].removeClass('active');
         }
-        _.addClass(target, 'active');
-        
+        target.addClass('active');
     }
     
 };
@@ -1312,7 +1425,8 @@ var SCROLL = {
 
 // initialize
 (function () {
-    NODE();
+    NODE.initialize();
+    PROJECT.generateProjectsHTML();
     NAV.initialize();
     LANG.initialize();
     PROJECT.initialize();

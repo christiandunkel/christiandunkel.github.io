@@ -438,20 +438,16 @@ section {
             }
 
             // 3 cards beside each other
-            width: 31%; margin: 1% 1%;
+            width: 29.2%; margin: 2%;
 
             // 2 cards beside each other
             @media (max-width: 1200px) {
-                width: 48%; margin: 2% 0;
-                &:nth-child(odd)  {margin-right: 4%;}
-                &:nth-child(even) {margin-right: 0;}
+                width: 46%;
             }
 
             // all cards below one another
             @media (max-width: 650px) {
                 width: 100%; margin: 7% 0;
-                &:nth-child(even) {margin-right: 0;}
-                &:nth-child(odd)  {margin-right: 0;}
 
                 figure {
                     max-width: 400px;
@@ -465,38 +461,42 @@ section {
                 @include transform(scale(0));
                 @include transition-property(none);
             }
-
-            figure {
-                display: inline-block;
-                width: 100%;
-                overflow: hidden;
-                @include border-radius(5px);
-                @include box-shadow(
-                    0 1px 1px rgba(0,0,0,.05),
-                    0 2px 2px rgba(0,0,0,.05),
-                    0 4px 4px rgba(0,0,0,.05),
-                    0 8px 8px rgba(0,0,0,.05),
-                    0 16px 16px rgba(0,0,0,.05)
-                );
-
-                .img {
-                    width: 100%; padding: 0 0 60% 0;
-                    background-repeat: no-repeat; background-position: left top;
-                    @include background-size(cover);
-                    @include transition(1.2s);
-                    
-                    @include ON_REDUCED_MOTION {
-                        @include transform(none !important);
-                        @include transition(0s !important);
-                    }
-                }
-            }
             
             > a {
+                display: block;
+                width: 100%;
+
+                figure {
+                    display: block; position: relative;
+                    width: 100%; padding: 0 0 60% 0;
+                    overflow: hidden;
+                    @include border-radius(5px);
+                    @include box-shadow(
+                        0 1px 1px rgba(0,0,0,.05),
+                        0 2px 2px rgba(0,0,0,.05),
+                        0 4px 4px rgba(0,0,0,.05),
+                        0 8px 8px rgba(0,0,0,.05),
+                        0 16px 16px rgba(0,0,0,.05)
+                    );
+                    @include user-select(none);
+
+                    .image {
+                        position: absolute; top: 0; left: 50%;
+                        width: 102%;
+                        @include transform(translate(-50%,0));
+                        @include transition(1.2s);
+
+                        @include ON_REDUCED_MOTION {
+                            @include transform(none !important);
+                            @include transition(0s !important);
+                        }
+                    }
+                }
+                
                 &:hover,
                 &:focus {
-                    .img {
-                        @include transform(scale(1.1));
+                    .image {
+                        @include transform(translate(-50%,0) scale(1.05));
                         @include transition(.2s);
                     }
                 }
@@ -510,7 +510,6 @@ section {
                     display: inline-block; vertical-align: bottom;
                     margin: 0;
                     color: $gray; font-size: 28px; line-height: 1em; font-weight: 700;
-                    @extend %text-wrap;
                 }
                 
                 .year {
@@ -520,14 +519,19 @@ section {
                 }
 
                 .links {
-                    margin: 10px 0 0 0;
+                    margin: 10px 0 0 0; padding: 0;
+                    
+                    li {
+                        display: inline-block; list-style: none;
+                        margin: 5px 5px 0 0; padding: 0;
+                    }
 
                     a {
                         display: inline-block;
-                        margin: 5px 5px 0 0; padding: 10px 10px 10px 40px;
+                        padding: 10px 10px 10px 40px;
                         background-repeat: no-repeat;
                         text-decoration: none; font-size: 16px; line-height: 20px; color: black;
-                        @include opacity(.7);
+                        @include opacity(.5);
                         @include border-radius(3px);
                         @include user-select(none);
                         @include transition(.2s);
@@ -585,7 +589,7 @@ section {
             
             .project {
             
-                figure {
+                > a {
                     max-width: 300px;
                 }
                 

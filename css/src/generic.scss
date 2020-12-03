@@ -90,6 +90,10 @@ div {
     font-size: 0;
 }
 
+html.js-on .hide-with-js {
+    display: none !important;
+}
+
 html.js-off .hide-without-js {
     display: none !important;
 }

@@ -90,7 +90,7 @@
     <nav id="nav">
         <div class="bar">
             
-            <a class="mobile-logo" href="#html" title="Go to top" title-de="Nach oben">
+            <a class="mobile-logo" href="#html" title="Go to top" data-title-de="Nach oben">
                 <span>Christian</span>
                 <span>Dunkel</span>
             </a>
@@ -100,7 +100,7 @@
                 <div class="content">
                     
                     <div class="center">
-                        <a class="a0 logo-link active" href="#html" title="To top" title-de="Nach oben"></a>
+                        <a class="a0 logo-link active" href="#html" title="To top" data-title-de="Nach oben"></a>
                         <a class="a1" href="#about">
                             <span lang="en">About</span>
                             <span lang="de">Über</span>
@@ -115,7 +115,7 @@
                         </a>
                         <div class="hover-bg"></div>
 
-                        <button id="language-btn" title="Change language" title-de="Sprache wechseln">
+                        <button id="language-btn" title="Change language" data-title-de="Sprache wechseln">
                             <b>
                                 <span class="en"></span>
                                 <span class="de"></span>
@@ -128,7 +128,7 @@
                 </div>
             </div>
             
-            <button id="hamburger-btn" title="Toggle menu" title-de="Öffne und schließe das Menü">
+            <button id="hamburger-btn" class="hide-without-js" title="Toggle menu" data-title-de="Öffne und schließe das Menü">
                 <b>
                     <i class="i1"></i>
                     <i class="i2"></i>
@@ -207,7 +207,7 @@
             
             <!-- project display settings -->
             
-            <button id="project-settings-btn" class="responsive small" title="Settings" title-de="Einstellungen">
+            <button id="project-settings-btn" class="responsive small" title="Settings" data-title-de="Einstellungen">
                 <span>+</span>
             </button>
             
@@ -232,194 +232,24 @@
 
             </div>
             
-            <!-- project category selection -->
-            
-            <button class="project-select-btn responsive small inactive" category="website">
-                <span lang="en">Website</span>
-                <span lang="de">Webseite</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="lib">
-                <span lang="en">Library</span>
-                <span lang="de">Bibliothek</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="css">
-                <span>CSS/SCSS</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="js">
-                <span>JavaScript</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="node">
-                <span>Node.js</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="php">
-                <span>PHP</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="cpp">
-                <span>C++</span>
-            </button>
-            
-            <button class="project-select-btn responsive small inactive" category="csharp">
-                <span>C#</span>
-            </button>
+            <!-- project-category-select buttons are inserted here -->
             
             <br class="responsive hide-without-js" />
             
             <hr class="responsive hide-without-js" />
             
-            <!-- project cards -->
-            
             <div id="projects-container">
-
-                <div class="project" categories="lib node js">
-
-                    <a href="https://github.com/webis-de/lecture.js" target="_blank" rel="noopener noreferrer"><figure>
-                        <div class="img" style="background-image: url(img/project-lecture-js.jpg)"></div>
-                    </figure></a>
-
-                    <div class="project-info">
-                        <h3 class="heading">Lecture.js</h3>
-                        <time class="year" datetime="2020">2020</time>
-                        <p class="desc">
-                            <span lang="en">Lecture.js is a software that converts a script and slides to a spoken video presentation using advanced text-to-speech services.</span>
-                            <span lang="de">Lecture.js ist eine Software zur Umwandlung eines Skripts und Folien zu einer gesprochenen Videopräsentation mittels fortgeschrittener Text-zu-Sprache-Dienste.</span>
-                        </p>
-                        <ul class="tags">
-                            <li>
-                                <span lang="en">Library</span>
-                                <span lang="de">Bibliothek</span>
-                            </li>
-                            <li>JavaScript</li>
-                            <li>XML</li>
-                            <li>SSML</li>
-                        </ul>
-                        <div class="links">
-                            <a href="https://github.com/webis-de/lecture.js" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="project" categories="website css js">
-
-                    <a href="https://christiandunkel.github.io/time-visualizer" target="_blank" rel="noopener noreferrer"><figure>
-                        <div class="img" style="background-image: url(img/project-time-visualizer.png)"></div>
-                    </figure></a>
-
-                    <div class="project-info">
-                        <h3 class="heading">
-                            <span lang="en">Time Visualizer</span>
-                            <span lang="de">Zeit Visualisierer</span>
-                        </h3>
-                        <time class="year" datetime="2019">2019</time>
-                        <p class="desc">
-                            <span lang="en">The time visualizer is a web app for visualizing data sets that change over a given time frame.</span>
-                            <span lang="de">Der Zeitvisualisierer ist eine Webanwendung zur Visualisierung von Datensätzen, die sich in einem bestimmten Zeitrahmen ändern.</span>
-                        </p>
-                        <ul class="tags">
-                            <li>
-                                <span lang="en">Website</span>
-                                <span lang="de">Webseite</span>
-                            </li>
-                            <li>CSS/SCSS</li>
-                            <li>JavaScript</li>
-                        </ul>
-                        <div class="links">
-                            <a href="https://christiandunkel.github.io/time-visualizer" target="_blank" rel="noopener noreferrer">
-                                <span lang="en">Website</span>
-                                <span lang="de">Webseite</span>
-                            </a>
-                            <a href="https://github.com/christiandunkel/time-visualizer" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="project" categories="lib css">
-
-                    <a href="https://github.com/christiandunkel/power-prefixer.scss" target="_blank" rel="noopener noreferrer"><figure>
-                        <div class="img" style="background-image: url(img/project-power-prefixer.png)"></div>
-                    </figure></a>
-
-                    <div class="project-info">
-                        <h3 class="heading">Power Prefixer</h3>
-                        <time class="year" datetime="2019">2019</time>
-                        <p class="desc">
-                            <span lang="en">The power prefixer is a SCSS library for automatically prefixing CSS properties with vendor-specific prefixes.</span>
-                            <span lang="de">Der Power-Präfixer ist eine SCSS-Bibliothek zum automatischen Hinzufügen von Hersteller-spezifischen Präfixen zu CSS-Eigenschaften.</span>
-                        </p>
-                        <ul class="tags">
-                            <li>
-                                <span lang="en">Library</span>
-                                <span lang="de">Bibliothek</span>
-                            </li>
-                            <li>CSS/SCSS</li>
-                        </ul>
-                        <div class="links">
-                            <a href="https://github.com/christiandunkel/power-prefixer.scss" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="project" categories="csharp">
-
-                    <a href="https://github.com/christiandunkel/tensquared" target="_blank" rel="noopener noreferrer"><figure>
-                        <div class="img" style="background-image: url(img/project-tensquared.jpg)"></div>
-                    </figure></a>
-
-                    <div class="project-info">
-                        <h3 class="heading">tensquared</h3>
-                        <time class="year" datetime="2019">2019</time>
-                        <p class="desc">
-                            <span lang="en">Tensquared is a 2D puzzle platformer made in Unity. The player explores the world as a circle, but can also morph into different geometric shapes forms and gain new abilities!</span>
-                            <span lang="de">Tensquared ist ein 2D-Puzzle-Plattformer gemacht in Unity. Der Spieler erkundet die Welt als ein Kreis, aber kann sich auch in verschiedene geometrische Formen verwandeln und neue Fähigkeiten freischalten!</span>
-                        </p>
-                        <ul class="tags">
-                            <li>C#</li>
-                        </ul>
-                        <div class="links">
-                            <a href="https://github.com/christiandunkel/tensquared/releases" target="_blank" rel="noopener noreferrer">
-                                <span lang="en">Download</span>
-                                <span lang="de">Herunterladen</span>
-                            </a>
-                            <a href="https://github.com/christiandunkel/tensquared" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="project" categories="cpp">
-
-                    <a href="https://github.com/christiandunkel/raytracer" target="_blank" rel="noopener noreferrer"><figure>
-                        <div class="img" style="background-image: url(img/project-raytracer.png)"></div>
-                    </figure></a>
-
-                    <div class="project-info">
-                        <h3 class="heading">Raytracer</h3>
-                        <time class="year" datetime="2019">2019</time>
-                        <p class="desc">
-                            <span lang="en">This raytracer was written in C++ to render simple objects with shading, reflection, transparency and more.</span>
-                            <span lang="de">Dieser Raytracer wurde in C++ geschrieben, um einfache Objekte mit Schattierung, Reflexion, Transparenz und mehr zu rendern.</span>
-                        </p>
-                        <ul class="tags">
-                            <li>C++</li>
-                        </ul>
-                        <div class="links">
-                            <a href="https://github.com/christiandunkel/raytracer" target="_blank" rel="noopener noreferrer" class="github">GitHub</a>
-                        </div>
-                    </div>
-
-                </div>
+                
+                <!-- project cards are inserted here -->
             
-                <p class="responsive small no-projects-selected">
+                <p class="responsive small no-projects-selected hide-without-js">
                     <span lang="en">No projects fitting the requirements found.</span>
                     <span lang="de">Keine Projekte passend zu den Anforderungen gefunden.</span>
+                </p>
+            
+                <p class="responsive small hide-with-js">
+                    <span lang="en">Please enable JavaScript in your browser to load the projects.</span>
+                    <span lang="de">Bitte aktivieren Sie JavaScript in ihrem Browser, um die Projekte zu laden.</span>
                 </p>
             
             </div>
@@ -491,7 +321,7 @@
 
     <footer>
 
-        <button id="to-top" class="hide-without-js" title="Go to top" title-de="Nach oben">
+        <button id="to-top" class="hide-without-js" title="Go to top" data-title-de="Nach oben">
             <b>
                 <i class="head1"></i>
                 <i class="head2"></i>
