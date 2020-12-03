@@ -628,7 +628,7 @@ var PROJECT = {
             var tags = _.create('ul.tags').appendTo(project_info);
             for (var j = 0, len = PROJECT_CATEGORIES.length; j < len; j++) {
                 var category = PROJECT_CATEGORIES[j];
-                if (project.categories.includes(category.id)) {
+                if (_.isInArray(project.categories, category.id)) {
                     var li = _.create('li').appendTo(tags);
                     var category_lang_keys = Object.keys(category.lang);
                     for (var k = category_lang_keys.length; k--;) {
