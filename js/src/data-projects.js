@@ -111,33 +111,8 @@ var PROJECTS = [
                 "link" : "https://github.com/christiandunkel/time-visualizer"
             }
         ],
-        "categories" : ["app", "website", "css", "js"],
+        "categories" : ["website", "css", "js"],
         "image" : "img/project-time-visualizer.jpg",
-        "year" : 2019
-    },
-    
-    {
-        "lang" : {
-            "de" : {
-                "title" : "Power Prefixer",
-                "description" : "Der Power-Präfixer ist eine SCSS-Bibliothek zum automatischen Hinzufügen von Hersteller-spezifischen Präfixen zu CSS-Eigenschaften."
-            },
-            "en" : {
-                "title" : "Power Prefixer",
-                "description" : "The power prefixer is a SCSS library for automatically prefixing CSS properties with vendor-specific prefixes."
-            }
-        },
-        "links" : [
-            {
-                "lang" : {
-                    "de" : "GitHub",
-                    "en" : "GitHub"
-                },
-                "link" : "https://github.com/christiandunkel/power-prefixer.scss"
-            }
-        ],
-        "categories" : ["lib", "css"],
-        "image" : "img/project-power-prefixer.png",
         "year" : 2019
     },
     
