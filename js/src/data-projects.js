@@ -62,6 +62,38 @@ var PROJECTS = [
     {
         "lang" : {
             "de" : {
+                "title" : "M18 Demo Webseite",
+                "description" : "Diese Demo wurde als mögliches Webseitendesign für den Studierenden Konvent M18 in Weimar erstellt."
+            },
+            "en" : {
+                "title" : "M18 Demo Website",
+                "description" : "This demo was created as a possible website design for the student convention M18 in Weimar."
+            }
+        },
+        "links" : [
+            {
+                "lang" : {
+                    "de" : "Webseite",
+                    "en" : "Website"
+                },
+                "link" : "https://christiandunkel.github.io/m18-website/"
+            },
+            {
+                "lang" : {
+                    "de" : "GitHub",
+                    "en" : "GitHub"
+                },
+                "link" : "https://github.com/christiandunkel/m18-website"
+            }
+        ],
+        "categories" : ["website", "js"],
+        "image" : "img/project-m18-original.png",
+        "year" : 2020
+    },
+    
+    {
+        "lang" : {
+            "de" : {
                 "title" : "Lecture.js",
                 "description" : "Lecture.js ist eine Software zur Umwandlung eines Skripts und Folien zu einer gesprochenen Videopräsentation mittels fortgeschrittener Text-zu-Sprache-Dienste."
             },
