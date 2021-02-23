@@ -921,6 +921,13 @@ var SECTION = {
         SECTION.loadAnimatedBackground();
         
         window.onEvent('keyup', SECTION.tabEvent);
+        
+        // set the current year string
+        var year_elems = _.class('current-year');
+        var current_year = (new Date()).getFullYear();
+        for (var i = 0, len = year_elems.length; i < len; i++) {
+            year_elems[i].innerHTML = current_year;
+        }
     },
     
     // on every tab, check if the tabbed element is inside a section
