@@ -3,50 +3,47 @@ var NODE = {
     
     initialize : function () {
         // general elements
-        NODE.html = document.documentElement || _.tag('html')[0];
-        NODE.head = document.head || _.tag('head')[0];
-        NODE.body = document.body || _.tag('body')[0];
-        NODE.main = _.tag('main')[0];
-        NODE.animated_background = _.id('animated-background');
+        NODE.main = document.querySelector('main');
+        NODE.animated_background = document.querySelector('#animated-background');
 
         // navigation
-        NODE.nav                = _.id('nav');
-        NODE.nav_links          = _.tag('a', _.class('content', NODE.mobile_menu)[0]);
+        NODE.nav = document.querySelector('#nav');
+        NODE.nav_links = Array.from(NODE.mobile_menu.querySelector('.content').querySelectorAll('a'));
         // add CSS for the nav indicator
         // (dependent on browser and button content)
-        NODE.nav_indicator      = _.class('hover-bg')[0];
+        NODE.nav_indicator = document.querySelector('.hover-bg');
 
         // hidden mobile menu
-        NODE.hamburger_btn      = _.id('hamburger-btn');
-        NODE.mobile_menu        = _.id('mobile-menu');
-        NODE.mobile_overlay     = _.class('overlay', NODE.mobile_menu)[0];
+        NODE.hamburger_btn = document.querySelector('#hamburger-btn');
+        NODE.mobile_menu = document.querySelector('#mobile-menu');
+        NODE.mobile_overlay = NODE.mobile_menu.querySelector('.overlay');
         // logo visible on mobile view
-        NODE.mobile_logo        = _.class('mobile-logo', NODE.nav)[0];
+        NODE.mobile_logo = NODE.nav.querySelector('.mobile-logo');
 
         // semantic sections of site
-        NODE.sections           = _.class('content-section');
+        NODE.sections = Array.from(document.querySelectorAll('.content-section'));
 
         // language selection
-        NODE.lang_btn           = _.id('language-btn');
+        NODE.lang_btn = document.querySelector('#language-btn');
         // elements with title attributes
-        NODE.titled_elems       = _.query('[title]');
+        NODE.titled_elems = Array.from(document.querySelectorAll('[title]'));
         NODE.valid_titled_elems = [];
 
         // project selection
-        NODE.project_category_btns  = _.class('project-select-btn');
-        NODE.project_container      = _.id('projects-container');
-        NODE.project_cards          = _.class('project');
-        NODE.project_card_show_info_btns = _.class('project-show-info-btn');
-        NODE.project_settings_btn   = _.id('project-settings-btn');
-        NODE.project_settings_menu  = _.id('project-settings-menu');
-        NODE.project_switch_logic   = _.id('project-switch-logic-btn');
+        NODE.project_category_btns = Array.from(document.querySelectorAll('.project-select-btn'));
+        NODE.project_container = document.querySelector('#projects-container');
+        NODE.project_cards = Array.from(document.querySelectorAll('.project'));
+        NODE.project_card_show_info_btns = Array.from(document.querySelectorAll('.project-show-info-btn'));
+        NODE.project_settings_btn = document.querySelector('#project-settings-btn');
+        NODE.project_settings_menu = document.querySelector('#project-settings-menu');
+        NODE.project_switch_logic = document.querySelector('#project-switch-logic-btn');
 
         // footer
-        NODE.footer            = _.tag('footer')[0];
-        NODE.to_top_btn        = _.id('to-top');
-        NODE.footer_graphic    = _.id('footer-graphic');
-        NODE.footer_graphic_l1 = _.class('layer1', NODE.footer_graphic)[0];
-        NODE.footer_graphic_l2 = _.class('layer2', NODE.footer_graphic)[0];
+        NODE.footer = document.querySelector('footer');
+        NODE.to_top_btn = document.querySelector('#to-top');
+        NODE.footer_graphic = document.querySelector('#footer-graphic');
+        NODE.footer_graphic_l1 = NODE.footer_graphic.querySelector('.layer1');
+        NODE.footer_graphic_l2 = NODE.footer_graphic.querySelector('.layer2');
         
         delete NODE.initialize;
     }
@@ -62,8 +59,8 @@ var NAV = {
     initialize : function () {
         
         // add effect to mobile nav button
-        NODE.hamburger_btn.onClick(NAV.toggleWindow);
-        NODE.mobile_overlay.onClick(NAV.closeWindow);
+        NODE.hamburger_btn.addEventListener('click', NAV.toggleWindow);
+        NODE.mobile_overlay.addEventListener('click', NAV.closeWindow);
         
         // remove anchor link and add scroll effect to nav links
         for (var i = NODE.nav_links.length + 1; i--;) {
@@ -80,37 +77,32 @@ var NAV = {
             var href = a.href.replace(/.*#/i, '');
 
             // save reference to HTML element
-            NODE['section_' + href] = _.id(href);
+            NODE['section_' + href] = document.querySelector('#'+href);
 
-            a.onClick(SCROLL.toSection);
-
+            a.addEventListener('click', SCROLL.toSection);
         }
         
         // update semantic sections
         NAV.updateSectionData();
         
         // update sizes/positions for section indicator dynamically
-        window
-            .onLoad(NAV.updateSectionIndicator)
-            .onEvent('resize', function () {
-                NAV.updateSectionData();
-                NAV.setLinkForSectionActive();
-                NAV.updateSectionIndicator();
-            });
+        addEventListener('load', NAV.updateSectionIndicator);
+        addEventListener('resize', function () {
+            NAV.updateSectionData();
+            NAV.setLinkForSectionActive();
+            NAV.updateSectionIndicator();
+        });
         
         // scroll to top effect on click
-        NODE.to_top_btn.onClick(SCROLL.toTop);
+        NODE.to_top_btn.addEventListener('click', SCROLL.toTop);
     },
     
     is_open : false,
     
     openWindow : function () {
-        
         if (!NAV.is_open) {
-            
             NAV.is_open = true;
-            NODE.html.addClass('mobile-nav-open');
-            
+            document.documentElement.classList.add('mobile-nav-open');
             FOCUS_CHAIN.set([
                 NODE.nav_links[1],
                 NODE.nav_links[2],
@@ -118,17 +110,13 @@ var NAV = {
                 NODE.lang_btn,
                 NODE.hamburger_btn
             ]);
-            
         }
-        
     },
 
     closeWindow : function () {
-        
         if (NAV.is_open) {
-            
             NAV.is_open = false;
-            NODE.html.removeClass('mobile-nav-open');
+            document.documentElement.classList.remove('mobile-nav-open');
             
             // focus on mobile menu button
             setTimeout(function () {
@@ -136,9 +124,7 @@ var NAV = {
             }, 150);
             
             FOCUS_CHAIN.reset();
-            
-        }
-        
+        }        
     },
 
     toggleWindow : function () {
@@ -165,29 +151,29 @@ var NAV = {
         }
 
         var selector = '#nav .content';
-        var style    = selector + ' .hover-bg {display: block !important;}';
-        var num      = NODE.nav_links.length;
+        var style = selector + ' .hover-bg {display: block !important;}';
+        var num = NODE.nav_links.length;
 
         if (num == 0) return;
 
         var sizes = {
-            height      : _.getHeight(NODE.nav_links[1]),
-            marginLeft  : {},
-            marginRight : {},
-            width       : {},
-            left        : {}
+            height: NODE.nav_links[1].getBoundingClientRect().height,
+            marginLeft: {},
+            marginRight: {},
+            width: {},
+            left: {}
         };
 
         // get sizes of all elements
         for (var i = 0; i < num; i++) {
             
             // get computed CSS values
-            sizes.width[i]      = _.getWidth(NODE.nav_links[i]);
+            sizes.width[i] = NODE.nav_links[i].getBoundingClientRect().width;
             sizes.marginLeft[i] = Number.parseFloat(
-                _.getStyle(NODE.nav_links[i], 'margin-left').replace(/[a-z]+/gi, '')
+                getComputedStyle(NODE.nav_links[i]).getPropertyValue('margin-left').replace(/[a-z]+/gi, '')
             );
             sizes.marginRight[i] = Number.parseFloat(
-                _.getStyle(NODE.nav_links[i], 'margin-right').replace(/[a-z]+/gi, '')
+                getComputedStyle(NODE.nav_links[i]).getPropertyValue('margin-right').replace(/[a-z]+/gi, '')
             );
 
             // calculate x position
@@ -201,9 +187,6 @@ var NAV = {
 
         // generate code for '.active' CSS effect
         for (var i = 0; i < num; i++) {
-
-            var elem = NODE.nav_links[i];
-
             style += selector + ' a.a' + i + '.active ~ .hover-bg {'
                    +    'left:'    + sizes.left[i] + 'px;'
                    +    'width:'   + sizes.width[i] + 'px;'
@@ -214,9 +197,6 @@ var NAV = {
         // generate code for ':hover' CSS effect
         // (must come after '.active' effect to overwrite it)
         for (var i = 0; i < num; i++) {
-
-            var elem = NODE.nav_links[i];
-
             style += selector + ' a.a' + i + ':hover ~ .hover-bg {'
                    +    'left:'    + sizes.left[i] + 'px;'
                    +    'width:'   + sizes.width[i] + 'px;'
@@ -225,10 +205,10 @@ var NAV = {
         }
 
         NODE.nav_indicator_style = _.create('style', {
-                type : 'text/css',
-                innerHTML : style
-            })
-            .appendTo(NODE.head);
+            type: 'text/css',
+            innerHTML: style
+        });
+        document.head.append(NODE.nav_indicator_style);
     },
     
     // set nav link active depending on which section is currently in view
@@ -248,15 +228,15 @@ var NAV = {
         var active_btn = NODE.nav_links[section];
 
         // test if the current button is already active
-        if (_.hasClass(active_btn, 'active')) {
+        if (active_btn.classList.contains('active')) {
             return;
         }
 
         // if not, enable it and disable all other buttons
         for (var i = NODE.nav_links.length; i--;) {
-            NODE.nav_links[i].removeClass('active');
+            NODE.nav_links[i].classList.remove('active');
         }
-        active_btn.addClass('active');
+        active_btn.classList.add('active');
     }
 };
 
@@ -270,12 +250,12 @@ var LANG = {
     initialize : function () {
         
         // events to open and close language menu
-        NODE.lang_btn.onClick(LANG.toggleLanguage);
+        NODE.lang_btn.addEventListener('click', LANG.toggleLanguage);
         
         LANG.filterTitledElements();
         
         // if language was changed by language detection in <head> element
-        if (NODE.html.getAttribute('lang') != 'en') {
+        if (document.documentElement.getAttribute('lang') != 'en') {
             LANG.updateTitles();
         }
         
@@ -283,9 +263,9 @@ var LANG = {
     
     language_order : ['en', 'de'],
     
-    toggleLanguage : function (lang) {
+    toggleLanguage : function () {
 
-        var current_lang = NODE.html.getAttribute('lang');
+        var current_lang = document.documentElement.getAttribute('lang');
         
         for (var i = 0, len = LANG.language_order.length; i < len; i++) {
             
@@ -298,7 +278,7 @@ var LANG = {
                 }
 
                 // set value of global lang attribute
-                NODE.html.setAttribute('lang', LANG.language_order[next]);
+                document.documentElement.setAttribute('lang', LANG.language_order[next]);
                 
                 LANG.updateTitles();
                 NAV.updateSectionData();
@@ -331,7 +311,7 @@ var LANG = {
     // update HTML titles to the current language selected
     updateTitles : function () {
         
-        var lang_code = NODE.html.getAttribute('lang');
+        var lang_code = document.documentElement.getAttribute('lang');
 
         // loop all (valid) titled elements
         for (var i = NODE.valid_titled_elems.length; i--;) {
@@ -372,7 +352,7 @@ var FOCUS_CHAIN = {
         // remove focus from element that currently has focus
         document.activeElement.blur();
         
-        if (_.isArray(input)) {
+        if (Array.isArray(input)) {
             FOCUS_CHAIN.selection_type = 1;
             FOCUS_CHAIN.elems = input;
         }
@@ -383,7 +363,7 @@ var FOCUS_CHAIN = {
             FOCUS_CHAIN.elems_container = input.container;
         }
         
-        window.onEvent('keydown', FOCUS_CHAIN.event);
+        addEventListener('keydown', FOCUS_CHAIN.event);
     },
     
     reset : function () {
@@ -396,7 +376,7 @@ var FOCUS_CHAIN = {
         FOCUS_CHAIN.end_elem = null;
         FOCUS_CHAIN.elems_container = null;
         
-        window.removeEvent('keydown', FOCUS_CHAIN.event);
+        removeEventListener('keydown', FOCUS_CHAIN.event);
     },
     
     event : function (e) {
@@ -496,13 +476,9 @@ var FOCUS_CHAIN = {
         // check element that now gets focus
         setTimeout(function () {
             
-            if (
-                // if no element inside window is being focussed
-                !FOCUS_CHAIN.elems_container.contains(document.activeElement)
-            ) {
-                
+            // if no element inside window is being focussed
+            if (!FOCUS_CHAIN.elems_container.contains(document.activeElement)) {
                 e.preventDefault();
-                
                 // if user is tabbing backwards, focus end_elem
                 if (go_backwards) {
                     FOCUS_CHAIN.end_elem.focus();
@@ -511,9 +487,7 @@ var FOCUS_CHAIN = {
                 else {
                     FOCUS_CHAIN.start_elem.focus();
                 }
-                
             }
-            
         }, 5);
         
     }
@@ -543,10 +517,10 @@ var PROJECT = {
             
             // create a button element and add it to the DOM
             var btn = _.create('button.project-select-btn.responsive.small.inactive', {
-                    innerHTML : btn_content,
-                    'data-select-category' : category.id 
-                })
-                .addAfter(NODE.project_settings_menu);
+                innerHTML : btn_content,
+                'data-select-category' : category.id 
+            });
+            btn.after(NODE.project_settings_menu);
         }
         
         // create project-cards from project data
@@ -561,29 +535,28 @@ var PROJECT = {
             }
             var card = _.create('div.project', {
                     'data-categories' : project_categories
-                })
-                .prependTo(NODE.project_container);
+                });
+            NODE.project_container.prepend(card);
             
-            _.create('a', {
-                    href : project.links[0].link,
-                    target : '_blank',
-                    rel : 'noopener noreferrer',
-                    innerHTML : '<figure>' +
-                                    '<img class="image" loading="lazy" src="' + project.image + '" alt="' + project.lang.en.title + ' Preview Image" />' +
-                                '</figure>'
-                })
-                .appendTo(card);
+            var project_link = _.create('a', {
+                href : project.links[0].link,
+                target : '_blank',
+                rel : 'noopener noreferrer',
+                innerHTML : '<figure>' +
+                                '<img class="image" loading="lazy" src="' + project.image + '" alt="' + project.lang.en.title + ' Preview Image" />' +
+                            '</figure>'
+            });
+            card.append(project_link);
             
-            var project_info = _.create('div.project-info').appendTo(card);
-            var heading = _.create('h3.heading').appendTo(project_info);
-            
-            _.create('time.year', {
-                    innerHTML : project.year,
-                    datetime : project.year
-                })
-                .appendTo(project_info);
-            
-            var description = _.create('p.desc').appendTo(project_info);
+            var project_info = _.create('div.project-info');
+            var heading = _.create('h3.heading');
+            var date_element = _.create('time.year', {
+                innerHTML: project.year,
+                datetime: project.year
+            });
+            var description = _.create('p.desc');
+            project_info.append(heading, date_element, description);
+            card.append(project_info);
             
             // generate the language-specific heading and description
             var lang_keys = Object.keys(project.lang);
@@ -591,53 +564,60 @@ var PROJECT = {
                 
                 var lang = lang_keys[j];
                 
-                _.create('span', {
-                        lang : lang,
-                        innerHTML : project.lang[lang].title
+                heading.append(
+                    _.create('span', {
+                        lang: lang,
+                        innerHTML: project.lang[lang].title
                     })
-                    .appendTo(heading);
+                );
                 
-                _.create('span', {
-                        lang : lang,
-                        innerHTML : project.lang[lang].description
+                description.append(
+                    _.create('span', {
+                        lang: lang,
+                        innerHTML: project.lang[lang].description
                     })
-                    .appendTo(description);
+                );
             }
             
-            var links = _.create('ul.links').appendTo(project_info);
+            var links = _.create('ul.links');
+            project_info.append(links);
             for (var j = 0, len = project.links.length; j < len; j++) {
                 var link = project.links[j];
-                var li = _.create('li').appendTo(links);
+                var li = _.create('li');
+                links.append(li);
                 var a = _.create('a' + (link.link.match(/github\.com/gi) ? '.github' : ''), {
                         href : link.link,
                         target : '_blank',
                         rel : 'noopener noreferrer'
-                    })
-                    .appendTo(li);
+                    });
+                li.append(a);
                 var link_lang_keys = Object.keys(link.lang);
                 for (var k = link_lang_keys.length; k--;) {
                     var lang = link_lang_keys[k];
-                    _.create('span', {
+                    a.append(
+                        _.create('span', {
                             lang : lang,
                             innerHTML : link.lang[lang]
                         })
-                        .appendTo(a);
+                    );
                 }
             }
             
             var tags = _.create('ul.tags').appendTo(project_info);
             for (var j = 0, len = PROJECT_CATEGORIES.length; j < len; j++) {
                 var category = PROJECT_CATEGORIES[j];
-                if (_.isInArray(project.categories, category.id)) {
-                    var li = _.create('li').appendTo(tags);
+                if (project.categories.includes(category.id)) {
+                    var li = _.create('li');
+                    tags.append(li);
                     var category_lang_keys = Object.keys(category.lang);
                     for (var k = category_lang_keys.length; k--;) {
                         var lang = category_lang_keys[k];
-                        _.create('span', {
+                        li.append(
+                            _.create('span', {
                                 lang : lang,
                                 innerHTML : category.lang[lang]
                             })
-                            .appendTo(li);
+                        );
                     }
                 }
             }
@@ -654,10 +634,10 @@ var PROJECT = {
             var btn = NODE.project_category_btns[i];
             
             // save category info
-            PROJECT.categories[btn.getAttribute('data-select-category')] = !_.hasClass(btn, 'inactive');
+            PROJECT.categories[btn.getAttribute('data-select-category')] = !btn.classList.contains('inactive');
             
             // add event to toggle category on and off
-            btn.onClick(function (e) {
+            btn.addEventListener('click', function (e) {
                 
                 var target = _.target(e);
                 
@@ -672,7 +652,7 @@ var PROJECT = {
                 PROJECT.categories[category] = !PROJECT.categories[category];
                 
                 // toggle button appearance
-                target.toggleClass('inactive');
+                target.classList.toggle('inactive');
                 
                 // apply new category selection
                 PROJECT.updateSelection();
@@ -683,7 +663,7 @@ var PROJECT = {
         
         /* SETTINGS */
         
-        NODE.project_settings_btn.onClick(PROJECT.toggleSettingsMenu); 
+        NODE.project_settings_btn.addEventListener('click', PROJECT.toggleSettingsMenu); 
         
         // get amount of logic operators that can be applied to selection
         PROJECT.logic_operators_num = PROJECT.logic_operators.length;
@@ -691,7 +671,7 @@ var PROJECT = {
         PROJECT.current_logic = NODE.project_switch_logic.getAttribute('logic');
         
         // add button for switching between selection logic e.g. AND, OR
-        NODE.project_switch_logic.onClick(function () {
+        NODE.project_switch_logic.addEventListener('click', function () {
             
             var num         = PROJECT.logic_operators_num; // operator amount
             var last_index  = num - 1;
@@ -736,19 +716,18 @@ var PROJECT = {
             
             var show_info_btn = NODE.project_card_show_info_btns[i];
             
-            show_info_btn.onClick(function (e) {
-                
+            show_info_btn.addEventListener('click', function (e) {
                 var btn = _.target(e);
-                var is_shown = _.hasClass(btn, 'show');
+                var is_shown = btn.classList.contains('show');
                 
                 // remove 'show' class from other buttons
                 for (var i = NODE.project_card_show_info_btns.length; i--;) {
-                    NODE.project_card_show_info_btns[i].removeClass('show');
+                    NODE.project_card_show_info_btns[i].classList.remove('show');
                 }
                 
                 // if info was hidden previously, show it now
                 if (!is_shown) {
-                    btn.addClass('show');
+                    btn.classList.add('show');
                 }
             
             });
@@ -771,33 +750,28 @@ var PROJECT = {
     },
     
     openSettingsMenu : function () {
-        
+
         PROJECT.settings_menu_is_open = true;
-        
-        NODE.project_settings_menu
-            .addClass('show')
-            .prop('aria-hidden', 'false');
-        
+
+        NODE.project_settings_menu.classList.add('show');
+        NODE.project_settings_menu.setAttribute('aria-hidden', 'false');
+
         setTimeout(function () {
-            document
-                .onClick(PROJECT.handleClickOutsideSettingsMenu)
-                .onEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
+            document.addEventListener('click', PROJECT.handleClickOutsideSettingsMenu);
+            document.addEventListener('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         }, 50);
-        
     },
     
     closeSettingsMenu : function () {
         
         PROJECT.settings_menu_is_open = false;
         
-        NODE.project_settings_menu
-            .removeClass('show')
-            .prop('aria-hidden', 'true');
+        NODE.project_settings_menu.classList.remove('show');
+        NODE.project_settings_menu.setAttribute('aria-hidden', 'true');
         
         // remove events if still existing
-        document
-            .removeClick(PROJECT.handleClickOutsideSettingsMenu)
-            .removeEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
+        document.removeEventListener('click', PROJECT.handleClickOutsideSettingsMenu);
+        document.removeEventListener('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         
     },
     
@@ -814,12 +788,9 @@ var PROJECT = {
             elem != NODE.project_settings_btn &&
             !NODE.project_settings_btn.contains(elem)
         ) {
-            
             PROJECT.closeSettingsMenu();
-            
-            document
-                .removeClick(PROJECT.handleClickOutsideSettingsMenu)
-                .removeEvent('touchstart', PROJECT.handleClickOutsideSettingsMenu);
+            document.removeEventListener('click', PROJECT.handleClickOutsideSettingsMenu);
+            document.removeEventListener('touchstart', PROJECT.handleClickOutsideSettingsMenu);
         }
         
     },
@@ -850,7 +821,7 @@ var PROJECT = {
             
             // if no category is selected, show all cards
             if (no_category_selected) {
-                card.removeClass('hidden');
+                card.classList.remove('hidden');
                 continue;
             }
             
@@ -881,7 +852,7 @@ var PROJECT = {
                     // if OR logic, enable card if just one selected category was found on it
                     if (PROJECT.current_logic == 'OR') {
                         // toggle project card on
-                        card.removeClass('hidden');
+                        card.classList.remove('hidden');
                         continue card_loop;
                     }
                     // if AND logic, enable card if all selected categories were found on it
@@ -897,13 +868,13 @@ var PROJECT = {
             if (PROJECT.current_logic == 'AND') {
                 // show card, if total category counter equals the categories on the item
                 if (category_counter == categories_apply) {
-                    card.removeClass('hidden');
+                    card.classList.remove('hidden');
                     continue;
                 }
             }
             
             // otherwise, if reached here, hide project card
-            card.addClass('hidden');
+            card.classList.add('hidden');
         }
         
     }
@@ -920,10 +891,10 @@ var SECTION = {
         
         SECTION.loadAnimatedBackground();
         
-        window.onEvent('keyup', SECTION.tabEvent);
+        addEventListener('keyup', SECTION.tabEvent);
         
         // set the current year string
-        var year_elems = _.class('current-year');
+        var year_elems = document.querySelectorAll('.current-year');
         var current_year = (new Date()).getFullYear();
         for (var i = 0, len = year_elems.length; i < len; i++) {
             year_elems[i].innerHTML = current_year;
@@ -952,7 +923,7 @@ var SECTION = {
             }
             
             // if section was found, make it appear if it's hidden
-            target.addClass('appear');
+            target.classList.add('appear');
         }
         
     },
@@ -980,10 +951,8 @@ var SECTION = {
         
         SECTION.playAnimatedBackground();
         
-        window
-            .onEvent('focus', SECTION.playAnimatedBackground)
-            .onEvent('blur', SECTION.clearAnimatedBackground);
-        
+        addEventListener('focus', SECTION.playAnimatedBackground);
+        addEventListener('blur', SECTION.clearAnimatedBackground);        
     },
     
     background_interval : null,
@@ -1067,9 +1036,9 @@ var SECTION = {
             styles.style['animation-delay'] = '-' + (animation_delay || 0) + 's';
         }
         var animation = (_.randomInt(0,1) == 0 ? 'rotating-left' : 'rotating-right');
-        var square_wrapper = _.create('div.square-wrapper.' + animation, styles)
-            .append(square)
-            .appendTo(NODE.animated_background);
+        var square_wrapper = _.create('div.square-wrapper.' + animation, styles);
+        square_wrapper.append(square)
+        NODE.animated_background.append(square_wrapper);
         
         // add square to list and DOM
         SECTION.square_list[SECTION.square_list.length] = square_wrapper;
@@ -1088,7 +1057,7 @@ var SCROLL = {
         
         // don't add scroll effects on reduced motion
         if (window.matchMedia) {
-            var  media_query = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var media_query = window.matchMedia('(prefers-reduced-motion: reduce)');
             if (media_query.matches) {
                 return;
             }
@@ -1099,11 +1068,10 @@ var SCROLL = {
         setInterval(SCROLL.update, 100);
         
         // initialize footer colors as rgba objects
-        SCROLL.footer_color_l1 = _.getStyle(NODE.footer_graphic_l1, 'color');
+        SCROLL.footer_color_l1 = getComputedStyle(NODE.footer_graphic_l1).getPropertyValue('color');
         SCROLL.footer_color_l1 = _.objectifyRGBstring(SCROLL.footer_color_l1);
-        SCROLL.footer_color_l2 = _.getStyle(NODE.footer_graphic_l2, 'color');
+        SCROLL.footer_color_l2 = getComputedStyle(NODE.footer_graphic_l2).getPropertyValue('color');
         SCROLL.footer_color_l2 = _.objectifyRGBstring(SCROLL.footer_color_l2);
-        
     },
     
     scrollY      : 0,
@@ -1137,11 +1105,11 @@ var SCROLL = {
     
         // get scroll position
         SCROLL.page_height = Math.max(
-            NODE.body.scrollHeight,
-            NODE.body.offsetHeight,
-            NODE.html.clientHeight,
-            NODE.html.scrollHeight,
-            NODE.html.offsetHeight
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
         );
         SCROLL.has_scrolled = false;
         
@@ -1171,15 +1139,9 @@ var SCROLL = {
         var percentage_scrolled_of_footer = (SCROLL.footer_height - SCROLL.from_bottomY) / SCROLL.footer_height; // e.g. 0.01 (1%) to 1.0 (100%)
         var move_by = percentage_scrolled_of_footer * 6; // move by 0-6%
         
-        // move layer1 to the right
-        NODE.footer_graphic_l1.setStyles({
-            left: (original_left + move_by)+'%'
-        });
-        
-        // move layer2 to the left
-        NODE.footer_graphic_l2.setStyles({
-            left: (original_left - (move_by * .75))+'%'
-        });
+        // move layer1 to the right and layer2 to the right
+        NODE.footer_graphic_l1.style.left = (original_left + move_by)+'%';
+        NODE.footer_graphic_l2.style.left = (original_left - (move_by * .75))+'%';
             
         
         
@@ -1200,13 +1162,8 @@ var SCROLL = {
             Math.round(rgb_1.g) + ',' + 
             Math.round(rgb_1.b) + 
         ')';
-        NODE.footer_graphic_l1.setStyles({
-            color : color_1
-        });
-
-        NODE.footer.setStyles({
-            'background-color' : color_1
-        });
+        NODE.footer_graphic_l1.style.color = color_1;
+        NODE.footer.style.backgroundColor = color_1;
 
         // lerp colors of layer 2
         var rgb_2 = _.lerpColorRGB(
@@ -1219,9 +1176,7 @@ var SCROLL = {
             Math.round(rgb_2.g) + ',' +
             Math.round(rgb_2.b) +
         ')';
-        NODE.footer_graphic_l2.setStyles({
-            color : color_2
-        });
+        NODE.footer_graphic_l2.style.color = color_2;
     },
     
     // fades in sections after scrolling to them
@@ -1232,13 +1187,13 @@ var SCROLL = {
         // show all sections, if one has (almost) scrolled to the bottom
         if (SCROLL.from_bottomY < 200) {
             for (var i = NODE.sections.length; i--;) {
-                NODE.sections[i].addClass('appear');
+                NODE.sections[i].classList.add('appear');
             }
         }
         // otherwise, check if any section has not yet appeared
         else {
             for (var i = NODE.sections.length; i--;) {
-                if (!_.hasClass(NODE.sections[i], 'appear')) {
+                if (!NODE.sections[i].classList.contains('appear')) {
                     all_appeared = false;
                     break;
                 }
@@ -1264,7 +1219,7 @@ var SCROLL = {
 
         // filter out intro section
         if (section != 0) {
-            NODE.sections[section - 1].addClass('appear');
+            NODE.sections[section - 1].classList.add('appear');
         }
     },
     
@@ -1402,7 +1357,8 @@ var SCROLL = {
     // triggers an animated scroll effect towards a semantic section
     toSection : function (e) {
 
-        _.preventDefault(e);
+        e.preventDefault();
+        e.stopPropagation();
 
         // get anchor link (element id)
         var target = _.target(e);
@@ -1419,9 +1375,9 @@ var SCROLL = {
 
         // set button as active, and all others inactive
         for (var i = NODE.nav_links.length; i--;) {
-            NODE.nav_links[i].removeClass('active');
+            NODE.nav_links[i].classList.remove('active');
         }
-        target.addClass('active');
+        target.classList.add('active');
     }
     
 };
