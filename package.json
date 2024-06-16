@@ -1,15 +1,15 @@
 {
-    "name": "portfolio-website",
-    "version": "1.0.0",
-    "main": "js/src/minify.js",
-    "description": "Portfolio Website",
-    "homepage": "https://christiandunkel.github.io/",
-    "keywords": [
-        "portfolio"
-    ],
-    "author": "Christian Dunkel",
-    "contributors": [],
-    "dependencies": {
-        "uglify-js": "3.18.0"
-    }
+	"name": "portfolio-website",
+	"version": "1.0.0",
+	"main": "js/src/minify.js",
+	"description": "Portfolio Website",
+	"homepage": "https://christiandunkel.github.io/",
+	"keywords": [
+		"portfolio"
+	],
+	"author": "Christian Dunkel",
+	"contributors": [],
+	"dependencies": {
+		"uglify-js": "3.18.0"
+	}
 }

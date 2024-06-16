@@ -1,58 +1,58 @@
 /* GENERIC */
 
 main {
-    position: relative;
-    padding: 0 5vw;
-    text-align: center;
+	position: relative;
+	padding: 0 5vw;
+	text-align: center;
 }
 
 section {
-    position: relative; z-index: 2;
-    max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
-    text-align: left;
-    
-    &.content-section {
-        padding: 90px 20px;
-    }
-    
-    
-    
-    // fade in animations on page load
-    &#intro {
-        .greet {
-            @include animation(fade-in-from-top 1s .45s, invisible .5s);
-        }
-        .name {
-            @include animation(fade-in-from-top 1.2s .95s, invisible 1s);
-        }
-        .desc {
-            @include animation(fade-in-from-top 1.4s 1.45s, invisible 1.5s);
-        }
-        
-    }
-    
-    // fade in animations when scrolling down
-    .js-on & {
-        
-        &#about, 
-        &#projects, 
-        &#contact {
-            @include animation(invisible 1s infinite);
+	position: relative; z-index: 2;
+	max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
+	text-align: left;
 
-            &.appear {
-                 @include animation(fade-in-from-top 1s);
-            }
-        } 
-    }
-        
-    @include ON_REDUCED_MOTION {
-        &#intro *,
-        &#about, 
-        &#projects, 
-        &#contact {
-            @include animation(none !important);
-        }
-    }
+	&.content-section {
+		padding: 90px 20px;
+	}
+
+
+
+	// fade in animations on page load
+	&#intro {
+		.greet {
+			@include animation(fade-in-from-top 1s .45s, invisible .5s);
+		}
+		.name {
+			@include animation(fade-in-from-top 1.2s .95s, invisible 1s);
+		}
+		.desc {
+			@include animation(fade-in-from-top 1.4s 1.45s, invisible 1.5s);
+		}
+
+	}
+
+	// fade in animations when scrolling down
+	.js-on & {
+
+		&#about, 
+		&#projects, 
+		&#contact {
+			@include animation(invisible 1s infinite);
+
+			&.appear {
+				 @include animation(fade-in-from-top 1s);
+			}
+		} 
+	}
+
+	@include ON_REDUCED_MOTION {
+		&#intro *,
+		&#about, 
+		&#projects, 
+		&#contact {
+			@include animation(none !important);
+		}
+	}
 }
 
 
@@ -61,148 +61,148 @@ section {
 
 // animated background behind intro text (and parts of the about section)
 #animated-background {
-    position: absolute; top: 0; left: 0; z-index: 0;
-    width: 100%;
-    height: 102vh; min-height: (700px/100*102); // height relative (102vh) to min height of #intro section
-    @include animation(fade-in 2s);
-        
-    // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
-    @include transition(height 2s .5s);
-        
-    @include ON_REDUCED_MOTION {
-        @include animation(none);
-    }
+	position: absolute; top: 0; left: 0; z-index: 0;
+	width: 100%;
+	height: 102vh; min-height: (700px/100*102); // height relative (102vh) to min height of #intro section
+	@include animation(fade-in 2s);
 
-    .square-wrapper {
-        display: inline-block; position: absolute; top: 112%; z-index: 0;
-        overflow: hidden; background-color: $bg-color;
-        @include border-radius(6%);
-        @include transform(rotate(0deg) translate(0,-100%));
+	// to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
+	@include transition(height 2s .5s);
 
-        &.rotating-left {
-            @include animation(square-float-up-left 43s linear forwards);
-        }
-        &.rotating-right {
-            @include animation(square-float-up-right 43s linear forwards);
-        }
-        
-        .square {
-            display: block; position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
+	@include ON_REDUCED_MOTION {
+		@include animation(none);
+	}
 
-            &.red {
-                background-color: lighten($red, 38%);
-            }
-            &.blue {
-                background-color: lighten($blue, 52%);
-            }
-            
-            @include animation(long-fade-in 25s linear);
-        }
-    }
+	.square-wrapper {
+		display: inline-block; position: absolute; top: 112%; z-index: 0;
+		overflow: hidden; background-color: $bg-color;
+		@include border-radius(6%);
+		@include transform(rotate(0deg) translate(0,-100%));
+
+		&.rotating-left {
+			@include animation(square-float-up-left 43s linear forwards);
+		}
+		&.rotating-right {
+			@include animation(square-float-up-right 43s linear forwards);
+		}
+
+		.square {
+			display: block; position: absolute; top: 0; left: 0;
+			width: 100%; height: 100%;
+
+			&.red {
+				background-color: lighten($red, 38%);
+			}
+			&.blue {
+				background-color: lighten($blue, 52%);
+			}
+
+			@include animation(long-fade-in 25s linear);
+		}
+	}
 }
 
 @include keyframes(square-float-up-left) {
-    0% {@include transform(rotate(-200deg));}
-    100% {top: 0%;}
+	0% {@include transform(rotate(-200deg));}
+	100% {top: 0%;}
 }
 
 @include keyframes(square-float-up-right) {
-    0% {@include transform(rotate(200deg));}
-    100% {top: 0%;}
+	0% {@include transform(rotate(200deg));}
+	100% {top: 0%;}
 }
 
 @include keyframes(long-fade-in) {
-    0% {@include opacity(0);}
-    20% {@include opacity(0.3);}
-    100% {@include opacity(1);}
+	0% {@include opacity(0);}
+	20% {@include opacity(0.3);}
+	100% {@include opacity(1);}
 }
 
 #intro {
-    
-    .text {
-        
-        // apply flex column to fix the div not centering in IE, since no height is set
-        // https://stackoverflow.com/a/33222765
-        @include display(flex);
-        @include flex-direction(column);
-        
-        position: relative; z-index: 2;
-        max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
-    }
-    
-    .flex {
-        
-        // center element using flex-box
-        @include display(flex);
-        @include align-items(center);
-        @include justify-content(center);
-        
-        position: relative;
-        max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
-        
-        // to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
-        @include transition(min-height 2s .5s);
-    }
-    
-    .center {
-        display: inline-block;
-        font-size: 100px; font-size: 7.5vw;
-    
-        @media (min-width: 1000px) {
-            font-size: 75px;
-        }
-        
-        > * {
-            display: inline-block;
-            line-height: 1.3em;
-        }
-        
-        .greet,
-        .desc {
-            padding: .04em .25em;
-            @include border-radius(.15em);
-        }
 
-        .greet {
-            background-color: #f9e9e9; border: .07em solid $red;
-            color: $red; font-size: 1em;
-        }
-        
-        .name {
-            margin: 0;
-            font-size: 2.2em; font-weight: 700;
-            color: $red;
-            
-            span {
-                padding: 0 3%;
-                background: $red;
-                color: $bg-color;
-                @include border-radius(.1em);
-            }
-        }
-        
-        .desc {
-            margin-top: .2em;
-            background-color: #e9f4f9; border: .07em solid $blue;
-            color: $blue; font-size: .8em; line-height: 1.2em;
-            
-            b {
-                font-weight: 700;
-            }
-        }
-    }
+	.text {
+
+		// apply flex column to fix the div not centering in IE, since no height is set
+		// https://stackoverflow.com/a/33222765
+		@include display(flex);
+		@include flex-direction(column);
+
+		position: relative; z-index: 2;
+		max-width: $max-width; width: 100%; margin: 0 auto; padding: 0 20px;
+	}
+
+	.flex {
+
+		// center element using flex-box
+		@include display(flex);
+		@include align-items(center);
+		@include justify-content(center);
+
+		position: relative;
+		max-width: none; width: auto; min-height: 100vh; padding: 100px 0 30px 0;
+
+		// to smoothen the process when the mobile navbar is retracted or reappears (which affects vh units)
+		@include transition(min-height 2s .5s);
+	}
+
+	.center {
+		display: inline-block;
+		font-size: 100px; font-size: 7.5vw;
+
+		@media (min-width: 1000px) {
+			font-size: 75px;
+		}
+
+		> * {
+			display: inline-block;
+			line-height: 1.3em;
+		}
+
+		.greet,
+		.desc {
+			padding: .04em .25em;
+			@include border-radius(.15em);
+		}
+
+		.greet {
+			background-color: #f9e9e9; border: .07em solid $red;
+			color: $red; font-size: 1em;
+		}
+
+		.name {
+			margin: 0;
+			font-size: 2.2em; font-weight: 700;
+			color: $red;
+
+			span {
+				padding: 0 3%;
+				background: $red;
+				color: $bg-color;
+				@include border-radius(.1em);
+			}
+		}
+
+		.desc {
+			margin-top: .2em;
+			background-color: #e9f4f9; border: .07em solid $blue;
+			color: $blue; font-size: .8em; line-height: 1.2em;
+
+			b {
+				font-weight: 700;
+			}
+		}
+	}
 }
 
 #about {
-    
-    &:before {
-        content: '';
-        position: absolute; top: 4vh; left: 50%; z-index: 1;
-        width: 300%; height: 2vh;
-        background-color: $red;
-        @include transform(translate(-50%,0) rotate(-2deg));
-    }
+
+	&:before {
+		content: '';
+		position: absolute; top: 4vh; left: 50%; z-index: 1;
+		width: 300%; height: 2vh;
+		background-color: $red;
+		@include transform(translate(-50%,0) rotate(-2deg));
+	}
 }
 
 
@@ -210,418 +210,418 @@ section {
 /* PROJECTS SECTION */
 
 #projects {
-    
-    &:before {
-        content: '';
-        position: absolute; top: 2vh; left: 50%; z-index: 1;
-        width: 300%; height: 3vh;
-        background-color: $blue;
-        @include transform(translate(-50%,0) rotate(2deg));
-    }
-    
-    html.js-off & {
-        
-        .project-select-btn,
-        #project-settings-btn {
-            display: none;
-        }
-    }
-    
-    #project-settings-btn {
-        @extend %icon-settings;
-        display: inline-block;
-        width: 3em; height: 3em; margin: .5em .5em 0 0; padding: 0;
-        background-repeat: no-repeat; background-position: center;
-        @include background-size(40% 40%);
-        @include opacity(.35);
-        @include transition(.2s);
-        
-        span {
-            color: transparent;
-        }
-        
-        &:hover,
-        &:focus {
-            @include opacity(.7);
-        }
-        
-        &:active {
-            @include background-size(36% 36%);
-        }
-        
-        @include ON_REDUCED_MOTION {
-            @include transition(0s);
-            
-            &:active {
-                @include background-size(40% 40%);
-            }
-        }
-    }
-    
-    #project-settings-menu {
-        display: none; position: relative; z-index: 5;
-        width: 1px; height: 1px;
-        
-        &.show {
-            display: inline-block;
-        }
-        
-        .menu {
-            display: inline-block; position: absolute; bottom: -5em; left: -6.5em;
-            min-width: 180px; width: 35em; padding: 1.5em;
-            background: #3c3c3c;
-            font-size: 1vw;
-            @include border-radius(8px);
-            @include box-shadow(
-                0 1px 1px rgba(0,0,0,0.1),
-                0 2px 2px rgba(0,0,0,0.1),
-                0 4px 4px rgba(0,0,0,0.1),
-                0 8px 8px rgba(0,0,0,0.1),
-                0 16px 16px rgba(0,0,0,0.1)
-            );
-            @include transform(translate(0,100%));
 
-            // font size manages the size of the menu and some of its parts
-            @media (min-width: 1201px) {
-                font-size: 12px;
-            }
+	&:before {
+		content: '';
+		position: absolute; top: 2vh; left: 50%; z-index: 1;
+		width: 300%; height: 3vh;
+		background-color: $blue;
+		@include transform(translate(-50%,0) rotate(2deg));
+	}
 
-            @include ON_PHONE {
-                font-size: 6px;
-            }
-            
-            &:after {
-                content: '';
-                position: absolute; top: -1.33em; left: .5em;
-                width: 0; height: 0; 
-                border-left: 2em solid transparent;
-                border-right: 2em solid transparent;
-                border-bottom: 2em solid #3c3c3c;
-                font-size: inherit;
-            }
-            
-            #project-switch-logic-btn {
-                width: 100%; padding: 1em;
-                background: rgba(255, 255, 255, 0.05);
-                text-align: left;
-                
-                &:focus,
-                &:hover {
-                    background: rgba(255, 255, 255, 0.1);
-                }
+	html.js-off & {
 
-                &:active {
-                    background: rgba(255, 255, 255, 0.2);
-                }
-                
-                i {
-                    display: block;
-                    color: #cecece; font-style: normal;
-                    @include border-radius(5px);
-                    @include transition(transform .1s, background .2s);
-                }
-                
-                b {
-                    display: inline-block; float: right;
-                    margin: 10px 0 0 10px;
-                }
+		.project-select-btn,
+		#project-settings-btn {
+			display: none;
+		}
+	}
 
-                &[logic='AND'] b:not(.and),
-                &[logic='OR'] b:not(.or) {
-                    text-decoration: line-through; font-weight: normal;
-                    font-size: .8em;
-                }
-            } 
-        }
-    }
-    
-    // category buttons
-    .project-select-btn {
-        display: inline-block;
-        margin: .5em .5em 0 0; padding: 0;
-        @include user-select(none);
-        @include border-radius(30px);
-        
-        span {
-            display: inline-block; position: relative;
-            padding: 1em;
-            background: rgba(12, 142, 255, 0.12);
-            color: $blue;
-            @include border-radius(30px);
-            @include transition(transform .1s, background .2s);
-            
-            @include ON_REDUCED_MOTION {
-                @include transition(0s);
-            }
-            
-            &:after,
-            &:before {
-                content: '';
-                position: absolute; top: .3em; right: 0; z-index: 2;
-                width: .65em; height: .15em;
-                background: currentColor;
-                @include border-radius(5px);
-            }
+	#project-settings-btn {
+		@extend %icon-settings;
+		display: inline-block;
+		width: 3em; height: 3em; margin: .5em .5em 0 0; padding: 0;
+		background-repeat: no-repeat; background-position: center;
+		@include background-size(40% 40%);
+		@include opacity(.35);
+		@include transition(.2s);
 
-            &:after {@include transform(translate(0,-50%) rotate(45deg));}
-            &:before {@include transform(translate(0,-50%) rotate(-45deg));}
-        }
-        
-        &:focus,
-        &:hover {
-            
-            span {
-                background: rgba(12, 142, 255, 0.2);
-            }
-        }
-        
-        &:active span {
-            @include transform(scale(.9));
-            
-            @include ON_REDUCED_MOTION {
-                @include transform(scale(1));
-            }
-        }
-        
-        &.inactive {
-            
-            span {
-                background: rgba(226, 226, 226, 0.5);
-                color: $lightgray;
+		span {
+			color: transparent;
+		}
 
-                &:after,
-                &:before {
-                    display: none;
-                }
-            }
-        
-            &:focus,
-            &:hover {
+		&:hover,
+		&:focus {
+			@include opacity(.7);
+		}
 
-                span {
-                    background: rgba(226, 226, 226, 0.8);
-                }
-            }
-        }
-    }
+		&:active {
+			@include background-size(36% 36%);
+		}
 
-    #projects-container {
-        @include display(flex);
-        @include flex-direction(row);
-        @include flex-wrap(wrap);
+		@include ON_REDUCED_MOTION {
+			@include transition(0s);
 
-        // add margin at top, as menu above vanished with javascript disabled
-        .js-off & {
-            margin-top: 35px;
+			&:active {
+				@include background-size(40% 40%);
+			}
+		}
+	}
 
-            @media (max-width: 650px) {
-                margin-top: 20px;
-            }
-        }
+	#project-settings-menu {
+		display: none; position: relative; z-index: 5;
+		width: 1px; height: 1px;
 
-        // message if no projects are selected
-        .no-projects-selected {
-            color: $lightgray;
-        }
+		&.show {
+			display: inline-block;
+		}
 
-        .project:not(.hidden) ~ .no-projects-selected {
-            display: none;
-        }
+		.menu {
+			display: inline-block; position: absolute; bottom: -5em; left: -6.5em;
+			min-width: 180px; width: 35em; padding: 1.5em;
+			background: #3c3c3c;
+			font-size: 1vw;
+			@include border-radius(8px);
+			@include box-shadow(
+				0 1px 1px rgba(0,0,0,0.1),
+				0 2px 2px rgba(0,0,0,0.1),
+				0 4px 4px rgba(0,0,0,0.1),
+				0 8px 8px rgba(0,0,0,0.1),
+				0 16px 16px rgba(0,0,0,0.1)
+			);
+			@include transform(translate(0,100%));
 
-        // project cards
-        .project {
-            display: inline-block; position: relative;
-            @include transition(.2s);
+			// font size manages the size of the menu and some of its parts
+			@media (min-width: 1201px) {
+				font-size: 12px;
+			}
 
-            @include ON_REDUCED_MOTION {
-                @include transition(0s);
-            }
+			@include ON_PHONE {
+				font-size: 6px;
+			}
 
-            // 3 cards beside each other
-            width: 29.2%; margin: 2%;
+			&:after {
+				content: '';
+				position: absolute; top: -1.33em; left: .5em;
+				width: 0; height: 0; 
+				border-left: 2em solid transparent;
+				border-right: 2em solid transparent;
+				border-bottom: 2em solid #3c3c3c;
+				font-size: inherit;
+			}
 
-            // 2 cards beside each other
-            @media (max-width: 1200px) {
-                width: 46%;
-            }
+			#project-switch-logic-btn {
+				width: 100%; padding: 1em;
+				background: rgba(255, 255, 255, 0.05);
+				text-align: left;
 
-            // all cards below one another
-            @media (max-width: 650px) {
-                width: 100%; margin: 7% 0;
+				&:focus,
+				&:hover {
+					background: rgba(255, 255, 255, 0.1);
+				}
 
-                figure {
-                    max-width: 400px;
-                }
-            }
+				&:active {
+					background: rgba(255, 255, 255, 0.2);
+				}
 
-            &.hidden {
-                position: absolute; z-index: 3;
-                width: 0; height: 0;
-                visibility: hidden;
-                @include transform(scale(0));
-                @include transition-property(none);
-            }
-            
-            > a {
-                display: block;
-                width: 100%;
+				i {
+					display: block;
+					color: #cecece; font-style: normal;
+					@include border-radius(5px);
+					@include transition(transform .1s, background .2s);
+				}
 
-                figure {
-                    display: block; position: relative;
-                    width: 100%; padding: 0 0 60% 0;
-                    overflow: hidden;
-                    @include border-radius(5px);
-                    @include box-shadow(
-                        0 1px 1px rgba(0,0,0,.05),
-                        0 2px 2px rgba(0,0,0,.05),
-                        0 4px 4px rgba(0,0,0,.05),
-                        0 8px 8px rgba(0,0,0,.05),
-                        0 16px 16px rgba(0,0,0,.05)
-                    );
-                    @include user-select(none);
+				b {
+					display: inline-block; float: right;
+					margin: 10px 0 0 10px;
+				}
 
-                    .image {
-                        position: absolute; top: 0; left: 50%;
-                        width: 102%;
-                        @include transform(translate(-50%,0));
-                        @include transition(1.2s);
+				&[logic='AND'] b:not(.and),
+				&[logic='OR'] b:not(.or) {
+					text-decoration: line-through; font-weight: normal;
+					font-size: .8em;
+				}
+			} 
+		}
+	}
 
-                        @include ON_REDUCED_MOTION {
-                            @include transform(none !important);
-                            @include transition(0s !important);
-                        }
-                    }
-                }
-                
-                &:hover,
-                &:focus {
-                    .image {
-                        @include transform(translate(-50%,0) scale(1.05));
-                        @include transition(.2s);
-                    }
-                }
-            } 
+	// category buttons
+	.project-select-btn {
+		display: inline-block;
+		margin: .5em .5em 0 0; padding: 0;
+		@include user-select(none);
+		@include border-radius(30px);
 
-            .project-info {
-                position: relative;
-                margin: 25px 0 7px 0;
+		span {
+			display: inline-block; position: relative;
+			padding: 1em;
+			background: rgba(12, 142, 255, 0.12);
+			color: $blue;
+			@include border-radius(30px);
+			@include transition(transform .1s, background .2s);
 
-                .heading {
-                    display: inline-block; vertical-align: bottom;
-                    margin: 0 8px 0 0;
-                    color: $gray; font-size: 28px; line-height: 1em; font-weight: 700;
-                }
-                
-                .year {
-                    display: inline-block; vertical-align: bottom;
-                    margin-top: 6px;
-                    font-size: 20px; line-height: 1em; color: $lightgray;
-                }
+			@include ON_REDUCED_MOTION {
+				@include transition(0s);
+			}
 
-                .links {
-                    margin: 10px 0 0 0; padding: 0;
-                    
-                    li {
-                        display: inline-block; list-style: none;
-                        margin: 5px 5px 0 0; padding: 0;
-                    }
+			&:after,
+			&:before {
+				content: '';
+				position: absolute; top: .3em; right: 0; z-index: 2;
+				width: .65em; height: .15em;
+				background: currentColor;
+				@include border-radius(5px);
+			}
 
-                    a {
-                        display: inline-block;
-                        padding: 10px 10px 10px 40px;
-                        background-repeat: no-repeat;
-                        text-decoration: none; font-size: 16px; line-height: 20px; color: black;
-                        @include opacity(.5);
-                        @include border-radius(3px);
-                        @include user-select(none);
-                        @include transition(.2s);
+			&:after {@include transform(translate(0,-50%) rotate(45deg));}
+			&:before {@include transform(translate(0,-50%) rotate(-45deg));}
+		}
 
-                        &.github {
-                            @extend %icon-github;
-                            @include background-size(24px 24px);
-                            background-position: 8px center;
-                        }
+		&:focus,
+		&:hover {
 
-                        &:not(.github) {
-                            @extend %icon-new-tab;
-                            @include background-size(16px 16px);
-                            background-position: 12px center;
-                        }
+			span {
+				background: rgba(12, 142, 255, 0.2);
+			}
+		}
 
-                        &:hover,
-                        &:focus {
-                            background-color: rgba(0,0,0,.1);
-                            @include opacity(1);
-                        }
-                    }
-                }
+		&:active span {
+			@include transform(scale(.9));
 
-                .desc {
-                    min-height: 48px; margin: 10px 0;
-                    overflow: hidden;
-                    font-size: 16px; color: #5a5a5a;
-                }
+			@include ON_REDUCED_MOTION {
+				@include transform(scale(1));
+			}
+		}
 
-                .tags {
-                    margin: 10px 0; padding: 0;
-                    list-style: none;
+		&.inactive {
 
-                    li {
-                        display: inline-block;
-                        padding: 5px 8px; margin: 5px 5px 0 0;
-                        background: rgba(0,0,0,.1);
-                        color: #717171; font-size: 13px;
-                        @include border-radius(2px);
-                    }
-                }
-            }
-        }
-    }
-    
-    @media (max-width: 650px) {
-        
-        hr, br {
-            display: none;
-        }
-        
-        #projects-container {
-            margin-top: 20px;
-            
-            .project {
-            
-                > a {
-                    max-width: 300px;
-                }
-                
-                .project-info {
-                    margin: 12px 0 0 0;
-                    
-                    h3 {
-                        font-size: 22px;
-                    }
-                    
-                    .desc {
-                        min-height: auto; margin: 5px 0;
-                        font-size: 15px;
-                    }
-                    
-                    .tags {
-                        display: none;
-                    }
-                    
-                    .links {
-                        
-                        a {
-                            padding: 5px 5px 5px 24px;
-                            font-size: 14px; line-height: 16px;
-                            background-position: 5px center !important;
-                            @include background-size(12px 12px !important);
-                        }
-                    }
-                }
-            }
-        }
-    }
+			span {
+				background: rgba(226, 226, 226, 0.5);
+				color: $lightgray;
+
+				&:after,
+				&:before {
+					display: none;
+				}
+			}
+
+			&:focus,
+			&:hover {
+
+				span {
+					background: rgba(226, 226, 226, 0.8);
+				}
+			}
+		}
+	}
+
+	#projects-container {
+		@include display(flex);
+		@include flex-direction(row);
+		@include flex-wrap(wrap);
+
+		// add margin at top, as menu above vanished with javascript disabled
+		.js-off & {
+			margin-top: 35px;
+
+			@media (max-width: 650px) {
+				margin-top: 20px;
+			}
+		}
+
+		// message if no projects are selected
+		.no-projects-selected {
+			color: $lightgray;
+		}
+
+		.project:not(.hidden) ~ .no-projects-selected {
+			display: none;
+		}
+
+		// project cards
+		.project {
+			display: inline-block; position: relative;
+			@include transition(.2s);
+
+			@include ON_REDUCED_MOTION {
+				@include transition(0s);
+			}
+
+			// 3 cards beside each other
+			width: 29.2%; margin: 2%;
+
+			// 2 cards beside each other
+			@media (max-width: 1200px) {
+				width: 46%;
+			}
+
+			// all cards below one another
+			@media (max-width: 650px) {
+				width: 100%; margin: 7% 0;
+
+				figure {
+					max-width: 400px;
+				}
+			}
+
+			&.hidden {
+				position: absolute; z-index: 3;
+				width: 0; height: 0;
+				visibility: hidden;
+				@include transform(scale(0));
+				@include transition-property(none);
+			}
+
+			> a {
+				display: block;
+				width: 100%;
+
+				figure {
+					display: block; position: relative;
+					width: 100%; padding: 0 0 60% 0;
+					overflow: hidden;
+					@include border-radius(5px);
+					@include box-shadow(
+						0 1px 1px rgba(0,0,0,.05),
+						0 2px 2px rgba(0,0,0,.05),
+						0 4px 4px rgba(0,0,0,.05),
+						0 8px 8px rgba(0,0,0,.05),
+						0 16px 16px rgba(0,0,0,.05)
+					);
+					@include user-select(none);
+
+					.image {
+						position: absolute; top: 0; left: 50%;
+						width: 102%;
+						@include transform(translate(-50%,0));
+						@include transition(1.2s);
+
+						@include ON_REDUCED_MOTION {
+							@include transform(none !important);
+							@include transition(0s !important);
+						}
+					}
+				}
+
+				&:hover,
+				&:focus {
+					.image {
+						@include transform(translate(-50%,0) scale(1.05));
+						@include transition(.2s);
+					}
+				}
+			} 
+
+			.project-info {
+				position: relative;
+				margin: 25px 0 7px 0;
+
+				.heading {
+					display: inline-block; vertical-align: bottom;
+					margin: 0 8px 0 0;
+					color: $gray; font-size: 28px; line-height: 1em; font-weight: 700;
+				}
+
+				.year {
+					display: inline-block; vertical-align: bottom;
+					margin-top: 6px;
+					font-size: 20px; line-height: 1em; color: $lightgray;
+				}
+
+				.links {
+					margin: 10px 0 0 0; padding: 0;
+
+					li {
+						display: inline-block; list-style: none;
+						margin: 5px 5px 0 0; padding: 0;
+					}
+
+					a {
+						display: inline-block;
+						padding: 10px 10px 10px 40px;
+						background-repeat: no-repeat;
+						text-decoration: none; font-size: 16px; line-height: 20px; color: black;
+						@include opacity(.5);
+						@include border-radius(3px);
+						@include user-select(none);
+						@include transition(.2s);
+
+						&.github {
+							@extend %icon-github;
+							@include background-size(24px 24px);
+							background-position: 8px center;
+						}
+
+						&:not(.github) {
+							@extend %icon-new-tab;
+							@include background-size(16px 16px);
+							background-position: 12px center;
+						}
+
+						&:hover,
+						&:focus {
+							background-color: rgba(0,0,0,.1);
+							@include opacity(1);
+						}
+					}
+				}
+
+				.desc {
+					min-height: 48px; margin: 10px 0;
+					overflow: hidden;
+					font-size: 16px; color: #5a5a5a;
+				}
+
+				.tags {
+					margin: 10px 0; padding: 0;
+					list-style: none;
+
+					li {
+						display: inline-block;
+						padding: 5px 8px; margin: 5px 5px 0 0;
+						background: rgba(0,0,0,.1);
+						color: #717171; font-size: 13px;
+						@include border-radius(2px);
+					}
+				}
+			}
+		}
+	}
+
+	@media (max-width: 650px) {
+
+		hr, br {
+			display: none;
+		}
+
+		#projects-container {
+			margin-top: 20px;
+
+			.project {
+
+				> a {
+					max-width: 300px;
+				}
+
+				.project-info {
+					margin: 12px 0 0 0;
+
+					h3 {
+						font-size: 22px;
+					}
+
+					.desc {
+						min-height: auto; margin: 5px 0;
+						font-size: 15px;
+					}
+
+					.tags {
+						display: none;
+					}
+
+					.links {
+
+						a {
+							padding: 5px 5px 5px 24px;
+							font-size: 14px; line-height: 16px;
+							background-position: 5px center !important;
+							@include background-size(12px 12px !important);
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 
@@ -629,90 +629,90 @@ section {
 /* CONTACT SECTION */
 
 #contact {
-    
-    &:before {
-        content: '';
-        position: absolute; top: 2vh; left: 50%; z-index: 1;
-        width: 300%; height: 4vh;
-        background-color: $red;
-        @include transform(translate(-50%,0) rotate(-2deg));
-    }
-    
-    .mail-container {
-        display: inline-block; position: relative;
-        
-        .checkbox {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            cursor: pointer;
-            @include opacity(0);
-            
-            &:checked {
-                top: -5px; left: -5px;
-                width: 0; height: 0; margin: 0; padding: 0;
-                visibility: hidden; overflow: hidden;
-            }
-        }
-        
-        .mail-btn {
-            @extend a.responsive;
-            border: .1em solid currentColor;
-            color: $blue;
-            @include user-select(none);
-        }
-        
-        .checkbox:hover ~ .mail-btn,
-        .checkbox:focus ~ .mail-btn {
-            color: $red;
-        }
-        
-        .checkbox:checked ~ .mail-btn {
-            cursor: auto;
-            color: $lightgray;
-        }
-    
-        .mail {
-            display: inline-block;
-            padding: 0; margin: 1em;
-            color: $blue;
-            @include transition(.1s);
-            
-            &:hover,
-            &:focus {
-                color: $red;
-            }
-        }
 
-        .checkbox:not(:checked) ~ .mail {
-            width: 0; height: 0; margin: 0;
-            visibility: hidden; overflow: hidden;
-            font-size: 0;
-            @include opacity(0);
-        }
-    }
-    
-    .socialmedia {
-        margin: 10px 10px 0 0;
-        background: rgba(0,0,0,.05);
-        color: #525252;
-        @include user-select(none);
-        
-        &:focus,
-        &:hover {
-            background: rgba(0,0,0,.15);
-        }
-        
-        &:before {
-            content: '';
-            display: inline-block;
-            width: .9em; height: .9em; margin: 0 .8em 0 0;
-            @include opacity(.8);
-            @include transform(translate(0,.05em));
-        }
-        
-        &.github:before     {@extend %icon-github;}
-        //&.twitter:before    {@extend %icon-twitter;}
-    }
+	&:before {
+		content: '';
+		position: absolute; top: 2vh; left: 50%; z-index: 1;
+		width: 300%; height: 4vh;
+		background-color: $red;
+		@include transform(translate(-50%,0) rotate(-2deg));
+	}
+
+	.mail-container {
+		display: inline-block; position: relative;
+
+		.checkbox {
+			position: absolute; top: 0; left: 0;
+			width: 100%; height: 100%;
+			cursor: pointer;
+			@include opacity(0);
+
+			&:checked {
+				top: -5px; left: -5px;
+				width: 0; height: 0; margin: 0; padding: 0;
+				visibility: hidden; overflow: hidden;
+			}
+		}
+
+		.mail-btn {
+			@extend a.responsive;
+			border: .1em solid currentColor;
+			color: $blue;
+			@include user-select(none);
+		}
+
+		.checkbox:hover ~ .mail-btn,
+		.checkbox:focus ~ .mail-btn {
+			color: $red;
+		}
+
+		.checkbox:checked ~ .mail-btn {
+			cursor: auto;
+			color: $lightgray;
+		}
+
+		.mail {
+			display: inline-block;
+			padding: 0; margin: 1em;
+			color: $blue;
+			@include transition(.1s);
+
+			&:hover,
+			&:focus {
+				color: $red;
+			}
+		}
+
+		.checkbox:not(:checked) ~ .mail {
+			width: 0; height: 0; margin: 0;
+			visibility: hidden; overflow: hidden;
+			font-size: 0;
+			@include opacity(0);
+		}
+	}
+
+	.socialmedia {
+		margin: 10px 10px 0 0;
+		background: rgba(0,0,0,.05);
+		color: #525252;
+		@include user-select(none);
+
+		&:focus,
+		&:hover {
+			background: rgba(0,0,0,.15);
+		}
+
+		&:before {
+			content: '';
+			display: inline-block;
+			width: .9em; height: .9em; margin: 0 .8em 0 0;
+			@include opacity(.8);
+			@include transform(translate(0,.05em));
+		}
+
+		&.github:before     {@extend %icon-github;}
+		//&.twitter:before    {@extend %icon-twitter;}
+	}
 }
 
 
@@ -720,195 +720,195 @@ section {
 /* FOOTER */
 
 #footer-graphic {
-    position: relative; z-index: 1;
-    margin: 100px 0 0 0; height: 1em;
-    overflow: hidden;
-    font-size: 16vw;
-    
-    @media (min-width: 1201px) {
-        font-size: 192px;
-    }
-    
-    > * {
-        position: absolute; top: 0; left: 50%;
-        max-width: 1200px; width: 100%; height: 100%;
-        font-size: inherit;
-        @include transform(translate(-50%, 0));
-        
-        .rect {
-            position: absolute;
-            background-color: currentColor;
-            font-size: inherit;
-            @include border-radius(6px);
-            
-            @media (max-width: 700px) {
-                @include border-radius(3px);
-            }
-        }
-        
-        &.layer1 {
-            z-index: 2;
-            color: $red;
-            
-            .rect {
-            
-                &:nth-child(1) {
-                    top: .9em; left: -.8em;
-                    width: 1.5em; height: 1.5em;
-                    @include transform(rotate(-35deg));
-                }
-            
-                &:nth-child(2) {
-                    top: .55em; left: .2em;
-                    width: 1.5em; height: 1.5em;
-                    @include transform(rotate(-30deg));
-                }
-            
-                &:nth-child(3) {
-                    top: .7em; left: 1.5em;
-                    width: 1.5em; height: 1.5em;
-                    @include transform(rotate(-58deg));
-                }
-            
-                &:nth-child(4) {
-                    top: .37em; left: 3em;
-                    width: 1.6em; height: 1.6em;
-                    @include transform(rotate(52deg));
-                }
-            
-                &:nth-child(5) {
-                    top: .7em; left: 4em;
-                    width: 1.3em; height: 1.3em;
-                    @include transform(rotate(-45deg));
-                }
-            
-                &:nth-child(6) {
-                    top: .7em; left: 4.8em;
-                    width: 1.5em; height: 1.5em;
-                    @include transform(rotate(116deg));
-                }
-            }
-        }
-        
-        &.layer2 {
-            z-index: 1;
-            color: $blue;
-            
-            .rect {
-            
-                &:nth-child(1) {
-                    top: .5em; left: .3em;
-                    width: 1.3em; height: 1.3em;
-                    @include transform(rotate(-37deg));
-                }
-            
-                &:nth-child(2) {
-                    top: .3em; left: 1.2em;
-                    width: 1.3em; height: 1.3em;
-                    @include transform(rotate(-52deg));
-                }
-            
-                &:nth-child(3) {
-                    top: .4em; left: 2.8em;
-                    width: 1.2em; height: 1.2em;
-                    @include transform(rotate(45deg));
-                }
-            
-                &:nth-child(4) {
-                    top: .4em; left: 3.9em;
-                    width: 1.1em; height: 1.1em;
-                    @include transform(rotate(50deg));
-                }
-            
-                &:nth-child(5) {
-                    top: .3em; left: 4.6em;
-                    width: 1.6em; height: 1.6em;
-                    @include transform(rotate(58deg));
-                }
-            
-                &:nth-child(6) {
-                    top: .7em; left: 5.8em;
-                    width: 1.6em; height: 1.6em;
-                    @include transform(rotate(30deg));
-                }
-            }
-        }
-    }
+	position: relative; z-index: 1;
+	margin: 100px 0 0 0; height: 1em;
+	overflow: hidden;
+	font-size: 16vw;
+
+	@media (min-width: 1201px) {
+		font-size: 192px;
+	}
+
+	> * {
+		position: absolute; top: 0; left: 50%;
+		max-width: 1200px; width: 100%; height: 100%;
+		font-size: inherit;
+		@include transform(translate(-50%, 0));
+
+		.rect {
+			position: absolute;
+			background-color: currentColor;
+			font-size: inherit;
+			@include border-radius(6px);
+
+			@media (max-width: 700px) {
+				@include border-radius(3px);
+			}
+		}
+
+		&.layer1 {
+			z-index: 2;
+			color: $red;
+
+			.rect {
+
+				&:nth-child(1) {
+					top: .9em; left: -.8em;
+					width: 1.5em; height: 1.5em;
+					@include transform(rotate(-35deg));
+				}
+
+				&:nth-child(2) {
+					top: .55em; left: .2em;
+					width: 1.5em; height: 1.5em;
+					@include transform(rotate(-30deg));
+				}
+
+				&:nth-child(3) {
+					top: .7em; left: 1.5em;
+					width: 1.5em; height: 1.5em;
+					@include transform(rotate(-58deg));
+				}
+
+				&:nth-child(4) {
+					top: .37em; left: 3em;
+					width: 1.6em; height: 1.6em;
+					@include transform(rotate(52deg));
+				}
+
+				&:nth-child(5) {
+					top: .7em; left: 4em;
+					width: 1.3em; height: 1.3em;
+					@include transform(rotate(-45deg));
+				}
+
+				&:nth-child(6) {
+					top: .7em; left: 4.8em;
+					width: 1.5em; height: 1.5em;
+					@include transform(rotate(116deg));
+				}
+			}
+		}
+
+		&.layer2 {
+			z-index: 1;
+			color: $blue;
+
+			.rect {
+
+				&:nth-child(1) {
+					top: .5em; left: .3em;
+					width: 1.3em; height: 1.3em;
+					@include transform(rotate(-37deg));
+				}
+
+				&:nth-child(2) {
+					top: .3em; left: 1.2em;
+					width: 1.3em; height: 1.3em;
+					@include transform(rotate(-52deg));
+				}
+
+				&:nth-child(3) {
+					top: .4em; left: 2.8em;
+					width: 1.2em; height: 1.2em;
+					@include transform(rotate(45deg));
+				}
+
+				&:nth-child(4) {
+					top: .4em; left: 3.9em;
+					width: 1.1em; height: 1.1em;
+					@include transform(rotate(50deg));
+				}
+
+				&:nth-child(5) {
+					top: .3em; left: 4.6em;
+					width: 1.6em; height: 1.6em;
+					@include transform(rotate(58deg));
+				}
+
+				&:nth-child(6) {
+					top: .7em; left: 5.8em;
+					width: 1.6em; height: 1.6em;
+					@include transform(rotate(30deg));
+				}
+			}
+		}
+	}
 }
 
 footer {
-    position: relative; z-index: 2;
-    padding: 8.5vw 0 200px 0;
-    background: $red;
-    text-align: center;
-    
-    #to-top {
-        display: inline-block; position: relative;
-        width: 140px; height: 140px; margin: 0 0 4vw 0;
-        @include transition(.2s);
+	position: relative; z-index: 2;
+	padding: 8.5vw 0 200px 0;
+	background: $red;
+	text-align: center;
 
-        b {
-            display: block; position: absolute; z-index: 2;
-            width: 60px; height: 60px;
-            @extend %translate-center;
-            @include transition(.2s);
-        }
-        
-        @media (max-width: 600px) {
-            width: 100px; height: 100px;
-            
-            b {
-                width: 40px; height: 40px;
-            }
-        }
+	#to-top {
+		display: inline-block; position: relative;
+		width: 140px; height: 140px; margin: 0 0 4vw 0;
+		@include transition(.2s);
 
-        i {
-            position: absolute; top: 30%; left: 42.5%; z-index: 1;
-            width: 15%;
-            background-color: white;
-            @include border-radius(5px);
+		b {
+			display: block; position: absolute; z-index: 2;
+			width: 60px; height: 60px;
+			@extend %translate-center;
+			@include transition(.2s);
+		}
 
-            &.head1, &.head2 {
-                height: 60%;
-                @include transform-origin(top center);
-                @include transition(.2s);
-            }
+		@media (max-width: 600px) {
+			width: 100px; height: 100px;
 
-            &.head1 {@include transform(rotate(-45deg) translate(0,-8%));}
-            &.head2 {@include transform(rotate(45deg) translate(0,-8%));}
-            
-            @include ON_REDUCED_MOTION {
-                &.head1 {@include transform(rotate(-45deg) translate(0,-8%) !important);}
-                &.head2 {@include transform(rotate(45deg) translate(0,-8%) !important);}
-            }
-        }
+			b {
+				width: 40px; height: 40px;
+			}
+		}
 
-        &:hover,
-        &:focus {
+		i {
+			position: absolute; top: 30%; left: 42.5%; z-index: 1;
+			width: 15%;
+			background-color: white;
+			@include border-radius(5px);
 
-            b {
-                top: 50%;
-            }
+			&.head1, &.head2 {
+				height: 60%;
+				@include transform-origin(top center);
+				@include transition(.2s);
+			}
 
-            i {
-                &.head1 {@include transform(rotate(-36deg) translate(0,-10%));}
-                &.head2 {@include transform(rotate(36deg) translate(0,-10%));}
-            }
-        }
-    }
-    
-    p {
-        color: white;
-        
-        a {
-            text-decoration: none; color: inherit; font-weight: 700;
-            @include box-shadow(0 2px 0 currentColor);
-            @include transition(.2s);
-            
-            &:hover,
-            &:focus {
-                @include box-shadow(0 5px 0 currentColor);
-            }
-        }
-    }
+			&.head1 {@include transform(rotate(-45deg) translate(0,-8%));}
+			&.head2 {@include transform(rotate(45deg) translate(0,-8%));}
+
+			@include ON_REDUCED_MOTION {
+				&.head1 {@include transform(rotate(-45deg) translate(0,-8%) !important);}
+				&.head2 {@include transform(rotate(45deg) translate(0,-8%) !important);}
+			}
+		}
+
+		&:hover,
+		&:focus {
+
+			b {
+				top: 50%;
+			}
+
+			i {
+				&.head1 {@include transform(rotate(-36deg) translate(0,-10%));}
+				&.head2 {@include transform(rotate(36deg) translate(0,-10%));}
+			}
+		}
+	}
+
+	p {
+		color: white;
+
+		a {
+			text-decoration: none; color: inherit; font-weight: 700;
+			@include box-shadow(0 2px 0 currentColor);
+			@include transition(.2s);
+
+			&:hover,
+			&:focus {
+				@include box-shadow(0 5px 0 currentColor);
+			}
+		}
+	}
 }

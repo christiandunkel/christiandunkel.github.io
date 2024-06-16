@@ -1,14 +1,14 @@
 /* CSS SHORT-CUTS */
 
 %text-wrap {
-    white-space: nowrap;
-    overflow: hidden;
-    @include text-overflow(ellipsis);
+	white-space: nowrap;
+	overflow: hidden;
+	@include text-overflow(ellipsis);
 }
 
 %translate-center {
-    top: 50%; left: 50%;
-    @include transform(translate(-50%, -50%));
+	top: 50%; left: 50%;
+	@include transform(translate(-50%, -50%));
 }
 
 
@@ -16,21 +16,21 @@
 /* DEVICE MEDIA QUERIES */
 
 @mixin ON_DESKTOP {
-    @media (min-width: 801px) {
-        @content;
-    }
+	@media (min-width: 801px) {
+		@content;
+	}
 }
 
 @mixin ON_MOBILE {
-    @media (max-width: 800px) {
-        @content;
-    }
+	@media (max-width: 800px) {
+		@content;
+	}
 }
 
 @mixin ON_PHONE {
-    @media (max-width: 550px) {
-        @content;
-    }
+	@media (max-width: 550px) {
+		@content;
+	}
 }
 
 
@@ -38,13 +38,13 @@
 /* ACCESSIBILITY */
 
 @mixin ON_DARK_THEME {
-    @media (prefers-color-scheme: dark) {
-        @content;
-    }
+	@media (prefers-color-scheme: dark) {
+		@content;
+	}
 }
 
 @mixin ON_REDUCED_MOTION {
-    @media (prefers-reduced-motion: reduce) {
-        @content;
-    }
+	@media (prefers-reduced-motion: reduce) {
+		@content;
+	}
 }

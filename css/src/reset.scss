@@ -1,11 +1,11 @@
 /* BLOCK ELEMENTS */
 
 div, span, h1, h2, h3, h4, h5, h6, p, pre, a, del, img, ins, small, strike, strong, b, u, i, center, ol, ul, li, form, label, table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption, header, main, footer, menu, nav, input {
-    font: inherit; font-size: 100%;
+	font: inherit; font-size: 100%;
 }
 
 div, span, h1, h2, h3, h4, p, pre, a, del, img, ins, small, strike, strong, b, u, i, center, ol, ul, li, form, label, table, caption, tbody, tfoot, thead, tr, th, td, figure, figcaption, header, main, footer, menu, nav, input {
-    vertical-align: baseline;
+	vertical-align: baseline;
 	margin: 0; padding: 0;
 	border: 0;
 }
@@ -15,11 +15,11 @@ article, aside, details, figcaption, figure, header, main, footer, hgroup, menu,
 }
 
 blockquote, q {
-    
-    &:before, &:after {
+
+	&:before, &:after {
 	   content: '';
 	   content: none;
-    }
+	}
 }
 
 
@@ -27,49 +27,49 @@ blockquote, q {
 /* TABLES */
 
 table {
-    display: table;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-color: transparent;
+	display: table;
+	border-collapse: separate;
+	border-spacing: 0;
+	border-color: transparent;
 }
 
 // areas
 
 thead, tbody, tfoot {
-    vertical-align: middle;
-    border-color: transparent;
+	vertical-align: middle;
+	border-color: transparent;
 }
 
 thead {
-    display: table-header-group;
+	display: table-header-group;
 }
 
 tbody {
-    display: table-row-group;
+	display: table-row-group;
 }
 
 tfoot {
-    display: table-footer-group;
+	display: table-footer-group;
 }
 
 // rows and cells
 
 tr {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: transparent;
+	display: table-row;
+	vertical-align: inherit;
+	border-color: transparent;
 }
 
 td {
-    display: table-cell;
-    vertical-align: inherit;
-    border-color: transparent;
+	display: table-cell;
+	vertical-align: inherit;
+	border-color: transparent;
 }
 
 th {
-    @extend td;
-    font-weight: normal;
-    text-align: center;
+	@extend td;
+	font-weight: normal;
+	text-align: center;
 }
 
 
@@ -77,33 +77,33 @@ th {
 /* INPUTS */
 
 textarea {
-    font-family: inherit;
+	font-family: inherit;
 }
 
 input {
-    font-family: inherit;
-    
-    &[type="hidden"] {
-        display: none;
-    }
-    
-    &[type="submit"] {
-        background-color: transparent;
-        cursor: pointer;
-    }
-    
+	font-family: inherit;
+
+	&[type="hidden"] {
+		display: none;
+	}
+
+	&[type="submit"] {
+		background-color: transparent;
+		cursor: pointer;
+	}
+
 }
 
 button {
-    width: auto; margin: 0; padding: 0;
-    background: transparent; border: none; overflow: visible; cursor: pointer;
-    color: inherit; font: inherit; line-height: normal;
-    @include appearance(none);
-    
-    &::-moz-focus-inner {
-        padding: 0;
-        border: 0;
-    }
+	width: auto; margin: 0; padding: 0;
+	background: transparent; border: none; overflow: visible; cursor: pointer;
+	color: inherit; font: inherit; line-height: normal;
+	@include appearance(none);
+
+	&::-moz-focus-inner {
+		padding: 0;
+		border: 0;
+	}
 }
 
 
@@ -111,28 +111,28 @@ button {
 /* TEXT FORMATTING */
 
 b {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 u {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 i {
-    font-style: italic;
+	font-style: italic;
 }
 
 strike,
 del {
-    text-decoration: line-through;
+	text-decoration: line-through;
 }
 
 small {
-    font-size: .7em; line-height: 1.1em;
+	font-size: .7em; line-height: 1.1em;
 }
 
 ul {
-    list-style: inside;
-    margin: 24px 0; padding: 0 0 0 20px;
-    font-size: 14px; line-height: 20px;
+	list-style: inside;
+	margin: 24px 0; padding: 0 0 0 20px;
+	font-size: 14px; line-height: 20px;
 }
