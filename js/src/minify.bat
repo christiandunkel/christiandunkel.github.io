@@ -1,2 +1,0 @@
-node minify.js
-pause

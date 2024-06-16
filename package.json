@@ -10,6 +10,6 @@
     "author": "Christian Dunkel",
     "contributors": [],
     "dependencies": {
-        "uglify-js": "^3.12.8"
+        "uglify-js": "3.18.0"
     }
 }
