@@ -93,11 +93,11 @@ var PROJECTS = [
 		lang: {
 			de: {
 				title: "M18 Demo Webseite",
-				description: "Diese Demo wurde als mögliches Webseitendesign für den Studierenden Konvent M18 in Weimar erstellt."
+				description: "Demo Webseitendesign für den Studierenden Konvent M18 in Weimar"
 			},
 			en: {
 				title: "M18 Demo Website",
-				description: "This demo was created as a possible website design for the student convention M18 in Weimar."
+				description: "Demo website design for the student convention M18 in Weimar"
 			}
 		},
 		links: [
@@ -124,11 +124,11 @@ var PROJECTS = [
 		lang: {
 			de: {
 				title: "Lecture.js",
-				description: "Lecture.js ist eine Software zur Umwandlung eines Skripts und Folien zu einer gesprochenen Videopräsentation mittels fortgeschrittener Text-zu-Sprache-Dienste."
+				description: "Software zur Umwandlung eines Skripts und von Folien in eine gesprochene Videopräsentation unter Verwendung fortschrittlicher Text-zu-Sprache Dienste"
 			},
 			en: {
 				title: "Lecture.js",
-				description: "Lecture.js is a software that converts a script and slides to a spoken video presentation using advanced text-to-speech services."
+				description: "Software to convert a script and slides to a spoken video presentation using advanced text-to-speech services"
 			}
 		},
 		links: [
@@ -148,11 +148,11 @@ var PROJECTS = [
 		lang: {
 			de: {
 				title: "Zeit Visualisierer",
-				description: "Der Zeitvisualisierer ist eine Webanwendung zur Visualisierung von Datensätzen, die sich in einem bestimmten Zeitrahmen ändern."
+				description: "Webanwendung zur Visualisierung von Datensätzen, die sich in einem bestimmten Zeitrahmen ändern"
 			},
 			en: {
 				title: "Time Visualizer",
-				description: "The time visualizer is a web app for visualizing data sets that change over a given time frame."
+				description: "Web app for visualizing data sets that change over a given time frame"
 			}
 		},
 		links: [
@@ -179,11 +179,11 @@ var PROJECTS = [
 		lang: {
 			de: {
 				title: "tensquared",
-				description: "Tensquared ist ein 2D-Puzzle-Plattformer gemacht in Unity. Der Spieler erkundet die Welt als ein Kreis, aber kann sich auch in verschiedene geometrische Formen verwandeln und neue Fähigkeiten freischalten!"
+				description: "2D-Puzzle-Plattformer gemacht in Unity, in dem der Spieler die Welt als Kreis erkundet und sich in verschiedene geometrische Formen verwandeln kann"
 			},
 			en: {
 				title: "tensquared",
-				description: "Tensquared is a 2D puzzle platformer made in Unity. The player explores the world as a circle, but can also morph into different geometric shapes forms and gain new abilities!"
+				description: "2D puzzle platformer made in Unity, where the player explores the world as a circle and can morph into different geometric shapes"
 			}
 		},
 		links: [
@@ -203,11 +203,11 @@ var PROJECTS = [
 		lang: {
 			de: {
 				title: "Raytracer",
-				description: "Dieser Raytracer wurde in C++ geschrieben, um einfache Objekte mit Schattierung, Reflexion, Transparenz und mehr zu rendern."
+				description: "Raytracer, der einfache Objekte mit Schattierung, Reflexion, Transparenz und mehr rendert"
 			},
 			en: {
 				title: "Raytracer",
-				description: "This raytracer was written in C++ to render simple objects with shading, reflection, transparency and more."
+				description: "Raytracer to render simple objects with shading, reflection, transparency, and more"
 			}
 		},
 		links: [
