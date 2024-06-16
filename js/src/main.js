@@ -601,7 +601,8 @@ var PROJECT = {
                 }
             }
             
-            var tags = _.create('ul.tags').appendTo(project_info);
+            var tags = _.create('ul.tags');
+            project_info.append(tags);
             for (var j = 0, len = PROJECT_CATEGORIES.length; j < len; j++) {
                 var category = PROJECT_CATEGORIES[j];
                 if (project.categories.includes(category.id)) {
