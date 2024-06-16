@@ -8,17 +8,15 @@ var NODE = {
 
         // navigation
         NODE.nav = document.querySelector('#nav');
-        NODE.nav_links = Array.from(NODE.mobile_menu.querySelector('.content').querySelectorAll('a'));
-        // add CSS for the nav indicator
-        // (dependent on browser and button content)
-        NODE.nav_indicator = document.querySelector('.hover-bg');
-
-        // hidden mobile menu
         NODE.hamburger_btn = document.querySelector('#hamburger-btn');
         NODE.mobile_menu = document.querySelector('#mobile-menu');
         NODE.mobile_overlay = NODE.mobile_menu.querySelector('.overlay');
         // logo visible on mobile view
         NODE.mobile_logo = NODE.nav.querySelector('.mobile-logo');
+        NODE.nav_links = Array.from(NODE.mobile_menu.querySelector('.content').querySelectorAll('a'));
+        // add CSS for the nav indicator
+        // (dependent on browser and button content)
+        NODE.nav_indicator = document.querySelector('.hover-bg');
 
         // semantic sections of site
         NODE.sections = Array.from(document.querySelectorAll('.content-section'));
