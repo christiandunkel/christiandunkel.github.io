@@ -58,7 +58,37 @@ var PROJECT_CATEGORIES = [
 ];
 
 var PROJECTS = [
-    
+    {
+        "lang" : {
+            "de" : {
+                "title" : "Unheil Webseite",
+                "description" : "Single-Page Webseite für die Black Metal Band \"Unheil\""
+            },
+            "en" : {
+                "title" : "Unheil Website",
+                "description" : "Single-page website design for Black Metal band \"Unheil\""
+            }
+        },
+        "links" : [
+            {
+                "lang" : {
+                    "de" : "Webseite",
+                    "en" : "Website"
+                },
+                "link" : "https://christiandunkel.github.io/unheil-website/"
+            },
+            {
+                "lang" : {
+                    "de" : "GitHub",
+                    "en" : "GitHub"
+                },
+                "link" : "https://github.com/christiandunkel/unheil-website"
+            }
+        ],
+        "categories" : ["website", "js"],
+        "image" : "img/project-unheil.png",
+        "year" : 2024
+    },
     {
         "lang" : {
             "de" : {
@@ -87,10 +117,9 @@ var PROJECTS = [
             }
         ],
         "categories" : ["website", "js"],
-        "image" : "img/project-m18-original.png",
+        "image" : "img/project-m18.png",
         "year" : 2020
     },
-    
     {
         "lang" : {
             "de" : {
@@ -115,7 +144,6 @@ var PROJECTS = [
         "image" : "img/project-lecture-js.jpg",
         "year" : 2020
     },
-    
     {
         "lang" : {
             "de" : {
@@ -147,7 +175,6 @@ var PROJECTS = [
         "image" : "img/project-time-visualizer.jpg",
         "year" : 2019
     },
-    
     {
         "lang" : {
             "de" : {
@@ -172,7 +199,6 @@ var PROJECTS = [
         "image" : "img/project-tensquared.jpg",
         "year" : 2019
     },
-    
     {
         "lang" : {
             "de" : {
